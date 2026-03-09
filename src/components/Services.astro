@@ -1,0 +1,157 @@
+---
+const services = [
+  {
+    number: '01',
+    name: 'Web Design & Development',
+    description:
+      'Custom websites and web apps built for performance, accessibility, and long-term flexibility. From marketing sites to custom digital builds — modern, conversion-focused, and built to last.',
+    tags: ['Astro', 'TypeScript', 'React', 'Node.js', 'Vercel'],
+  },
+  {
+    number: '02',
+    name: 'Brand & Marketing Experiences',
+    description:
+      'Landing pages, campaign sites, and digital marketing executions that bring brand ideas to life online. Built to feel polished and intentional from first impression through launch.',
+    tags: ['Landing Pages', 'Campaign Sites', 'Email', 'GSAP'],
+  },
+  {
+    number: '03',
+    name: 'Digital Products & Launch Systems',
+    description:
+      'Productized offers, templates, and digital tools built for distribution and scale. I help shape the concept, build the product, and connect the systems needed to launch and sell it.',
+    tags: ['Product Design', 'Stripe', 'ConvertKit', 'Notion'],
+  },
+  {
+    number: '04',
+    name: 'Project Management & Production Support',
+    description:
+      'For clients who need more than a designer or developer. I support the planning, coordination, and delivery side of complex digital projects — timelines, revisions, stakeholder communication, and keeping everything moving from kickoff to launch.',
+    tags: ['Project Scoping', 'Roadmaps', 'Client Handoff', 'Launch Coordination'],
+  },
+  {
+    number: '05',
+    name: 'Design Systems, Audits & Optimization',
+    description:
+      'Accessibility reviews, performance audits, component libraries, and UX refinements for teams that want a cleaner foundation without rebuilding from scratch.',
+    tags: ['WCAG AA', 'Lighthouse', 'Component Libraries', 'Figma'],
+  },
+];
+---
+
+<section class="services" id="services" aria-labelledby="services-heading">
+  <div class="container">
+    <div class="services-header">
+      <p class="section-label" data-animate>Services</p>
+      <h2 class="section-heading" id="services-heading" data-animate data-delay="1">
+        What I can help you build.
+      </h2>
+      <p class="section-subheading" data-animate data-delay="2">
+        Whether you need a complete website, a launch strategy, or a steady partner to keep a project moving — here's how I work.
+      </p>
+    </div>
+
+    <ul class="services-list" role="list">
+      {services.map((service, i) => (
+        <li class="service-item" data-animate data-delay={String(i + 1)}>
+          <span class="service-number" aria-hidden="true">{service.number}</span>
+          <div class="service-content">
+            <h3 class="service-name">{service.name}</h3>
+            <p class="service-description">{service.description}</p>
+            <ul class="service-tags" aria-label={`${service.name} technologies`}>
+              {service.tags.map((tag) => (
+                <li class="tool-tag">{tag}</li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .services {
+    background: var(--c-bg-subtle);
+    border-top: 1px solid var(--c-border);
+    border-bottom: 1px solid var(--c-border);
+  }
+
+  .services-header {
+    margin-bottom: 3.5rem;
+  }
+
+  .services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .service-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--c-border);
+    transition: background var(--transition-fast);
+  }
+
+  .service-item:first-child {
+    border-top: 1px solid var(--c-border);
+  }
+
+  .service-number {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--c-text-muted);
+    letter-spacing: 0.05em;
+    padding-top: 0.25rem;
+  }
+
+  .service-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .service-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--c-text);
+  }
+
+  .service-description {
+    font-size: 0.9375rem;
+    color: var(--c-text-muted);
+    line-height: 1.7;
+    max-width: 600px;
+  }
+
+  .service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-top: 0.25rem;
+  }
+
+  .tool-tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--c-text-muted);
+    background: var(--c-bg);
+    border: 1px solid var(--c-border);
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-sm);
+  }
+
+  @media (max-width: 600px) {
+    .service-item {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .service-number {
+      font-size: 0.75rem;
+    }
+  }
+</style>

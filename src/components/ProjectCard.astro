@@ -1,0 +1,339 @@
+---
+interface Project {
+  id: string;
+  name: string;
+  category: string;
+  summary: string;
+  thumbGradient: string;
+  problem: string;
+  whatIDid: string;
+  outcome: string;
+  tools: string[];
+  link: string | null;
+}
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const panelId = `panel-${project.id}`;
+const btnId = `toggle-${project.id}`;
+---
+
+<article
+  class="project-card"
+  data-category={project.category}
+  data-animate
+  data-delay={String(Math.min((index % 3) + 1, 5))}
+>
+  <div class="card-thumb" style={`background: ${project.thumbGradient}`} aria-hidden="true"></div>
+
+  <div class="card-body">
+    <div class="card-header">
+      <div class="card-meta">
+        <span class="card-tag">{project.category}</span>
+        <h3 class="card-name">{project.name}</h3>
+        <p class="card-summary">{project.summary}</p>
+      </div>
+      <button
+        class="card-toggle"
+        id={btnId}
+        aria-expanded="false"
+        aria-controls={panelId}
+      >
+        <span class="toggle-text">Details</span>
+        <span class="toggle-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </button>
+    </div>
+
+    <div class="card-details" id={panelId} role="region" aria-labelledby={btnId} hidden>
+      <div class="card-details-inner">
+        <div class="detail-row">
+          <div class="detail-block">
+            <h4 class="detail-label">The Challenge</h4>
+            <p>{project.problem}</p>
+          </div>
+          <div class="detail-block">
+            <h4 class="detail-label">What I Did</h4>
+            <p>{project.whatIDid}</p>
+          </div>
+          <div class="detail-block">
+            <h4 class="detail-label">Outcome</h4>
+            <p class="outcome-text">{project.outcome}</p>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <ul class="tools-list" aria-label="Tools used">
+            {project.tools.map((tool) => (
+              <li class="tool-tag">{tool}</li>
+            ))}
+          </ul>
+          {project.link && (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="card-link"
+            >
+              View Project
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M1 11L11 1M11 1H5M11 1v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.card-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest<HTMLElement>('.project-card')!;
+      const panel = card.querySelector<HTMLElement>('.card-details')!;
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+      if (isExpanded) {
+        // Collapse
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        requestAnimationFrame(() => {
+          panel.style.maxHeight = '0';
+        });
+        panel.addEventListener(
+          'transitionend',
+          () => {
+            panel.hidden = true;
+            panel.style.maxHeight = '';
+          },
+          { once: true }
+        );
+        btn.setAttribute('aria-expanded', 'false');
+        card.classList.remove('is-expanded');
+      } else {
+        // Expand
+        panel.hidden = false;
+        panel.style.maxHeight = '0';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+          });
+        });
+        panel.addEventListener(
+          'transitionend',
+          () => {
+            panel.style.maxHeight = '';
+          },
+          { once: true }
+        );
+        btn.setAttribute('aria-expanded', 'true');
+        card.classList.add('is-expanded');
+      }
+    });
+  });
+</script>
+
+<style>
+  .project-card {
+    background: #fff;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform var(--transition-mid), box-shadow var(--transition-mid);
+    box-shadow: var(--shadow-card);
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .project-card.is-expanded {
+    transform: none;
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .card-thumb {
+    height: 200px;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .card-meta {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .card-tag {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-text-muted);
+    background: var(--c-surface);
+    padding: 0.25rem 0.625rem;
+    border-radius: 100px;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--c-text);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .card-summary {
+    font-size: 0.9375rem;
+    color: var(--c-text-muted);
+    line-height: 1.55;
+  }
+
+  .card-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    flex-shrink: 0;
+    padding: 0.5rem 0.875rem;
+    border: 1px solid var(--c-border);
+    border-radius: 100px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--c-text);
+    transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    margin-top: 0.125rem;
+  }
+
+  .card-toggle:hover {
+    background: var(--c-surface);
+    border-color: var(--c-text);
+  }
+
+  .toggle-icon {
+    display: flex;
+    align-items: center;
+    transition: transform var(--transition-mid);
+  }
+
+  .is-expanded .toggle-icon {
+    transform: rotate(45deg);
+  }
+
+  /* Expanded details */
+  .card-details {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-details[hidden] {
+    display: block !important; /* override hidden so we can animate */
+    visibility: hidden;
+  }
+
+  .card-details-inner {
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--c-border);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .detail-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .detail-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .detail-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-text-muted);
+  }
+
+  .detail-block p {
+    font-size: 0.9375rem;
+    color: var(--c-text);
+    line-height: 1.65;
+  }
+
+  .outcome-text {
+    font-weight: 500;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--c-border);
+  }
+
+  .tools-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .tool-tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--c-text-muted);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--c-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .card-link:hover {
+    opacity: 0.65;
+  }
+</style>

@@ -1,0 +1,116 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import projects from '../data/projects.json';
+
+const categories = ['All', ...Array.from(new Set(projects.map((p) => p.category)))];
+---
+
+<section class="work" id="work" aria-labelledby="work-heading">
+  <div class="container">
+    <div class="work-header">
+      <p class="section-label" data-animate>Work</p>
+      <h2 class="section-heading" id="work-heading" data-animate data-delay="1">
+        Selected work.
+      </h2>
+      <p class="section-subheading" data-animate data-delay="2">
+        Client projects, digital products, and nonprofit work across web, brand, and launch strategy.
+      </p>
+    </div>
+
+    <div class="filter-bar" data-animate data-delay="3" role="group" aria-label="Filter projects by category">
+      {categories.map((cat, i) => (
+        <button
+          class={`filter-btn${i === 0 ? ' is-active' : ''}`}
+          data-category={cat}
+          aria-pressed={i === 0 ? 'true' : 'false'}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+
+    <div class="projects-grid" id="projects-grid">
+      {projects.map((project, index) => (
+        <ProjectCard project={project} index={index} />
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.project-card');
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const category = btn.dataset.category ?? 'All';
+
+      filterBtns.forEach((b) => {
+        b.classList.remove('is-active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-pressed', 'true');
+
+      cards.forEach((card) => {
+        const match = category === 'All' || card.dataset.category === category;
+        card.style.display = match ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+<style>
+  .work-header {
+    margin-bottom: 3rem;
+  }
+
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1.125rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--c-text-muted);
+    border: 1px solid var(--c-border);
+    border-radius: 100px;
+    background: transparent;
+    transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .filter-btn:hover {
+    color: var(--c-text);
+    border-color: var(--c-text);
+    background: var(--c-surface);
+  }
+
+  .filter-btn.is-active {
+    background: var(--c-text);
+    color: #fff;
+    border-color: var(--c-text);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  @media (max-width: 960px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 580px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

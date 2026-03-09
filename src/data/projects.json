@@ -1,0 +1,67 @@
+[
+  {
+    "id": "apple-retail",
+    "name": "Apple Retail Experience",
+    "category": "Web Development",
+    "summary": "Consumer-facing features and internal retail tools for Apple.com — built for accessibility, performance, and scale across hundreds of millions of users.",
+    "thumbGradient": "linear-gradient(135deg, #1d1d1f 0%, #515154 100%)",
+    "problem": "Apple's retail experience required seamless, accessible product discovery and purchase flows that performed flawlessly across devices — at a scale of hundreds of millions of users.",
+    "whatIDid": "Contributed to frontend development of key Apple.com retail features, with a focus on accessibility (WCAG AA+), performance optimization, and cross-browser consistency. Collaborated closely with design and QA teams under high-stakes launch conditions.",
+    "outcome": "Features shipped globally to 100M+ users. Zero critical accessibility regressions on launch.",
+    "tools": ["JavaScript", "CSS", "Accessibility (WCAG AA)", "Swift", "Internal Apple tooling"],
+    "link": null,
+    "featured": true
+  },
+  {
+    "id": "nike-campaign",
+    "name": "Nike Running Campaign",
+    "category": "Brand & Marketing",
+    "summary": "A scroll-driven campaign landing page translating a broadcast concept into a digital-first experience with strong brand continuity.",
+    "thumbGradient": "linear-gradient(135deg, #111 0%, #f5420a 100%)",
+    "problem": "The campaign needed to carry the energy of a high-production TV spot into a web experience — without losing momentum or brand integrity in the translation.",
+    "whatIDid": "Led frontend development of an animated landing page with scroll-driven storytelling, performance-optimized video, and a live leaderboard component. Worked directly with the Nike brand team to stay true to the visual language.",
+    "outcome": "2.1M unique visitors in the first week. 68% average scroll depth — well above industry benchmarks.",
+    "tools": ["HTML/CSS", "GSAP", "JavaScript", "Adobe XD"],
+    "link": null,
+    "featured": true
+  },
+  {
+    "id": "launchkit",
+    "name": "LaunchKit",
+    "category": "Digital Products",
+    "summary": "A productized launch system for solo founders — combining strategy, design, development, and launch tools to help ideas go live faster.",
+    "thumbGradient": "linear-gradient(135deg, #4facfe 0%, #00c9a7 100%)",
+    "problem": "Solo founders kept reinventing the same infrastructure — landing pages, waitlists, email sequences — from scratch every time. The cost in time and energy was killing momentum before products even launched.",
+    "whatIDid": "Designed and built a set of reusable templates, components, and step-by-step workflow guides bundled as a self-serve digital product. Covered everything from pre-launch to first 100 users.",
+    "outcome": "500+ founders in the first cohort. $18K in first-month revenue. Now a growing community product.",
+    "tools": ["Astro", "TypeScript", "Stripe", "ConvertKit", "Notion"],
+    "link": "#",
+    "featured": true
+  },
+  {
+    "id": "meridian-studio",
+    "name": "Meridian Studio",
+    "category": "Web Development",
+    "summary": "Mobile-first website and integrated booking experience for a boutique creative business, designed for visibility, conversion, and day-to-day usability.",
+    "thumbGradient": "linear-gradient(135deg, #c9a96e 0%, #e8d5b0 100%)",
+    "problem": "The studio was losing clients to a dated, non-mobile site with no online booking capability. Inquiries were falling through the cracks and the brand wasn't being represented at the level the work deserved.",
+    "whatIDid": "Designed and built a fully responsive site with integrated scheduling, a custom CMS for content updates, and performance-optimized image delivery. Handled everything from discovery through launch.",
+    "outcome": "40% increase in online inquiry conversion within 60 days of launch. Client now manages content independently.",
+    "tools": ["Astro", "TypeScript", "Tailwind CSS", "Netlify", "Sanity CMS"],
+    "link": "#",
+    "featured": false
+  },
+  {
+    "id": "aloha-animal-outreach",
+    "name": "Aloha Animal Outreach",
+    "category": "Nonprofit",
+    "summary": "Website redesign and digital strategy for an Oahu-based animal rescue, supporting outreach, trust-building, and community engagement across the island.",
+    "thumbGradient": "linear-gradient(135deg, #56ab2f 0%, #a8e063 100%)",
+    "problem": "AAO's aging site was actively limiting donations, volunteer signups, and pet adoptions. The organization was doing incredible work that no one could easily find or act on.",
+    "whatIDid": "Rebuilt the site from scratch with an optimized donation flow, event listings, and an adoptable pet gallery. Also designed and ran a fundraising email campaign, creating all copy and visuals.",
+    "outcome": "Donations increased 120% in year one. Volunteer applications tripled. The pet gallery became the highest-traffic page on the site.",
+    "tools": ["WordPress", "Custom CSS", "Mailchimp", "Canva", "Stripe Donations"],
+    "link": "#",
+    "featured": true
+  }
+]

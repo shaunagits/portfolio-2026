@@ -1,0 +1,201 @@
+---
+const links = [
+  { label: 'Work', href: '#work' },
+  { label: 'About', href: '#about' },
+  { label: 'Services', href: '#services' },
+  { label: 'Contact', href: '#contact' },
+];
+---
+
+<header class="nav">
+  <div class="nav-inner container">
+    <a href="/" class="nav-logo" aria-label="Shauna — home">Shauna.</a>
+
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav aria-label="Main navigation">
+      <ul class="nav-links">
+        {links.map((link) => (
+          <li>
+            <a href={link.href} class="nav-link">{link.label}</a>
+          </li>
+        ))}
+        <li>
+          <a href="#contact" class="nav-cta btn btn-primary">Work With Me</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    transition: background var(--transition-mid), box-shadow var(--transition-mid);
+  }
+
+  .nav.is-scrolled {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 var(--c-border);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    gap: 2rem;
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--c-text);
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--c-text-muted);
+    border-radius: var(--radius-sm);
+    transition: color var(--transition-fast), background var(--transition-fast);
+  }
+
+  .nav-link:hover {
+    color: var(--c-text);
+    background: var(--c-surface);
+  }
+
+  .nav-cta {
+    margin-left: 0.75rem;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  /* Hamburger */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast);
+  }
+
+  .nav-toggle:hover {
+    background: var(--c-surface);
+  }
+
+  .nav-toggle span {
+    display: block;
+    height: 1.5px;
+    background: var(--c-text);
+    border-radius: 2px;
+    transition: transform var(--transition-mid), opacity var(--transition-mid);
+  }
+
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  @media (max-width: 680px) {
+    .nav-toggle {
+      display: flex;
+    }
+
+    nav {
+      position: fixed;
+      top: 68px;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--c-border);
+      padding: 1rem var(--container-px);
+      transform: translateY(-110%);
+      opacity: 0;
+      transition: transform var(--transition-mid), opacity var(--transition-mid);
+      pointer-events: none;
+    }
+
+    nav:has(.nav-links.is-open),
+    .nav-links.is-open ~ nav,
+    nav:has(.is-open) {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Simpler: target nav when links are open */
+    .nav-links.is-open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav-links {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      position: fixed;
+      top: 68px;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--c-border);
+      padding: 1rem var(--container-px) 1.5rem;
+      transform: translateY(-120%);
+      opacity: 0;
+      transition: transform var(--transition-mid), opacity var(--transition-mid);
+      pointer-events: none;
+    }
+
+    .nav-links.is-open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav-link {
+      display: block;
+      width: 100%;
+      padding: 0.75rem 0;
+      font-size: 1rem;
+      border-radius: 0;
+    }
+
+    .nav-cta {
+      margin: 1rem 0 0;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

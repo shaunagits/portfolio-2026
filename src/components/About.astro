@@ -1,0 +1,137 @@
+---
+---
+
+<section class="about" id="about" aria-labelledby="about-heading">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-left">
+        <p class="section-label" data-animate>About</p>
+        <h2 class="section-heading" id="about-heading" data-animate data-delay="1">
+          Built for the<br />work that matters.
+        </h2>
+      </div>
+
+      <div class="about-right">
+        <div class="about-body" data-animate data-delay="2">
+          <p>
+            I spent years at Apple and Nike learning that strong digital work isn't just about how it looks — it's about how clearly it works, how well it performs, and how confidently it moves from idea to launch.
+          </p>
+          <p>
+            At Apple, I worked on experiences shaped by performance, accessibility, and precision at scale. At Nike, I saw how brand, storytelling, and digital execution create momentum. That foundation shapes everything I do today.
+          </p>
+          <p>
+            Now I work independently with founders, small businesses, and organizations who want high-quality results without the overhead of an agency. I bring strategy, design, development, and project management together — so projects don't stall between concept and execution.
+          </p>
+        </div>
+
+        <dl class="about-stats" data-animate data-delay="3">
+          <div class="stat">
+            <dt class="stat-label">Experience</dt>
+            <dd class="stat-value">10+ years</dd>
+          </div>
+          <div class="stat">
+            <dt class="stat-label">Projects shipped</dt>
+            <dd class="stat-value">50+</dd>
+          </div>
+          <div class="stat">
+            <dt class="stat-label">Focus</dt>
+            <dd class="stat-value">Web, brand &amp; digital products</dd>
+          </div>
+          <div class="stat">
+            <dt class="stat-label">Location</dt>
+            <dd class="stat-value">Hawaii / Remote</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    background: var(--c-bg-subtle);
+    border-top: 1px solid var(--c-border);
+    border-bottom: 1px solid var(--c-border);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-left {
+    position: sticky;
+    top: 100px;
+  }
+
+  .about-right {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .about-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .about-body p {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--c-text-muted);
+  }
+
+  .about-body p:first-child {
+    font-size: 1.125rem;
+    color: var(--c-text);
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--c-border);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-text-muted);
+  }
+
+  .stat-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--c-text);
+  }
+
+  @media (max-width: 840px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .about-left {
+      position: static;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .about-stats {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+  }
+</style>

@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Work from '../components/Work.astro';
+import Services from '../components/Services.astro';
+import Contact from '../components/Contact.astro';
+import '../styles/global.css';
+---
+
+<Layout>
+  <Nav />
+  <main id="main">
+    <Hero />
+    <hr class="section-divider" />
+    <Work />
+    <hr class="section-divider" />
+    <About />
+    <hr class="section-divider" />
+    <Services />
+    <Contact />
+  </main>
+</Layout>
