@@ -1,0 +1,189 @@
+---
+---
+
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-content">
+        <p class="section-label" data-animate>About</p>
+        <h2 class="heading-section about-heading" data-animate data-delay="1">
+          Built for the<br />work that matters.
+        </h2>
+        <div class="about-body" data-animate data-delay="2">
+          <p>
+            My background isn't a straight line, and that's the point.
+          </p>
+          <p>
+            I spent six years at Nike managing retail marketing and store design at scale, running $10M+ annual budgets across projects that spanned in-store digital displays, specialty store builds, and brand programs reaching thousands of locations. At Apple, I produced retail experiences end-to-end, from concept through installation, for some of the most scrutinized physical brand environments in the world.
+          </p>
+          <p>
+            That foundation in large-scale execution, stakeholder management, and production under pressure is what I brought into web and digital work when I launched my own practice in 2017. I build websites and digital products the way I managed those projects: with clear scope, strong communication, and an obsession with how the finished thing actually performs in the real world.
+          </p>
+          <p>
+            Now I work with founders, small businesses, and organizations who want that same quality of thinking applied to their digital presence, without the agency overhead.
+          </p>
+        </div>
+      </div>
+
+      <div class="about-image" data-animate data-delay="2">
+        <img src="/images/about-headshot.jpg" alt="Shauna" class="about-image-placeholder" />
+        <div class="about-image-rule" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <dl class="about-stats" data-animate data-delay="3">
+      <div class="stat">
+        <dd class="stat-value">10+</dd>
+        <dt class="stat-label">Years experience</dt>
+      </div>
+      <div class="stat-rule" aria-hidden="true"></div>
+      <div class="stat">
+        <dd class="stat-value">50+</dd>
+        <dt class="stat-label">Projects shipped</dt>
+      </div>
+      <div class="stat-rule" aria-hidden="true"></div>
+      <div class="stat">
+        <dd class="stat-value">Retail, brand & digital</dd>
+        <dt class="stat-label">Focus areas</dt>
+      </div>
+      <div class="stat-rule" aria-hidden="true"></div>
+      <div class="stat">
+        <dd class="stat-value">Hawaii / Remote</dd>
+        <dt class="stat-label">Location</dt>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding: var(--section-py) 0;
+    background: var(--c-bg-subtle);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 55% 45%;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* ---- Left: content ---- */
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .about-heading {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .about-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .about-body p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--c-text-muted);
+  }
+
+  .about-body p:first-child {
+    color: var(--c-text);
+  }
+
+  /* ---- Stats strip ---- */
+  .about-stats {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    width: 100%;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--c-border);
+  }
+
+  .stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--c-text);
+    line-height: 1.3;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--c-text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .stat-rule {
+    width: 1px;
+    align-self: stretch;
+    background: var(--c-border);
+    flex-shrink: 0;
+  }
+
+  /* ---- Right: image ---- */
+  .about-image {
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  .about-image-placeholder {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+
+  .about-image-rule {
+    position: absolute;
+    top: -2rem;
+    left: 0;
+    width: 2px;
+    height: calc(100% + 4rem);
+    background: var(--c-accent);
+  }
+
+  /* ---- Mobile ---- */
+  @media (max-width: 768px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .about-stats {
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+
+    .stat {
+      flex: 0 0 calc(50% - 1rem);
+    }
+
+    .stat-rule {
+      display: none;
+    }
+
+    .about-image {
+      padding-left: 0;
+      order: 1;
+    }
+
+    .about-image-rule {
+      display: none;
+    }
+  }
+</style>

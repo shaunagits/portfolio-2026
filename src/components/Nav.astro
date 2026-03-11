@@ -1,0 +1,224 @@
+---
+const links = [
+  { label: 'Work', href: '#work' },
+  { label: 'About', href: '#about' },
+  { label: 'Services', href: '#services' },
+  { label: 'Contact', href: '#contact' },
+];
+---
+
+<header class="nav" id="home">
+  <div class="nav-inner container">
+    <a href="#home" class="nav-logo" aria-label="Shauna — home"><span style="color: var(--c-accent);">Shauna</span><span style="color: var(--c-text);">.</span></a>
+
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <ul class="nav-links">
+        {links.map((link) => (
+          <li>
+            <a href={link.href} class="nav-link">{link.label}</a>
+          </li>
+        ))}
+        <li>
+          <a href="#contact" class="nav-cta">Work With Me</a>
+        </li>
+      </ul>
+    </nav>
+
+    <button
+      class="nav-toggle"
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+      aria-controls="nav-overlay"
+    >
+      <span class="nav-toggle-line"></span>
+      <span class="nav-toggle-line"></span>
+      <span class="nav-toggle-line"></span>
+    </button>
+  </div>
+</header>
+
+<div class="nav-overlay" id="nav-overlay" aria-hidden="true">
+  <nav aria-label="Mobile navigation">
+    <ul class="nav-overlay-links">
+      {links.map((link) => (
+        <li>
+          <a href={link.href} class="nav-overlay-link">{link.label}</a>
+        </li>
+      ))}
+      <li>
+        <a href="#contact" class="nav-overlay-link nav-overlay-cta">Work With Me</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<style>
+  /* ---- Fixed header ---- */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    transition: background 200ms ease, box-shadow 200ms ease;
+  }
+
+  .nav.is-scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 var(--c-border);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  /* ---- Logo ---- */
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 900;
+    color: var(--c-text);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  /* ---- Desktop nav ---- */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    position: relative;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--c-text);
+    transition: color var(--transition-fast);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 0.75rem;
+    right: 0.75rem;
+    height: 1px;
+    background: var(--c-accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--transition-mid);
+  }
+
+  .nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .nav-cta {
+    margin-left: 0.75rem;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--c-accent);
+    border: 1.5px solid var(--c-accent);
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast), color var(--transition-fast);
+  }
+
+  .nav-cta:hover {
+    background: var(--c-accent);
+    color: #fff;
+  }
+
+  /* ---- Hamburger ---- */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    z-index: 110;
+  }
+
+  .nav-toggle-line {
+    display: block;
+    height: 2px;
+    background: var(--c-text);
+    border-radius: 1px;
+    transition: transform var(--transition-mid), opacity var(--transition-mid);
+  }
+
+  .nav-toggle.is-open .nav-toggle-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-toggle.is-open .nav-toggle-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle.is-open .nav-toggle-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* ---- Mobile overlay ---- */
+  .nav-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    background: var(--c-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-mid);
+  }
+
+  .nav-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-overlay-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav-overlay-link {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--c-text);
+    transition: color var(--transition-fast);
+  }
+
+  .nav-overlay-link:hover {
+    color: var(--c-accent);
+  }
+
+  .nav-overlay-cta {
+    color: var(--c-accent);
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 768px) {
+    .nav-desktop {
+      display: none;
+    }
+
+    .nav-toggle {
+      display: flex;
+    }
+  }
+</style>

@@ -1,0 +1,59 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import projects from '../data/projects.json';
+
+---
+
+<section class="work" id="work">
+  <div class="container">
+    <div class="work-header">
+      <h2 class="heading-section" data-animate>Selected work.</h2>
+      <p class="body-text work-subhead" data-animate data-delay="1">
+        Retail environments, digital products, and client work across brand, web, and launch strategy.
+      </p>
+    </div>
+
+    <div class="projects-grid" id="projects-grid">
+      {projects.map((project, index) => (
+        <div class:list={['grid-item', { 'grid-item--featured': index === 0 }]}>
+          <ProjectCard project={project} index={index} />
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .work {
+    padding: var(--section-py) 0;
+  }
+
+  .work-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .work-subhead {
+    margin-top: 1rem;
+    max-width: 540px;
+  }
+
+  /* ---- Grid: asymmetric 2-col, first card full width ---- */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .grid-item--featured {
+    grid-column: 1 / -1;
+  }
+
+  /* ---- Mobile ---- */
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

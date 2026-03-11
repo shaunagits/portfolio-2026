@@ -1,0 +1,137 @@
+---
+---
+
+<section class="hero" aria-label="Introduction">
+  <div class="hero-inner container">
+    <div class="hero-content">
+      <p class="section-label hero-eyebrow" data-animate>
+        Designer, Developer & Project Lead. Available for Freelance
+      </p>
+      <h1 class="heading-hero hero-title" data-animate data-delay="1"><span style="color: var(--c-accent);">Shauna</span><span style="color: var(--c-text);">.</span></h1>
+      <p class="body-text hero-subhead" data-animate data-delay="2">
+        I build strategic digital experiences from concept through launch, blending design, development, and project leadership so great work actually ships.
+      </p>
+      <div class="hero-ctas" data-animate data-delay="3">
+        <a href="#work" class="btn btn-primary">See My Work</a>
+        <a href="#contact" class="btn btn-secondary">Work With Me</a>
+      </div>
+      <p class="hero-proof" data-animate data-delay="4">
+        Work informed by experience at Nike, Apple, and independent clients across retail, brand, and digital.
+      </p>
+    </div>
+
+    <div class="hero-image" data-animate data-delay="2">
+      <img src="/images/hero-portrait.jpg" alt="Shauna" class="hero-image-placeholder" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 72px;
+    overflow: hidden;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 55% 45%;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    padding-top: clamp(2rem, 4vw, 4rem);
+    padding-bottom: clamp(2rem, 4vw, 4rem);
+  }
+
+  /* ---- Left zone: content ---- */
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-eyebrow {
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-subhead {
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-ctas {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .hero-proof {
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--c-text-muted);
+    line-height: 1.6;
+    max-width: 400px;
+  }
+
+  /* ---- Right zone: image ---- */
+  .hero-image {
+    position: relative;
+    height: 100%;
+    min-height: 500px;
+    margin-top: -72px;
+  }
+
+  .hero-image-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    object-fit: cover;
+  }
+
+  /* ---- Mobile ---- */
+  @media (max-width: 768px) {
+    .hero {
+      min-height: auto;
+      padding-top: 72px;
+    }
+
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding-top: 2rem;
+      padding-bottom: 0;
+    }
+
+    .hero-content {
+      padding-bottom: 3rem;
+    }
+
+    .hero-title {
+      font-size: clamp(3.5rem, 15vw, 5rem);
+    }
+
+    .hero-ctas {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+    }
+
+    .hero-image {
+      margin-top: 0;
+      min-height: 350px;
+      margin-left: calc(-1 * var(--container-px));
+      margin-right: calc(-1 * var(--container-px));
+    }
+
+    .hero-image-placeholder {
+      min-height: 350px;
+    }
+  }
+</style>

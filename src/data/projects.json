@@ -1,0 +1,72 @@
+[
+  {
+    "id": "nike-retail",
+    "name": "Nike Retail Brand Marketing",
+    "category": "Retail & Brand",
+    "summary": "Led retail marketing and store design programs for Nike North America, managing $10M+ in annual budgets across in-store signage, digital displays, and specialty store builds up to 6,000 square feet.",
+    "image": "/images/project-nike.jpg",
+    "thumbGradient": "linear-gradient(135deg, #111 0%, #f5420a 100%)",
+    "problem": "Nike needed consistent, on-brand retail experiences executed at scale across North America, spanning everything from in-store digital components to full specialty store builds, on tight timelines and under significant budget scrutiny.",
+    "whatIDid": "Owned end-to-end project execution across six years of retail marketing and store design programs. Managed $10M+ in annual budgets, directed site surveys, defined project scope, and led communication across designers, retail accounts, agencies, vendors, and construction teams. Delivered store builds ranging from 900 to 6,000+ square feet.",
+    "outcome": "Consistent, on-time, on-budget retail program delivery across hundreds of locations. Established vendor relationships and communication systems that supported North America's retail brand growth throughout a defining period for Nike's physical retail presence.",
+    "tools": ["Project Management", "Budget Governance", "Vendor Management", "Retail Design", "In-Store Digital", "Construction Oversight", "Stakeholder Communication"],
+    "link": null,
+    "featured": true
+  },
+  {
+    "id": "apple-retail",
+    "name": "Apple Retail Experience",
+    "category": "Retail & Brand",
+    "summary": "Produced shop-in-shop, digital, print, and retail space presentations for Apple's key retail partners across North America. End-to-end, from creative inception through physical installation.",
+    "image": "/images/project-apple.jpg",
+    "thumbGradient": "linear-gradient(135deg, #1d1d1f 0%, #515154 100%)",
+    "problem": "Apple's retail partner program required high-stakes, brand-perfect installations across multiple retail environments simultaneously, with no margin for error on timeline, quality, or brand standards.",
+    "whatIDid": "Led the full creative and production process for shop-in-shop displays, digital components, print marketing, and retail space presentations. Managed cross-functional teams including project managers, surveyors, field operations, and construction crews. Drove product and marketing program approvals with key retail partners and orchestrated multiple vendor relationships to ensure seamless execution.",
+    "outcome": "On-time, on-budget delivery of retail experiences meeting Apple's exacting brand standards across North America retail partner locations.",
+    "tools": ["Creative Production", "Retail Installations", "Cross-functional Leadership", "Vendor Management", "Field Operations", "Budget Management"],
+    "link": null,
+    "featured": true
+  },
+  {
+    "id": "launchkit",
+    "name": "LaunchKit",
+    "category": "Digital Products",
+    "summary": "A productized launch system for solo founders, combining strategy, design, development, and launch tools to help ideas go live faster.",
+    "image": "/images/project-launchkit.jpg",
+    "thumbGradient": "linear-gradient(135deg, #0D6B4A 0%, #EDEBE3 100%)",
+    "problem": "Solo founders and small business owners consistently stall between having an idea and getting it live, overwhelmed by the number of decisions, tools, and steps involved in launching a digital product or website.",
+    "whatIDid": "Designed and built LaunchKit as a productized system: Canva templates, brand kits, and digital tools structured to move founders from concept to launch without getting stuck. Handled product design, distribution setup, and the full launch strategy.",
+    "outcome": "A growing catalog of digital products sold via Etsy and Shopify, built on a repeatable system that scales without custom client work.",
+    "tools": ["Product Design", "Canva", "Astro", "Shopify", "Etsy", "Brand Strategy", "Digital Distribution"],
+    "link": null,
+    "featured": true
+  },
+  {
+    "id": "aloha-animal-outreach",
+    "name": "Aloha Animal Outreach",
+    "category": "Nonprofit",
+    "summary": "Website redesign and digital strategy for an Oahu-based animal rescue, supporting outreach, trust-building, and community engagement across the island.",
+    "image": "/images/project-aao.jpg",
+    "thumbGradient": "linear-gradient(135deg, #56ab2f 0%, #a8e063 100%)",
+    "problem": "AAO needed a web presence that could support donor trust, community outreach, and volunteer engagement, without the budget of a commercial client and with a small team managing everything.",
+    "whatIDid": "Redesigned the website with a donation-first structure, rewrote homepage copy for conversion, and built a digital strategy focused on community engagement and trust signals. Provided ongoing web and tech support in an advisory capacity.",
+    "outcome": "A clearer, more conversion-focused web presence that better supports AAO's outreach mission across Oahu's unhoused communities.",
+    "tools": ["Astro", "Web Design", "Copywriting", "Nonprofit Strategy", "UX"],
+    "link": null,
+    "featured": true
+  },
+  {
+    "id": "freelance-web",
+    "name": "Freelance Web & App Development",
+    "category": "Web Development",
+    "summary": "Custom websites and web applications built for small businesses, startups, and solo founders. From brand sites to functional digital products.",
+    "image": "/images/project-freelance.jpg",
+    "thumbGradient": "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+    "problem": "Small businesses and founders often struggle to get a professional, performant web presence without enterprise budgets, ending up with bloated templates or generic solutions that don't reflect their brand.",
+    "whatIDid": "Designed and developed custom websites and web applications tailored to each client's goals, handling everything from information architecture and UI design to front-end development and deployment. Built with modern frameworks prioritizing speed, accessibility, and clean design.",
+    "outcome": "A growing portfolio of client sites and apps, each shipped on time, built to perform, and designed to grow with the business.",
+    "tools": ["Astro", "React", "TypeScript", "Figma", "Vercel", "Netlify", "CSS"],
+    "link": null,
+    "featured": false
+  }
+]
