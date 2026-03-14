@@ -57,15 +57,15 @@
   },
   {
     "id": "freelance-web",
-    "name": "Freelance Web & App Development",
-    "category": "Web Development",
-    "summary": "Custom websites and web applications built for small businesses, startups, and solo founders. From brand sites to functional digital products.",
+    "name": "Freelance Web & AI App Development",
+    "category": "Websites & AI Apps",
+    "summary": "Custom websites and AI-powered tools built for small businesses, startups, and founders who need a smarter digital presence.",
     "image": "/images/project-freelance.jpg",
     "thumbGradient": "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
-    "problem": "Small businesses and founders often struggle to get a professional, performant web presence without enterprise budgets, ending up with bloated templates or generic solutions that don't reflect their brand.",
-    "whatIDid": "Designed and developed custom websites and web applications tailored to each client's goals, handling everything from information architecture and UI design to front-end development and deployment. Built with modern frameworks prioritizing speed, accessibility, and clean design.",
-    "outcome": "A growing portfolio of client sites and apps, each shipped on time, built to perform, and designed to grow with the business.",
-    "tools": ["Astro", "React", "TypeScript", "Figma", "Vercel", "Netlify", "CSS"],
+    "problem": "Small businesses and founders need professional, performant web presences and increasingly need AI tools to run their operations — without enterprise budgets or the complexity that usually comes with both.",
+    "whatIDid": "Designed and built custom websites and AI-augmented web applications tailored to each client's goals, handling everything from information architecture and UI design through front-end development, AI integration, and deployment.",
+    "outcome": "A growing portfolio of client sites and AI tools, each shipped on time, built to perform, and designed to grow with the business.",
+    "tools": ["Astro", "React", "TypeScript", "Figma", "Vercel", "Netlify", "CSS", "AI Integration", "OpenAI", "Anthropic"],
     "link": null,
     "featured": false
   }
