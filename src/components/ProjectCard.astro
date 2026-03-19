@@ -61,11 +61,11 @@ const isFeatured = index === 0;
         </div>
         <div class="card-section">
           <h4 class="card-detail-label">What I Did</h4>
-          <p>{project.whatIDid}</p>
+          <p set:html={project.whatIDid} />
         </div>
         <div class="card-section">
           <h4 class="card-detail-label">Outcome</h4>
-          <p class="card-outcome">{project.outcome}</p>
+          <div class="card-outcome" set:html={project.outcome} />
         </div>
       </div>
       <div class="card-footer">
@@ -254,7 +254,24 @@ const isFeatured = index === 0;
   }
 
   .card-outcome {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--c-text);
+    max-width: 680px;
     font-weight: 600;
+  }
+
+  .card-outcome ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-outcome p {
+    margin-top: 0.5rem;
   }
 
   .card-footer {

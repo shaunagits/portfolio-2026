@@ -7,8 +7,8 @@
     "image": "/images/project-aao.jpg",
     "thumbGradient": "linear-gradient(135deg, #56ab2f 0%, #a8e063 100%)",
     "problem": "Aloha Animal Outreach conducts monthly outreach to unhoused communities and their pets across O'ahu, but their digital infrastructure couldn't keep up. The website was a dated WordPress build with no donation flow or mobile optimization. Field data lived in six disconnected AppSheet spreadsheets with no real-time alerts, no dog timelines, and no way to flag urgent situations. There was no merch presence and no passive revenue stream beyond one-time donations.",
-    "whatIDid": "Designed and built a three-part ecosystem. The public website was a ground-up rebuild in Astro with direct Stripe donation integration (one-time and recurring), Netlify Forms for volunteer and partner inquiries, a success stories section, and a new Partners page targeting corporate sponsors. For internal operations, I architected Kahu — a custom field management app with a situations-based data model designed for dogs living long-term with unhoused owners, not the linear intake-to-adoption flow of standard rescue software. Features include dog timeline views, Haven't Seen alerts, one-handed mobile logging for field use, activity feeds, version history with revert, and CSV export. For revenue, I set up a Printful-integrated merch store on Shopify with custom variant logic for logo color switching across light and dark colorways.",
-    "outcome": "A production-ready website with direct Stripe integration at nonprofit rates (2.2% + $0.30), eliminating Donorbox and saving hundreds annually in platform fees. A complete build brief for Kahu ready for development, replacing all six AppSheet spreadsheets. A merch store generating passive revenue with zero fulfillment overhead. One client, three products, full-stack execution.",
+    "whatIDid": "Designed and built a three-part ecosystem:<br><br><strong>Public website</strong> — A ground-up rebuild in Astro with direct Stripe donation integration, Netlify Forms for volunteer and partner inquiries, and a new Partners page targeting corporate sponsors.<br><br><strong>Kahu (field operations app)</strong> — A custom internal app with a situations-based data model built specifically for dogs living long-term with unhoused owners, not the linear intake-to-adoption flow of standard rescue software.<br><br><strong>Merch store</strong> — A Printful-integrated Shopify store handling passive revenue with zero fulfillment overhead.",
+    "outcome": "<ul><li>A production-ready website with direct Stripe integration, eliminating a third-party donation platform and saving hundreds annually in fees</li><li>A complete build brief for Kahu, replacing six disconnected spreadsheets with a single purpose-built field tool</li><li>A Shopify merch store with zero fulfillment overhead</li></ul><p>One client. Three products. Full-stack execution.</p>",
     "tools": ["Astro", "React", "TypeScript", "Tailwind CSS", "Supabase", "Stripe", "Netlify", "Shopify", "Printful", "Product Architecture", "AI-Augmented Development"],
     "link": "https://alohaanimaloutreach.org",
     "featured": true
@@ -21,8 +21,8 @@
     "image": "/images/project-nike.jpg",
     "thumbGradient": "linear-gradient(135deg, #111 0%, #f5420a 100%)",
     "problem": "Nike needed consistent, on-brand retail experiences executed at scale across North America, spanning everything from in-store digital components to full specialty store builds, on tight timelines and under significant budget scrutiny.",
-    "whatIDid": "Owned end-to-end project execution across six years of retail marketing and store design programs. Managed $10M+ in annual budgets, directed site surveys, defined project scope, and led communication across designers, retail accounts, agencies, vendors, and construction teams. Delivered store builds ranging from 900 to 6,000+ square feet.",
-    "outcome": "Consistent, on-time, on-budget retail program delivery across hundreds of locations. Established vendor relationships and communication systems that supported North America's retail brand growth throughout a defining period for Nike's physical retail presence.",
+    "whatIDid": "Owned end-to-end execution across six years of retail programs. Managed $10M+ in annual budgets, defined project scope, and led communication across designers, agencies, vendors, and construction teams. Delivered specialty store builds up to 6,000 square feet.",
+    "outcome": "Consistent, on-time, on-budget delivery across hundreds of locations. Built the vendor relationships and communication systems that supported Nike's North American retail brand growth for six years.",
     "tools": ["Project Management", "Budget Governance", "Vendor Management", "Retail Design", "In-Store Digital", "Construction Oversight", "Stakeholder Communication"],
     "link": null,
     "featured": true
@@ -34,9 +34,9 @@
     "summary": "Produced shop-in-shop, digital, print, and retail space presentations for Apple's key retail partners across North America. End-to-end, from creative inception through physical installation.",
     "image": "/images/project-apple.jpg",
     "thumbGradient": "linear-gradient(135deg, #1d1d1f 0%, #515154 100%)",
-    "problem": "Apple's retail partner program required high-stakes, brand-perfect installations across multiple retail environments simultaneously, with no margin for error on timeline, quality, or brand standards.",
+    "problem": "Apple's retail partner program required brand-perfect installations across multiple retail environments simultaneously, at Apple's exacting standards.",
     "whatIDid": "Led the full creative and production process for shop-in-shop displays, digital components, print marketing, and retail space presentations. Managed cross-functional teams including project managers, surveyors, field operations, and construction crews. Drove product and marketing program approvals with key retail partners and orchestrated multiple vendor relationships to ensure seamless execution.",
-    "outcome": "On-time, on-budget delivery of retail experiences meeting Apple's exacting brand standards across North America retail partner locations.",
+    "outcome": "Delivered retail partner experiences across North America on time, on budget, and to Apple's brand standards — consistently.",
     "tools": ["Creative Production", "Retail Installations", "Cross-functional Leadership", "Vendor Management", "Field Operations", "Budget Management"],
     "link": null,
     "featured": true
