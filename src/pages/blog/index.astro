@@ -1,0 +1,133 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf()
+);
+---
+
+<Layout
+  title="Blog — Shauna"
+  description="Writing about web apps, design, and building digital products."
+>
+  <Nav />
+
+  <main class="blog-index">
+    <div class="blog-container">
+      <p class="blog-eyebrow">Blog</p>
+      <h1 class="blog-heading">From My Desk</h1>
+
+      <ul class="post-list">
+        {posts.map((post) => {
+          const d = post.data.publishedDate;
+          const formattedDate = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
+            .toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+          return (
+            <li class="post-item">
+              <a href={`/blog/${post.id}`} class="post-link">
+                <p class="post-category">{post.data.category}</p>
+                <h2 class="post-title">{post.data.title}</h2>
+                <p class="post-description">{post.data.description}</p>
+                <p class="post-meta">{formattedDate} &middot; {post.data.readTime}</p>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* ---- Blog index layout ---- */
+  .blog-index {
+    padding-top: calc(80px + var(--section-py));
+    padding-bottom: var(--section-py);
+  }
+
+  .blog-container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 var(--container-px);
+  }
+
+  .blog-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    margin-bottom: 1rem;
+  }
+
+  .blog-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--c-text);
+    margin-bottom: 3rem;
+  }
+
+  /* ---- Post list ---- */
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .post-item {
+    border-top: 1px solid var(--c-border);
+  }
+
+  .post-item:last-child {
+    border-bottom: 1px solid var(--c-border);
+  }
+
+  .post-link {
+    display: block;
+    padding: 2rem 0;
+    transition: opacity var(--transition-fast);
+  }
+
+  .post-link:hover {
+    opacity: 0.7;
+  }
+
+  .post-category {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .post-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--c-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .post-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--c-text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .post-meta {
+    font-size: 0.8125rem;
+    color: var(--c-text-muted);
+  }
+</style>

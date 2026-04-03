@@ -1,0 +1,68 @@
+---
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-text">&copy; {new Date().getFullYear()} Shauna. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/blog">Blog</a>
+      <a href="https://www.linkedin.com/in/shaunaarnold/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://github.com/shaunagits" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--c-bg-subtle);
+    border-top: 1px solid var(--c-border);
+    padding: 80px 0 2rem;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-text {
+    font-size: 0.8125rem;
+    color: var(--c-text-muted);
+  }
+
+  .footer-text a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color var(--transition-fast);
+  }
+
+  .footer-text a:hover {
+    color: var(--c-text);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    font-size: 0.8125rem;
+    color: var(--c-text-muted);
+    transition: color var(--transition-fast);
+  }
+
+  .footer-links a:hover {
+    color: var(--c-text);
+  }
+
+  @media (max-width: 768px) {
+    .footer-inner {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.75rem;
+    }
+  }
+</style>

@@ -1,0 +1,179 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const d = post.data.publishedDate;
+const formattedDate = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
+  .toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<Layout
+  title={`${post.data.title} — Shauna`}
+  description={post.data.description}
+>
+  <Nav />
+
+  <main class="blog-post">
+    <div class="blog-container">
+      <a href="/blog" class="back-link">&larr; Back to all posts</a>
+
+      <!-- hero image: /images/blog-webapps-vs-native.webp -->
+
+      <p class="blog-eyebrow">{post.data.category}</p>
+      <h1 class="blog-title">{post.data.title}</h1>
+      <p class="blog-meta">{formattedDate} &middot; {post.data.readTime}</p>
+
+      <article class="blog-content">
+        <Content />
+      </article>
+
+      <div class="blog-cta">
+        <a href="/#contact" class="btn btn-primary">Get in touch</a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* ---- Blog post layout ---- */
+  .blog-post {
+    padding-top: calc(80px + var(--section-py));
+    padding-bottom: var(--section-py);
+  }
+
+  .blog-container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 var(--container-px);
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--c-text-muted);
+    margin-bottom: 3rem;
+    transition: color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--c-text);
+  }
+
+  .blog-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    margin-bottom: 1rem;
+  }
+
+  .blog-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--c-text);
+    margin-bottom: 1rem;
+  }
+
+  .blog-meta {
+    font-size: 0.8125rem;
+    color: var(--c-text-muted);
+    margin-bottom: 3rem;
+  }
+
+  /* ---- Blog content prose ---- */
+  .blog-content {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--c-text);
+  }
+
+  .blog-content :global(h2) {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--c-text);
+    margin-top: 3rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .blog-content :global(p) {
+    margin-bottom: 1.5rem;
+    color: var(--c-text-muted);
+  }
+
+  .blog-content :global(strong) {
+    color: var(--c-text);
+    font-weight: 600;
+  }
+
+  .blog-content :global(a) {
+    color: var(--c-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color var(--transition-fast);
+  }
+
+  .blog-content :global(a:hover) {
+    color: var(--c-gold);
+  }
+
+  .blog-content :global(hr) {
+    border: none;
+    border-top: 1px solid var(--c-border);
+    margin: 2.5rem 0;
+  }
+
+  .blog-content :global(ul) {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-content :global(li) {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--c-text-muted);
+    line-height: 1.7;
+  }
+
+  .blog-content :global(li::before) {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.75em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--c-accent);
+  }
+
+  /* ---- CTA ---- */
+  .blog-cta {
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--c-border);
+  }
+</style>
