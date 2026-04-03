@@ -1,0 +1,71 @@
+---
+title: "How Much Does a Website Actually Cost?"
+category: "Resources"
+description: "\"How much does a website cost?\" is like asking how much a car costs. Here's what actually drives the price and what to expect at every budget level."
+readTime: "5 min read"
+publishedDate: 2025-12-02
+---
+
+This is the first question almost everyone asks, and it is a fair one. The problem is that "a website" is not one thing. Asking how much a website costs is like asking how much a car costs. The answer is always: it depends on what you need.
+
+---
+
+## The Range Is Real
+
+Website projects can cost anywhere from a few hundred dollars to well over six figures. That gap is not marketing fluff. It reflects genuine differences in scope, quality, and what you are actually getting.
+
+A DIY Squarespace site with a template you set up yourself might cost $200 a year. A custom web application with user accounts, a database, and third-party integrations might cost $30,000 or more. Both are websites. They are not the same thing.
+
+---
+
+## What You Are Actually Paying For
+
+When you hire a professional to build your website, you are paying for several things at once: strategy, design, development, content structure, and the time it takes to do all of that well.
+
+A cheap website usually cuts corners on one or more of those. You might get a design that looks fine but was never thought through for your specific business. You might get a developer who builds something functional but leaves you with no way to update it yourself. You might get a template with your logo swapped in and nothing else changed.
+
+The work behind a good website is invisible when it is done right. That is why clients are sometimes surprised by what quality costs.
+
+---
+
+## What to Expect at Different Budget Levels
+
+**Under $2,000:** You are in template territory. This works for simple needs like a one-page site or a basic informational presence. Expect limited customization and no complex functionality.
+
+**$2,000 to $6,000:** This is where most small business websites live. A professional can build something custom, clean, and tailored to your brand. You will get real design decisions, a thoughtful content structure, and a CMS so you can update things yourself.
+
+**$6,000 to $15,000:** More complex sites fall here. Think e-commerce, custom functionality, multiple page templates, or a larger content architecture. The work takes longer and requires more planning.
+
+**$15,000 and up:** Custom web applications and platforms. User accounts, databases, third-party APIs, backend logic. At this level you are not buying a website. You are buying a product.
+
+---
+
+## What Drives the Price Up
+
+A few things reliably increase the cost of a project.
+
+**Scope.** More pages, more features, and more integrations mean more time. Time is what you are paying for.
+
+**Revisions.** Projects with vague direction at the start take longer and cost more. Clear goals and decisions upfront keep things on track.
+
+**Copywriting.** If you do not have your content ready, someone has to write it. That is a separate skill and a real cost.
+
+**Ongoing costs.** A website is not a one-time purchase. Factor in annual hosting, domain renewal, security updates, and any platform fees.
+
+---
+
+## The Price Alone Does Not Tell You Much
+
+The lowest bid is rarely the best value. A $500 website that takes three months and needs a full rebuild a year later costs more in the long run than a $4,000 website built right the first time.
+
+The right question is not how cheap can I get this. It is what do I actually need, and who can build it well.
+
+A good professional will ask real questions about your goals before quoting you anything. If someone sends you a number without asking about your business first, that is a signal worth paying attention to.
+
+---
+
+## What I Charge
+
+My projects typically start at $3,500 for a custom website and go up from there based on scope. Every project starts with a conversation so I understand what you actually need before I quote anything.
+
+If you have something in mind, I would rather give you a real number than a guess.
