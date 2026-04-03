@@ -1,0 +1,184 @@
+---
+title: "WordPress vs. a Custom Build: What You Are Actually Paying For"
+category: "Web Strategy"
+description: "The monthly price is not the right number to compare. Here is what the full cost picture actually looks like."
+readTime: "5 min read"
+publishedDate: 2025-04-02
+---
+
+import BlogTable from '../../components/BlogTable.astro';
+import BlogCallout from '../../components/BlogCallout.astro';
+
+WordPress powers about 40 percent of the internet. It is also responsible for a significant portion of slow, bloated, hacked, and abandoned websites. That is not a coincidence.
+
+If you are trying to decide between a platform like WordPress or Wix and a custom-built site, the monthly price is not the right number to compare. Here is what the full picture actually looks like.
+
+## The WordPress cost stack
+
+WordPress itself is free. Everything that makes it functional is not.
+
+<BlogTable headers={["Cost item", "Typical range", "Notes"]}>
+  <tr>
+    <td>Hosting</td>
+    <td>$10 – $100/mo</td>
+    <td>Cheap shared hosting is slow and unreliable. Managed WordPress (Kinsta, WP Engine) is better but expensive.</td>
+  </tr>
+  <tr>
+    <td>Premium theme</td>
+    <td>$50 – $200 one-time</td>
+    <td>Free themes are limited. Most businesses end up paying for one.</td>
+  </tr>
+  <tr>
+    <td>Plugins</td>
+    <td>$100 – $500+/yr</td>
+    <td>SEO, forms, page builder, security, backups, performance. Most have paid tiers you will eventually need.</td>
+  </tr>
+  <tr>
+    <td>Developer maintenance</td>
+    <td>$50 – $200/mo</td>
+    <td>Core, theme, and plugin updates need regular attention. Skipping them is how sites get compromised.</td>
+  </tr>
+  <tr>
+    <td>Security and backups</td>
+    <td>$50 – $150/yr</td>
+    <td>Often bundled in maintenance plans or added as separate plugins.</td>
+  </tr>
+  <tr class="total-row">
+    <td>Estimated annual total</td>
+    <td>$1,500 – $4,000+</td>
+    <td>Before any developer time for changes or fixes.</td>
+  </tr>
+</BlogTable>
+
+<BlogCallout>
+  **The plugin problem.** WordPress runs on plugins. Each one is a separate product with its own update cycle, pricing, and potential to conflict with other plugins. A site with 15 plugins is 15 different things that can break.
+</BlogCallout>
+
+## What about Wix and Squarespace?
+
+All-in-one platforms bundle hosting and software into a single subscription. That simplicity is real. So are the walls.
+
+<BlogTable headers={["Platform", "Entry price", "What changes as you grow"]}>
+  <tr>
+    <td>Wix</td>
+    <td>$17/mo</td>
+    <td>Storage limits, transaction fees, removing Wix branding requires higher tier</td>
+  </tr>
+  <tr>
+    <td>Squarespace</td>
+    <td>$23/mo</td>
+    <td>E-commerce requires $36–65/mo, transaction fees on lower tiers</td>
+  </tr>
+  <tr>
+    <td>Webflow</td>
+    <td>$23/mo</td>
+    <td>CMS item limits, staging, and team features locked behind higher plans</td>
+  </tr>
+  <tr>
+    <td>Shopify</td>
+    <td>$39/mo</td>
+    <td>Transaction fees (0.5–2%) unless using Shopify Payments, app costs compound quickly</td>
+  </tr>
+</BlogTable>
+
+The entry price gets you through the door. The platform makes money when your business grows and you need the next tier to keep up.
+
+## What a custom build actually costs to run
+
+A custom-built static site deployed on Netlify or Vercel has a very different cost profile once it is live.
+
+<BlogTable headers={["Cost item", "Typical range", "Notes"]}>
+  <tr>
+    <td>Hosting (Netlify / Vercel)</td>
+    <td>$0 – $19/mo</td>
+    <td>Free tier covers most small business sites. SSL, CDN, and custom domain included.</td>
+  </tr>
+  <tr>
+    <td>Domain</td>
+    <td>$10 – $20/yr</td>
+    <td>Same as any other site.</td>
+  </tr>
+  <tr>
+    <td>Email (Google Workspace)</td>
+    <td>$6 – $18/user/mo</td>
+    <td>Separate from the site. Same cost regardless of platform.</td>
+  </tr>
+  <tr>
+    <td>Plugins or platform fees</td>
+    <td>$0</td>
+    <td>No plugin stack. No platform transaction fees. No tier upgrades.</td>
+  </tr>
+  <tr>
+    <td>Maintenance</td>
+    <td>As needed</td>
+    <td>No mandatory update cycle. Changes are billable work, not a recurring subscription.</td>
+  </tr>
+  <tr class="total-row">
+    <td>Estimated annual total</td>
+    <td>$150 – $400</td>
+    <td>For a standard small business site with no e-commerce.</td>
+  </tr>
+</BlogTable>
+
+## The real comparison
+
+<BlogTable headers={["", "WordPress", "DIY platform", "Custom build"]}>
+  <tr>
+    <td>Monthly hosting cost</td>
+    <td class="warn">$20 – $100</td>
+    <td class="warn">$23 – $65</td>
+    <td class="positive">$0 – $19</td>
+  </tr>
+  <tr>
+    <td>Platform transaction fees</td>
+    <td class="negative">Sometimes</td>
+    <td class="negative">Often</td>
+    <td class="positive">None</td>
+  </tr>
+  <tr>
+    <td>Forced tier upgrades</td>
+    <td class="negative">Yes (plugins)</td>
+    <td class="negative">Yes</td>
+    <td class="positive">No</td>
+  </tr>
+  <tr>
+    <td>Ongoing update maintenance</td>
+    <td class="negative">Required</td>
+    <td class="positive">Handled by platform</td>
+    <td class="positive">Minimal</td>
+  </tr>
+  <tr>
+    <td>You own the codebase</td>
+    <td class="warn">Partially</td>
+    <td class="negative">No</td>
+    <td class="positive">Yes</td>
+  </tr>
+  <tr>
+    <td>Performance out of the box</td>
+    <td class="negative">Slow without work</td>
+    <td class="warn">Varies</td>
+    <td class="positive">Fast by default</td>
+  </tr>
+  <tr>
+    <td>Designed for your business</td>
+    <td class="negative">Template-based</td>
+    <td class="negative">Template-based</td>
+    <td class="positive">Purpose-built</td>
+  </tr>
+</BlogTable>
+
+## What this means in practice
+
+A WordPress site that costs $200 a month to host and maintain, plus $500 a year in plugin licenses, costs roughly $2,900 per year to keep running. Over three years that is nearly $9,000, not counting any developer time for updates or fixes.
+
+A custom-built static site on Netlify might cost $150 to $400 per year in ongoing costs. The higher upfront build cost pays for itself quickly when you run the math across a three-year horizon.
+
+More importantly, you are not locked in. You own what was built. You are not subject to a platform raising prices, deprecating features, or forcing you to upgrade to keep basic functionality.
+
+## When WordPress or a platform still makes sense
+
+Not every business needs a custom build. If you have a very limited budget, need to launch quickly, or plan to manage the site entirely yourself without a developer, a platform can be the right call.
+
+The mistake is assuming the cheaper upfront option is the cheaper long-term option. It is often not.
+
+If you want to understand what the right approach looks like for your specific situation, that is exactly the kind of conversation I have before quoting anything.

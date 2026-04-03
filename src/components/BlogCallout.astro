@@ -1,0 +1,28 @@
+---
+---
+
+<aside class="blog-callout">
+  <slot />
+</aside>
+
+<style>
+  .blog-callout {
+    border-left: 3px solid var(--c-accent);
+    background: #e1f0ea;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--c-text);
+  }
+
+  .blog-callout :global(strong),
+  .blog-callout :global(b) {
+    color: #0a5239;
+  }
+
+  .blog-callout :global(p) {
+    margin-bottom: 0;
+    color: var(--c-text);
+  }
+</style>

@@ -1,0 +1,87 @@
+---
+interface Props {
+  headers: string[];
+}
+const { headers } = Astro.props;
+---
+
+<div class="blog-table-wrap">
+  <table class="blog-table">
+    <thead>
+      <tr>
+        {headers.map((header, i) => (
+          <th class:list={[
+            { 'first': i === 0 },
+            { 'last': i === headers.length - 1 },
+          ]}>
+            {header}
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      <slot />
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .blog-table-wrap {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .blog-table th {
+    background: var(--c-accent);
+    color: #fff;
+    font-weight: 500;
+    padding: 10px 14px;
+    text-align: left;
+  }
+
+  .blog-table th.first {
+    border-radius: 6px 0 0 0;
+  }
+
+  .blog-table th.last {
+    border-radius: 0 6px 0 0;
+  }
+
+  .blog-table :global(td) {
+    padding: 10px 14px;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .blog-table :global(tbody tr:nth-child(odd)) {
+    background: #fff;
+  }
+
+  .blog-table :global(tbody tr:nth-child(even)) {
+    background: var(--c-bg);
+  }
+
+  .blog-table :global(tr.total-row td) {
+    font-weight: 500;
+    background: #ece9e0;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+  }
+
+  .blog-table :global(.positive) {
+    color: #0D6B4A;
+  }
+
+  .blog-table :global(.negative) {
+    color: #c0392b;
+  }
+
+  .blog-table :global(.warn) {
+    color: #b8790a;
+  }
+</style>
