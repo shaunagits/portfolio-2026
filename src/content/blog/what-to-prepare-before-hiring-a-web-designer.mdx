@@ -6,9 +6,26 @@ readTime: "5 min read"
 publishedDate: 2025-12-19
 ---
 
+import TLDRBox from '../../components/blog/TLDRBox.astro';
+import Checklist from '../../components/blog/Checklist.astro';
+import Callout from '../../components/blog/Callout.astro';
+
 Most web projects do not fall apart because of bad design or bad code. They fall apart because the client was not ready when the work started. Preparation is not exciting, but it is the single biggest factor in whether your project goes smoothly or drags on for months.
 
 Here is what to have in order before you reach out to anyone.
+
+<TLDRBox>
+Six things to have sorted before you reach out to anyone: your goals, your content plan, your brand files, your technical setup, your budget range, and your decision-maker.
+</TLDRBox>
+
+<Checklist items={[
+  "Know what you want the site to do — not just what it should look like",
+  "Have a content plan: who is writing the copy and supplying the photos",
+  "Have your logo files, brand colors, and fonts ready or know they don't exist yet",
+  "Know who hosts your current site and where your domain is registered",
+  "Have a budget range in mind, even a rough one",
+  "Know who the final decision-maker is before the project starts"
+]} />
 
 ---
 
@@ -61,6 +78,10 @@ If more than one person needs to approve the work, establish that before the pro
 If there are stakeholders, get them aligned on goals before the designer starts. Changes that happen because of internal disagreement are the most expensive kind.
 
 ---
+
+<Callout>
+The closer you are to ready, the faster your project moves and the fewer revisions you pay for.
+</Callout>
 
 ## You Do Not Need to Have Everything Figured Out
 

@@ -1,0 +1,24 @@
+---
+---
+
+<blockquote class="callout">
+  <slot />
+</blockquote>
+
+<style>
+  .callout {
+    border-left: 3px solid #0D6B4A;
+    padding: 0.75rem 1.5rem;
+    margin: 2rem 0;
+    font-size: 18px;
+    font-style: italic;
+    font-family: var(--font-display);
+    line-height: 1.6;
+    color: var(--c-text);
+  }
+
+  .callout :global(p) {
+    margin: 0;
+    color: var(--c-text);
+  }
+</style>

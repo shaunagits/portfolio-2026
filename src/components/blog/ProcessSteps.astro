@@ -1,0 +1,83 @@
+---
+interface Step {
+  title: string;
+  description: string;
+}
+interface Props {
+  steps: Step[];
+}
+const { steps } = Astro.props;
+---
+
+<div class="process-steps">
+  {steps.map((step, i) => (
+    <div class="step">
+      <div class="step-left">
+        <div class="step-number">{i + 1}</div>
+        {i < steps.length - 1 && <div class="step-line" />}
+      </div>
+      <div class="step-content">
+        <p class="step-title">{step.title}</p>
+        <p class="step-desc">{step.description}</p>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .process-steps {
+    margin: 2rem 0;
+  }
+
+  .step {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .step-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #0D6B4A;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-line {
+    width: 1px;
+    flex: 1;
+    background: rgba(13, 107, 74, 0.25);
+    margin: 4px 0;
+    min-height: 24px;
+  }
+
+  .step-content {
+    padding-bottom: 1.5rem;
+    padding-top: 4px;
+  }
+
+  .step-title {
+    margin: 0 0 4px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--c-text);
+  }
+
+  .step-desc {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--c-text-muted);
+  }
+</style>

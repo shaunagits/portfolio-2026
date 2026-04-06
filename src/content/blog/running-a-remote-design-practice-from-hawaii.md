@@ -6,52 +6,46 @@ readTime: "4 min read"
 publishedDate: 2026-03-20
 ---
 
-I get asked about this more than almost anything else. How does it work? Do clients care? Is the time difference a problem?
+I get asked about this more than you might expect. How does it work? Do clients care? Is the time difference a problem?
 
-Here is the honest version.
+The short answer is no. I built my business remotely from the start, and Hawaii has shaped my perspective far more than it has ever limited the work.
 
 ---
 
 ## How I Got Here
 
-I spent years working in retail and marketing at Nike and Apple before going independent. When I made the move to freelance, I was already in Hawaii. The business was built remote from the start.
+Before going independent, I spent years in retail and marketing at Nike and Apple. By the time I started freelancing, I was already living in Hawaii, so there was no big shift from office life to remote work. This business was built to run remotely from day one.
 
-I did not have a local network of tech clients to tap. I built a client base through referrals, portfolio work, and showing up consistently online. The geography was never the limiting factor people expect it to be.
+I did not have a built-in local network of tech clients to rely on. I built my client base through referrals, portfolio work, and showing up consistently online. Geography was never the barrier people assumed it would be.
 
 ---
 
-## How Remote Work Actually Functions
+## How the Work Actually Happens
 
-Almost everything happens over video calls, email, and shared documents. I use the same tools whether a client is in Honolulu or New York. Most of my clients have never met me in person. That has not affected the quality of a single project.
+The work itself happens the same way most modern digital work happens: video calls, email, shared docs, project tools, and clear communication. Some of my clients are in Hawaii, many are not, and most have never met me in person. That has never affected the quality of the work.
 
-The myth that good work requires physical proximity is mostly held by people who have never tried the alternative.
+Good projects do not depend on physical proximity. They depend on clear thinking, strong communication, and follow-through.
 
 ---
 
 ## The Time Zone Question
 
-Hawaii does not observe daylight saving time, so the offset shifts through the year. I am typically five to six hours behind the East Coast and two to three hours behind the West Coast.
-
-In practice, this means I do deep work in the morning before most of the mainland is online. Calls happen late morning or early afternoon my time, which works for most clients. I have never had a client tell me the time zone was a dealbreaker.
+The time difference is usually less of an issue than people expect. Hawaii gives me quiet mornings for deep work before most of the mainland is online, which is ideal for design, development, writing, and problem-solving. Calls usually happen later in the morning or early afternoon my time, which overlaps well with the West Coast and still works for many East Coast clients.
 
 ---
 
-## What Hawaii Actually Affects
+## What Hawaii Actually Changes
 
-My perspective, not my output.
+What living in Hawaii changes is not my output, but my perspective.
 
-Living and working here means I am embedded in a community that includes a lot of small nonprofits, local businesses, and organizations doing real work with limited resources. That shapes who I take on as clients and what I care about building.
-
-It also means I know firsthand what it looks like to run a lean operation in a place that is not a startup hub. That is useful context when I am working with founders and small business owners who are building something real without a lot of overhead.
+Being here keeps me close to small businesses, nonprofits, and community-driven organizations doing meaningful work with limited resources. That shapes the kinds of projects I care about and the way I approach solving problems. I understand lean operations, thoughtful decisions, and building things that are useful, not just polished.
 
 ---
 
-## On Working With Someone You Cannot Meet In Person
+## On Working Remotely
 
-If you need someone local for in-person meetings, I am not the right fit. I want to be upfront about that.
+If you need someone local for in-person meetings, I am probably not the right fit. If you need someone thoughtful, responsive, and capable of doing strong work remotely, location is not the thing that matters most.
 
-If you need someone who is responsive, engaged, and produces quality work regardless of where they are sitting, the location is not going to matter.
+Some of my best client relationships have been fully remote from day one.
 
-Most of the best working relationships I have are with clients I have never shared a room with.
-
-If you want to find out whether we are a good fit, the contact section is where to start.
+If that sounds like the kind of working relationship you want, get in touch.

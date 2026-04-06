@@ -6,40 +6,34 @@ readTime: "3 min read"
 publishedDate: 2026-03-06
 ---
 
-I limit how many active projects I take on at once. This is a deliberate choice and it shapes everything about how I work.
+I keep my project load intentionally small. That is not a scarcity tactic. It is how I protect the quality of the work.
 
 ---
 
-## What You Get When I Am Not Overbooked
+## What a Smaller Load Actually Means for You
 
-When I take on your project, I am actually working on it. Not fitting it in between five other deadlines. Not handing pieces of it to contractors you never meet. Not catching up on Fridays because the week ran long.
+When I take on a project, I want to be fully in it. Not squeezing it between competing deadlines, not handing pieces off to people you have never met, and not trying to catch up at the end of the week because too much was stacked at once.
 
-You get my full attention on the work, faster turnaround on questions and revisions, and a designer who is thinking about your project when they are not sitting in front of it.
-
-That is only possible if the pipeline is managed carefully.
+A smaller project load means you get faster responses, more thoughtful revisions, and work that has real attention behind it. It also means I have the space to think beyond the immediate task in front of me, which usually leads to better decisions and a stronger end result.
 
 ---
 
-## The Agency Model and Why I Do Not Use It
+## Why Not the Agency Model
 
-Large agencies stay busy by running many projects simultaneously across large teams. The senior person you met in the sales process is often not the person doing the work. The work gets distributed, reviewed at the end, and delivered with a polished deck.
+A lot of larger agencies work differently. They run many projects at once across bigger teams, and the person you meet at the beginning is often not the person doing the work day to day. That model works for some businesses, but it is not how I want to work and it is not what many small businesses or founders actually need.
 
-That model works for some clients. It does not work for the clients I am trying to serve. Small businesses and founders need someone who is actually engaged, not managing subcontractors on their behalf.
+My clients are usually looking for a direct working relationship with the person doing the strategy, design, and build. They want clarity, consistency, and someone who is actually close to the work. Keeping my schedule tight is how I make that possible.
 
 ---
 
 ## What This Means for Timing
 
-It means I am sometimes booked out by a few weeks. If your project is urgent, that is worth knowing before we get into a proposal conversation.
-
-It also means that when your project is scheduled, it is actually scheduled. Your start date is real. Your timeline is based on real capacity, not optimistic math.
+It also means I am sometimes booked out a few weeks in advance. If your project is urgent, that is important to know early. But when I give you a start date, it is a real one. Your timeline is based on actual capacity, not optimistic scheduling.
 
 ---
 
-## Why This Matters to You
+## Why This Matters
 
-You are not paying for access to a portfolio and a project management system. You are paying for skilled work done by someone who cares whether it is good.
+You are not just paying for deliverables. You are paying for focus, judgment, and care. Limiting how many projects I take on is one of the main ways I make sure you get all three.
 
-The way I structure my practice is how I make sure that is true.
-
-If you are planning ahead and want to get on my schedule, reach out sooner rather than later.
+If you are planning a project and want to work together, it is always better to reach out a little earlier.
