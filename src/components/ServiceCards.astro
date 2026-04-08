@@ -1,0 +1,82 @@
+---
+const services = [
+  {
+    name: 'Websites',
+    description:
+      'From brochure sites to content-rich builds. Designed with intention, built to last, and easy for you to manage.',
+  },
+  {
+    name: 'Web Apps & Client Portals',
+    description:
+      "Custom tools built around your actual workflow. If the software doesn't exist for your specific problem, I'll build it.",
+  },
+  {
+    name: 'AI-Powered Tools',
+    description:
+      'Practical AI integrations that save time and reduce manual work. Not hype — real tools that do real things.',
+  },
+];
+---
+
+<section class="service-cards">
+  <div class="container">
+    <h2 class="heading-section services-heading" data-animate>What I build.</h2>
+    <ul class="service-list" role="list">
+      {services.map((service, i) => (
+        <li class="service-row" data-animate data-delay={String(i + 1)}>
+          <h3 class="service-row-name">{service.name}</h3>
+          <p class="service-row-description">{service.description}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .service-cards {
+    padding: var(--section-py) 0;
+  }
+
+  .services-heading {
+    margin-bottom: 2.5rem;
+  }
+
+  .service-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0 0;
+    border-top: 1px solid var(--c-border);
+  }
+
+  .service-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    align-items: start;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--c-border);
+  }
+
+  .service-row-name {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--c-text);
+    line-height: 1.3;
+  }
+
+  .service-row-description {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: #6b6b62;
+    padding-right: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .service-row {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      padding: 2rem 0;
+    }
+  }
+</style>

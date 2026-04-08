@@ -8,7 +8,7 @@
     "thumbGradient": "linear-gradient(135deg, #56ab2f 0%, #a8e063 100%)",
     "problem": "Aloha Animal Outreach conducts monthly outreach to unhoused communities and their pets across O'ahu, but their digital infrastructure couldn't keep up. The website was a dated WordPress build with no donation flow or mobile optimization. Field data lived in six disconnected AppSheet spreadsheets with no real-time alerts, no dog timelines, and no way to flag urgent situations. There was no merch presence and no passive revenue stream beyond one-time donations.",
     "whatIDid": "Designed and built a three-part ecosystem:<br><br><strong>Public website</strong> — A ground-up rebuild in Astro with direct Stripe donation integration, Netlify Forms for volunteer and partner inquiries, and a new Partners page targeting corporate sponsors.<br><br><strong>Kahu (field operations app)</strong> — A custom internal app with a situations-based data model built specifically for dogs living long-term with unhoused owners, not the linear intake-to-adoption flow of standard rescue software.<br><br><strong>Merch store</strong> — A Printful-integrated Shopify store handling passive revenue with zero fulfillment overhead.",
-    "outcome": "<ul><li>A production-ready website with direct Stripe integration, eliminating a third-party donation platform and saving hundreds annually in fees</li><li>A complete build brief for Kahu, replacing six disconnected spreadsheets with a single purpose-built field tool</li><li>A Shopify merch store with zero fulfillment overhead</li></ul><p>One client. Three products. Full-stack execution.</p>",
+    "outcome": "A production-ready public website with direct Stripe donation integration. Kahu — a fully deployed custom field operations app replacing six disconnected spreadsheets, now used in monthly outreach operations. A Shopify merch store with zero fulfillment overhead. One client. Three live products.",
     "tools": ["Astro", "React", "TypeScript", "Tailwind CSS", "Supabase", "Stripe", "Netlify", "Shopify", "Printful", "Product Architecture", "AI-Augmented Development"],
     "link": "https://alohaanimaloutreach.org",
     "featured": true
@@ -44,8 +44,8 @@
   {
     "id": "launchkit",
     "name": "LaunchKit",
-    "category": "Digital Products",
-    "summary": "A productized launch system for solo founders, combining strategy, design, development, and launch tools to help ideas go live faster.",
+    "category": "Product Design",
+    "summary": "A productized template system for founders who need to launch fast. Designed, built, and distributed — from brand kits to digital download storefronts.",
     "image": "/images/project-launchkit.jpg",
     "thumbGradient": "linear-gradient(135deg, #0D6B4A 0%, #EDEBE3 100%)",
     "problem": "Solo founders and small business owners consistently stall between having an idea and getting it live, overwhelmed by the number of decisions, tools, and steps involved in launching a digital product or website.",
@@ -56,17 +56,17 @@
     "featured": true
   },
   {
-    "id": "freelance-web",
-    "name": "Freelance Web & AI App Development",
-    "category": "Websites & AI Apps",
-    "summary": "Custom websites and AI-powered tools built for small businesses, startups, and founders who need a smarter digital presence.",
+    "id": "client-portal",
+    "name": "Shauna Digital — Client Portal",
+    "category": "Web App",
+    "summary": "A custom client portal built for my own practice — because nothing off the shelf did what I needed.",
     "image": "/images/project-freelance.jpg",
     "thumbGradient": "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
-    "problem": "Small businesses and founders need professional, performant web presences and increasingly need AI tools to run their operations — without enterprise budgets or the complexity that usually comes with both.",
-    "whatIDid": "Designed and built custom websites and AI-augmented web applications tailored to each client's goals, handling everything from information architecture and UI design through front-end development, AI integration, and deployment.",
-    "outcome": "A growing portfolio of client sites and AI tools, each shipped on time, built to perform, and designed to grow with the business.",
-    "tools": ["Astro", "React", "TypeScript", "Figma", "Vercel", "Netlify", "CSS", "AI Integration", "OpenAI", "Anthropic"],
-    "link": null,
+    "problem": "Running a small design and development practice means managing projects, files, feedback, invoices, and client communication across too many disconnected tools. Every client portal product I evaluated was either too generic, too expensive, or not built for how I actually work.",
+    "whatIDid": "Designed and built a full-stack client portal from scratch using React, TypeScript, Supabase, and Stripe. The portal handles the entire client lifecycle: onboarding, project phase tracking, file delivery with approval workflows, invoice creation and payment, asset uploads, messaging, and email notifications. Clients get a clean, branded experience. I get a single system that runs my practice.",
+    "outcome": "A live production application at portal.shauna.digital. Every new client I onboard uses it from day one. Built in six weeks alongside active client work.",
+    "tools": ["React", "TypeScript", "Vite", "Tailwind", "Supabase", "Stripe", "Cloudinary", "Resend", "Netlify"],
+    "link": "https://portal.shauna.digital",
     "featured": false
   }
 ]
