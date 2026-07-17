@@ -3,7 +3,7 @@
     "id": "aao-ecosystem",
     "name": "Aloha Animal Outreach — Full Digital Ecosystem",
     "category": "Nonprofit · Full Ecosystem",
-    "summary": "A nonprofit needed everything: a public website, direct donations, a merch store, and a custom field-operations app. I designed and built the whole ecosystem from scratch — one client, three live products.",
+    "summary": "One nonprofit, three live products: a public website with direct donations, a merch store, and a custom field-operations app.",
     "image": "/images/project-aao.jpg",
     "frame": "combo",
     "laptopImage": "/images/aao-site.jpg",
@@ -17,11 +17,31 @@
     "whatIDid": "Designed and built a three-part ecosystem:<br><br><strong>Public website</strong> — A ground-up rebuild in Astro with direct Stripe donation integration, Netlify Forms for volunteer and partner inquiries, and a new Partners page targeting corporate sponsors.<br><br><strong>Field operations app</strong> — A custom internal app with a situations-based data model built specifically for animals living long-term with unhoused owners, not the linear intake-to-adoption flow of standard rescue software.<br><br><strong>Merch store</strong> — A Printful-integrated Shopify store handling passive revenue with zero fulfillment overhead.",
     "outcome": "A production-ready public website with direct Stripe donation integration. A fully deployed custom field-operations app replacing six disconnected spreadsheets, now used in monthly outreach operations. A Shopify merch store with zero fulfillment overhead. One client, three live products.",
     "stats": [
-      { "n": "3", "l": "Live products from one engagement" },
-      { "n": "6→1", "l": "Spreadsheets replaced by one app" },
-      { "n": "$0", "l": "Fulfillment overhead on merch" }
+      {
+        "n": "3",
+        "l": "Live products from one engagement"
+      },
+      {
+        "n": "6→1",
+        "l": "Spreadsheets replaced by one app"
+      },
+      {
+        "n": "$0",
+        "l": "Fulfillment overhead on merch"
+      }
     ],
-    "tools": ["Astro", "React", "TypeScript", "Tailwind CSS", "Supabase", "Stripe", "Netlify", "Shopify", "Printful", "AI-Augmented Development"],
+    "tools": [
+      "Astro",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Supabase",
+      "Stripe",
+      "Netlify",
+      "Shopify",
+      "Printful",
+      "AI-Augmented Development"
+    ],
     "link": "https://alohaanimaloutreach.org",
     "featured": true
   },
@@ -29,7 +49,7 @@
     "id": "client-portal",
     "name": "Shauna Digital — Client Portal",
     "category": "Web App · Full-Stack",
-    "summary": "A full client-lifecycle portal I built for my own practice because nothing off the shelf fit how I work: onboarding, phase tracking, file delivery with approvals, invoicing, and messaging. Live in production, built in six weeks.",
+    "summary": "A client portal built for my own practice — onboarding, phase tracking, file approvals, invoicing, and messaging. Live in six weeks.",
     "image": "/images/project-portal.png",
     "frame": "browser",
     "tint": "tint-cream",
@@ -41,11 +61,30 @@
     "whatIDid": "Designed and built a full-stack client portal from scratch. The portal handles the entire client lifecycle: onboarding, project phase tracking, file delivery with approval workflows, invoice creation and payment, asset uploads, messaging, and email notifications. Clients get a clean, branded experience. I get a single system that runs my practice.",
     "outcome": "A live production application at portal.shauna.digital. Every new client I onboard uses it from day one. Built in six weeks alongside active client work.",
     "stats": [
-      { "n": "6 wks", "l": "Built alongside active client work" },
-      { "n": "1", "l": "System replacing a stack of tools" },
-      { "n": "Day 1", "l": "Every new client onboards through it" }
+      {
+        "n": "6 wks",
+        "l": "Built alongside active client work"
+      },
+      {
+        "n": "1",
+        "l": "System replacing a stack of tools"
+      },
+      {
+        "n": "Day 1",
+        "l": "Every new client onboards through it"
+      }
     ],
-    "tools": ["React", "TypeScript", "Vite", "Tailwind", "Supabase", "Stripe", "Cloudinary", "Resend", "Netlify"],
+    "tools": [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind",
+      "Supabase",
+      "Stripe",
+      "Cloudinary",
+      "Resend",
+      "Netlify"
+    ],
     "link": "https://portal.shauna.digital",
     "featured": true
   },
@@ -53,7 +92,7 @@
     "id": "nike-retail",
     "name": "Nike Retail Brand Marketing",
     "category": "Retail & Brand · Nike",
-    "summary": "Led retail marketing and store-design programs for Nike North America — $10M+ in annual budgets across in-store signage, digital displays, and specialty builds up to 6,000 sq ft. Six years of on-time, on-budget delivery at scale.",
+    "summary": "Retail marketing and store-design programs for Nike North America — $10M+ annual budgets, six years delivering at scale.",
     "image": "/images/project-nike.jpg",
     "frame": "photo",
     "tint": "tint-sand",
@@ -65,11 +104,28 @@
     "whatIDid": "Owned end-to-end execution across six years of retail programs. Managed $10M+ in annual budgets, defined project scope, and led communication across designers, agencies, vendors, and construction teams. Delivered specialty store builds up to 6,000 square feet.",
     "outcome": "Consistent, on-time, on-budget delivery across hundreds of locations. Built the vendor relationships and communication systems that supported Nike's North American retail brand growth for six years.",
     "stats": [
-      { "n": "$10M+", "l": "Annual budgets governed" },
-      { "n": "6,000 sq ft", "l": "Largest specialty builds" },
-      { "n": "6 yrs", "l": "On-time, on-budget delivery" }
+      {
+        "n": "$10M+",
+        "l": "Annual budgets governed"
+      },
+      {
+        "n": "6,000 sq ft",
+        "l": "Largest specialty builds"
+      },
+      {
+        "n": "6 yrs",
+        "l": "On-time, on-budget delivery"
+      }
     ],
-    "tools": ["Project Management", "Budget Governance", "Vendor Management", "Retail Design", "In-Store Digital", "Construction Oversight", "Stakeholder Communication"],
+    "tools": [
+      "Project Management",
+      "Budget Governance",
+      "Vendor Management",
+      "Retail Design",
+      "In-Store Digital",
+      "Construction Oversight",
+      "Stakeholder Communication"
+    ],
     "link": null,
     "featured": true
   },
@@ -77,7 +133,7 @@
     "id": "launchkit",
     "name": "LaunchKit",
     "category": "Product Design",
-    "summary": "A productized template system for founders who need to launch fast — brand kits, Canva templates, and digital tools structured to move people from idea to live. A growing catalog sold via Etsy and Shopify on a repeatable system.",
+    "summary": "A productized template system that moves founders from idea to live. A growing catalog sold via Etsy and Shopify.",
     "image": "/images/project-launchkit.jpg",
     "frame": "triptych",
     "phoneImages": [],
@@ -90,11 +146,28 @@
     "whatIDid": "Designed and built LaunchKit as a productized system: Canva templates, brand kits, and digital tools structured to move founders from concept to launch without getting stuck. Handled product design, distribution setup, and the full launch strategy.",
     "outcome": "A growing catalog of digital products sold via Etsy and Shopify, built on a repeatable system that scales without custom client work.",
     "stats": [
-      { "n": "Repeatable", "l": "A system, not one-off client work" },
-      { "n": "Etsy + Shopify", "l": "Two distribution channels" },
-      { "n": "Scales", "l": "Grows without custom builds" }
+      {
+        "n": "Repeatable",
+        "l": "A system, not one-off client work"
+      },
+      {
+        "n": "Etsy + Shopify",
+        "l": "Two distribution channels"
+      },
+      {
+        "n": "Scales",
+        "l": "Grows without custom builds"
+      }
     ],
-    "tools": ["Product Design", "Canva", "Astro", "Shopify", "Etsy", "Brand Strategy", "Digital Distribution"],
+    "tools": [
+      "Product Design",
+      "Canva",
+      "Astro",
+      "Shopify",
+      "Etsy",
+      "Brand Strategy",
+      "Digital Distribution"
+    ],
     "link": null,
     "featured": true
   },
@@ -102,7 +175,7 @@
     "id": "apple-retail",
     "name": "Apple Retail Experience",
     "category": "Retail & Brand · Apple",
-    "summary": "Produced shop-in-shop, digital, print, and retail-space presentations for Apple's key retail partners across North America — end to end, from creative inception through physical installation.",
+    "summary": "Shop-in-shop, digital, and print presentations for Apple's retail partners — creative inception through installation.",
     "image": "/images/project-apple.jpg",
     "frame": "photo",
     "tint": "tint-sand",
@@ -114,11 +187,27 @@
     "whatIDid": "Led the full creative and production process for shop-in-shop displays, digital components, print marketing, and retail space presentations. Managed cross-functional teams including project managers, surveyors, field operations, and construction crews. Drove product and marketing program approvals with key retail partners and orchestrated multiple vendor relationships to ensure seamless execution.",
     "outcome": "Delivered retail partner experiences across North America on time, on budget, and to Apple's brand standards — consistently.",
     "stats": [
-      { "n": "N. America", "l": "Retail partner reach" },
-      { "n": "End-to-end", "l": "Concept through installation" },
-      { "n": "On brand", "l": "To Apple's exacting standards" }
+      {
+        "n": "N. America",
+        "l": "Retail partner reach"
+      },
+      {
+        "n": "End-to-end",
+        "l": "Concept through installation"
+      },
+      {
+        "n": "On brand",
+        "l": "To Apple's exacting standards"
+      }
     ],
-    "tools": ["Creative Production", "Retail Installations", "Cross-functional Leadership", "Vendor Management", "Field Operations", "Budget Management"],
+    "tools": [
+      "Creative Production",
+      "Retail Installations",
+      "Cross-functional Leadership",
+      "Vendor Management",
+      "Field Operations",
+      "Budget Management"
+    ],
     "link": null,
     "featured": false
   }

@@ -1,0 +1,102 @@
+---
+// Single source of truth for a project's media treatment.
+// Used by BOTH the homepage card (ProjectCard) and the case-study hero
+// (pages/work/[slug].astro) so the two can never show different screenshots.
+const { project, eager = false } = Astro.props;
+const loading = eager ? 'eager' : 'lazy';
+---
+{project.frame === 'triptych' ? (
+  <div class="triptych">
+    {[0, 1, 2].map((i) => (
+      <div class:list={['phone', i === 1 && 'center']}>
+        <div class="phone-shot">
+          {project.phoneImages && project.phoneImages[i]
+            ? <img src={project.phoneImages[i]} alt={`${project.name} — screen ${i + 1}`} loading={loading} />
+            : <span class="phone-ph">screen {i + 1}</span>}
+        </div>
+      </div>
+    ))}
+  </div>
+) : project.frame === 'combo' ? (
+  <div class="combo">
+    <div class="frame browser laptop">
+      <div class="bar"><i></i><i></i><i></i>{project.urlLabel && <em>{project.urlLabel}</em>}</div>
+      <div class="shot">{project.laptopImage && <img src={project.laptopImage} alt={`${project.name} — website`} loading={loading} />}</div>
+    </div>
+    <div class="phone">
+      <div class="phone-shot">{project.phoneImage && <img src={project.phoneImage} alt={`${project.name} — app`} loading={loading} />}</div>
+    </div>
+  </div>
+) : project.frame === 'browser' ? (
+  <div class="frame browser">
+    <div class="bar"><i></i><i></i><i></i>{project.urlLabel && <em>{project.urlLabel}</em>}</div>
+    <div class="shot">{project.image && <img src={project.image} alt={project.name} loading={loading} />}</div>
+  </div>
+) : (
+  <div class="frame photo">
+    <div class="shot">{project.image && <img src={project.image} alt={project.name} loading={loading} />}</div>
+  </div>
+)}
+
+<style>
+  .frame { width: 100%; border-radius: 8px; overflow: hidden; background: #fff; box-shadow: 0 16px 34px -16px rgba(0,0,0,0.35); }
+  .frame .shot { background: linear-gradient(135deg,#FFFFFF,#EDF1F2); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .frame .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .frame.browser .bar { height: 28px; display: flex; align-items: center; gap: 6px; padding: 0 12px; background: #F1F3F4; border-bottom: 1px solid var(--line); }
+  .frame.browser .bar i { width: 8px; height: 8px; border-radius: 50%; background: #C7CDCF; display: block; }
+  .frame.browser .bar em { margin-left: 12px; font-family: var(--font-mono); font-size: 9px; color: var(--ink-soft); font-style: normal; letter-spacing: 0.04em; }
+  .frame.browser .shot { aspect-ratio: 16/10; }
+  .frame.photo .shot { aspect-ratio: 4/3; }
+
+  /* combo: website (laptop/browser) + overlapping phone */
+  .combo { position: relative; width: 100%; height: 100%; }
+  .combo .laptop {
+    position: absolute; top: 50%; right: 0; transform: translateY(-50%);
+    width: 82%; margin: 0;
+  }
+  .combo .laptop .shot img { object-position: top; }
+  .combo .phone {
+    position: absolute; bottom: 4%; left: 0; z-index: 2;
+    width: 26%; padding: 5px;
+    background: #000000; border-radius: 20px;
+    border: 1px solid rgba(0,0,0,0.25);
+    box-shadow: 0 20px 38px -14px rgba(0,0,0,0.45);
+  }
+  .combo .phone .phone-shot {
+    aspect-ratio: 9/19; border-radius: 15px; overflow: hidden; background: #fff;
+  }
+  .combo .phone .phone-shot img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;
+  }
+  @media (max-width: 520px) {
+    .combo .phone { width: 30%; }
+  }
+
+  /* triptych: three phones, center raised — placeholders ready for screenshots */
+  .triptych {
+    position: relative; width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center; gap: 1.5%;
+  }
+  .triptych .phone {
+    flex: 0 0 auto; width: 26%; padding: 5px;
+    background: #000000; border-radius: 20px;
+    border: 1px solid rgba(0,0,0,0.25);
+    box-shadow: 0 16px 32px -16px rgba(0,0,0,0.4);
+    z-index: 2;
+  }
+  .triptych .phone:first-child { transform: rotate(-5deg) translateY(4%); }
+  .triptych .phone:last-child { transform: rotate(5deg) translateY(4%); }
+  .triptych .phone.center {
+    width: 29%; z-index: 3; transform: translateY(-4%);
+    box-shadow: 0 24px 44px -16px rgba(0,0,0,0.5);
+  }
+  .triptych .phone-shot {
+    aspect-ratio: 9/19; border-radius: 15px; overflow: hidden; background: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .triptych .phone-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .triptych .phone-ph {
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-soft); opacity: 0.5;
+  }
+</style>
