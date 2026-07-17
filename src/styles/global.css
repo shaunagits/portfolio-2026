@@ -158,16 +158,33 @@ body::after {
 /* =============================================
    BUTTONS
    ============================================= */
+/* Secondary. Sibling of .btn-primary: same silhouette, same offset, same choreography —
+   but the shape behind is a HOLLOW teal ring instead of a solid fill, so it sits a step
+   quieter than the primary. On hover the ring slides home and becomes the button's own
+   outline (black -> teal); the fill stays white, leaving the teal fill to the primary.
+   The ring is faked with two stacked shadows, the inner one knocked out in --paper —
+   so .btn must sit on a --paper background (it does: the hero). On a tinted or dark
+   band the knockout would show. */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
   padding: 0.7rem 1.375rem;
   border: 1px solid var(--ink);
   border-radius: var(--radius-pill);
+  background: var(--paper);
   color: var(--ink);
   font-family: var(--font-sans); font-size: 0.875rem; font-weight: 500;
-  transition: background 0.25s, color 0.25s, transform 0.2s var(--ease), box-shadow 0.3s;
+  box-shadow: var(--btn-offset) calc(var(--btn-offset) * -1) 0 -1.5px var(--paper),
+              var(--btn-offset) calc(var(--btn-offset) * -1) 0 0 var(--primary);
+  transition: background 0.25s var(--ease), color 0.25s var(--ease),
+              border-color 0.28s var(--ease), box-shadow 0.34s var(--ease),
+              transform 0.12s var(--ease);
 }
-.btn:hover { background: var(--ink); color: var(--paper); transform: translateY(-1px); }
+.btn:hover, .btn:focus-visible {
+  background: var(--paper); color: var(--ink); border-color: var(--primary);
+  box-shadow: 0 0 0 -1.5px var(--paper), 0 0 0 0 var(--primary);
+  transform: none;
+}
+.btn:active { transform: scale(0.97); }
 /* Outlined at rest, with a solid accent shape of the SAME silhouette offset up-right
    behind it (a zero-blur box-shadow inherits the border-radius, so the shape can never
    drift from the button). On hover/focus the shape slides home and the button takes the
