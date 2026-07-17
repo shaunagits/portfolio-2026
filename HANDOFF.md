@@ -20,9 +20,8 @@ updated 2026-07-16 (end of session)
   security headers (netlify.toml now adds CSP + headers + cache rules).
 
 ## In-flight / unfinished
-- ⚠️ CONTACT FORM STILL UNTESTED END-TO-END. Formspree endpoint (formspree.io/f/xvzwklgz)
-  was restored from the old site but nobody has confirmed that account still accepts mail.
-  SEND A TEST SUBMISSION — this is the highest-value 60 seconds available.
+- ✅ CONTACT FORM VERIFIED END-TO-END — a real test submission landed 2026-07-16. Formspree
+  (formspree.io/f/xvzwklgz) is live. Confirmation box centring fixed after that test.
 - LaunchKit triptych is empty placeholders. Fill via launchkit `phoneImages` in
   projects.json (3 paths). Nike/Apple still on old images.
 - og-image.jpg loads but is still the OLD cream artwork — redo it in the teal palette.
@@ -33,9 +32,10 @@ updated 2026-07-16 (end of session)
   DEAD CODE — never bundled (verified: no off-palette hex ships). Delete or restyle someday.
 
 ## Single next task (paste-and-go)
-Send a test through the contact form at https://shauna.digital/#contact and confirm it
-lands. If it doesn't, the Formspree account needs re-activating (or switch to Netlify
-Forms, which needs form detection enabled in the Netlify dashboard — Claude can't do that).
+Decide the secondary button's filled offset shape — options were rendered (light/mid/deep
+teal, ink, terracotta complement); recommendation is mid teal #6BAEB8 with an ink label, so
+primary = deep teal + white and secondary = light teal + ink. Then redo og-image.jpg in the
+teal palette (it still shows the old cream artwork).
 
 ## Gotchas
 - Two Netlify accounts: AAO (shauna@alohaanimaloutreach.org) has NO portfolio site.
