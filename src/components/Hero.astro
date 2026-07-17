@@ -4,7 +4,7 @@
   <div class="hero-inner container">
     <div class="status" data-animate><span class="dot"></span>Available for new projects</div>
     <p class="mono hero-eyebrow" data-animate data-delay="1">Designer &middot; Developer &middot; AI App Builder</p>
-    <h1 class="hero-title" data-animate data-delay="2">I <em>build</em> websites, web apps, &amp; AI tools.</h1>
+    <h1 class="hero-title" data-animate data-delay="2">I <em>build</em> websites, web apps, <span class="nb">&amp; AI tools</span></h1>
     <p class="hero-subhead" data-animate data-delay="3">Designer and developer. I take websites, web apps, and AI tools from idea to live for founders, small teams, and nonprofits — no handoffs, no runaround.</p>
     <div class="hero-ctas" data-animate data-delay="4">
       <a href="#work" class="btn btn-primary">See the Work</a>
@@ -37,6 +37,8 @@
     font-family: var(--font-display); font-weight: 400;
     font-size: clamp(2.5rem, 6.4vw, 5.5rem); line-height: 1.0; letter-spacing: -0.025em; max-width: 20ch;
   }
+  /* keeps "& AI tools" together so it wraps to line 2 as one unit */
+  .hero-title .nb { white-space: nowrap; }
   .hero-title em { font-style: normal; color: var(--primary); position: relative; }
   .hero-title em::after { content: ''; position: absolute; left: 0; bottom: 0.04em; height: 0.07em; width: 0; background: var(--accent); border-radius: 3px; transition: width 0.9s 0.35s var(--ease); }
   .hero-title.is-visible em::after { width: 100%; }
