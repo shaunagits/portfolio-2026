@@ -1,0 +1,109 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import projects from '../../data/projects.json';
+
+export function getStaticPaths() {
+  return projects.map((p, i) => ({
+    params: { slug: p.id },
+    props: { project: p, next: projects[(i + 1) % projects.length] },
+  }));
+}
+
+const { project, next } = Astro.props;
+---
+<Layout title={`${project.name} — Case Study · Shauna`} description={project.summary}>
+  <Nav />
+  <main class="cs">
+    <div class="container"><a href="/#work" class="back">← Back to work</a></div>
+
+    <section class="cs-head container" data-animate>
+      <div class="mono cs-cat">{project.category}</div>
+      <h1>{project.name}</h1>
+      <p class="cs-lede">{project.summary}</p>
+      <div class="meta">
+        <div class="m"><div class="k">Role</div><div class="v" set:html={project.role} /></div>
+        <div class="m"><div class="k">Timeline</div><div class="v">{project.timeline}</div></div>
+        <div class="m"><div class="k">Scope</div><div class="v">{project.scope}</div></div>
+        <div class="m"><div class="k">{project.link ? 'Live' : 'Sold on'}</div>
+          <div class="v">{project.link
+            ? <a href={project.link} target="_blank" rel="noopener">{project.urlLabel} ↗</a>
+            : (project.urlLabel || '—')}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cs-hero container" data-animate>
+      <div class="stage">
+        {project.image
+          ? <img src={project.image} alt={project.name} />
+          : <span class="ph">hero image</span>}
+      </div>
+    </section>
+
+    <div class="body container container--narrow">
+      <div class="sec" data-animate><div class="mono lbl">01 — Overview</div><h2>The Challenge</h2><p>{project.problem}</p></div>
+      <div class="sec" data-animate><div class="mono lbl">02 — Approach</div><h2>What I Did</h2><div class="rich" set:html={project.whatIDid} /></div>
+      {project.stats && (
+        <div class="stats" data-animate>
+          {project.stats.map((s) => (
+            <div class="s"><div class="n">{s.n}</div><div class="l">{s.l}</div></div>
+          ))}
+        </div>
+      )}
+      <div class="sec" data-animate><div class="mono lbl">03 — Result</div><h2>Outcome</h2><p>{project.outcome}</p></div>
+    </div>
+
+    <div class="container container--narrow stack-wrap">
+      <div class="mono lbl">Built with</div>
+      <div class="chips">{project.tools.map((t) => <span class="chip">{t}</span>)}</div>
+    </div>
+
+    <section class="next">
+      <div class="container next-inner">
+        <div><div class="mono">Next project</div><h3>{next.name}</h3></div>
+        <a href={`/work/${next.id}`} class="go">Read the case study →</a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .cs .back { display: inline-flex; align-items: center; gap: 8px; margin-top: 6.5rem; color: var(--ink-soft); font-size: 0.875rem; font-weight: 500; transition: gap 0.2s, color 0.2s; }
+  .cs .back:hover { color: var(--primary); gap: 12px; }
+  .cs-head { padding: 1.75rem 0 2.5rem; }
+  .cs-cat { color: var(--accent); margin-bottom: 1.375rem; display: flex; align-items: center; gap: 12px; }
+  .cs-cat::before { content: ''; width: 30px; height: 1px; background: var(--accent); }
+  .cs-head h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.4rem, 6vw, 4.25rem); line-height: 1.02; letter-spacing: -0.025em; max-width: 18ch; }
+  .cs-lede { margin-top: 1.625rem; font-size: clamp(1.125rem, 2.2vw, 1.375rem); color: var(--ink-soft); max-width: 60ch; line-height: 1.5; }
+  .meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 1.625rem 0; margin-top: 2.5rem; }
+  .meta .k { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.5rem; }
+  .meta .v { font-size: 0.95rem; font-weight: 500; }
+  .meta .v a { color: var(--primary); }
+  .cs-hero { margin: 2.5rem auto 0.5rem; }
+  .cs-hero .stage { aspect-ratio: 16/9; border-radius: 14px; overflow: hidden; background: linear-gradient(135deg,var(--paper-2),#ddd7c7); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-media); }
+  .cs-hero .stage img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .cs-hero .ph { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); opacity: 0.6; }
+  .body { padding-top: 4rem; padding-bottom: 4rem; }
+  .sec { margin-bottom: 3.25rem; }
+  .sec .lbl { color: var(--accent); margin-bottom: 1rem; display: block; }
+  .sec h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.5rem, 3.4vw, 2rem); letter-spacing: -0.01em; margin-bottom: 1.125rem; }
+  .sec p, .rich { color: var(--ink); font-size: 1.09rem; line-height: 1.7; }
+  .rich :global(strong) { font-weight: 600; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin: 3.5rem 0; padding: 2.25rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .stats .n { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.9rem, 4vw, 2.75rem); color: var(--primary); line-height: 1; }
+  .stats .l { margin-top: 0.625rem; color: var(--ink-soft); font-size: 0.875rem; max-width: 22ch; }
+  .stack-wrap { padding-top: 0.5rem; }
+  .stack-wrap .lbl { color: var(--accent); margin-bottom: 1.125rem; display: block; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font-family: var(--font-mono); font-size: 0.75rem; padding: 7px 13px; border: 1px solid var(--line); border-radius: var(--radius-pill); color: var(--ink-soft); }
+  .next { background: var(--primary-deep); color: var(--on-dark); margin-top: 4.5rem; }
+  .next-inner { padding: 4rem 0; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+  .next .mono { color: var(--on-dark-3); margin-bottom: 0.75rem; }
+  .next h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.6rem, 3.6vw, 2.5rem); letter-spacing: -0.01em; }
+  .next .go { display: inline-flex; align-items: center; gap: 10px; color: var(--on-dark); font-family: var(--font-display); font-size: 1.375rem; border-bottom: 1px solid var(--on-dark-line); padding-bottom: 4px; transition: gap 0.2s, border-color 0.2s; }
+  .next .go:hover { gap: 16px; border-color: var(--accent); }
+  @media (max-width: 760px) { .meta { grid-template-columns: 1fr 1fr; gap: 1.375rem 1rem; } .stats { grid-template-columns: 1fr; gap: 1.5rem; } }
+</style>

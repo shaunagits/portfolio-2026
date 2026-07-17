@@ -1,68 +1,45 @@
 ---
+const year = new Date().getFullYear();
 ---
-
 <footer class="footer">
-  <div class="container footer-inner">
-    <p class="footer-text">&copy; {new Date().getFullYear()} Shauna. All rights reserved.</p>
-    <div class="footer-links">
-      <a href="/blog">Blog</a>
-      <a href="https://www.linkedin.com/in/shaunaarnold/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="https://github.com/shaunagits" target="_blank" rel="noopener noreferrer">GitHub</a>
+  <div class="container">
+    <div class="foot-top">
+      <div>
+        <div class="foot-logo">Shauna<span>.</span></div>
+        <p>Designer &amp; developer building websites, web apps, and AI tools from Hawai&#699;i.</p>
+      </div>
+      <div class="foot-col">
+        <div class="mono">Index</div>
+        <a href="/#work">Work</a>
+        <a href="/#about">About</a>
+        <a href="/#services">Services</a>
+        <a href="/#contact">Work With Me</a>
+      </div>
+      <div class="foot-col">
+        <div class="mono">Elsewhere</div>
+        <a href="/blog"><svg viewBox="0 0 24 24"><path d="M6 3.5h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9.5 9h5"/><path d="M9.5 12.5h5"/></svg>Blog</a>
+        <a href="https://www.linkedin.com/in/shaunaarnold/"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5v6"/><path d="M8 7.6h.01"/><path d="M12 16.5v-3.2a2 2 0 0 1 4 0v3.2"/><path d="M12 16.5v-6"/></svg>LinkedIn</a>
+        <a href="https://github.com/shaunagits"><svg viewBox="0 0 24 24"><path d="M9 19c-4 1.2-4-2.2-5.5-2.6M15 21v-3.3a2.9 2.9 0 0 0-.8-2.2c2.7-.3 5.5-1.3 5.5-6a4.7 4.7 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.6 11.6 0 0 0-6 0C6.5 2.5 5.5 2.8 5.5 2.8a4.3 4.3 0 0 0-.1 3.2A4.7 4.7 0 0 0 4 9.2c0 4.7 2.8 5.7 5.5 6a2.9 2.9 0 0 0-.8 2.1V21"/></svg>GitHub</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="mono">© {year} Shauna</div>
+      <div class="mono">Designed &amp; built in Hawai&#699;i</div>
     </div>
   </div>
 </footer>
 
 <style>
-  .footer {
-    background: var(--c-bg-subtle);
-    border-top: 1px solid var(--c-border);
-    padding: 80px 0 2rem;
-  }
-
-  .footer-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .footer-text {
-    font-size: 0.8125rem;
-    color: var(--c-text-muted);
-  }
-
-  .footer-text a {
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    transition: color var(--transition-fast);
-  }
-
-  .footer-text a:hover {
-    color: var(--c-text);
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 1.5rem;
-  }
-
-  .footer-links a {
-    font-size: 0.8125rem;
-    color: var(--c-text-muted);
-    transition: color var(--transition-fast);
-  }
-
-  .footer-links a:hover {
-    color: var(--c-text);
-  }
-
-  @media (max-width: 768px) {
-    .footer-inner {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 0.75rem;
-    }
-  }
+  .footer { background: var(--primary-deep); color: var(--on-dark); padding: 4.5rem 0 2.5rem; position: relative; z-index: 2; }
+  .foot-top { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2.5rem; padding-bottom: 3rem; border-bottom: 1px solid var(--on-dark-line); }
+  .foot-logo { font-family: var(--font-display); font-size: 1.875rem; font-weight: 600; }
+  .foot-logo span { color: var(--accent); }
+  .foot-top p { color: var(--on-dark-2); margin-top: 1rem; max-width: 34ch; font-size: 0.94rem; }
+  .foot-col .mono { color: var(--on-dark-3); margin-bottom: 1.125rem; }
+  .foot-col a { display: flex; align-items: center; gap: 10px; color: var(--on-dark); font-size: 0.94rem; margin-bottom: 0.75rem; transition: color 0.2s; }
+  .foot-col a:hover { color: var(--accent); }
+  .foot-col a svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: 0.9; }
+  .foot-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 1.75rem; flex-wrap: wrap; gap: 0.875rem; }
+  .foot-bottom .mono { color: var(--on-dark-3); }
+  @media (max-width: 720px) { .foot-top { grid-template-columns: 1fr; } }
 </style>

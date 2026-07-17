@@ -1,175 +1,29 @@
 ---
 ---
-
 <section class="about" id="about">
-  <div class="container">
-    <dl class="about-stats" data-animate>
-      <div class="stat">
-        <dd class="stat-value">10+</dd>
-        <dt class="stat-label">Years experience</dt>
-      </div>
-      <div class="stat-rule" aria-hidden="true"></div>
-      <div class="stat">
-        <dd class="stat-value">50+</dd>
-        <dt class="stat-label">Projects shipped</dt>
-      </div>
-      <div class="stat-rule" aria-hidden="true"></div>
-      <div class="stat">
-        <dd class="stat-value">Retail, brand & digital</dd>
-        <dt class="stat-label">Focus areas</dt>
-      </div>
-      <div class="stat-rule" aria-hidden="true"></div>
-      <div class="stat">
-        <dd class="stat-value">Hawaii / Remote</dd>
-        <dt class="stat-label">Location</dt>
-      </div>
-    </dl>
-
-    <div class="about-grid">
-      <div class="about-image" data-animate data-delay="1">
-        <img src="/images/hero-portrait.jpg" alt="Shauna" class="about-image-placeholder" />
-        <div class="about-image-rule" aria-hidden="true"></div>
-      </div>
-
-      <div class="about-content" data-animate data-delay="2">
-        <p class="section-label">About</p>
-        <h2 class="heading-section about-heading">
-          Built for the<br />work that matters.
-        </h2>
-        <div class="about-body">
-          <p>
-            I'm based in Hawai&#699;i, working with clients across the US. My background is in large-scale marketing operations and production — I've managed programs that touched millions of people. Now I apply that same discipline to smaller teams who deserve better digital tools than they typically get.
-          </p>
-        </div>
-      </div>
+  <div class="container about-inner">
+    <div data-animate>
+      <div class="mono lbl">02 — About</div>
+      <h2 class="about-h2">Large-scale rigor, applied to teams that deserve better tools.</h2>
+      <p>I'm based in Hawai&#699;i, working with clients across the US. My background is in large-scale marketing operations and production — programs at Nike and Apple that touched millions of people.</p>
+      <p>Now I bring that same discipline to smaller teams: real products, built properly, designed to grow. You work directly with me — no account managers, no handoffs, no runaround.</p>
+      <div class="logos"><span>Nike</span><span>Apple</span><span>Independent</span></div>
+    </div>
+    <div class="portrait" data-animate data-delay="1">
+      <img src="/images/about-headshot.jpg" alt="Shauna" loading="lazy" />
     </div>
   </div>
 </section>
 
 <style>
-  .about {
-    padding: var(--section-py) 0;
-    background: var(--c-bg-subtle);
-  }
-
-  /* ---- Stats strip (top of section) ---- */
-  .about-stats {
-    display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
-    width: 100%;
-    margin-bottom: 3.5rem;
-    padding-bottom: 3rem;
-    border-bottom: 1px solid var(--c-border);
-  }
-
-  .stat {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-  }
-
-  .stat-value {
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
-    font-weight: 700;
-    color: var(--c-text);
-    line-height: 1.1;
-  }
-
-  .stat-label {
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--c-text-muted);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  .stat-rule {
-    width: 1px;
-    align-self: stretch;
-    background: var(--c-border);
-    flex-shrink: 0;
-  }
-
-  /* ---- Grid: image left, content right ---- */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 45% 55%;
-    gap: 3rem;
-    align-items: start;
-  }
-
-  .about-image {
-    position: relative;
-    padding-right: 1.5rem;
-  }
-
-  .about-image-placeholder {
-    width: 100%;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-  }
-
-  .about-image-rule {
-    position: absolute;
-    top: -2rem;
-    right: 0;
-    width: 2px;
-    height: calc(100% + 4rem);
-    background: var(--c-accent);
-  }
-
-  .about-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .about-heading {
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .about-body {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .about-body p {
-    font-size: 1.125rem;
-    line-height: 1.8;
-    color: var(--c-text-muted);
-  }
-
-  /* ---- Mobile ---- */
-  @media (max-width: 768px) {
-    .about-stats {
-      flex-wrap: wrap;
-      gap: 1.25rem;
-    }
-
-    .stat {
-      flex: 0 0 calc(50% - 1rem);
-    }
-
-    .stat-rule {
-      display: none;
-    }
-
-    .about-grid {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-    }
-
-    .about-image {
-      padding-right: 0;
-    }
-
-    .about-image-rule {
-      display: none;
-    }
-  }
+  .about { background: var(--primary-deep); color: var(--on-dark); padding: var(--section-py) 0; position: relative; z-index: 2; }
+  .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4.5rem; align-items: center; }
+  .about .lbl { color: var(--on-dark-3); }
+  .about-h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.75rem, 3.6vw, 2.6rem); line-height: 1.12; letter-spacing: -0.01em; margin: 1.375rem 0 1.5rem; }
+  .about p { color: var(--on-dark-2); font-size: 1.03rem; max-width: 46ch; margin-bottom: 1.125rem; }
+  .logos { margin-top: 1.875rem; display: flex; gap: 1.75rem; flex-wrap: wrap; align-items: center; }
+  .logos span { font-family: var(--font-display); font-size: 1.25rem; color: var(--on-dark); font-weight: 500; }
+  .portrait { aspect-ratio: 3/4; border-radius: var(--radius); overflow: hidden; background: linear-gradient(150deg,#2b2e31,rgba(23,25,27,0.5)); border: 1px solid var(--on-dark-line); }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  @media (max-width: 860px) { .about-inner { grid-template-columns: 1fr; gap: 2.5rem; } .portrait { max-width: 320px; } }
 </style>

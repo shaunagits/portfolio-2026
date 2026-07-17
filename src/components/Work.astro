@@ -1,59 +1,25 @@
 ---
 import ProjectCard from './ProjectCard.astro';
 import projects from '../data/projects.json';
-
 ---
-
 <section class="work" id="work">
   <div class="container">
-    <div class="work-header">
-      <h2 class="heading-section" data-animate>Selected work.</h2>
-      <p class="body-text work-subhead" data-animate data-delay="1">
-        Real problems, real solutions — built for people who needed something that didn't already exist.
-      </p>
+    <div class="work-header" data-animate>
+      <h2 class="heading-section"><span class="idx">01 —</span> Selected work.</h2>
+      <p class="work-subhead">Real problems, real solutions — built for people who needed something that didn't already exist.</p>
     </div>
-
-    <div class="projects-grid" id="projects-grid">
+    <div class="projects-list">
       {projects.map((project, index) => (
-        <div class:list={['grid-item', { 'grid-item--featured': index === 0 }]}>
-          <ProjectCard project={project} index={index} />
-        </div>
+        <ProjectCard project={project} index={index} />
       ))}
     </div>
-
   </div>
 </section>
 
 <style>
-  .work {
-    padding: var(--section-py) 0;
-  }
-
-  .work-header {
-    margin-bottom: 2.5rem;
-  }
-
-  .work-subhead {
-    margin-top: 1rem;
-    max-width: 540px;
-  }
-
-  /* ---- Grid: asymmetric 2-col, first card full width ---- */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    align-items: start;
-  }
-
-  .grid-item--featured {
-    grid-column: 1 / -1;
-  }
-
-  /* ---- Mobile ---- */
-  @media (max-width: 768px) {
-    .projects-grid {
-      grid-template-columns: 1fr;
-    }
-  }
+  .work { padding: var(--section-py) 0; }
+  .work-header { display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem; margin-bottom: 3.5rem; flex-wrap: wrap; }
+  .work-header .idx { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.12em; color: var(--accent); }
+  .work-subhead { max-width: 46ch; color: var(--ink-soft); font-size: 1rem; }
+  .projects-list { display: flex; flex-direction: column; }
 </style>
