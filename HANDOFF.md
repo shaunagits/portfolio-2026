@@ -1,50 +1,41 @@
 # HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
-updated 2026-07-16 (end of session)
+updated 2026-07-16 (session close)
 
-## Shipped this session
-- ✅ LIVE at https://shauna.digital, and main/GitHub/prod are all IN SYNC at ec3a12b.
-  Netlify project "byshauna" on the PERSONAL account shauna.coy@gmail.com (NOT AAO).
-- Brand colour LOCKED: black + white + #2C8C99. Neutrals hue-shifted to match
-  (--ink #0B1416, --ink-soft #55656A). Three RGB triplets are the only colour literals;
-  every component references a token. Accent ramp --primary-50/100/200; stages tint-1/2/3.
-- Buttons: offset-shape treatment (solid shape behind, slides home on hover). Primary
-  fills teal; secondary's hollow ring becomes a teal outline; nav CTA uses the primary
-  treatment at 5px offset, swapping its shape to ink on the teal footer bar.
-- Nav flips to teal/white only at the footer. Hero line lost its period; "& AI tools"
-  wraps as a unit. About lost the Nike/Apple/Independent list.
-- New S-mark favicon in teal + regenerated .ico + apple-touch-icon, all declared in head.
-- Project names rewritten work-first (copywriter pass); client/product moved to a
-  credited meta line (card + case-study). Nike/Apple credited there, not in the header.
-  New `client`/`clientLabel` fields in projects.json; category chips stripped of client.
-- ProjectFrame.astro is now the single source of truth for card + case-study media.
-- FIXED 4 live bugs: contact form posted into a void (Netlify Forms never registered →
-  restored Formspree); og:url/og:image pointed at work.shauna.digital which does NOT
-  resolve, so every link preview was broken; theme-color was still cream; site had NO
-  security headers (netlify.toml now adds CSP + headers + cache rules).
+## State: SHIPPED & IN SYNC
+- Live at https://shauna.digital. main == GitHub == prod at the latest commit; tree clean.
+  Push to `main` = auto-deploy to prod (see DEPLOY.md). Netlify project "byshauna"
+  (id f63775ef-f653-4328-bf37-d5270d1882f2) on the PERSONAL account shauna.coy@gmail.com —
+  NOT the AAO account (which has no portfolio site).
+- Durable design rules + the reasoning behind every choice live in CLAUDE.md and
+  DECISIONS.md. Read those first; this file is just current state.
 
-## In-flight / unfinished
-- ✅ CONTACT FORM VERIFIED END-TO-END — a real test submission landed 2026-07-16. Formspree
-  (formspree.io/f/xvzwklgz) is live. Confirmation box centring fixed after that test.
-- LaunchKit triptych is empty placeholders. Fill via launchkit `phoneImages` in
-  projects.json (3 paths). Nike/Apple still on old images.
-- og-image.jpg loads but is still the OLD cream artwork — redo it in the teal palette.
-- GitHub/LinkedIn footer glyphs still custom — swap for OFFICIAL marks.
-- S mark in the nav wordmark: explored and parked, see DECISIONS.md. If revisited, a
-  simplified S (fewer speed-lines) would hold better at 24px.
-- Blog components (BlogTable/BlogCallout/blog/*) still use the old green #0D6B4A. They are
-  DEAD CODE — never bundled (verified: no off-palette hex ships). Delete or restyle someday.
+## Done this session (all live)
+- Palette LOCKED: black + white + #2C8C99 teal; neutrals hue-shifted (--ink #0B1416,
+  --ink-soft #55656A). Three RGB triplets are the only colour literals; ramp --primary-50/100/200.
+- Offset-shape buttons: primary fills TEAL, secondary fills INK, nav CTA uses the primary
+  treatment (its shape swaps teal→ink on the footer bar). All share one --btn-offset gesture.
+- Nav flips to a teal bar at the FOOTER only; S logomark in nav; hero eyebrow "Hi, I'm Shauna".
+- ProjectFrame.astro = single source of truth for card + case-study media.
+- New S-mark favicon + .ico + apple-touch-icon in teal.
+- Project names rewritten work-first; client (incl. Nike/Apple) moved to a credited meta line
+  on card + case study, out of the header. New client/clientLabel fields in projects.json.
+- Contact form = Formspree (VERIFIED end-to-end); og tags + theme-color fixed; netlify.toml
+  adds CSP + security headers + caching.
 
-## Single next task (paste-and-go)
-Decide the secondary button's filled offset shape — options were rendered (light/mid/deep
-teal, ink, terracotta complement); recommendation is mid teal #6BAEB8 with an ink label, so
-primary = deep teal + white and secondary = light teal + ink. Then redo og-image.jpg in the
-teal palette (it still shows the old cream artwork).
+## Open / next (nothing broken, nothing urgent)
+- og-image.jpg loads but is still the OLD cream artwork — redo in teal (it's the share/link preview).
+- LaunchKit triptych = empty "screen 1/2/3" placeholders. Fill via launchkit `phoneImages`
+  (3 image paths) in projects.json. Nike/Apple project images are also still the originals.
+- Footer GitHub/LinkedIn glyphs are custom — swap for OFFICIAL marks before relying on them.
+- Eyeball: is the client credit line on the cards loud enough for Nike/Apple? (Shauna's call.)
+- Dead code: blog components (BlogTable/BlogCallout/blog/*) use old green #0D6B4A but are
+  never bundled (verified — no off-palette hex ships). Delete or restyle someday.
 
-## Gotchas
-- Two Netlify accounts: AAO (shauna@alohaanimaloutreach.org) has NO portfolio site.
-- CSP is tight (form-action = Formspree only). If a font/form silently breaks, suspect
-  netlify.toml first.
-- .btn secondary's ring needs a --paper background. Don't put it on a tinted/dark band.
-- Elements with .container must not use the `padding` shorthand — it zeroes the inline
-  padding. Use padding-block.
-- node_modules are mac-arm; a Linux rollup binary was added in-sandbox (inert on your Mac).
+## Gotchas (the rest are in CLAUDE.md)
+- CSP is tight (form-action = Formspree only). If a font/form silently breaks, suspect netlify.toml.
+- A child-component <svg> that takes a `class` needs `:global(...)` for its size rule, or
+  Astro scoping computes it to height:0 and it vanishes (bit the nav logo once).
+- The in-app preview pane freezes CSS transitions and blanks screenshots — verify CSS by
+  reading computed styles (set transition:none first), or use a Netlify draft in a real browser.
+- Two dev servers in launch.json (portfolio :4321, portfolio-alt :4333) because separate
+  sessions each start one; either serves the same site.

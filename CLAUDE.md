@@ -31,11 +31,17 @@ Personal portfolio at shauna.digital. Astro static site. Goal: personal brand
 - The nav mark carries no name, so the hero reintroduces it: the eyebrow reads
   "Hi, I'm Shauna". It replaced "Designer · Developer · AI App Builder", which was
   already the opening of the subhead directly beneath it.
-- Buttons: .btn-primary is outlined at rest (white fill, black label/border) with a solid
-  teal shape of the same silhouette offset up-right behind it; on hover/focus the shape
-  slides home and the button takes the teal fill. The shape is a zero-blur box-shadow, NOT
-  a pseudo-element — it inherits border-radius so it can never drift from the button's
-  shape. Offset is tunable via --btn-offset.
+- Buttons: all three share one "offset shape" gesture — outlined pill at rest with a solid
+  shape of the SAME silhouette offset up-right behind it; on hover/focus the shape slides
+  home and the button takes that fill. The shape is a zero-blur box-shadow, NOT a
+  pseudo-element — it inherits border-radius so it can never drift from the button. Offset
+  is --btn-offset (7px page, 5px nav). They differ only by shape colour:
+    .btn-primary  — TEAL shape → fills teal, white label.
+    .btn (2nd'ry) — INK shape → fills ink, white label. Ink (not teal) so the accent stays
+      exclusive to the primary and the two don't compete side by side. (An earlier hollow
+      teal ring was dropped — it needed a --paper knockout that only worked on white.)
+    .nav-cta      — uses the primary treatment; on the teal footer bar its shape swaps
+      teal→ink and the label knockout follows the bar colour, so it stays visible.
 - Nav: translucent white by default; swaps to a teal bar with white logo/links (and the CTA
   inverted to a white pill) once you reach the FOOTER. Keyed to the footer coming into view,
   not to overlapping a dark section — the nav is fixed to the top and a short desktop footer

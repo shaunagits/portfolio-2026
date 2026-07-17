@@ -1,31 +1,35 @@
 # DEPLOY.md — Portfolio (Netlify)
 
-Netlify auto-deploys on push to `main`. To avoid replacing the live site before
-review, deploy a PREVIEW via Netlify CLI first, then promote on approval.
+Netlify auto-deploys on push to `main`. The site is already linked and live at
+https://shauna.digital (project "byshauna", personal account shauna.coy@gmail.com).
 
-## Paste-and-go prompt for Claude Code
+## Rule
+NEVER push to `main` without Shauna's approval — a push IS a production deploy.
 
-```
-You are deploying the Shauna.Digital portfolio (Astro) redesign. The repo
-auto-deploys to Netlify on push to `main`, so DO NOT push to main until I approve
-a preview. Use a branch + the Netlify CLI for a draft deploy first.
-
-1. Read HANDOFF.md and CLAUDE.md first. Tell me the one next task and your plan.
-   Do not touch anything until I say go.
-2. Verify a clean build: run `npm install` if needed, then `npm run build`. Fix any
-   errors. Report the page count (expect ~17: home, 5 /work/*, blog).
-3. Create a branch: `git checkout -b redesign-2026`. Stage and commit ALL redesign
-   changes with a clear message. Do NOT push to main.
-4. Set up Netlify CLI: `npm i -g netlify-cli`, `netlify login`, then `netlify link`
-   to the existing Portfolio-2026 site. Confirm you linked the correct site.
-5. Draft deploy (NOT prod): `netlify deploy --build`. Give me the preview URL and
-   STOP for my review + approval.
-6. On my approval only: `netlify deploy --build --prod` (or merge redesign-2026 → main
-   and let Netlify auto-build — your call, tell me which).
-7. After live: confirm the "contact" form shows in Netlify > Forms, spot-check the
-   homepage and /work/aao-ecosystem, then update HANDOFF.md (shipped: deployed) and
+## Standard change flow
+1. Make the change on a branch or on `main` locally (don't push yet).
+2. `npm run build` — must be clean (17 pages: home + 5 /work/* + 11 blog).
+3. Preview it. Either:
+   - `netlify deploy --build` → a DRAFT url (does NOT touch prod), or
+   - the dev server: `preview_start` the `portfolio` (:4321) / `portfolio-alt` (:4333) config.
+   Verify computed styles, not screenshots — the in-app pane freezes transitions (HANDOFF).
+4. Show Shauna. STOP for approval.
+5. On approval → ship to prod, either:
+   - `git push origin main` (auto-build from GitHub — preferred; keeps repo == prod), or
+   - `netlify deploy --build --prod` (CLI direct — faster, but then `main` lags prod until
+     you also push; don't leave it out of sync).
+6. Verify on https://shauna.digital, then update HANDOFF.md and
    /Users/shauna/Desktop/claudecode/NOW.md.
 
-Notes: the single design accent lives in src/styles/global.css :root (--primary/--accent).
-Keep the blog intact. Netlify Forms needs the built HTML form present (it is: name="contact").
-```
+## Notes
+- Theme accent + all colour tokens: src/styles/global.css :root (--primary-rgb / --ink-rgb).
+- Contact form posts to Formspree (formspree.io/f/xvzwklgz), NOT Netlify Forms — see
+  CLAUDE.md / DECISIONS.md. Don't re-add Netlify Forms attributes.
+- Keep the blog intact.
+- CLI login is per-machine: `netlify status` should show shauna.coy@gmail.com. If it shows
+  the AAO account, `netlify logout` then `netlify login` — the portfolio site is not on AAO.
+
+## History
+The original redesign was shipped from branch `redesign-2026` via a preview-first CLI deploy
+(2026-07-16), then the branch was merged to `main`. That one-time runbook has been retired;
+use the standard flow above.
