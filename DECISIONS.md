@@ -86,3 +86,22 @@ Locked reasoning. Append new decisions; don't rewrite history.
 ## Client Portal (separate app, shauna-portal)
 - Bento dashboard + floating dock nav; its own visual identity; distinct from green apps.
 - Header = "Project Portal" + shauna.digital subtitle. "+ New" is a picker.
+
+
+## 2026-07-16 (evening) — Project naming
+- Headers lead with the WORK, not the client. Rationale: for a portfolio whose goal is
+  "the work is the hero", the client is proof, not the headline; leading with a logo reads
+  like a CV of employers, not a body of work.
+- Client (incl. Nike/Apple) moved to a credited meta line — on the card under the name, and
+  as the lead item in the case-study meta row. Shauna's call: don't headline the client,
+  even Nike/Apple; list them in the info.
+- Client stripped from category chips too (Retail & Brand · Nike -> Retail & brand), else
+  it re-appears one line up.
+- Names (all): AAO "A website, a store, and a field app"; Portal "A client portal, built
+  from scratch"; Nike "Store-design programs, nationwide"; Apple "Retail builds for a
+  global brand"; LaunchKit "Bespoke brand kits, ready to launch".
+- "Bespoke" for LaunchKit = each kit is purpose-built for a niche (still a product, still
+  sold from a catalog). Chosen over "productized template system", which is factory-speak
+  that undersells it. Summary reworded to match.
+- Portal's client is Shauna herself, labelled "Built for" — kept as a flex (builds
+  production tools for her own business), not hidden.

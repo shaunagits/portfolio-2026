@@ -13,6 +13,9 @@ updated 2026-07-16 (end of session)
 - Nav flips to teal/white only at the footer. Hero line lost its period; "& AI tools"
   wraps as a unit. About lost the Nike/Apple/Independent list.
 - New S-mark favicon in teal + regenerated .ico + apple-touch-icon, all declared in head.
+- Project names rewritten work-first (copywriter pass); client/product moved to a
+  credited meta line (card + case-study). Nike/Apple credited there, not in the header.
+  New `client`/`clientLabel` fields in projects.json; category chips stripped of client.
 - ProjectFrame.astro is now the single source of truth for card + case-study media.
 - FIXED 4 live bugs: contact form posted into a void (Netlify Forms never registered →
   restored Formspree); og:url/og:image pointed at work.shauna.digital which does NOT
