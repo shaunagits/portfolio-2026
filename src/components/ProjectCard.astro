@@ -6,7 +6,17 @@ const chips = (project.tools || []).slice(0, 6);
 <article class="project" data-animate>
   <a class="p-media" href={href} aria-label={project.name}>
     <div class:list={['stage', project.tint]}>
-      {project.frame === 'browser' ? (
+      {project.frame === 'combo' ? (
+        <div class="combo">
+          <div class="frame browser laptop">
+            <div class="bar"><i></i><i></i><i></i>{project.urlLabel && <em>{project.urlLabel}</em>}</div>
+            <div class="shot">{project.laptopImage && <img src={project.laptopImage} alt={`${project.name} — website`} loading="lazy" />}</div>
+          </div>
+          <div class="phone">
+            <div class="phone-shot">{project.phoneImage && <img src={project.phoneImage} alt={`${project.name} — app`} loading="lazy" />}</div>
+          </div>
+        </div>
+      ) : project.frame === 'browser' ? (
         <div class="frame browser">
           <div class="bar"><i></i><i></i><i></i>{project.urlLabel && <em>{project.urlLabel}</em>}</div>
           <div class="shot">{project.image && <img src={project.image} alt={project.name} loading="lazy" />}</div>
@@ -50,6 +60,30 @@ const chips = (project.tools || []).slice(0, 6);
   .frame.browser .bar em { margin-left: 12px; font-family: var(--font-mono); font-size: 9px; color: var(--ink-soft); font-style: normal; letter-spacing: 0.04em; }
   .frame.browser .shot { aspect-ratio: 16/10; }
   .frame.photo .shot { aspect-ratio: 4/3; }
+
+  /* combo: website (laptop/browser) + overlapping phone */
+  .combo { position: relative; width: 100%; height: 100%; }
+  .combo .laptop {
+    position: absolute; top: 50%; right: 0; transform: translateY(-50%);
+    width: 82%; margin: 0;
+  }
+  .combo .laptop .shot img { object-position: top; }
+  .combo .phone {
+    position: absolute; bottom: 4%; left: 0; z-index: 2;
+    width: 26%; padding: 5px;
+    background: #15181b; border-radius: 20px;
+    border: 1px solid rgba(20,55,58,0.25);
+    box-shadow: 0 20px 38px -14px rgba(20,55,58,0.55);
+  }
+  .combo .phone .phone-shot {
+    aspect-ratio: 9/19; border-radius: 15px; overflow: hidden; background: #fff;
+  }
+  .combo .phone .phone-shot img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;
+  }
+  @media (max-width: 520px) {
+    .combo .phone { width: 30%; }
+  }
   .p-tag { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.125rem; }
   .p-body h3 { margin-bottom: 1.125rem; }
   .p-body h3 a { transition: color 0.2s; }
