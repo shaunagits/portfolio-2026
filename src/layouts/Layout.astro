@@ -60,18 +60,19 @@ const {
       const nav = document.querySelector('.nav');
       const progress = document.getElementById('scroll-progress');
 
-      // Swap the nav to its teal/white theme while it sits over a dark band,
-      // otherwise the translucent white bar reads as grey over black.
-      const darkBands = document.querySelectorAll('.about, .footer, .next');
+      // Swap the nav to its teal/white theme once you've reached the footer at the
+      // bottom of the page. Deliberately not an overlap test: the nav is fixed to the
+      // top, and a short desktop footer never physically reaches it — so this fires
+      // when the footer has risen into the lower half of the viewport.
+      const footerEl = document.querySelector('.footer');
       function syncNavTheme() {
-        if (!nav) return;
-        const probe = nav.getBoundingClientRect().height * 0.5;
-        let overDark = false;
-        for (const el of darkBands) {
-          const r = el.getBoundingClientRect();
-          if (r.top <= probe && r.bottom >= probe) { overDark = true; break; }
-        }
-        nav.classList.toggle('is-over-dark', overDark);
+        if (!nav || !footerEl) return;
+        const r = footerEl.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const visible = Math.min(vh, r.bottom) - Math.max(0, r.top);
+        // flip once ~40% of the footer has come into view
+        const atFooter = visible >= Math.min(r.height, vh) * 0.4;
+        nav.classList.toggle('is-over-dark', atFooter);
       }
 
       window.addEventListener('scroll', () => {
