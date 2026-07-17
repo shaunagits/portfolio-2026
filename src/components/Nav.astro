@@ -54,16 +54,16 @@ const links = [
   .nav.is-over-dark .nav-logo,
   .nav.is-over-dark .nav-logo span,
   .nav.is-over-dark .nav-link,
-  .nav.is-over-dark .nav-toggle { color: #fff; }
-  .nav.is-over-dark .nav-link::after { background: #fff; }
-  .nav.is-over-dark .nav-link:hover { color: rgba(255,255,255,0.75); }
-  .nav.is-over-dark .nav-toggle { border-color: rgba(255,255,255,0.45); }
+  .nav.is-over-dark .nav-toggle { color: var(--on-accent); }
+  .nav.is-over-dark .nav-link::after { background: var(--on-accent); }
+  .nav.is-over-dark .nav-link:hover { color: rgba(var(--paper-rgb),0.75); }
+  .nav.is-over-dark .nav-toggle { border-color: rgba(var(--paper-rgb),0.45); }
   /* teal-on-teal would vanish — invert the CTA to a white pill */
   .nav.is-over-dark .nav-cta {
-    background: #fff; border-color: #fff; color: var(--primary);
+    background: var(--paper); border-color: var(--paper); color: var(--primary);
   }
   .nav.is-over-dark .nav-cta:hover {
-    background: var(--ink); border-color: var(--ink); color: #fff;
+    background: var(--ink); border-color: var(--ink); color: var(--on-accent);
   }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 76px; }
   .nav-logo { font-family: var(--font-display); font-weight: 600; font-size: 1.5rem; color: var(--ink); letter-spacing: -0.01em; }
