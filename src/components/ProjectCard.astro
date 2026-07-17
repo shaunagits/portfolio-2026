@@ -13,6 +13,9 @@ const chips = (project.tools || []).slice(0, 6);
   <div class="p-body">
     <div class="p-tag">{project.category}</div>
     <h3 class="heading-card"><a href={href}>{project.name}</a></h3>
+    {project.client && (
+      <div class="p-client"><span>{project.clientLabel || 'Client'}</span>{project.client}</div>
+    )}
     <p class="p-summary">{project.summary}</p>
     <ul class="p-stack" aria-label="Tools">
       {chips.map((t) => <li class="chip">{t}</li>)}
@@ -38,6 +41,11 @@ const chips = (project.tools || []).slice(0, 6);
   .p-body h3 { margin-bottom: 1.125rem; }
   .p-body h3 a { transition: color 0.2s; }
   .p-body h3 a:hover { color: var(--primary); }
+  /* client/product credit — the name no longer carries it (Nike/Apple used to
+     live in the header; this is where they read now) */
+  .p-client { display: flex; align-items: baseline; gap: 8px; margin: -0.55rem 0 1.125rem;
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink); }
+  .p-client span { text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.66rem; color: var(--ink-soft); }
   .p-summary { color: var(--ink-soft); font-size: 1rem; max-width: 48ch; line-height: 1.6; }
   .p-stack { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 8px; }
   .chip { font-family: var(--font-mono); font-size: 11px; padding: 5px 11px; border: 1px solid var(--line); border-radius: var(--radius-pill); color: var(--ink-soft); transition: border-color 0.2s, color 0.2s; }
