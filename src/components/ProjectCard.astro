@@ -6,7 +6,19 @@ const chips = (project.tools || []).slice(0, 6);
 <article class="project" data-animate>
   <a class="p-media" href={href} aria-label={project.name}>
     <div class:list={['stage', project.tint]}>
-      {project.frame === 'combo' ? (
+      {project.frame === 'triptych' ? (
+        <div class="triptych">
+          {[0, 1, 2].map((i) => (
+            <div class:list={['phone', i === 1 && 'center']}>
+              <div class="phone-shot">
+                {project.phoneImages && project.phoneImages[i]
+                  ? <img src={project.phoneImages[i]} alt={`${project.name} — screen ${i + 1}`} loading="lazy" />
+                  : <span class="phone-ph">screen {i + 1}</span>}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : project.frame === 'combo' ? (
         <div class="combo">
           <div class="frame browser laptop">
             <div class="bar"><i></i><i></i><i></i>{project.urlLabel && <em>{project.urlLabel}</em>}</div>
@@ -83,6 +95,34 @@ const chips = (project.tools || []).slice(0, 6);
   }
   @media (max-width: 520px) {
     .combo .phone { width: 30%; }
+  }
+
+  /* triptych: three phones, center raised — placeholders ready for screenshots */
+  .triptych {
+    position: relative; width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center; gap: 1.5%;
+  }
+  .triptych .phone {
+    flex: 0 0 auto; width: 26%; padding: 5px;
+    background: #15181b; border-radius: 20px;
+    border: 1px solid rgba(20,55,58,0.25);
+    box-shadow: 0 16px 32px -16px rgba(20,55,58,0.5);
+    z-index: 2;
+  }
+  .triptych .phone:first-child { transform: rotate(-5deg) translateY(4%); }
+  .triptych .phone:last-child { transform: rotate(5deg) translateY(4%); }
+  .triptych .phone.center {
+    width: 29%; z-index: 3; transform: translateY(-4%);
+    box-shadow: 0 24px 44px -16px rgba(20,55,58,0.6);
+  }
+  .triptych .phone-shot {
+    aspect-ratio: 9/19; border-radius: 15px; overflow: hidden; background: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .triptych .phone-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .triptych .phone-ph {
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-soft); opacity: 0.5;
   }
   .p-tag { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.125rem; }
   .p-body h3 { margin-bottom: 1.125rem; }
