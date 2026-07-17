@@ -2,38 +2,44 @@
 updated 2026-07-16
 
 ## Shipped this session
-- ✅ DEPLOYED TO PROD: live at https://shauna.digital (Netlify CLI `netlify deploy --build --prod`).
-  Site = "byshauna" (id f63775ef…), on the shauna.coy@gmail.com Netlify account / "Shauna's team"
-  (NOT the AAO account). Custom domain is the apex shauna.digital (no work. alias).
-- All redesign work committed to branch `redesign-2026` (3 commits): base redesign +
-  review tweaks + LaunchKit triptych. Branch is NOT merged to main and NOT pushed to GitHub.
-- Review-round changes now live: hero background white; primary (accent-green) button text white
-  (default+hover); Client Portal card uses real portal.png; AAO card = new "combo" frame
-  (website laptop/browser + Kahu app phone) via aao-site.jpg + kahu-app.png, command-center
-  dashboard kept as the AAO case-study hero; LaunchKit = new "triptych" frame (3 phones,
-  center raised) with EMPTY "screen 1/2/3" placeholders ready for screenshots.
-- New images optimized into public/images: project-portal.png (311KB), aao-site.jpg (364KB,
-  converted from a 3.1MB PNG), kahu-app.png (114KB). Build verified clean: 17 pages.
+- ✅ LIVE at https://shauna.digital — teal redesign deployed via `netlify deploy --build --prod`.
+  Site "byshauna" (id f63775ef-…) on the PERSONAL Netlify account shauna.coy@gmail.com.
+- Palette locked: black + white + #2C8C99. Neutrals are hue-shifted toward the brand
+  (--ink #0B1416, --ink-soft #55656A) so black/grey/teal read as one family. Three RGB
+  triplets (--primary-rgb/--ink-rgb/--paper-rgb) are the ONLY colour literals; every
+  component references a token. Accent ramp --primary-50/100/200; stages = tint-1/2/3.
+- Buttons: primary = outlined + solid teal shape offset up-right (zero-blur box-shadow),
+  hover slides it home + fills teal. Secondary = same but a hollow teal ring that becomes
+  the button's outline. Nav flips to teal/white only at the FOOTER.
+- Case-study heroes + homepage cards now share ProjectFrame.astro (can't drift again).
+- FIXED live bugs: contact form (see below); og:url/og:image pointed at
+  work.shauna.digital which does NOT resolve — every link preview was broken; theme-color
+  was still the old cream. Added netlify.toml: CSP + security headers + cache rules
+  (site previously had NONE).
 
 ## In-flight / unfinished
-- Branch `redesign-2026` not merged to main. If you push to main, Netlify auto-build will
-  redeploy from GitHub — make sure GitHub has these commits first or it'll overwrite prod
-  with the OLD main. Safer: merge redesign-2026→main, push, let Netlify rebuild.
-- LaunchKit triptych is placeholders only. To fill: set launchkit `phoneImages` in
-  projects.json to 3 image paths (e.g. /images/launchkit-1.png…). Empty slots stay placeholder.
-- Nike/Apple still on old images; no new screenshots exist for them. LaunchKit case-study hero
-  still uses the old logo (project-launchkit.jpg).
-- CONTACT FORM: markup is correct (name="contact", data-netlify, honeypot, hidden form-name).
-  Verify it appears in Netlify → Forms (detection post-processes after deploy; may lag a few min).
-- GitHub/LinkedIn footer glyphs still custom — swap for OFFICIAL marks. og-image not refreshed.
-- CONTRAST: #9ECE9A is light; white-on-green buttons are low contrast. Shauna approved as-is.
+- ⚠️ `main` is BEHIND prod. Prod was deployed from branch `color-teal-2026` via the CLI;
+  those 8 commits are NOT merged/pushed. Any push to `main` triggers a GitHub auto-build
+  that would REGRESS prod to the old build. Merge color-teal-2026 -> main and push SOON.
+- ⚠️ CONTACT FORM NOT YET TESTED END-TO-END. The redesign had swapped the working
+  Formspree form for Netlify Forms, which was never detected (0 forms registered), so the
+  form posted into a void. Restored the old endpoint (formspree.io/f/xvzwklgz). Nobody has
+  confirmed that Formspree account still accepts mail — SEND A TEST SUBMISSION.
+- LaunchKit triptych is empty placeholders. Fill by setting launchkit `phoneImages` in
+  projects.json to 3 image paths. Nike/Apple still on old images.
+- .btn secondary's hollow ring is faked with a --paper knockout: it only renders correctly
+  on a --paper background (fine today — hero only). Don't put .btn on a tinted/dark band.
+- GitHub/LinkedIn footer glyphs still custom — swap for OFFICIAL marks. og-image art not
+  refreshed (the file loads, but it's the old cream design).
+- Blog components (BlogTable/BlogCallout/blog/*) still use the old green #0D6B4A — they are
+  DEAD CODE (never bundled; verified no off-palette hex ships). Delete or restyle someday.
 
 ## Single next task (paste-and-go)
-Merge `redesign-2026` → main and push to GitHub so the repo matches the live CLI deploy
-(and future auto-builds don't regress prod). Then add real LaunchKit screenshots.
+Merge `color-teal-2026` -> main and push, so GitHub matches what's live and a future
+auto-build can't regress prod. Then send a test through the contact form.
 
 ## Gotchas
-- Two Netlify accounts: AAO (shauna@alohaanimaloutreach.org) has NO portfolio site;
-  portfolio lives on shauna.coy@gmail.com. `netlify link` is to id f63775ef-…-…-…-…d5270…? no:
-  f63775ef-f653-4328-bf37-d5270d1882f2.
+- Two Netlify accounts: AAO (shauna@alohaanimaloutreach.org) has NO portfolio site.
+- CSP is tight (form-action = Formspree only). If a font/form silently breaks, suspect
+  netlify.toml first.
 - node_modules are mac-arm; a Linux rollup binary was added in-sandbox (inert on your Mac).
