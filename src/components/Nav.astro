@@ -39,9 +39,32 @@ const links = [
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     background: color-mix(in srgb, var(--paper) 82%, transparent);
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid transparent; transition: border-color 0.3s;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, background 0.3s var(--ease);
   }
+  .nav-logo, .nav-logo span, .nav-link, .nav-toggle { transition: color 0.3s var(--ease); }
   .nav.is-scrolled { border-bottom-color: var(--line); }
+
+  /* Over a dark band (About / Footer / next-project) the translucent white nav
+     reads as grey. Swap the whole bar to teal with white content instead. */
+  .nav.is-over-dark {
+    background: var(--primary);
+    border-bottom-color: transparent;
+  }
+  .nav.is-over-dark .nav-logo,
+  .nav.is-over-dark .nav-logo span,
+  .nav.is-over-dark .nav-link,
+  .nav.is-over-dark .nav-toggle { color: #fff; }
+  .nav.is-over-dark .nav-link::after { background: #fff; }
+  .nav.is-over-dark .nav-link:hover { color: rgba(255,255,255,0.75); }
+  .nav.is-over-dark .nav-toggle { border-color: rgba(255,255,255,0.45); }
+  /* teal-on-teal would vanish — invert the CTA to a white pill */
+  .nav.is-over-dark .nav-cta {
+    background: #fff; border-color: #fff; color: var(--primary);
+  }
+  .nav.is-over-dark .nav-cta:hover {
+    background: var(--ink); border-color: var(--ink); color: #fff;
+  }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 76px; }
   .nav-logo { font-family: var(--font-display); font-weight: 600; font-size: 1.5rem; color: var(--ink); letter-spacing: -0.01em; }
   .nav-logo span { color: var(--accent); }

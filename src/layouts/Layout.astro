@@ -59,13 +59,31 @@ const {
       // Nav scroll state + scroll progress
       const nav = document.querySelector('.nav');
       const progress = document.getElementById('scroll-progress');
+
+      // Swap the nav to its teal/white theme while it sits over a dark band,
+      // otherwise the translucent white bar reads as grey over black.
+      const darkBands = document.querySelectorAll('.about, .footer, .next');
+      function syncNavTheme() {
+        if (!nav) return;
+        const probe = nav.getBoundingClientRect().height * 0.5;
+        let overDark = false;
+        for (const el of darkBands) {
+          const r = el.getBoundingClientRect();
+          if (r.top <= probe && r.bottom >= probe) { overDark = true; break; }
+        }
+        nav.classList.toggle('is-over-dark', overDark);
+      }
+
       window.addEventListener('scroll', () => {
         if (nav) nav.classList.toggle('is-scrolled', window.scrollY > 10);
+        syncNavTheme();
         if (progress) {
           const d = document.documentElement;
           progress.style.width = (window.scrollY / (d.scrollHeight - d.clientHeight) * 100) + '%';
         }
       }, { passive: true });
+      window.addEventListener('resize', syncNavTheme, { passive: true });
+      syncNavTheme();
 
       // Mobile nav toggle
       const navToggle = document.querySelector('.nav-toggle');
