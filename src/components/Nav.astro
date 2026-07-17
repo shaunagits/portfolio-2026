@@ -1,4 +1,6 @@
 ---
+import LogoS from './LogoS.astro';
+
 const links = [
   { label: 'Work', href: '/#work' },
   { label: 'About', href: '/#about' },
@@ -8,7 +10,9 @@ const links = [
 
 <header class="nav" id="home">
   <div class="nav-inner container">
-    <a href="/" class="nav-logo" aria-label="Shauna — home">Shauna<span>.</span></a>
+    {/* The mark carries no name, so the aria-label is now the only place the link
+        says where it goes — keep it. The name is reintroduced in the hero. */}
+    <a href="/" class="nav-logo" aria-label="Shauna — home"><LogoS class="nav-mark" /></a>
 
     <nav class="nav-desktop" aria-label="Main navigation">
       <ul class="nav-links">
@@ -42,36 +46,55 @@ const links = [
     border-bottom: 1px solid transparent;
     transition: border-color 0.3s, background 0.3s var(--ease);
   }
-  .nav-logo, .nav-logo span, .nav-link, .nav-toggle { transition: color 0.3s var(--ease); }
+  .nav-logo, .nav-link, .nav-toggle { transition: color 0.3s var(--ease); }
   .nav.is-scrolled { border-bottom-color: var(--line); }
 
   /* Over a dark band (About / Footer / next-project) the translucent white nav
-     reads as grey. Swap the whole bar to teal with white content instead. */
+     reads as grey. Swap the whole bar to teal with white content instead.
+     Uses --accent-ink (#1F6A75), not --primary (#2C8C99): white on #2C8C99 is
+     3.95:1 — below AA for the 14px nav links. On #1F6A75 it's 6.22:1, so every
+     link and the CTA hover on the bar pass at once. The bar just reads deeper. */
   .nav.is-over-dark {
-    background: var(--primary);
+    background: var(--accent-ink);
     border-bottom-color: transparent;
   }
   .nav.is-over-dark .nav-logo,
-  .nav.is-over-dark .nav-logo span,
+  .nav.is-over-dark .nav-logo:hover,
   .nav.is-over-dark .nav-link,
   .nav.is-over-dark .nav-toggle { color: var(--on-accent); }
   .nav.is-over-dark .nav-link::after { background: var(--on-accent); }
   .nav.is-over-dark .nav-link:hover { color: rgba(var(--paper-rgb),0.75); }
   .nav.is-over-dark .nav-toggle { border-color: rgba(var(--paper-rgb),0.45); }
-  /* teal-on-teal would vanish — invert the CTA to a white pill, and swap its offset
-     shape from teal to ink so the shape stays visible on the teal bar. Same
-     choreography, colour adapts to the band it's sitting on. */
+  /* teal-on-teal would vanish — invert the CTA to a white pill on the bar.
+     The offset shape is a WHITE OUTLINE, made by stacking a knockout (1.5px smaller,
+     painted on top) over a solid --paper shape. The knockout must be the BAR's own
+     colour to read as a clean ring — the bar is --accent-ink, so the knockout is too
+     (a --primary knockout would leave a faint teal seam now the bar is deeper). */
   .nav.is-over-dark .nav-cta {
-    background: var(--paper); border-color: var(--paper); color: var(--primary);
-    box-shadow: var(--btn-offset) calc(var(--btn-offset) * -1) 0 0 var(--ink);
+    background: var(--paper); border-color: var(--paper);
+    /* --accent-ink, not --primary: this label is 14px, and #2C8C99 on white is
+       3.95:1 — below AA. #1F6A75 is 6.22:1. Same rule the rest of the system
+       follows for small teal text on white. */
+    color: var(--accent-ink);
+    box-shadow: var(--btn-offset) calc(var(--btn-offset) * -1) 0 -1.5px var(--accent-ink),
+                var(--btn-offset) calc(var(--btn-offset) * -1) 0 0 var(--paper);
   }
+  /* The ring slides home and becomes the button's own outline: the fill drops out
+     to let the bar through, leaving a white-outlined pill with white text. */
   .nav.is-over-dark .nav-cta:hover, .nav.is-over-dark .nav-cta:focus-visible {
-    background: var(--ink); border-color: var(--ink); color: var(--on-accent);
-    box-shadow: 0 0 0 0 var(--ink);
+    background: transparent; border-color: var(--paper); color: var(--paper);
+    box-shadow: 0 0 0 -1.5px var(--accent-ink), 0 0 0 0 var(--paper);
   }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 76px; }
-  .nav-logo { font-family: var(--font-display); font-weight: 600; font-size: 1.5rem; color: var(--ink); letter-spacing: -0.01em; }
-  .nav-logo span { color: var(--accent); }
+  /* Teal at rest; .nav.is-over-dark below flips this to --on-accent and the mark
+     follows via currentColor — teal-on-teal would otherwise vanish on the footer bar. */
+  .nav-logo { display: flex; align-items: center; color: var(--primary); }
+  /* :global is required — the <svg> is rendered by LogoS.astro, so it never gets
+     this component's scope attribute and a plain .nav-mark selector can't match it
+     (it silently computes to height:0 and the logo disappears).
+     viewBox is trimmed to the ink, so this is true mark height. */
+  .nav-logo :global(.nav-mark) { height: 38px; width: auto; display: block; }
+  .nav-logo:hover { color: var(--accent-ink); }
   .nav-links { display: flex; align-items: center; gap: 2.375rem; }
   .nav-link { position: relative; font-size: 0.875rem; font-weight: 500; color: var(--ink); transition: color 0.2s; }
   .nav-link::after { content: ''; position: absolute; left: 0; bottom: -4px; height: 1px; width: 0; background: var(--primary); transition: width 0.25s var(--ease); }

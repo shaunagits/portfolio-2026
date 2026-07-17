@@ -192,15 +192,23 @@ body::after {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-sans); font-size: 0.875rem; font-weight: 500;
-  box-shadow: var(--btn-offset) calc(var(--btn-offset) * -1) 0 -1.5px var(--paper),
-              var(--btn-offset) calc(var(--btn-offset) * -1) 0 0 var(--primary);
+  /* Solid black shape, single shadow. This used to stack a --paper knockout at
+     -1.5px spread on top of a teal shape, which hollowed it into a ring; the
+     knockout is gone, so the offset pillbox now reads as one solid silhouette.
+     Ink, not teal — the accent stays reserved for .btn-primary, so the two
+     buttons no longer compete when they sit side by side. */
+  box-shadow: var(--btn-offset) calc(var(--btn-offset) * -1) 0 0 var(--ink);
   transition: background 0.25s var(--ease), color 0.25s var(--ease),
               border-color 0.28s var(--ease), box-shadow 0.34s var(--ease),
               transform 0.12s var(--ease);
 }
+/* Same choreography as .btn-primary: the offset shape slides home and the button
+   takes its fill — ink here rather than accent. --paper, not --on-accent: that
+   token means "on the accent", and this is on the ink. Same value today, but it
+   would be wrong the day the accent changes. */
 .btn:hover, .btn:focus-visible {
-  background: var(--paper); color: var(--ink); border-color: var(--primary);
-  box-shadow: 0 0 0 -1.5px var(--paper), 0 0 0 0 var(--primary);
+  background: var(--ink); color: var(--paper); border-color: var(--ink);
+  box-shadow: 0 0 0 0 var(--ink);
   transform: none;
 }
 .btn:active { transform: scale(0.97); }

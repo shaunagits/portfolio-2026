@@ -19,12 +19,18 @@
         <label>Email<input type="email" name="email" required /></label>
       </div>
       <div class="row">
-        <label>Project type
+        {/* Was "Project type" with Web Development / Web App / AI Tool / Other —
+            my taxonomy, not theirs. A client knows what they NEED, not which of my
+            service buckets it belongs in. These say the outcome instead, and
+            "Not sure yet" is deliberate: it's a real answer for someone early, and
+            without it that person either guesses wrong or bounces. */}
+        <label>I need help with
           <select name="project-type">
-            <option>Web Development</option>
-            <option>Web App</option>
-            <option>AI Tool</option>
-            <option>Other</option>
+            <option>A new website</option>
+            <option>Fixing or improving my current site</option>
+            <option>A web app or custom tool</option>
+            <option>Adding AI to my business</option>
+            <option>Not sure yet — let's talk</option>
           </select>
         </label>
         <label>Budget range

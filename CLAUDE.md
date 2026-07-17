@@ -8,7 +8,8 @@ Personal portfolio at shauna.digital. Astro static site. Goal: personal brand
 
 ## Design system (source of truth: src/styles/global.css :root)
 - Palette is STRICTLY black + white + one teal accent (plus shades of those).
-  White paper (--paper #FFFFFF), black ink (--ink #000000), grey --ink-soft for muted text.
+  White paper (--paper #FFFFFF), black ink (--ink #0B1416 — a hue-shifted near-black,
+  NOT pure #000000), grey --ink-soft for muted text.
   Change the theme from the :root token block only — everything references it.
 - ONE accent used sparingly: --primary / --accent = #2C8C99 (teal).
   Dark bands (About, Footer, case-study next-project) use --primary-deep = black.
@@ -17,8 +18,19 @@ Personal portfolio at shauna.digital. Astro static site. Goal: personal brand
   --accent-ink (#1F6A75) for SMALL teal text on white. #2C8C99 on white is only 3.95:1
   and fails AA at small sizes; --accent-ink is 6.2:1. Don't use --primary for small labels.
 - Type: Fraunces (display), Inter (body), JetBrains Mono (labels/meta). Sentence case.
-- Logo: "Shauna." wordmark — black with a teal accent period. Favicon = "S." monogram
-  (public/favicon.svg).
+- Logo: the "S" logomark (src/components/LogoS.astro) in the nav, teal at rest. Same
+  artwork as the favicon (public/favicon.svg), but viewBox-trimmed to its ink bounds
+  (1237x1185+136+166 of a 1500x1500 canvas — the raw file is ~20% padding, so a CSS
+  height on it would lie) and fill="currentColor" instead of a hardcoded #2C8C99, so it
+  inherits .nav-logo's colour and flips to white on the teal footer bar for free.
+  NOTE: the svg is rendered by a child component, so it never receives Nav.astro's scope
+  attribute — its size rule MUST be `:global(.nav-mark)` or it silently computes to
+  height:0 and the logo disappears.
+  The "Shauna." wordmark (black/white with a teal accent period) is retained in the
+  FOOTER — it's where the full name now lives.
+- The nav mark carries no name, so the hero reintroduces it: the eyebrow reads
+  "Hi, I'm Shauna". It replaced "Designer · Developer · AI App Builder", which was
+  already the opening of the subhead directly beneath it.
 - Buttons: .btn-primary is outlined at rest (white fill, black label/border) with a solid
   teal shape of the same silhouette offset up-right behind it; on hover/focus the shape
   slides home and the button takes the teal fill. The shape is a zero-blur box-shadow, NOT
