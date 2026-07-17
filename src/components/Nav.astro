@@ -58,12 +58,16 @@ const links = [
   .nav.is-over-dark .nav-link::after { background: var(--on-accent); }
   .nav.is-over-dark .nav-link:hover { color: rgba(var(--paper-rgb),0.75); }
   .nav.is-over-dark .nav-toggle { border-color: rgba(var(--paper-rgb),0.45); }
-  /* teal-on-teal would vanish — invert the CTA to a white pill */
+  /* teal-on-teal would vanish — invert the CTA to a white pill, and swap its offset
+     shape from teal to ink so the shape stays visible on the teal bar. Same
+     choreography, colour adapts to the band it's sitting on. */
   .nav.is-over-dark .nav-cta {
     background: var(--paper); border-color: var(--paper); color: var(--primary);
+    box-shadow: var(--btn-offset) calc(var(--btn-offset) * -1) 0 0 var(--ink);
   }
-  .nav.is-over-dark .nav-cta:hover {
+  .nav.is-over-dark .nav-cta:hover, .nav.is-over-dark .nav-cta:focus-visible {
     background: var(--ink); border-color: var(--ink); color: var(--on-accent);
+    box-shadow: 0 0 0 0 var(--ink);
   }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 76px; }
   .nav-logo { font-family: var(--font-display); font-weight: 600; font-size: 1.5rem; color: var(--ink); letter-spacing: -0.01em; }
@@ -73,12 +77,25 @@ const links = [
   .nav-link::after { content: ''; position: absolute; left: 0; bottom: -4px; height: 1px; width: 0; background: var(--primary); transition: width 0.25s var(--ease); }
   .nav-link:hover { color: var(--accent-ink); }
   .nav-link:hover::after { width: 100%; }
+  /* Same treatment as .btn-primary: outlined at rest with a solid accent shape of the
+     same silhouette offset up-right; on hover the shape slides home and the button takes
+     the fill. Smaller offset than the page buttons — this one is persistent and compact.
+     (The .btn secondary ring can't be used here: its --paper knockout would show against
+     the nav's translucent background and against the teal footer bar.) */
   .nav-cta {
-    padding: 0.65rem 1.25rem; border: 1px solid var(--primary); border-radius: var(--radius-pill);
-    background: var(--primary); color: var(--on-accent); font-size: 0.875rem; font-weight: 500;
-    box-shadow: var(--shadow-sm); transition: background 0.25s, transform 0.2s var(--ease);
+    --btn-offset: 5px;
+    padding: 0.65rem 1.25rem; border: 1px solid var(--ink); border-radius: var(--radius-pill);
+    background: var(--paper); color: var(--ink); font-size: 0.875rem; font-weight: 500;
+    box-shadow: var(--btn-offset) calc(var(--btn-offset) * -1) 0 0 var(--primary);
+    transition: background 0.28s var(--ease), color 0.28s var(--ease),
+                border-color 0.28s var(--ease), box-shadow 0.34s var(--ease),
+                transform 0.12s var(--ease);
   }
-  .nav-cta:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); transform: translateY(-1px); }
+  .nav-cta:hover, .nav-cta:focus-visible {
+    background: var(--primary); border-color: var(--primary); color: var(--on-accent);
+    box-shadow: 0 0 0 0 var(--primary); transform: none;
+  }
+  .nav-cta:active { transform: scale(0.97); }
   .nav-toggle {
     display: none; align-items: center; gap: 8px; border: 1px solid var(--line);
     border-radius: var(--radius-pill); padding: 0.55rem 1rem;
