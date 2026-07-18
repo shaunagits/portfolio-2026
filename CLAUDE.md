@@ -2,6 +2,13 @@
 
 Durable rules for this repo. Edit only with Shauna's approval.
 
+## Start here (new session, read in this order)
+1. HANDOFF.md — current state + what's open. Always read first.
+2. This file (CLAUDE.md) — durable design/structure/deploy rules.
+3. DECISIONS.md — the reasoning behind locked choices (don't re-litigate these).
+4. DEPLOY.md — how to ship (Netlify auto-deploys on push to `main`; never push without approval).
+Recalled memories (Netlify account, Formspree, hosting topology, working style) load automatically.
+
 ## What this is
 Personal portfolio at shauna.digital. Astro static site. Goal: personal brand
 + a lasting record of work first; freelance/FTE second. The work is the hero.
@@ -88,3 +95,6 @@ Personal portfolio at shauna.digital. Astro static site. Goal: personal brand
   DreamHost piece without first confirming/migrating @shauna.digital email, or mail breaks.
 - Domain registrar: likely Namecheap (registrar-servers.com nameservers) — confirm in the
   registrar dashboard before any domain change.
+- PLANNED (decided 2026-07-16, not started): migrate email DreamHost -> Google Workspace.
+  See HANDOFF.md "Open" for the step order. Claude must NOT edit live DNS or touch billing —
+  supply the exact Namecheap records for Shauna to apply. Web hosting (Netlify) is unaffected.

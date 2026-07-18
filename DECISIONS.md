@@ -46,6 +46,10 @@ Locked reasoning. Append new decisions; don't rewrite history.
   hierarchy without inventing a second colour.
 - Secondary's ring is faked with a --paper knockout, so it ONLY works on a --paper
   background. That's why the nav CTA uses the primary treatment instead.
+- SUPERSEDED (later 2026-07-16): the hollow teal ring was dropped. Secondary is now a SOLID
+  INK offset shape → fills ink on hover (Shauna found the ring weaker beside the solid
+  primary). Ink, not teal, so the accent stays exclusive to .btn-primary. See CLAUDE.md for
+  the current spec. The knockout-needs-white constraint no longer applies to the secondary.
 
 ## Nav
 - Wordmark is black with a teal period (not all-teal): stops the logo competing with the CTA.
@@ -105,3 +109,13 @@ Locked reasoning. Append new decisions; don't rewrite history.
   that undersells it. Summary reworded to match.
 - Portal's client is Shauna herself, labelled "Built for" — kept as a flex (builds
   production tools for her own business), not hidden.
+
+## 2026-07-16 — Email host: Google Workspace (planned)
+- Migrating @shauna.digital email off DreamHost. Chose Google Workspace over Fastmail/Zoho/
+  self-hosting. Reason: Shauna already lives in Gmail (shauna.coy@gmail.com); Workspace puts
+  domain email in that same interface, is what clients expect, and bundles Drive/Calendar.
+  Fastmail was the close runner-up (cheaper, alias-friendly, the "developer" pick) but the
+  familiar Gmail UI won. Self-hosting rejected outright (deliverability is a full-time fight).
+- NOT started as of this note. Web hosting stays on Netlify regardless; this is DNS + mailbox.
+- Rule: Claude supplies the exact Namecheap DNS records; Shauna applies them. Claude does not
+  edit live DNS or billing.

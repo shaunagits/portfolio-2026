@@ -23,13 +23,22 @@ updated 2026-07-16 (session close)
   adds CSP + security headers + caching.
 
 ## Open / next (nothing broken, nothing urgent)
-- og-image.jpg loads but is still the OLD cream artwork — redo in teal (it's the share/link preview).
+- EMAIL MIGRATION (decided, not started): move @shauna.digital email DreamHost -> Google
+  Workspace. Web hosting (Netlify) is unaffected — this is DNS + mailbox only. Order:
+    1. Sign up for Google Workspace, add shauna.digital, verify (a TXT record).
+    2. In NAMECHEAP (the DNS host — not Netlify/DreamHost) swap MX to Google's 5 records,
+       and set SPF/DKIM/DMARC TXT records Google provides.
+    3. Import old mail from DreamHost via Google's IMAP/data-migration tool.
+    4. Only after mail flows + old mail imported: cancel DreamHost email.
+  Do steps 3 before 4 (don't lose old mail); do the MX swap in a quiet hour (brief split-delivery
+  window). Claude must NOT edit live DNS or billing — hand Shauna the exact records to paste.
 - LaunchKit triptych = empty "screen 1/2/3" placeholders. Fill via launchkit `phoneImages`
   (3 image paths) in projects.json. Nike/Apple project images are also still the originals.
 - Footer GitHub/LinkedIn glyphs are custom — swap for OFFICIAL marks before relying on them.
 - Eyeball: is the client credit line on the cards loud enough for Nike/Apple? (Shauna's call.)
 - Dead code: blog components (BlogTable/BlogCallout/blog/*) use old green #0D6B4A but are
   never bundled (verified — no off-palette hex ships). Delete or restyle someday.
+- DONE this session: og-image redrawn in teal (live); hosting topology documented.
 
 ## Gotchas (the rest are in CLAUDE.md)
 - CSP is tight (form-action = Formspree only). If a font/form silently breaks, suspect netlify.toml.
