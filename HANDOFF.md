@@ -6,8 +6,8 @@ updated 2026-07-17
   Push to `main` = auto-deploy to prod (see DEPLOY.md). Netlify project "byshauna"
   (id f63775ef-f653-4328-bf37-d5270d1882f2), PERSONAL account shauna.coy@gmail.com — NOT AAO.
 - Durable design rules + reasoning live in CLAUDE.md and DECISIONS.md. Read those first.
-- NOTE: GitHub repo renamed to shaunagits/portfolio-2026; `origin` still points at the old URL
-  (push works via redirect). Update the remote when convenient.
+- GitHub repo is shaunagits/portfolio-2026 (renamed); `origin` now points at it directly — the
+  old redirecting URL is gone.
 
 ## Done this session (all live)
 - HERO: centres on large screens (>=1024px) to kill the empty right-half; left-aligned below.
@@ -49,5 +49,8 @@ updated 2026-07-17
 - Preview pane freezes transitions + resets scroll on screenshot — verify via computed styles /
   DOM, or a Netlify draft in a real browser.
 - Markdown has smartypants ON: `--`/`---` in blog prose would render as en/em dashes. Avoid them.
+- PUSH 403 "denied to PeopleEngineer"? The `gh` CLI has 3 accounts and the ACTIVE one can flip.
+  Only `shaunagits` can push here. Fix: `gh auth switch --user shaunagits`, push, then switch back
+  (`gh auth switch --user PeopleEngineer`) so the rest of the machine is left as found. Ask first.
 - Portfolio dev server is portfolio-alt :4333 (launch.json also defines portfolio :4321, but
   another local project may occupy 4321 — check the tab title says "Shauna").
