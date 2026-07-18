@@ -18,7 +18,7 @@ Because "app" means different things, and the difference matters a lot for your 
 
 ## There Are Two Kinds of "App"
 
-When most people say they want an app, they picture something you download from the App Store. That is one kind. But there is another kind — a web app — that runs in a browser, can live on your phone's home screen, and for most business needs works just as well. Sometimes better.
+When most people say they want an app, they picture something you download from the App Store. That is one kind. But there is another kind, a web app, that runs in a browser, can live on your phone's home screen, and for most business needs works just as well. Sometimes better.
 
 Here is the plain-English breakdown.
 
@@ -26,7 +26,7 @@ Here is the plain-English breakdown.
 
 ## The Native App
 
-A native app is what you download from the Apple App Store or Google Play. Instagram, Uber, Apple Maps — those are native apps. They are built specifically for iOS or Android and live on your device.
+A native app is what you download from the Apple App Store or Google Play. Instagram, Uber, Apple Maps: those are native apps. They are built specifically for iOS or Android and live on your device.
 
 **The upside:** They are fast, they work well offline, they can send push notifications, and they have reliable access to your phone's camera, GPS, and sensors.
 

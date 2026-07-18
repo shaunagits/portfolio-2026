@@ -1,61 +1,46 @@
 # HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
 updated 2026-07-17
 
-## State: LOCAL CHANGES — awaiting approval to ship
-- Uncommitted (tree dirty): (1) footer GitHub/LinkedIn swapped to OFFICIAL marks;
-  (2) blog components restyled off the retired green onto teal tokens. Build clean (17 pages),
-  verified on dev :4333 via computed styles. NOT pushed. See "Done this session".
-- Live at https://shauna.digital. Before these edits: main == GitHub == prod at latest commit.
+## State: SHIPPED & IN SYNC
+- Live at https://shauna.digital. main == GitHub == prod at the latest commit; tree clean.
   Push to `main` = auto-deploy to prod (see DEPLOY.md). Netlify project "byshauna"
-  (id f63775ef-f653-4328-bf37-d5270d1882f2) on the PERSONAL account shauna.coy@gmail.com —
-  NOT the AAO account (which has no portfolio site).
-- Durable design rules + the reasoning behind every choice live in CLAUDE.md and
-  DECISIONS.md. Read those first; this file is just current state.
+  (id f63775ef-f653-4328-bf37-d5270d1882f2), PERSONAL account shauna.coy@gmail.com — NOT AAO.
+- Durable design rules + reasoning live in CLAUDE.md and DECISIONS.md. Read those first.
+- NOTE: GitHub repo renamed to shaunagits/portfolio-2026; `origin` still points at the old URL
+  (push works via redirect). Update the remote when convenient.
 
 ## Done this session (all live)
-- Palette LOCKED: black + white + #2C8C99 teal; neutrals hue-shifted (--ink #0B1416,
-  --ink-soft #55656A). Three RGB triplets are the only colour literals; ramp --primary-50/100/200.
-- Offset-shape buttons: primary fills TEAL, secondary fills INK, nav CTA uses the primary
-  treatment (its shape swaps teal→ink on the footer bar). All share one --btn-offset gesture.
-- Nav flips to a teal bar at the FOOTER only; S logomark in nav; hero eyebrow "Hi, I'm Shauna".
-- ProjectFrame.astro = single source of truth for card + case-study media.
-- New S-mark favicon + .ico + apple-touch-icon in teal.
-- Project names rewritten work-first; client (incl. Nike/Apple) moved to a credited meta line
-  on card + case study, out of the header. New client/clientLabel fields in projects.json.
-- Contact form = Formspree (VERIFIED end-to-end); og tags + theme-color fixed; netlify.toml
-  adds CSP + security headers + caching.
+- HERO: centres on large screens (>=1024px) to kill the empty right-half; left-aligned below.
+  Snappier reveal (--dur 0.7s->0.45s, translateY 24->14px, delays halved). CTA hierarchy
+  swapped — "Work With Me" is now the teal primary (goal = contact), "See the Work" secondary.
+  Availability badge -> "Booking Q4 · limited spots" (date-bound; refresh after Q4).
+- DASHES REMOVED site-wide (Shauna: em/en dashes read as an AI tell). All 17 built pages are
+  dash-free — prose -> commas/periods/colons; "NN —" section labels -> "NN ·"; ranges -> "to";
+  titles/badges/meta -> "·". Blog prose + blog/case-study title templates included. KEPT
+  compound-word hyphens (full-stack, 60-day) and code comments. If re-adding copy, no em dashes.
+- LAUNCHKIT triptych filled: 3 mobile shots of the live LaunchKit store (product / home centre /
+  collection) at public/images/launchkit-phone-1..3.jpg, wired via projects.json phoneImages.
+  TEMP PLACEHOLDERS until Shauna does real product screenshots. Captured via Playwright login
+  (store is password-gated); optimised to ~150KB each.
+- Earlier this session (also live): footer GitHub/LinkedIn OFFICIAL marks; blog components
+  restyled off the retired green #0D6B4A onto teal tokens (they ship on 5 blog pages — the old
+  "dead code / no off-palette hex" note was WRONG). og-image teal; hosting topology documented.
 
 ## Open / next (nothing broken, nothing urgent)
-- EMAIL MIGRATION (decided, not started): move @shauna.digital email DreamHost -> Google
-  Workspace. Web hosting (Netlify) is unaffected — this is DNS + mailbox only. Order:
-    1. Sign up for Google Workspace, add shauna.digital, verify (a TXT record).
-    2. In NAMECHEAP (the DNS host — not Netlify/DreamHost) swap MX to Google's 5 records,
-       and set SPF/DKIM/DMARC TXT records Google provides.
-    3. Import old mail from DreamHost via Google's IMAP/data-migration tool.
-    4. Only after mail flows + old mail imported: cancel DreamHost email.
-  Do steps 3 before 4 (don't lose old mail); do the MX swap in a quiet hour (brief split-delivery
-  window). Claude must NOT edit live DNS or billing — hand Shauna the exact records to paste.
-- LaunchKit triptych = empty "screen 1/2/3" placeholders. Fill via launchkit `phoneImages`
-  (3 image paths) in projects.json. Nike/Apple project images are also still the originals.
-- Eyeball: is the client credit line on the cards loud enough for Nike/Apple? (Shauna's call.)
-- DONE this session (LOCAL, not yet shipped — awaiting approval):
-  - Footer GitHub/LinkedIn now use OFFICIAL marks (octicon mark-github 16x16 + LinkedIn "in"
-    bug 24x24), filled via .brand class; Blog keeps the custom .line stroke icon. All inherit
-    footer colour (white on dark) and flip teal on hover.
-  - Blog components RESTYLED off the retired green. CORRECTION: the prior handoff's "never
-    bundled / no off-palette hex ships" was WRONG — #0D6B4A (plus #0a5239, cream #ece9e0,
-    pale-green tints) shipped live on 5 blog pages. Not dead code; the components are imported
-    by 5 .mdx posts. Kept the blog intact and remapped every hardcoded hex to teal tokens
-    (--primary fills/borders, --accent-ink for small text incl. the step-number badge → white
-    text now 6.22:1 AA, --primary-50/100 tints). Semantic red/amber status colours in the cost
-    table left as-is (not the retired accent). Verified: retired hexes gone from dist.
-- DONE earlier: og-image redrawn in teal (live); hosting topology documented.
+- LAUNCHKIT: swap the temp store screenshots for real product/kit shots when ready (same 3 paths).
+  Nike/Apple project images are also still the originals.
+- EMAIL MIGRATION (decided, not started): @shauna.digital DreamHost -> Google Workspace. DNS +
+  mailbox only; Netlify web unaffected. Order: (1) Workspace signup + verify TXT; (2) in NAMECHEAP
+  swap MX to Google's 5 + set SPF/DKIM/DMARC; (3) import old mail via Google IMAP tool; (4) only
+  then cancel DreamHost email. Do 3 before 4. Claude supplies exact records; Shauna applies them.
+- Eyeball: is the client-credit line on the cards loud enough for Nike/Apple? (Shauna's call.)
 
-## Gotchas (the rest are in CLAUDE.md)
+## Gotchas (rest in CLAUDE.md)
 - CSP is tight (form-action = Formspree only). If a font/form silently breaks, suspect netlify.toml.
-- A child-component <svg> that takes a `class` needs `:global(...)` for its size rule, or
-  Astro scoping computes it to height:0 and it vanishes (bit the nav logo once).
-- The in-app preview pane freezes CSS transitions and blanks screenshots — verify CSS by
-  reading computed styles (set transition:none first), or use a Netlify draft in a real browser.
-- Two dev servers in launch.json (portfolio :4321, portfolio-alt :4333) because separate
-  sessions each start one; either serves the same site.
+- A child-component <svg> taking a `class` needs `:global(...)` for its size rule or Astro scopes
+  it to height:0 (bit the nav logo once).
+- Preview pane freezes transitions + resets scroll on screenshot — verify via computed styles /
+  DOM, or a Netlify draft in a real browser.
+- Markdown has smartypants ON: `--`/`---` in blog prose would render as en/em dashes. Avoid them.
+- Portfolio dev server is portfolio-alt :4333 (launch.json also defines portfolio :4321, but
+  another local project may occupy 4321 — check the tab title says "Shauna").

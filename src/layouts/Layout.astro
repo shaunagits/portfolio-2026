@@ -7,7 +7,7 @@ interface Props {
 }
 
 const {
-  title = 'Shauna — Designer & Developer',
+  title = 'Shauna · Designer & Developer',
   description = 'Designer and developer building websites, web apps, and AI tools for founders, small teams, and nonprofits. Nike & Apple production background. Based in Hawaii.',
 } = Astro.props;
 ---
@@ -64,7 +64,7 @@ const {
 
       // Swap the nav to its teal/white theme once you've reached the footer at the
       // bottom of the page. Deliberately not an overlap test: the nav is fixed to the
-      // top, and a short desktop footer never physically reaches it — so this fires
+      // top, and a short desktop footer never physically reaches it, so this fires
       // when the footer has risen into the lower half of the viewport.
       const footerEl = document.querySelector('.footer');
       function syncNavTheme() {

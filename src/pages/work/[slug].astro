@@ -14,7 +14,7 @@ export function getStaticPaths() {
 
 const { project, next } = Astro.props;
 ---
-<Layout title={`${project.name} — Case Study · Shauna`} description={project.summary}>
+<Layout title={`${project.name} · Case Study · Shauna`} description={project.summary}>
   <Nav />
   <main class="cs">
     <div class="container"><a href="/#work" class="back">← Back to work</a></div>
@@ -33,7 +33,7 @@ const { project, next } = Astro.props;
         <div class="m"><div class="k">{project.link ? 'Live' : 'Sold on'}</div>
           <div class="v">{project.link
             ? <a href={project.link} target="_blank" rel="noopener">{project.urlLabel} ↗</a>
-            : (project.urlLabel || '—')}</div>
+            : (project.urlLabel || '')}</div>
         </div>
       </div>
     </section>
@@ -45,8 +45,8 @@ const { project, next } = Astro.props;
     </section>
 
     <div class="body container container--narrow">
-      <div class="sec" data-animate><div class="mono lbl">01 — Overview</div><h2>The Challenge</h2><p>{project.problem}</p></div>
-      <div class="sec" data-animate><div class="mono lbl">02 — Approach</div><h2>What I Did</h2><div class="rich" set:html={project.whatIDid} /></div>
+      <div class="sec" data-animate><div class="mono lbl">01 · Overview</div><h2>The Challenge</h2><p>{project.problem}</p></div>
+      <div class="sec" data-animate><div class="mono lbl">02 · Approach</div><h2>What I Did</h2><div class="rich" set:html={project.whatIDid} /></div>
       {project.stats && (
         <div class="stats" data-animate>
           {project.stats.map((s) => (
@@ -54,7 +54,7 @@ const { project, next } = Astro.props;
           ))}
         </div>
       )}
-      <div class="sec" data-animate><div class="mono lbl">03 — Result</div><h2>Outcome</h2><p>{project.outcome}</p></div>
+      <div class="sec" data-animate><div class="mono lbl">03 · Result</div><h2>Outcome</h2><p>{project.outcome}</p></div>
     </div>
 
     <div class="container container--narrow stack-wrap">

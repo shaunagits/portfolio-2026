@@ -2,16 +2,16 @@
 ---
 <section class="hero" aria-label="Introduction">
   <div class="hero-inner container">
-    <div class="status" data-animate><span class="dot"></span>Available for new projects</div>
+    <div class="status" data-animate><span class="dot"></span>Booking Q4 &middot; limited spots</div>
     {/* The nav mark no longer spells the name, so the hero reintroduces it here.
         The roles it replaced ("Designer · Developer · AI App Builder") already open
         the subhead below — this slot was saying them twice. */}
     <p class="mono hero-eyebrow" data-animate data-delay="1">Hi, I&rsquo;m Shauna</p>
     <h1 class="hero-title" data-animate data-delay="2">I <em>build</em> websites, web apps, <span class="nb">&amp; AI tools</span></h1>
-    <p class="hero-subhead" data-animate data-delay="3">Designer and developer. I take websites, web apps, and AI tools from idea to live for founders, small teams, and nonprofits — no handoffs, no runaround.</p>
+    <p class="hero-subhead" data-animate data-delay="3">Designer and developer. I take websites, web apps, and AI tools from idea to live for founders, small teams, and nonprofits. No handoffs, no runaround.</p>
     <div class="hero-ctas" data-animate data-delay="4">
-      <a href="#work" class="btn btn-primary">See the Work</a>
-      <a href="#contact" class="btn">Work With Me</a>
+      <a href="#contact" class="btn btn-primary">Work With Me</a>
+      <a href="#work" class="btn">See the Work</a>
     </div>
     <div class="hero-meta" data-animate data-delay="5">
       <div class="stat"><div class="n">10+</div><div class="l">Years experience</div></div>
@@ -51,5 +51,13 @@
   .hero-meta .n { font-family: var(--font-display); font-size: 2.1rem; font-weight: 500; line-height: 1; color: var(--primary); }
   .hero-meta .l { margin-top: 0.5rem; color: var(--ink-soft); font-size: 0.85rem; }
   @media (max-width: 860px) { .hero-meta { grid-template-columns: 1fr 1fr; gap: 1.75rem 1rem; } }
+  /* On larger screens the left-aligned content stranded whitespace on the right;
+     centre the whole hero so it reads as balanced and intentional. */
+  @media (min-width: 1024px) {
+    .hero-inner { text-align: center; }
+    .hero-eyebrow { justify-content: center; }
+    .hero-title, .hero-subhead { margin-left: auto; margin-right: auto; }
+    .hero-ctas { justify-content: center; }
+  }
   @media (prefers-reduced-motion: reduce) { .hero-title em::after { width: 100%; } }
 </style>
