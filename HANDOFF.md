@@ -1,8 +1,11 @@
 # HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
-updated 2026-07-16 (session close)
+updated 2026-07-17
 
-## State: SHIPPED & IN SYNC
-- Live at https://shauna.digital. main == GitHub == prod at the latest commit; tree clean.
+## State: LOCAL CHANGES — awaiting approval to ship
+- Uncommitted (tree dirty): (1) footer GitHub/LinkedIn swapped to OFFICIAL marks;
+  (2) blog components restyled off the retired green onto teal tokens. Build clean (17 pages),
+  verified on dev :4333 via computed styles. NOT pushed. See "Done this session".
+- Live at https://shauna.digital. Before these edits: main == GitHub == prod at latest commit.
   Push to `main` = auto-deploy to prod (see DEPLOY.md). Netlify project "byshauna"
   (id f63775ef-f653-4328-bf37-d5270d1882f2) on the PERSONAL account shauna.coy@gmail.com —
   NOT the AAO account (which has no portfolio site).
@@ -34,11 +37,19 @@ updated 2026-07-16 (session close)
   window). Claude must NOT edit live DNS or billing — hand Shauna the exact records to paste.
 - LaunchKit triptych = empty "screen 1/2/3" placeholders. Fill via launchkit `phoneImages`
   (3 image paths) in projects.json. Nike/Apple project images are also still the originals.
-- Footer GitHub/LinkedIn glyphs are custom — swap for OFFICIAL marks before relying on them.
 - Eyeball: is the client credit line on the cards loud enough for Nike/Apple? (Shauna's call.)
-- Dead code: blog components (BlogTable/BlogCallout/blog/*) use old green #0D6B4A but are
-  never bundled (verified — no off-palette hex ships). Delete or restyle someday.
-- DONE this session: og-image redrawn in teal (live); hosting topology documented.
+- DONE this session (LOCAL, not yet shipped — awaiting approval):
+  - Footer GitHub/LinkedIn now use OFFICIAL marks (octicon mark-github 16x16 + LinkedIn "in"
+    bug 24x24), filled via .brand class; Blog keeps the custom .line stroke icon. All inherit
+    footer colour (white on dark) and flip teal on hover.
+  - Blog components RESTYLED off the retired green. CORRECTION: the prior handoff's "never
+    bundled / no off-palette hex ships" was WRONG — #0D6B4A (plus #0a5239, cream #ece9e0,
+    pale-green tints) shipped live on 5 blog pages. Not dead code; the components are imported
+    by 5 .mdx posts. Kept the blog intact and remapped every hardcoded hex to teal tokens
+    (--primary fills/borders, --accent-ink for small text incl. the step-number badge → white
+    text now 6.22:1 AA, --primary-50/100 tints). Semantic red/amber status colours in the cost
+    table left as-is (not the retired accent). Verified: retired hexes gone from dist.
+- DONE earlier: og-image redrawn in teal (live); hosting topology documented.
 
 ## Gotchas (the rest are in CLAUDE.md)
 - CSP is tight (form-action = Formspree only). If a font/form silently breaks, suspect netlify.toml.

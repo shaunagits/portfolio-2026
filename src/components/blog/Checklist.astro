@@ -9,7 +9,7 @@ const { items } = Astro.props;
   {items.map(item => (
     <li class="checklist-item">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect width="16" height="16" rx="3" fill="#0D6B4A"/>
+        <rect width="16" height="16" rx="3"/>
         <path d="M4 8l2.5 2.5L12 5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <span>{item}</span>
@@ -37,5 +37,9 @@ const { items } = Astro.props;
   .checklist-item svg {
     flex-shrink: 0;
     margin-top: 2px;
+  }
+
+  .checklist-item svg rect {
+    fill: var(--primary);
   }
 </style>

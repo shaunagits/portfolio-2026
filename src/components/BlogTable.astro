@@ -69,12 +69,12 @@ const { headers } = Astro.props;
 
   .blog-table :global(tr.total-row td) {
     font-weight: 500;
-    background: #ece9e0;
+    background: var(--primary-100);
     border-top: 1px solid rgba(0, 0, 0, 0.15);
   }
 
   .blog-table :global(.positive) {
-    color: #0D6B4A;
+    color: var(--accent-ink);
   }
 
   .blog-table :global(.negative) {
