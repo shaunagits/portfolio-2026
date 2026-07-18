@@ -18,6 +18,13 @@ updated 2026-07-17
   dash-free — prose -> commas/periods/colons; "NN —" section labels -> "NN ·"; ranges -> "to";
   titles/badges/meta -> "·". Blog prose + blog/case-study title templates included. KEPT
   compound-word hyphens (full-stack, 60-day) and code comments. If re-adding copy, no em dashes.
+- NAV LOGO animates on load: LogoS.astro now SPLITS the artwork into the S body (keeps its two
+  interior counters + fill-rule evenodd) and the 6 speed-streaks, so the streaks fly in from the
+  left, staggered 0.055s apart, 0.5s each, one-shot (`both`). Driven by the `animate` prop, which
+  only Nav passes — any other use of the mark stays static. All paths inherit currentColor, so the
+  entrance survives the teal->white footer flip (verified both states). Hover still deepens
+  --primary -> --accent-ink. Reduced-motion handled globally. Verify animations in a REAL browser
+  (Playwright/headless): the in-app preview pane holds the page hidden so the clock never advances.
 - LAUNCHKIT triptych filled: 3 mobile shots of the live LaunchKit store (product / home centre /
   collection) at public/images/launchkit-phone-1..3.jpg, wired via projects.json phoneImages.
   TEMP PLACEHOLDERS until Shauna does real product screenshots. Captured via Playwright login

@@ -12,7 +12,7 @@ const links = [
   <div class="nav-inner container">
     {/* The mark carries no name, so the aria-label is now the only place the link
         says where it goes — keep it. The name is reintroduced in the hero. */}
-    <a href="/" class="nav-logo" aria-label="Shauna home"><LogoS class="nav-mark" /></a>
+    <a href="/" class="nav-logo" aria-label="Shauna home"><LogoS class="nav-mark" animate /></a>
 
     <nav class="nav-desktop" aria-label="Main navigation">
       <ul class="nav-links">
@@ -88,12 +88,16 @@ const links = [
   .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 76px; }
   /* Teal at rest; .nav.is-over-dark below flips this to --on-accent and the mark
      follows via currentColor — teal-on-teal would otherwise vanish on the footer bar. */
+  /* The load entrance lives in LogoS.astro (`animate` prop): the mark's own
+     speed-streaks fly in from the left, staggered. Nothing to animate here —
+     the streaks are part of the mark, and they inherit currentColor, so the
+     entrance works in both the teal-on-white and white-on-teal states. */
   .nav-logo { display: flex; align-items: center; color: var(--primary); }
   /* :global is required — the <svg> is rendered by LogoS.astro, so it never gets
      this component's scope attribute and a plain .nav-mark selector can't match it
      (it silently computes to height:0 and the logo disappears).
      viewBox is trimmed to the ink, so this is true mark height. */
-  .nav-logo :global(.nav-mark) { height: 38px; width: auto; display: block; }
+  .nav-logo :global(.nav-mark) { height: 38px; width: auto; display: block; transition: fill 0.25s var(--ease); }
   .nav-logo:hover { color: var(--accent-ink); }
   .nav-links { display: flex; align-items: center; gap: 2.375rem; }
   .nav-link { position: relative; font-size: 0.875rem; font-weight: 500; color: var(--ink); transition: color 0.2s; }
