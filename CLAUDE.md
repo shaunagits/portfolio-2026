@@ -78,3 +78,13 @@ Personal portfolio at shauna.digital. Astro static site. Goal: personal brand
 - Netlify project is "byshauna" (id f63775ef-f653-4328-bf37-d5270d1882f2) on the PERSONAL
   account shauna.coy@gmail.com — NOT the AAO account, which has no portfolio site.
 - NEVER push to main without Shauna's approval. See DEPLOY.md.
+
+## Hosting topology for shauna.digital (verified 2026-07-16 via live DNS)
+- WEB hosting: Netlify (apex A -> 75.2.60.5; www CNAME -> byshauna.netlify.app; Server: Netlify).
+- DNS: Namecheap (nameservers dns1/dns2.registrar-servers.com). So DNS records are edited in
+  Namecheap, NOT in Netlify or DreamHost.
+- EMAIL: DreamHost (MX -> mx1/mx2.dreamhost.com; SPF include:mailchannels.net). DreamHost is
+  NOT serving the website — its only live role for this domain is email. Do NOT cancel the
+  DreamHost piece without first confirming/migrating @shauna.digital email, or mail breaks.
+- Domain registrar: likely Namecheap (registrar-servers.com nameservers) — confirm in the
+  registrar dashboard before any domain change.
