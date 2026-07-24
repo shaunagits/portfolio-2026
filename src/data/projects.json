@@ -143,6 +143,12 @@
     "summary": "Retail marketing and store-design programs for Nike North America: $10M+ annual budgets, six years delivering at scale.",
     "image": "/images/project-nike.jpg",
     "frame": "photo",
+    "detailImages": [
+      {
+        "src": "/images/project-nike-4x3.jpg",
+        "alt": "Nike retail store-design program"
+      }
+    ],
     "tint": "tint-2",
     "urlLabel": null,
     "role": "Program Lead",
