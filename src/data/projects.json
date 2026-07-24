@@ -47,6 +47,50 @@
     "featured": true
   },
   {
+    "id": "gradient",
+    "name": "An AI recruiting platform, built solo",
+    "client": "Independent tech recruiting firm",
+    "category": "Web App · AI",
+    "summary": "An AI-powered applicant tracking system built for a tech recruiting firm: candidate sourcing, job-fit scoring, automated triage, and AI-drafted outreach. A 6-phase pipeline keeps AI costs in check.",
+    "frame": "combo",
+    "laptopImage": "/images/gradient-app-desktop.png",
+    "laptopAlt": "The back-end recruiting app",
+    "phoneImage": "/images/gradient-website-mobile.png",
+    "phoneAlt": "The front-end website on mobile",
+    "tint": "tint-2",
+    "urlLabel": null,
+    "role": "Design &amp; Development",
+    "timeline": "2026, in daily production use",
+    "scope": "Full-stack AI app",
+    "problem": "An independent tech recruiting firm was running candidate sourcing, scoring, and outreach across a set of disconnected tools. Triage was heavily manual, and because every step leaned on AI APIs, the cost of running the pipeline was unpredictable.",
+    "whatIDid": "Designed and built an AI-powered applicant tracking system, solo. The workflow runs as a 6-phase pipeline that separates no-cost tasks from paid AI operations, so API spend stays controlled instead of accruing on every step.<br><br>Six or more serverless edge functions handle the core work: candidate sourcing, job-fit scoring, automated triage, AI-drafted outreach, and presentation generation. Contact-email extraction from GitHub and Hacker News profiles is automated as part of sourcing.",
+    "outcome": "In daily production use, running the recruiting firm's candidate pipeline.",
+    "stats": [
+      {
+        "n": "6-phase",
+        "l": "Cost-controlled pipeline"
+      },
+      {
+        "n": "6+",
+        "l": "Serverless edge functions"
+      },
+      {
+        "n": "Daily",
+        "l": "In production use"
+      }
+    ],
+    "tools": [
+      "React",
+      "TypeScript",
+      "Supabase",
+      "Vercel",
+      "OpenAI API",
+      "Anthropic API"
+    ],
+    "link": null,
+    "featured": true
+  },
+  {
     "id": "client-portal",
     "name": "A client portal, built from scratch",
     "client": "Shauna Digital",
@@ -146,6 +190,11 @@
       "/images/launchkit-phone-1.jpg",
       "/images/launchkit-phone-2.jpg",
       "/images/launchkit-phone-3.jpg"
+    ],
+    "phoneAlts": [
+      "LaunchKit store product page on mobile",
+      "LaunchKit store home screen on mobile",
+      "LaunchKit store collection page on mobile"
     ],
     "tint": "tint-3",
     "urlLabel": "Etsy · Shopify",

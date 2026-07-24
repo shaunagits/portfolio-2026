@@ -11,7 +11,7 @@ const loading = eager ? 'eager' : 'lazy';
       <div class:list={['phone', i === 1 && 'center']}>
         <div class="phone-shot">
           {project.phoneImages && project.phoneImages[i]
-            ? <img src={project.phoneImages[i]} alt={`${project.name} screen ${i + 1}`} loading={loading} />
+            ? <img src={project.phoneImages[i]} alt={(project.phoneAlts && project.phoneAlts[i]) || `${project.name} screen ${i + 1}`} loading={loading} />
             : <span class="phone-ph">screen {i + 1}</span>}
         </div>
       </div>
@@ -21,10 +21,10 @@ const loading = eager ? 'eager' : 'lazy';
   <div class="combo">
     <div class="frame browser laptop">
       <div class="bar"><i></i><i></i><i></i>{project.urlLabel && <em>{project.urlLabel}</em>}</div>
-      <div class="shot">{project.laptopImage && <img src={project.laptopImage} alt={`${project.name} website`} loading={loading} />}</div>
+      <div class="shot">{project.laptopImage && <img src={project.laptopImage} alt={project.laptopAlt || `${project.name} website`} loading={loading} />}</div>
     </div>
     <div class="phone">
-      <div class="phone-shot">{project.phoneImage && <img src={project.phoneImage} alt={`${project.name} app`} loading={loading} />}</div>
+      <div class="phone-shot">{project.phoneImage && <img src={project.phoneImage} alt={project.phoneAlt || `${project.name} app`} loading={loading} />}</div>
     </div>
   </div>
 ) : project.frame === 'browser' ? (

@@ -30,7 +30,7 @@ Good projects do not depend on physical proximity. They depend on clear thinking
 
 ## The Time Zone Question
 
-The time difference is usually less of an issue than people expect. Hawaii gives me quiet mornings for deep work before most of the mainland is online, which is ideal for design, development, writing, and problem-solving. Calls usually happen later in the morning or early afternoon my time, which overlaps well with the West Coast and still works for many East Coast clients.
+The time difference is usually less of an issue than people expect. Hawaii runs hours behind the mainland, so by the time I start my day, much of the country is already online. That works in my favor for calls: I take them in my late morning and early afternoon, which overlaps cleanly with the West Coast and still reaches many East Coast clients before they sign off. The quiet stretch comes at the other end of my day. By my afternoon and into the evening the mainland has logged off, which leaves long, uninterrupted blocks for deep work: design, development, writing, and problem-solving.
 
 ---
 
