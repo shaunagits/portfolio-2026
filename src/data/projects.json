@@ -145,8 +145,14 @@
     "frame": "photo",
     "detailImages": [
       {
-        "src": "/images/project-nike-4x3.jpg",
-        "alt": "Nike retail store-design program"
+        "src": "/images/nike-lenox-mannequins.jpg",
+        "alt": "Suspended athlete mannequins over a reclaimed-wood floor in the Nike store",
+        "caption": "Suspended athlete mannequins beside an athlete honor wall"
+      },
+      {
+        "src": "/images/nike-lenox-gold-hoop.jpg",
+        "alt": "Gold-rimmed basketball hoop with a chain net",
+        "caption": "A gold-rimmed hoop with a chain net, a signature store detail"
       }
     ],
     "tint": "tint-2",

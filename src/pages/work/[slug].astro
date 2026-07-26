@@ -45,10 +45,11 @@ const { project, next } = Astro.props;
     </section>
 
     {project.detailImages && project.detailImages.length > 0 && (
-      <section class="cs-extra container" data-animate>
+      <section class="cs-gallery container" data-animate>
         {project.detailImages.map((img) => (
-          <figure class="cs-extra-shot">
-            <img src={img.src} alt={img.alt} loading="lazy" />
+          <figure class="cs-gallery-item">
+            <div class="cs-gallery-shot"><img src={img.src} alt={img.alt} loading="lazy" /></div>
+            {img.caption && <figcaption>{img.caption}</figcaption>}
           </figure>
         ))}
       </section>
@@ -104,10 +105,13 @@ const { project, next } = Astro.props;
     display: flex; align-items: center; justify-content: center;
     padding: clamp(24px, 4vw, 48px); box-shadow: var(--shadow-media);
   }
-  /* optional supporting shot(s) on the detail page only (project.detailImages) */
-  .cs-extra { margin: 1.5rem auto 0; display: grid; gap: 1.5rem; }
-  .cs-extra-shot { margin: 0; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow-media); background: var(--paper); }
-  .cs-extra-shot img { width: 100%; height: auto; display: block; }
+  /* supporting photo gallery on the detail page only (project.detailImages) */
+  .cs-gallery { margin: 2.5rem auto 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .cs-gallery-item { margin: 0; }
+  .cs-gallery-shot { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow-media); background: var(--paper); aspect-ratio: 3/2; }
+  .cs-gallery-shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cs-gallery figcaption { margin-top: 0.75rem; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.02em; color: var(--ink-soft); line-height: 1.5; }
+  @media (max-width: 720px) { .cs-gallery { grid-template-columns: 1fr; } }
   .body { padding-top: 4rem; padding-bottom: 4rem; }
   .sec { margin-bottom: 3.25rem; }
   .sec .lbl { color: var(--accent-ink); margin-bottom: 1rem; display: block; }
