@@ -1,14 +1,26 @@
 # HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
-updated 2026-07-25
+updated 2026-07-27
 
 ## State: SHIPPED & IN SYNC
-- Live at https://shauna.digital. main == GitHub == prod at commit d1f8a38; tree clean.
+- Live at https://shauna.digital. main == GitHub == prod at commit 29739d6; tree clean.
   Push to `main` = auto-deploy to prod (see DEPLOY.md). Netlify project "byshauna"
   (id f63775ef-f653-4328-bf37-d5270d1882f2), PERSONAL account shauna.coy@gmail.com, NOT AAO.
 - Durable design rules + reasoning live in CLAUDE.md and DECISIONS.md. Read those first.
 - GitHub repo is shaunagits/portfolio-2026; `origin` points at it directly.
 
-## Done this session (2026-07-25, live, pushed d1f8a38)
+## Done this session (2026-07-27, live, pushed 29739d6)
+- NEW BLOG POST "What the World Has Learned About Stray Dogs, and What Oʻahu Can Do in Its Own
+  Backyard" at src/content/blog/what-the-world-has-learned-about-stray-dogs.md. From Shauna's
+  research draft on Bahrain / Netherlands / Bhutan / Turkey + 6 Oʻahu actions. 2,185 words,
+  "9 min read" (longest post by far; others are 4-5 min). NEW CATEGORY "Community" — first post
+  not in Personal/Process/Resources/Web Strategy. Source draft was full of em dashes; all removed
+  (verified 0 in file AND 0 in rendered DOM). Formatted to the blog CSS limits: h2 only (no h3
+  style exists), NO ordered lists (li::before dots every li, so numbered items are h2s instead),
+  `---` rules between sections, 17 source links in a ul.
+- Build is now 20 pages (home + blog index + 12 posts + 6 work). DEPLOY.md still says "17 pages"
+  in step 2 — that count is STALE, don't treat it as the gate.
+
+## Done prior session (2026-07-25, live, pushed d1f8a38)
 - LOGO ANIMATION (src/components/LogoS.astro): entrance made slower + bolder. The S BODY now
   arrives WITH the streaks (s-arrive: 0.8s slide -45% + scale 0.92->1 from the left), streaks
   TRAIL in after it settles (streak-in 0.65s, delay 0.18s + i*0.085s, from -320%). Added
@@ -21,22 +33,13 @@ updated 2026-07-25
   used (mannequins, gold-hoop); public/images/nike-lenox-court.jpg is committed but UNUSED
   (safe to delete or use as a 3rd tile). This was uncommitted WIP in the tree, now shipped.
 
-## Done prior session (2026-07-24, pushed 82e21ea)
-- GRADIENT added to projects.json, placed 2nd (after AAO). "An AI recruiting platform, built
-  solo"; client anonymized ("Independent tech recruiting firm"); Web App · AI. COMBO frame:
-  laptop = back-end app (public/images/gradient-app-desktop.png), phone = front-end site on
-  mobile (gradient-website-mobile.png). Copy uses only supplied facts, no metrics. Case study auto-gens.
-- gradient-website-desktop.png is committed but UNUSED (combo has 2 slots) — kept for a possible
-  frame swap, safe to delete. The app shot is desktop/landscape so it sits on the LAPTOP, not the
-  phone; to feature the website as laptop hero AND keep the app visible, need a PORTRAIT app shot.
-- ProjectFrame alt text is now DATA-DRIVEN: triptych phoneAlts[], combo laptopAlt/phoneAlt, each
-  with the old `${name} …` fallback. LaunchKit got descriptive phoneAlts (was "… screen N").
-- NEW BLOG POST "How This Site's Design System Works" (Process) at
-  src/content/blog/how-this-sites-design-system-works.md. In index + own URL. No dashes.
-- HAWAII POST time-zone fix: it was backwards. Hawaii runs BEHIND the mainland, so the mainland
-  is already online during her morning; quiet deep-work window is afternoon/evening (calls = morning).
-- GITHUB PROFILE README (separate repo shaunagits/shaunagits, pushed via API, not this repo):
-  built from ~/Downloads/github-profile-README.md, footer stripped. Uses Hānai (kahakō) + Kahu (no marks).
+## Done earlier (2026-07-24, pushed 82e21ea) — condensed, see git log for detail
+- Gradient project added to projects.json (2nd, COMBO frame); ProjectFrame alt text made
+  data-driven (phoneAlts[] / laptopAlt / phoneAlt); "How This Site's Design System Works"
+  blog post; Hawaii post time-zone fix (Hawaii runs BEHIND the mainland: calls in her morning,
+  deep work afternoon/evening); GitHub profile README (separate repo shaunagits/shaunagits).
+- gradient-website-desktop.png is committed but UNUSED (combo has 2 slots), safe to delete.
+  To feature the website as laptop hero AND keep the app visible, need a PORTRAIT app shot.
 
 ## Open / next (nothing broken)
 - LAUNCHKIT: swap temp store screenshots for real product/kit shots (same 3 phoneImages paths).
