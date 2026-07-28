@@ -17,8 +17,23 @@ updated 2026-07-27
   (verified 0 in file AND 0 in rendered DOM). Formatted to the blog CSS limits: h2 only (no h3
   style exists), NO ordered lists (li::before dots every li, so numbered items are h2s instead),
   `---` rules between sections, 17 source links in a ul.
-- Build is now 20 pages (home + blog index + 12 posts + 6 work). DEPLOY.md still says "17 pages"
-  in step 2 — that count is STALE, don't treat it as the gate.
+- COMPANION POST "Six Ways to Scale Spay and Neuter in Hawaiʻi, and What Each Would Actually Take"
+  (7a3164b), Community, 11 min. Implementation brief to the essay above; links to it inline.
+  Shauna will say later how/whether to merge the two. VERIFIED against primary sources first and
+  CORRECTED her source research twice: (1) Bhutan is ~$58/animal ($3.55M / 61,680 sterilizations
+  in the 2022-23 push), NOT the ~$24 that floats around — that divides the push's budget by the
+  150,000 lifetime HSI-partnership figure; (2) the "70% TNR threshold" is a dog/rabies herd-
+  immunity number misapplied to cats (feline lit: ~80% to stabilize, 93-95% sustained).
+  HRS 471-2(8)/471-9.5/471-9.6 confirmed. UNVERIFIED and flagged in-post: The Fix Is In, RAVS.
+- KNOWN NIT in post 1 (not fixed, Shauna reviewing): it bundles the 95% vaccination + 32,000
+  microchip figures under "across the full project", but those belong to the 2022-23 accelerated
+  phase; only the 150,000 sterilizations are lifetime.
+- DEPLOY.md step 2 page count is now DERIVED, not a hardcoded 17 (0f92f7c). Build is 21 pages
+  = 1 home + 1 blog index + 13 posts + 6 projects. A DROP is the real signal; growth is content.
+- OPEN QUESTION (asked, not decided): add Blog to the nav? Only footer-linked today. Rec was
+  label it "Writing" now, keep "Library" for later if lead magnets land. NOTE: lead magnets need
+  email capture and netlify.toml CSP is `form-action https://formspree.io` with no 'self' — a
+  ConvertKit/Buttondown/Mailchimp form will be silently blocked until that line is updated.
 
 ## Done prior session (2026-07-25, live, pushed d1f8a38)
 - LOGO ANIMATION (src/components/LogoS.astro): entrance made slower + bolder. The S BODY now
