@@ -1,10 +1,13 @@
 ---
 import LogoS from './LogoS.astro';
 
+// Writing goes LAST so the three homepage anchors stay contiguous — it's the only
+// item here that navigates to another page rather than scrolling this one.
 const links = [
   { label: 'Work', href: '/#work' },
   { label: 'About', href: '/#about' },
   { label: 'Services', href: '/#services' },
+  { label: 'Writing', href: '/blog' },
 ];
 ---
 

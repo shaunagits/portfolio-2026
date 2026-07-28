@@ -9,6 +9,10 @@ const blog = defineCollection({
     description: z.string(),
     readTime: z.string(),
     publishedDate: z.coerce.date(),
+    // Optional pin for the index. Any post with `featured` jumps above the
+    // date-sorted list, lowest number first (featured: 1 is the top slot).
+    // Omit it entirely and the post sorts by date as usual.
+    featured: z.number().optional(),
   }),
 });
 

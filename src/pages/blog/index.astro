@@ -4,20 +4,30 @@ import Layout from '../../layouts/Layout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
 
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf()
-);
+const all = await getCollection('blog');
+const newestFirst = (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf();
+
+// Pinned posts lead, lowest `featured` first; everything else follows by date.
+// Set `featured: 1` in a post's frontmatter to take the top slot. Because this
+// breaks the date order on purpose, pinned posts carry a "Featured" marker in
+// the list — without it an older post sitting above a newer one reads as a bug.
+const posts = [
+  ...all
+    .filter((p) => p.data.featured !== undefined)
+    .sort((a, b) => (a.data.featured ?? 0) - (b.data.featured ?? 0)),
+  ...all.filter((p) => p.data.featured === undefined).sort(newestFirst),
+];
 ---
 
 <Layout
-  title="Blog · Shauna"
+  title="Writing · Shauna"
   description="Writing about web apps, design, and building digital products."
 >
   <Nav />
 
   <main class="blog-index">
     <div class="blog-container">
-      <p class="blog-eyebrow">Blog</p>
+      <p class="blog-eyebrow">Writing</p>
       <h1 class="blog-heading">From My Desk</h1>
 
       <ul class="post-list">
@@ -28,7 +38,11 @@ const posts = (await getCollection('blog')).sort(
           return (
             <li class="post-item">
               <a href={`/blog/${post.id}`} class="post-link">
-                <p class="post-category">{post.data.category}</p>
+                <p class="post-category">
+                  {post.data.featured !== undefined
+                    ? `Featured · ${post.data.category}`
+                    : post.data.category}
+                </p>
                 <h2 class="post-title">{post.data.title}</h2>
                 <p class="post-description">{post.data.description}</p>
                 <p class="post-meta">{formattedDate} &middot; {post.data.readTime}</p>
