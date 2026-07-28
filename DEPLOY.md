@@ -8,7 +8,12 @@ NEVER push to `main` without Shauna's approval — a push IS a production deploy
 
 ## Standard change flow
 1. Make the change on a branch or on `main` locally (don't push yet).
-2. `npm run build` — must be clean (17 pages: home + 5 /work/* + 11 blog).
+2. `npm run build` — must be clean. The page count is DERIVED, so don't hardcode it here:
+   1 home + 1 /blog index + one page per file in src/content/blog + one per entry in
+   src/data/projects.json. (It was 20 on 2026-07-27. This line used to say a fixed "17",
+   which silently went stale the moment a post or project was added.) What matters is that
+   the count MATCHES that formula and never DROPS — a drop means something stopped
+   generating. Growth just means you added content.
 3. Preview it. Either:
    - `netlify deploy --build` → a DRAFT url (does NOT touch prod), or
    - the dev server: `preview_start` the `portfolio` (:4321) / `portfolio-alt` (:4333) config.
