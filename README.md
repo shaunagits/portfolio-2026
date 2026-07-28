@@ -1,43 +1,24 @@
-# Astro Starter Kit: Minimal
+# Shauna Digital · Portfolio
 
-```sh
-npm create astro@latest -- --template minimal
+Source for [shauna.digital](https://shauna.digital), Shauna Arnold's personal portfolio. Astro static site: a home page, a case study per project, and a blog.
+
+## Develop
+
+```bash
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # -> dist/ (17 pages: home + 5 /work/* case studies + 11 blog posts)
+npm run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Design system
 
-## 🚀 Project Structure
+Black + white + one teal accent (`--primary` #2C8C99), token-driven from `src/styles/global.css :root`. Fraunces for display type, Inter for body, JetBrains Mono for labels. The full rules, and the reasoning behind each locked decision, live in `CLAUDE.md` and `DECISIONS.md`: read those before making visual changes.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Contact form
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Wired to Formspree, not Netlify Forms.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Deploy
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Netlify project "byshauna" (personal account, not the AAO account). Auto-deploys on push to `main`, so a push to `main` is a production deploy. See `DEPLOY.md` for the preview-first flow, and `HANDOFF.md` for current state and open threads.
