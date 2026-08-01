@@ -3,6 +3,36 @@
   publish = "dist"
 
 # ---------------------------------------------------------------------------
+# shauna.dev is an alias on this Netlify site purely so Netlify can hold its
+# TLS cert; these rules bounce every request over to shauna.digital. Without
+# them the alias would SERVE the site as duplicate content instead of
+# redirecting. force = true because the pages do exist in the deploy.
+# ---------------------------------------------------------------------------
+[[redirects]]
+  from = "https://shauna.dev/*"
+  to = "https://shauna.digital/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.shauna.dev/*"
+  to = "https://shauna.digital/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://shauna.dev/*"
+  to = "https://shauna.digital/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.shauna.dev/*"
+  to = "https://shauna.digital/:splat"
+  status = 301
+  force = true
+
+# ---------------------------------------------------------------------------
 # Security headers. The site is fully static, so it can afford a tight policy.
 # script-src/style-src need 'unsafe-inline' because Astro inlines the small
 # scroll/nav script and inlines small stylesheets by default. form-action is
