@@ -1,14 +1,35 @@
 # HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
-updated 2026-07-27
+updated 2026-08-02
 
 ## State: SHIPPED & IN SYNC
-- Live at https://shauna.digital. main == GitHub == prod at commit 29739d6; tree clean.
+- Live at https://shauna.digital. main == GitHub == prod at commit 8926823; tree clean.
   Push to `main` = auto-deploy to prod (see DEPLOY.md). Netlify project "byshauna"
   (id f63775ef-f653-4328-bf37-d5270d1882f2), PERSONAL account shauna.coy@gmail.com, NOT AAO.
 - Durable design rules + reasoning live in CLAUDE.md and DECISIONS.md. Read those first.
 - GitHub repo is shaunagits/portfolio-2026; `origin` points at it directly.
 
-## Done this session (2026-07-27, live, pushed 29739d6)
+## Done this session (2026-08-02, live, pushed 8926823)
+- SECOND DOMAIN shauna.dev (bought 2026-07-30 at Namecheap) now 301-redirects to shauna.digital,
+  path-preserving, all four host/scheme combos. Two moving parts: (1) shauna.dev + www.shauna.dev
+  added as Netlify domain ALIASES on "byshauna" so Netlify answers for them and can hold the TLS
+  cert; (2) four `[[redirects]]` blocks in netlify.toml with `force = true` (needed, since the
+  pages DO exist in the deploy, so without force Netlify would serve shauna.dev as duplicate
+  content instead of redirecting). DNS in Namecheap is A `@` -> 75.2.60.5 and CNAME `www` ->
+  byshauna.netlify.app, same as shauna.digital.
+- SSL: nothing purchased. Netlify's existing Let's Encrypt cert was RENEWED to add the two new
+  names (SAN now covers all four; expires 2026-10-31). The renew is NOT the provision endpoint:
+  `POST /sites/{id}/ssl` returns 422 "certificate parameter is required" because bare POST means
+  a CUSTOM cert upload. The one that works is `POST /sites/{id}/ssl/renew`, then poll until
+  `domains` includes shauna.dev (took ~30s).
+- GOTCHA that cost most of this session: the Namecheap zone kept serving a SECOND apex A record,
+  192.64.119.48, alongside the Netlify one, so ~half of requests hit a Namecheap 404 and
+  Let's Encrypt could not validate. It was a leftover URL Redirect Record (the IP self-identifies
+  via `X-Served-By: Namecheap URL Forward`). Diagnosing by SOA serial was a DEAD END: Namecheap
+  does NOT bump the zone serial on edits, so an unchanged serial does not mean the edit failed.
+  Check the A record set at dns1/dns2.registrar-servers.com directly instead.
+- shauna.dev has NO email records. If @shauna.dev mail is ever wanted that is a separate MX setup.
+
+## Done 2026-07-27 (live, pushed 29739d6)
 - NEW BLOG POST "What the World Has Learned About Stray Dogs, and What Oʻahu Can Do in Its Own
   Backyard" at src/content/blog/what-the-world-has-learned-about-stray-dogs.md. From Shauna's
   research draft on Bahrain / Netherlands / Bhutan / Turkey + 6 Oʻahu actions. 2,185 words,
