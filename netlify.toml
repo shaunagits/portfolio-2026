@@ -3,22 +3,68 @@
   publish = "dist"
 
 # ===========================================================================
-# shauna.dev — CUTOVER STEP 1 of 2: CANARY ON www ONLY.
+# shauna.dev — FULL CUTOVER, BOTH HOSTS.
 #
-# www.shauna.dev now SERVES the link-in-bio page at its own URL; the apex
-# still 301s to shauna.digital (the block further down). Verify www live,
-# then copy this same three-rule set for the apex to finish the cutover.
-# Full runbook + rollback: CUTOVER-shauna-dev.md.
+# shauna.dev and www.shauna.dev both SERVE the link-in-bio page (/links) at
+# their own URL via a 200 rewrite, instead of 301ing to shauna.digital.
+# Runbook, verification curls and rollback: CUTOVER-shauna-dev.md.
 #
-# Netlify takes the FIRST matching rule, so the order below is load-bearing.
+# Netlify takes the FIRST matching rule, so the ORDER below is load-bearing.
+# Per host the pattern is: assets pass through -> root rewrites -> the rest
+# still bounces. Three notes that apply to both hosts:
+#
+#  1. ASSETS MUST STAY SAME-ORIGIN. /links loads two real stylesheets from
+#     /_astro/ (Astro inlined nothing), and the CSP at the bottom of this
+#     file is style-src/script-src 'self'. If the catch-all caught those and
+#     sent them to shauna.digital, the browser would block both files and the
+#     page would render COMPLETELY UNSTYLED. The passthroughs sit above the
+#     catch-all precisely so that cannot happen.
+#  2. THE ROOT REWRITE NEEDS force = true, for the same reason the old 301s
+#     did: / exists in the deploy as the portfolio homepage, so without force
+#     Netlify serves that and the rewrite never fires.
+#  3. THE CATCH-ALL STAYS, so no portfolio route (/blog, /work/*, …) is
+#     reachable on these hosts as duplicate content.
+#
+# Both hosts serve the same page. The canonical tag on /links points at
+# https://shauna.dev/, so search engines consolidate on the apex. If you'd
+# rather have exactly one live copy, change the www root rule below from the
+# 200 rewrite to `to = "https://shauna.dev/"` with status 301.
 # ---------------------------------------------------------------------------
 
-# 1. Assets must stay SAME-ORIGIN.
-#    /links loads two real stylesheets from /_astro/ (Astro inlined nothing),
-#    and the CSP at the bottom of this file is style-src/script-src 'self'.
-#    If the catch-all in rule 3 caught these and sent them to shauna.digital,
-#    the browser would block both files and the page would render unstyled.
-#    These sit above rule 3 precisely so that cannot happen.
+# ---- APEX: shauna.dev -----------------------------------------------------
+[[redirects]]
+  from = "https://shauna.dev/_astro/*"
+  to = "/_astro/:splat"
+  status = 200
+
+[[redirects]]
+  from = "https://shauna.dev/favicon.svg"
+  to = "/favicon.svg"
+  status = 200
+
+[[redirects]]
+  from = "https://shauna.dev/favicon.ico"
+  to = "/favicon.ico"
+  status = 200
+
+[[redirects]]
+  from = "https://shauna.dev/apple-touch-icon.png"
+  to = "/apple-touch-icon.png"
+  status = 200
+
+[[redirects]]
+  from = "https://shauna.dev/"
+  to = "/links/"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://shauna.dev/*"
+  to = "https://shauna.digital/:splat"
+  status = 301
+  force = true
+
+# ---- WWW: www.shauna.dev --------------------------------------------------
 [[redirects]]
   from = "https://www.shauna.dev/_astro/*"
   to = "/_astro/:splat"
@@ -39,42 +85,27 @@
   to = "/apple-touch-icon.png"
   status = 200
 
-# 2. The root SERVES /links (200 rewrite, NOT a redirect), so the page keeps
-#    the shauna.dev URL. force = true is required for the same reason the old
-#    301s needed it: / exists in the deploy as the portfolio homepage, so
-#    without force Netlify serves that instead.
 [[redirects]]
   from = "https://www.shauna.dev/"
   to = "/links/"
   status = 200
   force = true
 
-# 3. Every other path still bounces to shauna.digital, so no portfolio route
-#    (/blog, /work/*, …) is reachable on this host as duplicate content.
 [[redirects]]
   from = "https://www.shauna.dev/*"
   to = "https://shauna.digital/:splat"
   status = 301
   force = true
 
-# ---------------------------------------------------------------------------
-# APEX — still redirecting. This is CUTOVER STEP 2: replace this single block
-# with the six above, s/www.shauna.dev/shauna.dev/, once the canary checks out.
-# ---------------------------------------------------------------------------
-[[redirects]]
-  from = "https://shauna.dev/*"
-  to = "https://shauna.digital/:splat"
-  status = 301
-  force = true
-
-# The two http:// blocks below are belt-and-braces. Netlify upgrades http to
-# https at the edge before these path rules are consulted (verified: a request
-# to http://shauna.dev/ answers 301 -> https://shauna.dev/, not straight to
-# shauna.digital), so in practice the https rules above are what run. Kept
-# because they cost nothing and cover a direct http hit.
+# ---- http:// ---------------------------------------------------------------
+# Belt-and-braces. Netlify upgrades http to https at the edge before these
+# path rules are consulted (verified: http://shauna.dev/ answers
+# 301 -> https://shauna.dev/, not straight to shauna.digital), so in practice
+# the https rules above are what run. These now upgrade to the SAME host
+# rather than jumping to shauna.digital, which would skip the rewrite.
 [[redirects]]
   from = "http://shauna.dev/*"
-  to = "https://shauna.digital/:splat"
+  to = "https://shauna.dev/:splat"
   status = 301
   force = true
 

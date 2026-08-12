@@ -1,15 +1,15 @@
 # CUTOVER — serving the link-in-bio page at shauna.dev
 
 Status: **NOT EXECUTED.** Nothing has been pushed or deployed to prod.
-Written 2026-08-12. Approach: Option A (host rewrite, one codebase), canary on
-`www` first. Approved by Shauna.
+Written 2026-08-12. Approach: Option A (host rewrite, one codebase).
+Shauna's call: **both hosts at once, no canary.**
 
 ## What this does
 
-`shauna.dev` currently 301s to `shauna.digital`. After cutover it serves
-`/links` at its own URL via a **200 rewrite**, so the page keeps the
-`shauna.dev` address. `shauna.digital` is untouched; `/links` stays reachable
-there too and points its canonical at `shauna.dev`.
+`shauna.dev` and `www.shauna.dev` currently 301 to `shauna.digital`. After
+cutover both **serve** `/links` at their own URL via a **200 rewrite**, so the
+page keeps the `shauna.dev` address. `shauna.digital` is untouched; `/links`
+stays reachable there too and points its canonical at `shauna.dev`.
 
 No DNS change. No new certificate. The existing Let's Encrypt cert already
 covers all four hostnames (expires **2026-10-31**).
@@ -17,7 +17,7 @@ covers all four hostnames (expires **2026-10-31**).
 ## Why the rules look the way they do
 
 Netlify takes the **first matching rule**, so order is load-bearing. Three
-things bite here, and all three are already handled in `netlify.toml`:
+things bite here, and all three are handled in `netlify.toml`:
 
 1. **The root rewrite needs `force = true`.** `/` exists in the deploy as the
    portfolio homepage, so without force Netlify serves that and the rewrite
@@ -27,86 +27,77 @@ things bite here, and all three are already handled in `netlify.toml`:
    `style-src 'self'` / `script-src 'self'`. If the catch-all 301 caught those
    files and sent them to `shauna.digital`, the browser would block them and
    the page would render **completely unstyled**. The `/_astro/*` passthrough
-   sits above the catch-all specifically to prevent this.
+   sits above the catch-all specifically to prevent this. **This is the check
+   most worth running after deploy.**
 3. **Everything else must still bounce.** Without the catch-all, `/blog`,
    `/work/*` etc. would serve on `shauna.dev` as duplicate content.
 
-## Known limitation, read before step 1
+The `http://` rules now upgrade to the **same host** rather than jumping to
+`shauna.digital`, which would have skipped the rewrite entirely.
+
+## Known limitation, read before deploying
 
 A host-keyed rule **cannot be proven on a Netlify draft deploy**, because the
 draft is served on a different hostname (`<hash>--byshauna.netlify.app`) and
 the rule never matches there. A draft proves the *page*; only prod proves the
-*rule*. That is exactly why step 1 is a canary on `www` while the apex keeps
-its existing 301 — if host-matching misbehaves, the address people actually
-use is unaffected.
+*rule*. The page itself was verified on draft
+`6a7cf1e84d0da69e424afb22--byshauna.netlify.app` (styled, correct CSP, zero
+console errors). What is unverified until prod is the rewrite.
+
+Since the canary was skipped, the first time these rules run is on the live
+apex. Rollback is a `git revert` plus a redeploy and is live within a minute
+(no DNS, no cert), so the exposure is short, but it is real.
 
 ---
 
-## Step 1 — canary on www.shauna.dev
+## Deploy
 
-Already staged in `netlify.toml` on branch `links-page` (commit 2). Ship it:
-
-```bash
-git push origin links-page
-```
-
-Merge to `main` only with Shauna's approval, or deploy directly:
+Merge and let GitHub auto-deploy:
 
 ```bash
-netlify deploy --build --prod
+cd /Users/shauna/Desktop/claudecode/shauna.digital/portfolio && git checkout main && git merge links-page && git push origin main
 ```
 
-Then verify. Expect `HTTP/2 200` and `content-type: text/html`, **not** a 301:
+Or deploy straight from the branch, then push so `main` doesn't lag prod:
 
 ```bash
-curl -sS -o /dev/null -D - https://www.shauna.dev/ | egrep -i '^(HTTP/|location:|content-type:)'
+cd /Users/shauna/Desktop/claudecode/shauna.digital/portfolio && netlify deploy --build --prod
 ```
 
-Confirm the stylesheets load same-origin (this is the failure mode that
-renders the page naked, so do not skip it):
+## Verify, in this order
+
+**1. Both roots serve the page.** Expect `HTTP/2 200` and
+`content-type: text/html`, **not** a 301:
 
 ```bash
-CSS=$(curl -sS https://www.shauna.dev/ | grep -o '/_astro/[^"]*\.css' | head -1)
-curl -sS -o /dev/null -D - "https://www.shauna.dev$CSS" | egrep -i '^(HTTP/|location:|content-type:)'
+for u in https://shauna.dev/ https://www.shauna.dev/; do echo "== $u"; curl -sS -o /dev/null -D - "$u" | egrep -i '^(HTTP/|location:|content-type:)'; done
 ```
 
-`content-type: text/css` and no `location:` means it stayed same-origin. A
-`location:` pointing at `shauna.digital` means rule 1 is being skipped and the
-page will render unstyled. (The `_astro` filenames are content-hashed and
-change every build, so read the current one out of the HTML rather than
-hardcoding it.)
-
-Confirm other paths still bounce, and the apex is still redirecting:
+**2. The stylesheets stay same-origin.** This is the failure mode that renders
+the page naked, so do not skip it. `content-type: text/css` and no `location:`
+means it worked; a `location:` pointing at `shauna.digital` means the asset
+passthrough is being skipped:
 
 ```bash
-curl -sS -o /dev/null -D - https://www.shauna.dev/blog | egrep -i '^(HTTP/|location:)'
-curl -sS -o /dev/null -D - https://shauna.dev/ | egrep -i '^(HTTP/|location:)'
+CSS=$(curl -sS https://shauna.dev/ | grep -o '/_astro/[^"]*\.css' | head -1)
+curl -sS -o /dev/null -D - "https://shauna.dev$CSS" | egrep -i '^(HTTP/|location:|content-type:)'
 ```
 
-Then open `https://www.shauna.dev/` in a browser and check the page is styled.
-
-## Step 2 — apex
-
-Only after step 1 is verified. In `netlify.toml`, replace the single apex block
-
-```toml
-[[redirects]]
-  from = "https://shauna.dev/*"
-  to = "https://shauna.digital/:splat"
-  status = 301
-  force = true
-```
-
-with the same six blocks used for `www`, `s/www.shauna.dev/shauna.dev/`.
-Keep them in the same order. Deploy, then:
+**3. Other paths still bounce**, so there's no duplicate content:
 
 ```bash
-curl -sS -o /dev/null -D - https://shauna.dev/ | egrep -i '^(HTTP/|location:|content-type:)'
+curl -sS -o /dev/null -D - https://shauna.dev/blog | egrep -i '^(HTTP/|location:)'
 ```
 
-Decide at this point whether `www.shauna.dev` should 301 to the apex so there
-is one canonical address rather than two live copies. Recommended, but it is a
-separate call.
+**4. shauna.digital is unaffected:**
+
+```bash
+for u in https://shauna.digital/ https://shauna.digital/blog https://shauna.digital/links/; do printf '%-38s ' "$u"; curl -sSL -o /dev/null -w '%{http_code}\n' "$u"; done
+```
+
+**5. Open `https://shauna.dev/` in a browser** and confirm it is styled. If it
+renders as unstyled text, that is check 2 failing: roll back and fix the rule
+order rather than leaving it up.
 
 ---
 
@@ -114,18 +105,39 @@ separate call.
 
 Fully reversible, no DNS or cert involvement.
 
-- **Undo step 2 only:** restore the single apex 301 block, redeploy.
-- **Undo everything:** revert the `netlify.toml` commit and redeploy.
+Restore the redirect config exactly as prod has it today, then redeploy:
 
 ```bash
-git revert <netlify.toml commit sha>
+cd /Users/shauna/Desktop/claudecode/shauna.digital/portfolio
+git checkout a25ca62 -- netlify.toml    # a25ca62 = prod before this work
+git commit -m "Roll back shauna.dev cutover"
 netlify deploy --build --prod
 ```
 
-- **Undo the page as well:** revert the page commit too. `/links` disappears
-  and the build returns to 21 pages. Nothing else references it.
+That restores the plain 301s and shauna.dev goes back to redirecting. Deliberately
+SHA-free on the cutover side: it resets `netlify.toml` to the known-good prod
+state rather than assuming which commit introduced the problem.
+
+To remove the page as well, delete `src/pages/links.astro` and
+`src/data/links.json`; `/links` disappears and the build returns to 21 pages.
+Nothing else references them.
 
 Propagation is a Netlify deploy, not DNS, so rollback is live within a minute.
+
+## Optional follow-up
+
+Both hosts now serve the same page, which is two live copies. The canonical
+tag points at `https://shauna.dev/`, so search engines consolidate on the
+apex. If you'd rather have exactly one live copy, change the `www` root rule
+in `netlify.toml` from the 200 rewrite to:
+
+```toml
+[[redirects]]
+  from = "https://www.shauna.dev/"
+  to = "https://shauna.dev/"
+  status = 301
+  force = true
+```
 
 ## Still open at time of writing
 
@@ -135,6 +147,9 @@ Propagation is a Netlify deploy, not DNS, so rollback is live within a minute.
   requires official marks in production. Instagram, TikTok, Pinterest and
   Substack all publish brand kits with usage rules; the Etsy glyph is currently
   a Georgia "E". Swap before or shortly after cutover.
+- Two known contrast failures, flagged and deliberately not fixed: the
+  LaunchKit bar at rest and the "Get in touch" hover fill are both white on
+  `#2C8C99` = 3.95:1.
 - `shauna.dev` now has Namecheap email-forwarding MX records
   (`eforward1-5.registrar-servers.com`). `HANDOFF.md` said it had none. Nothing
   here touches mail, but the note was stale and those records would collide
