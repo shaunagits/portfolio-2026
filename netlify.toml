@@ -2,11 +2,64 @@
   command = "npm run build"
   publish = "dist"
 
+# ===========================================================================
+# shauna.dev — CUTOVER STEP 1 of 2: CANARY ON www ONLY.
+#
+# www.shauna.dev now SERVES the link-in-bio page at its own URL; the apex
+# still 301s to shauna.digital (the block further down). Verify www live,
+# then copy this same three-rule set for the apex to finish the cutover.
+# Full runbook + rollback: CUTOVER-shauna-dev.md.
+#
+# Netlify takes the FIRST matching rule, so the order below is load-bearing.
 # ---------------------------------------------------------------------------
-# shauna.dev is an alias on this Netlify site purely so Netlify can hold its
-# TLS cert; these rules bounce every request over to shauna.digital. Without
-# them the alias would SERVE the site as duplicate content instead of
-# redirecting. force = true because the pages do exist in the deploy.
+
+# 1. Assets must stay SAME-ORIGIN.
+#    /links loads two real stylesheets from /_astro/ (Astro inlined nothing),
+#    and the CSP at the bottom of this file is style-src/script-src 'self'.
+#    If the catch-all in rule 3 caught these and sent them to shauna.digital,
+#    the browser would block both files and the page would render unstyled.
+#    These sit above rule 3 precisely so that cannot happen.
+[[redirects]]
+  from = "https://www.shauna.dev/_astro/*"
+  to = "/_astro/:splat"
+  status = 200
+
+[[redirects]]
+  from = "https://www.shauna.dev/favicon.svg"
+  to = "/favicon.svg"
+  status = 200
+
+[[redirects]]
+  from = "https://www.shauna.dev/favicon.ico"
+  to = "/favicon.ico"
+  status = 200
+
+[[redirects]]
+  from = "https://www.shauna.dev/apple-touch-icon.png"
+  to = "/apple-touch-icon.png"
+  status = 200
+
+# 2. The root SERVES /links (200 rewrite, NOT a redirect), so the page keeps
+#    the shauna.dev URL. force = true is required for the same reason the old
+#    301s needed it: / exists in the deploy as the portfolio homepage, so
+#    without force Netlify serves that instead.
+[[redirects]]
+  from = "https://www.shauna.dev/"
+  to = "/links/"
+  status = 200
+  force = true
+
+# 3. Every other path still bounces to shauna.digital, so no portfolio route
+#    (/blog, /work/*, …) is reachable on this host as duplicate content.
+[[redirects]]
+  from = "https://www.shauna.dev/*"
+  to = "https://shauna.digital/:splat"
+  status = 301
+  force = true
+
+# ---------------------------------------------------------------------------
+# APEX — still redirecting. This is CUTOVER STEP 2: replace this single block
+# with the six above, s/www.shauna.dev/shauna.dev/, once the canary checks out.
 # ---------------------------------------------------------------------------
 [[redirects]]
   from = "https://shauna.dev/*"
@@ -14,12 +67,11 @@
   status = 301
   force = true
 
-[[redirects]]
-  from = "https://www.shauna.dev/*"
-  to = "https://shauna.digital/:splat"
-  status = 301
-  force = true
-
+# The two http:// blocks below are belt-and-braces. Netlify upgrades http to
+# https at the edge before these path rules are consulted (verified: a request
+# to http://shauna.dev/ answers 301 -> https://shauna.dev/, not straight to
+# shauna.digital), so in practice the https rules above are what run. Kept
+# because they cost nothing and cover a direct http hit.
 [[redirects]]
   from = "http://shauna.dev/*"
   to = "https://shauna.digital/:splat"
@@ -28,7 +80,7 @@
 
 [[redirects]]
   from = "http://www.shauna.dev/*"
-  to = "https://shauna.digital/:splat"
+  to = "https://www.shauna.dev/:splat"
   status = 301
   force = true
 
