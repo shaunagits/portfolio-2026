@@ -1,0 +1,77 @@
+{
+  "_comment": [
+    "Drives the link-in-bio page at /links (served as https://shauna.dev/).",
+    "Adding a link = adding one entry. Nothing else needs to change.",
+    "",
+    "bars[].variant  plain | dark | teal | tint | quiet   (see links.astro rest-state block)",
+    "bars[].span     grid columns out of 6. Everything is 6 today; 3 gives a half-width bar.",
+    "bars[].href     omit or null + \"placeholder\": true to render a non-linking TBD bar.",
+    "",
+    "The Writing section is NOT listed here. It is generated from the blog content",
+    "collection so the latest post and the post count stay correct on their own.",
+    "latestPostSlug pins which post is 'latest' because two posts share a",
+    "publishedDate (2026-07-27) and a plain date sort cannot break that tie.",
+    "Remove the pin and it falls back to newest-by-date."
+  ],
+
+  "meta": {
+    "wordmark": "Shauna",
+    "kicker": "Selected links",
+    "domain": "shauna.dev",
+    "footerLine": "© 2026 Shauna Arnold · Honolulu, HI"
+  },
+
+  "contact": {
+    "status": "Taking a few projects for Q4",
+    "lede": "Let’s talk about your project.",
+    "sub": "I take a few at a time, so I answer everything myself.",
+    "cta": { "label": "Get in touch", "href": "https://shauna.digital/#contact" }
+  },
+
+  "socials": [
+    { "icon": "instagram", "label": "Instagram", "href": null, "placeholder": true },
+    { "icon": "tiktok", "label": "TikTok", "href": null, "placeholder": true },
+    { "icon": "pinterest", "label": "Pinterest", "href": null, "placeholder": true },
+    { "icon": "substack", "label": "Substack", "href": null, "placeholder": true },
+    { "icon": "etsy", "label": "Etsy shop", "href": null, "placeholder": true },
+    { "icon": "amazon", "label": "Amazon storefront", "href": null, "placeholder": true },
+    { "icon": "github", "label": "GitHub", "href": "https://github.com/shaunagits" },
+    { "icon": "linkedin", "label": "LinkedIn", "href": "https://www.linkedin.com/in/shaunaarnold/" }
+  ],
+
+  "bars": [
+    {
+      "title": "My Portfolio",
+      "href": "https://shauna.digital",
+      "variant": "dark",
+      "span": 6,
+      "tags": ["Case studies", "Services"]
+    },
+    {
+      "title": "Shop LaunchKits",
+      "href": null,
+      "placeholder": true,
+      "variant": "teal",
+      "span": 6,
+      "tags": ["Brand kits", "Etsy & Shopify"]
+    },
+    {
+      "title": "Hawaiʻi Dog Map",
+      "href": "https://hawaiidogmap.com",
+      "variant": "tint",
+      "span": 6,
+      "tags": ["Dog-friendly spots", "4 islands"]
+    }
+  ],
+
+  "writing": {
+    "heading": "Writing",
+    "latestPostSlug": "what-the-world-has-learned-about-stray-dogs",
+    "latestTag": "Latest",
+    "archive": {
+      "title": "All Posts",
+      "href": "https://shauna.digital/blog",
+      "tag": "Archive"
+    }
+  }
+}
