@@ -29,11 +29,11 @@
   },
 
   "socials": [
-    { "icon": "instagram", "label": "Instagram", "href": null, "placeholder": true },
-    { "icon": "tiktok", "label": "TikTok", "href": null, "placeholder": true },
+    { "icon": "instagram", "label": "Instagram", "href": "https://www.instagram.com/shaunadev_" },
+    { "icon": "tiktok", "label": "TikTok", "href": "https://www.tiktok.com/@shauna.dev" },
     { "icon": "pinterest", "label": "Pinterest", "href": null, "placeholder": true },
-    { "icon": "substack", "label": "Substack", "href": null, "placeholder": true },
-    { "icon": "etsy", "label": "Etsy shop", "href": null, "placeholder": true },
+    { "icon": "substack", "label": "Substack", "href": "https://byshauna.substack.com" },
+    { "icon": "etsy", "label": "Etsy shop", "href": "https://www.etsy.com/shop/launchkitus" },
     { "icon": "amazon", "label": "Amazon storefront", "href": null, "placeholder": true },
     { "icon": "github", "label": "GitHub", "href": "https://github.com/shaunagits" },
     { "icon": "linkedin", "label": "LinkedIn", "href": "https://www.linkedin.com/in/shaunaarnold/" }
@@ -48,9 +48,9 @@
       "tags": ["Case studies", "Services"]
     },
     {
+      "_note": "launchkit.us was NOT resolving as of 2026-08-12 (apex has no A record; www had a TLS name mismatch). Shauna's call: link it anyway, site going live same day. See LAUNCHKIT-DOMAIN.md. If it is still down, set href to null and placeholder to true to put the bar back to 'Link coming soon'.",
       "title": "Shop LaunchKits",
-      "href": null,
-      "placeholder": true,
+      "href": "https://launchkit.us",
       "variant": "teal",
       "span": 6,
       "tags": ["Brand kits", "Etsy & Shopify"]
