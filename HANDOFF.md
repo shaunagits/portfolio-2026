@@ -23,10 +23,12 @@ updated 2026-08-12
   now 18.65:1 and 5.75:1. Footer links were 18px tall; now min-height:44px.
 - A11Y FLAGGED, NOT FIXED (Shauna's call, both inherited): LaunchKit bar at rest and
   the "Get in touch" hover fill are both white on #2C8C99 = 3.95:1.
-- CUTOVER STAGED, NOT EXECUTED (3208bdd): Option A, host-based 200 rewrite, canary on
-  www.shauna.dev only; apex still 301s. Rule ORDER is load-bearing — /_astro/* must
-  pass through 200 BEFORE the catch-all 301, or the CSP (style-src 'self') blocks the
-  two stylesheets and the page renders unstyled. Runbook: CUTOVER-shauna-dev.md.
+- CUTOVER STAGED, NOT EXECUTED (5a0e434, supersedes the 3208bdd canary): Option A,
+  host-based 200 rewrite, BOTH hosts at once — Shauna dropped the canary. Rule ORDER is
+  load-bearing — /_astro/* must pass through 200 BEFORE the catch-all 301, or the CSP
+  (style-src 'self') blocks the two stylesheets and the page renders unstyled. Both
+  http:// rules now upgrade to the SAME host, else they bypass the rewrite.
+  Runbook + rollback: CUTOVER-shauna-dev.md.
 - A host-keyed rule CANNOT be tested on a draft deploy (draft answers on a different
   hostname, so the rule never matches). Draft proves the page; prod proves the rule.
 - STILL BLOCKED: 7 URLs never supplied (LaunchKit shop, Instagram, TikTok, Pinterest,
