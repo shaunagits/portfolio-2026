@@ -1,12 +1,41 @@
 # HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
-updated 2026-08-02
+updated 2026-08-12
 
-## State: SHIPPED & IN SYNC
-- Live at https://shauna.digital. main == GitHub == prod at commit 8926823; tree clean.
+## State: PROD IS CLEAN; UNMERGED WORK ON BRANCH `links-page`
+- Live at https://shauna.digital. `main` == GitHub == prod at commit a25ca62; tree clean.
   Push to `main` = auto-deploy to prod (see DEPLOY.md). Netlify project "byshauna"
   (id f63775ef-f653-4328-bf37-d5270d1882f2), PERSONAL account shauna.coy@gmail.com, NOT AAO.
 - Durable design rules + reasoning live in CLAUDE.md and DECISIONS.md. Read those first.
 - GitHub repo is shaunagits/portfolio-2026; `origin` points at it directly.
+- BRANCH `links-page` (2 commits, NOT pushed, NOT deployed) holds the shauna.dev
+  link-in-bio page. See "Done this session" below and CUTOVER-shauna-dev.md.
+
+## Done this session (2026-08-12) — branch `links-page`, nothing shipped
+- LINK-IN-BIO PAGE at src/pages/links.astro, data-driven from src/data/links.json
+  (5c32618). Ported from links-mockups/03-editorial-bento.html. Destined for
+  https://shauna.dev/. Build goes 21 -> 22 pages; NO existing file was modified.
+- THE MOCKUP'S `--primary-deep` IS A TRAP: it redefined it as #1F6A75 deep teal, but
+  global.css defines --primary-deep as var(--ink). A literal port fills every .dark/
+  .tint hover BLACK. Used --primary-hover (same #1F6A75, already means "deeper teal
+  for hover"). Verified live: focused bar computes background rgb(31,106,117).
+- A11Y FIXED (approved): tag pills had opacity:.5 on the whole element, dimming the
+  LABEL too — 3.5:1 on white bars, 2.2:1 on tint. Moved the fade to border-color only;
+  now 18.65:1 and 5.75:1. Footer links were 18px tall; now min-height:44px.
+- A11Y FLAGGED, NOT FIXED (Shauna's call, both inherited): LaunchKit bar at rest and
+  the "Get in touch" hover fill are both white on #2C8C99 = 3.95:1.
+- CUTOVER STAGED, NOT EXECUTED (3208bdd): Option A, host-based 200 rewrite, canary on
+  www.shauna.dev only; apex still 301s. Rule ORDER is load-bearing — /_astro/* must
+  pass through 200 BEFORE the catch-all 301, or the CSP (style-src 'self') blocks the
+  two stylesheets and the page renders unstyled. Runbook: CUTOVER-shauna-dev.md.
+- A host-keyed rule CANNOT be tested on a draft deploy (draft answers on a different
+  hostname, so the rule never matches). Draft proves the page; prod proves the rule.
+- STILL BLOCKED: 7 URLs never supplied (LaunchKit shop, Instagram, TikTok, Pinterest,
+  Substack, Etsy, Amazon). They ship as non-anchor dashed placeholders. Also, 5 social
+  icons are approximations, not official brand marks (CLAUDE.md requires official).
+- STALE FACTS CORRECTED: shauna.dev DOES now have MX records (Namecheap email
+  forwarding, eforward1-5.registrar-servers.com) — the 2026-08-02 note below says it
+  has none. The "add Blog to the nav?" open question below was already shipped as
+  68a76f9 ("Writing"). The leftover Namecheap 192.64.119.48 A record is confirmed GONE.
 
 ## Done this session (2026-08-02, live, pushed 8926823)
 - SECOND DOMAIN shauna.dev (bought 2026-07-30 at Namecheap) now 301-redirects to shauna.digital,
@@ -28,6 +57,9 @@ updated 2026-08-02
   does NOT bump the zone serial on edits, so an unchanged serial does not mean the edit failed.
   Check the A record set at dns1/dns2.registrar-servers.com directly instead.
 - shauna.dev has NO email records. If @shauna.dev mail is ever wanted that is a separate MX setup.
+  [SUPERSEDED 2026-08-12: it now HAS MX records — Namecheap email forwarding,
+  eforward1-5.registrar-servers.com. Untouched by this work, but they would collide with
+  any real mail host on that domain.]
 
 ## Done 2026-07-27 (live, pushed 29739d6)
 - NEW BLOG POST "What the World Has Learned About Stray Dogs, and What Oʻahu Can Do in Its Own
@@ -51,7 +83,8 @@ updated 2026-08-02
   phase; only the 150,000 sterilizations are lifetime.
 - DEPLOY.md step 2 page count is now DERIVED, not a hardcoded 17 (0f92f7c). Build is 21 pages
   = 1 home + 1 blog index + 13 posts + 6 projects. A DROP is the real signal; growth is content.
-- OPEN QUESTION (asked, not decided): add Blog to the nav? Only footer-linked today. Rec was
+- OPEN QUESTION — RESOLVED, shipped as 68a76f9: Blog is in the nav, labelled "Writing".
+  (Original note kept for context.) Add Blog to the nav? Only footer-linked today. Rec was
   label it "Writing" now, keep "Library" for later if lead magnets land. NOTE: lead magnets need
   email capture and netlify.toml CSP is `form-action https://formspree.io` with no 'self' — a
   ConvertKit/Buttondown/Mailchimp form will be silently blocked until that line is updated.
