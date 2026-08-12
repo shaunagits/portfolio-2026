@@ -1,8 +1,16 @@
 # CUTOVER — serving the link-in-bio page at shauna.dev
 
-Status: **NOT EXECUTED.** Nothing has been pushed or deployed to prod.
-Written 2026-08-12. Approach: Option A (host rewrite, one codebase).
-Shauna's call: **both hosts at once, no canary.**
+Status: **EXECUTED AND VERIFIED LIVE 2026-08-12** (prod commit e26a6a5).
+shauna.dev and www.shauna.dev both serve `/links`. This file is now a record
+plus the rollback procedure, not a pending runbook.
+Approach: Option A (host rewrite, one codebase). Shauna's call: **both hosts at
+once, no canary.**
+
+Verified live at cutover: both roots `200 text/html`; both `/_astro/`
+stylesheets `200 text/css` same-origin; `/blog` and `/work/*` still `301`;
+shauna.digital unaffected; `http://` upgrades to the same host; canonical is
+`https://shauna.dev/`; zero console errors under the live CSP; cert SAN still
+covers all four names, expires 2026-10-31.
 
 ## What this does
 

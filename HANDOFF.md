@@ -1,16 +1,20 @@
 # HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
 updated 2026-08-12
 
-## State: PROD IS CLEAN; UNMERGED WORK ON BRANCH `links-page`
-- Live at https://shauna.digital. `main` == GitHub == prod at commit a25ca62; tree clean.
+## State: SHIPPED & IN SYNC
+- Live at https://shauna.digital. `main` == GitHub == prod at commit e26a6a5; tree clean.
   Push to `main` = auto-deploy to prod (see DEPLOY.md). Netlify project "byshauna"
   (id f63775ef-f653-4328-bf37-d5270d1882f2), PERSONAL account shauna.coy@gmail.com, NOT AAO.
 - Durable design rules + reasoning live in CLAUDE.md and DECISIONS.md. Read those first.
 - GitHub repo is shaunagits/portfolio-2026; `origin` points at it directly.
-- BRANCH `links-page` (2 commits, NOT pushed, NOT deployed) holds the shauna.dev
-  link-in-bio page. See "Done this session" below and CUTOVER-shauna-dev.md.
+- **https://shauna.dev now SERVES the link-in-bio page** (it no longer redirects).
+  www.shauna.dev serves the same page. Everything else on those hosts still 301s to
+  shauna.digital. VERIFIED LIVE 2026-08-12: both roots 200 text/html; both /_astro/
+  stylesheets 200 text/css SAME-ORIGIN; /blog + /work/* still 301; shauna.digital
+  unaffected; http upgrades to the same host; canonical = https://shauna.dev/; zero
+  console errors under the live CSP. Cert SAN still covers all four, expires 2026-10-31.
 
-## Done this session (2026-08-12) — branch `links-page`, nothing shipped
+## Done this session (2026-08-12) — SHIPPED (e26a6a5)
 - LINK-IN-BIO PAGE at src/pages/links.astro, data-driven from src/data/links.json
   (5c32618). Ported from links-mockups/03-editorial-bento.html. Destined for
   https://shauna.dev/. Build goes 21 -> 22 pages; NO existing file was modified.
@@ -23,8 +27,8 @@ updated 2026-08-12
   now 18.65:1 and 5.75:1. Footer links were 18px tall; now min-height:44px.
 - A11Y FLAGGED, NOT FIXED (Shauna's call, both inherited): LaunchKit bar at rest and
   the "Get in touch" hover fill are both white on #2C8C99 = 3.95:1.
-- CUTOVER STAGED, NOT EXECUTED (5a0e434, supersedes the 3208bdd canary): Option A,
-  host-based 200 rewrite, BOTH hosts at once — Shauna dropped the canary. Rule ORDER is
+- CUTOVER DONE (5a0e434, supersedes the 3208bdd canary): Option A, host-based 200
+  rewrite, BOTH hosts at once — Shauna dropped the canary. Rule ORDER is
   load-bearing — /_astro/* must pass through 200 BEFORE the catch-all 301, or the CSP
   (style-src 'self') blocks the two stylesheets and the page renders unstyled. Both
   http:// rules now upgrade to the SAME host, else they bypass the rewrite.
