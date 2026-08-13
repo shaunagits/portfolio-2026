@@ -35,11 +35,10 @@
     { "icon": "substack", "label": "Substack", "href": "https://byshauna.substack.com" },
     { "icon": "etsy", "label": "Etsy shop", "href": "https://www.etsy.com/shop/launchkitus" },
     {
-      "_note": "WhatsApp click-to-chat. href must be https://wa.me/<number> where <number> is FULL INTERNATIONAL FORMAT, DIGITS ONLY: no +, no spaces, no dashes, no leading zero. Hawaii mobile = 1 + area code + number, e.g. 18085551234. Optional prefilled first message: append ?text=URL-encoded-text",
+      "_note": "WhatsApp INVITE link (wa.me/qr/...), deliberately not wa.me/<number>. A number-form link would publish Shauna's personal mobile in the page source for scrapers; this opaque code does not. Tradeoff: it carries no prefilled message, and it BREAKS SILENTLY if the QR is ever reset in WhatsApp. If that happens, re-copy the link from the app. Verified resolving 2026-08-12.",
       "icon": "whatsapp",
       "label": "WhatsApp",
-      "href": null,
-      "placeholder": true
+      "href": "https://wa.me/qr/P54OK6KL2T7IF1"
     },
     { "icon": "github", "label": "GitHub", "href": "https://github.com/shaunagits" },
     { "icon": "linkedin", "label": "LinkedIn", "href": "https://www.linkedin.com/in/shaunaarnold/" }
