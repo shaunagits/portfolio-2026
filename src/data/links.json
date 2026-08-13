@@ -34,7 +34,13 @@
     { "icon": "pinterest", "label": "Pinterest", "href": null, "placeholder": true },
     { "icon": "substack", "label": "Substack", "href": "https://byshauna.substack.com" },
     { "icon": "etsy", "label": "Etsy shop", "href": "https://www.etsy.com/shop/launchkitus" },
-    { "icon": "amazon", "label": "Amazon storefront", "href": null, "placeholder": true },
+    {
+      "_note": "WhatsApp click-to-chat. href must be https://wa.me/<number> where <number> is FULL INTERNATIONAL FORMAT, DIGITS ONLY: no +, no spaces, no dashes, no leading zero. Hawaii mobile = 1 + area code + number, e.g. 18085551234. Optional prefilled first message: append ?text=URL-encoded-text",
+      "icon": "whatsapp",
+      "label": "WhatsApp",
+      "href": null,
+      "placeholder": true
+    },
     { "icon": "github", "label": "GitHub", "href": "https://github.com/shaunagits" },
     { "icon": "linkedin", "label": "LinkedIn", "href": "https://www.linkedin.com/in/shaunaarnold/" }
   ],
