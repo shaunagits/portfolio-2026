@@ -69,6 +69,43 @@
     }
   ],
 
+  "upcoming": {
+    "_comment": [
+      "Projects in build. Rendered as NON-LINKING bars on purpose: as of 2026-08-12",
+      "none of these three serve over HTTPS. countdownproject.org has no A record at",
+      "all (registered 2026-08-13), and the other two answer with",
+      "'X-Served-By: Namecheap URL Forward', i.e. a parking redirect.",
+      "",
+      "To take one live: delete the Namecheap URL Redirect Record FIRST (see",
+      "HANDOFF.md, it is what broke shauna.dev), point DNS at the host, then set",
+      "href here and delete the \"building\": true flag. That is the whole change."
+    ],
+    "heading": "Building now",
+    "items": [
+      {
+        "title": "Countdown Project",
+        "href": null,
+        "building": true,
+        "span": 6,
+        "tags": ["Nonprofit", "Spay and neuter access", "In build"]
+      },
+      {
+        "title": "Thread Hawaiʻi",
+        "href": null,
+        "building": true,
+        "span": 6,
+        "tags": ["My agency", "Custom software", "In build"]
+      },
+      {
+        "title": "Island Bound Hawaiʻi",
+        "href": null,
+        "building": true,
+        "span": 6,
+        "tags": ["SaaS", "Moving pets to Hawaiʻi", "In build"]
+      }
+    ]
+  },
+
   "writing": {
     "heading": "Writing",
     "latestPostSlug": "what-the-world-has-learned-about-stray-dogs",

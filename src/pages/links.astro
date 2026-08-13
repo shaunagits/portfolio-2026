@@ -16,7 +16,7 @@ import '../styles/global.css';
 import { getCollection } from 'astro:content';
 import links from '../data/links.json';
 
-const { meta, contact, socials, bars, writing } = links;
+const { meta, contact, socials, bars, upcoming, writing } = links;
 
 // --- Writing section: derived, never hardcoded ---------------------------
 // Post count and read time come straight from the collection, so adding a
@@ -198,6 +198,31 @@ const canonical = 'https://shauna.dev/';
               </a>
             ),
           )
+        }
+
+        <p class="rule">{upcoming.heading}</p>
+
+        {
+          /*
+            In-build projects. Rendered as spans, never anchors: all three
+            domains are either unresolved or sitting on a Namecheap URL
+            forward, so a link would drop people on a parking page or a
+            browser error. Flip `building` off in links.json and add an href
+            to make one a real link.
+          */
+          upcoming.items.map((p) => (
+            <span
+              class={`bar soon s${p.span} is-placeholder`}
+              aria-disabled="true"
+              aria-label={`${p.title}, in progress, not yet live`}
+            >
+              <span class="ttl">{p.title}</span>
+              <span class="tags">
+                {p.tags.map((t, i) => (i === p.tags.length - 1 ? <span class="todo">{t}</span> : <span>{t}</span>))}
+              </span>
+              <span class="go" aria-hidden="true">→</span>
+            </span>
+          ))
         }
 
         <p class="rule">{writing.heading}</p>
@@ -508,6 +533,24 @@ const canonical = 'https://shauna.dev/';
      dashed ring and the two read as one smeared blob. */
   .ico.is-placeholder { box-shadow: none; }
   .ico.is-placeholder :global(svg) { opacity: 0.5; }
+
+  /* In-build projects. Distinct from a broken placeholder: these are real
+     work with a name, so the title keeps full ink contrast and only the
+     surface reads as provisional. The tinted ground plus the dashed edge
+     says "coming", the dimmed arrow says "not yet". */
+  .bar.soon {
+    background: var(--primary-50);
+    color: var(--ink);
+    border-color: var(--primary-200);
+  }
+  .bar.soon .go { background: rgba(var(--primary-rgb), 0.12); opacity: 0.5; }
+  @media (hover: hover) {
+    .bar.soon.is-placeholder:hover {
+      background: var(--primary-50);
+      color: var(--ink);
+      border-color: var(--primary-200);
+    }
+  }
   /* placeholders never take an interaction fill */
   .bar.is-placeholder:active, .ico.is-placeholder:active { box-shadow: none; }
   @media (hover: hover) {
