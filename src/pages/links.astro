@@ -14,6 +14,7 @@
  */
 import '../styles/global.css';
 import { getCollection } from 'astro:content';
+import LogoS from '../components/LogoS.astro';
 import links from '../data/links.json';
 
 const { meta, contact, socials, bars, upcoming, writing } = links;
@@ -115,7 +116,7 @@ const canonical = 'https://shauna.dev/';
     <div class="wrap">
       <header class="masthead">
         <div class="left">
-          <div class="mark" aria-hidden="true">S</div>
+          <div class="mark" aria-hidden="true"><LogoS class="mast-mark" /></div>
           <span class="wordmark">{meta.wordmark}<span class="dot">.</span></span>
         </div>
         <div class="right">{meta.kicker}<br />{meta.domain}</div>
@@ -295,13 +296,16 @@ const canonical = 'https://shauna.dev/';
     flex-wrap: wrap;
   }
   .masthead .left { display: flex; align-items: center; gap: 14px; }
-  .mark {
-    width: 44px; height: 44px; border-radius: 12px;
-    display: grid; place-items: center; flex: none;
-    background: var(--primary); color: var(--on-accent);
-    font-family: var(--font-display); font-weight: 700;
-    font-size: 1.55rem; line-height: 1; padding-bottom: 4px;
-  }
+  /* Same treatment as the nav on shauna.digital: the logomark bare and teal,
+     no container. Matches .nav-logo exactly (colour --primary, height 38px),
+     and it is the same artwork as public/favicon.svg, so the browser tab and
+     the masthead now show one object. The teal rounded square with a Fraunces
+     letter "S" that the mockup drew has been dropped. */
+  .mark { display: flex; align-items: center; flex: none; color: var(--primary); }
+  /* :global is REQUIRED: the <svg> is rendered by LogoS.astro and never receives
+     this file's scope attribute, so a plain `.mast-mark` selector cannot match
+     it and the height silently computes to 0. See CLAUDE.md. */
+  .mark :global(.mast-mark) { height: 38px; width: auto; display: block; }
   .wordmark {
     font-family: var(--font-display); font-weight: 600;
     font-size: 1.35rem; letter-spacing: -0.02em;
