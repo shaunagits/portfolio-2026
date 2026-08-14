@@ -1,5 +1,5 @@
 ---
-title: "What the World Has Learned About Stray Dogs, and What Oʻahu Can Do in Its Own Backyard"
+title: "What the world has learned about stray dogs, and what Oʻahu can do in its own backyard"
 category: "Community"
 description: "Bahrain, the Netherlands, Bhutan, and Turkey have all tried to solve the same problem. Their results point clearly at what works, and Oʻahu has a rulemaking window open right now."
 readTime: "9 min read"

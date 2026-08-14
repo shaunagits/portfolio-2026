@@ -1,5 +1,5 @@
 ---
-title: "Do You Actually Need an App? Web Apps vs. Native Apps Explained"
+title: "Do you actually need an app? Web apps vs. native apps explained"
 category: "Resources"
 description: "The question I get asked more than any other is \"can you build me an app?\" Here's what you actually need to know before you answer that."
 readTime: "6 min read"

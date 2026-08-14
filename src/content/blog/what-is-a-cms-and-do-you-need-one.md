@@ -1,5 +1,5 @@
 ---
-title: "What Is a CMS and Do You Need One?"
+title: "What is a CMS and do you need one?"
 category: "Resources"
 description: "CMS stands for content management system. Whether you need one depends entirely on how you plan to use your site after it's built."
 readTime: "4 min read"

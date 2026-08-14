@@ -1,5 +1,5 @@
 ---
-title: "Running a Remote Design Practice from Hawaii"
+title: "Running a remote design practice from Hawaii"
 category: "Personal"
 description: "How does it work? Do clients care? Is the time difference a problem? Here's the honest version of running a design practice from Hawaii."
 readTime: "4 min read"

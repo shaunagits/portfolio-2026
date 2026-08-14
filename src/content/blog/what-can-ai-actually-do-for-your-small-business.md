@@ -1,5 +1,5 @@
 ---
-title: "What Can AI Actually Do for Your Small Business Right Now?"
+title: "What can AI actually do for your small business right now?"
 category: "Resources"
 description: "There's a lot of noise around AI. Here's a grounded look at what it can do for a small business today, what it can't, and where it's worth paying attention."
 readTime: "5 min read"

@@ -1,5 +1,5 @@
 ---
-title: "How This Site's Design System Works"
+title: "How this site's design system works"
 category: "Process"
 description: "Black, white, and one teal. The palette sounds simple. This is the system underneath it: three color literals, two teals for a reason, and components that cannot drift."
 readTime: "5 min read"

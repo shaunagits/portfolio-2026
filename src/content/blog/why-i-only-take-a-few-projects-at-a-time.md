@@ -1,5 +1,5 @@
 ---
-title: "Why I Only Take a Few Projects at a Time"
+title: "Why I only take a few projects at a time"
 category: "Process"
 description: "I limit how many active projects I take on at once. This is a deliberate choice and it shapes everything about how I work."
 readTime: "3 min read"

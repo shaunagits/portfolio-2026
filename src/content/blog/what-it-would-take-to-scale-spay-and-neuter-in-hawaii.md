@@ -1,5 +1,5 @@
 ---
-title: "Six Ways to Scale Spay and Neuter in Hawaiʻi, and What Each Would Actually Take"
+title: "Six ways to scale spay and neuter in Hawaiʻi, and what each would actually take"
 category: "Community"
 description: "A companion to the stray dog piece. Six delivery models with real evidence behind them, the resources each would need here, and the single constraint that governs all of them. It is not money."
 readTime: "11 min read"
