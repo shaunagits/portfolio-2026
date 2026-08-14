@@ -2,118 +2,30 @@
   command = "npm run build"
   publish = "dist"
 
-# ===========================================================================
-# shauna.dev — FULL CUTOVER, BOTH HOSTS.
+# shauna.dev moved to its own site and repo on 2026-08-13.
 #
-# shauna.dev and www.shauna.dev both SERVE the link-in-bio page (/links) at
-# their own URL via a 200 rewrite, instead of 301ing to shauna.digital.
-# Runbook, verification curls and rollback: CUTOVER-shauna-dev.md.
+# This file used to carry ~110 lines of host-keyed rules that served the
+# link-in-bio page at shauna.dev by rewriting that host's root to /links.
+# shauna.dev is now the shauna-dev Netlify project, built from
+# github.com/shaunagits/shauna.dev, with its own certificate. Nothing here
+# needs to know about it any more, and /links no longer exists in this repo.
 #
-# Netlify takes the FIRST matching rule, so the ORDER below is load-bearing.
-# Per host the pattern is: assets pass through -> root rewrites -> the rest
-# still bounces. Three notes that apply to both hosts:
-#
-#  1. ASSETS MUST STAY SAME-ORIGIN. /links loads two real stylesheets from
-#     /_astro/ (Astro inlined nothing), and the CSP at the bottom of this
-#     file is style-src/script-src 'self'. If the catch-all caught those and
-#     sent them to shauna.digital, the browser would block both files and the
-#     page would render COMPLETELY UNSTYLED. The passthroughs sit above the
-#     catch-all precisely so that cannot happen.
-#  2. THE ROOT REWRITE NEEDS force = true, for the same reason the old 301s
-#     did: / exists in the deploy as the portfolio homepage, so without force
-#     Netlify serves that and the rewrite never fires.
-#  3. THE CATCH-ALL STAYS, so no portfolio route (/blog, /work/*, …) is
-#     reachable on these hosts as duplicate content.
-#
-# Both hosts serve the same page. The canonical tag on /links points at
-# https://shauna.dev/, so search engines consolidate on the apex. If you'd
-# rather have exactly one live copy, change the www root rule below from the
-# 200 rewrite to `to = "https://shauna.dev/"` with status 301.
-# ---------------------------------------------------------------------------
+# Do not re-add host rules for shauna.dev here. If that page ever needs to
+# change, it changes in the other repo.
 
-# ---- APEX: shauna.dev -----------------------------------------------------
+# The one thing left pointing that way: /links was a real 200 on this domain
+# until today, so it gets a 301 rather than becoming a 404. It was never linked
+# from anywhere in this site — it existed only to be rewritten onto shauna.dev —
+# so this is for anything already indexed or bookmarked, not for navigation.
 [[redirects]]
-  from = "https://shauna.dev/_astro/*"
-  to = "/_astro/:splat"
-  status = 200
-
-[[redirects]]
-  from = "https://shauna.dev/favicon.svg"
-  to = "/favicon.svg"
-  status = 200
-
-[[redirects]]
-  from = "https://shauna.dev/favicon.ico"
-  to = "/favicon.ico"
-  status = 200
-
-[[redirects]]
-  from = "https://shauna.dev/apple-touch-icon.png"
-  to = "/apple-touch-icon.png"
-  status = 200
-
-[[redirects]]
-  from = "https://shauna.dev/"
-  to = "/links/"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "https://shauna.dev/*"
-  to = "https://shauna.digital/:splat"
+  from = "/links"
+  to = "https://shauna.dev/"
   status = 301
-  force = true
-
-# ---- WWW: www.shauna.dev --------------------------------------------------
-[[redirects]]
-  from = "https://www.shauna.dev/_astro/*"
-  to = "/_astro/:splat"
-  status = 200
 
 [[redirects]]
-  from = "https://www.shauna.dev/favicon.svg"
-  to = "/favicon.svg"
-  status = 200
-
-[[redirects]]
-  from = "https://www.shauna.dev/favicon.ico"
-  to = "/favicon.ico"
-  status = 200
-
-[[redirects]]
-  from = "https://www.shauna.dev/apple-touch-icon.png"
-  to = "/apple-touch-icon.png"
-  status = 200
-
-[[redirects]]
-  from = "https://www.shauna.dev/"
-  to = "/links/"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "https://www.shauna.dev/*"
-  to = "https://shauna.digital/:splat"
+  from = "/links/*"
+  to = "https://shauna.dev/"
   status = 301
-  force = true
-
-# ---- http:// ---------------------------------------------------------------
-# Belt-and-braces. Netlify upgrades http to https at the edge before these
-# path rules are consulted (verified: http://shauna.dev/ answers
-# 301 -> https://shauna.dev/, not straight to shauna.digital), so in practice
-# the https rules above are what run. These now upgrade to the SAME host
-# rather than jumping to shauna.digital, which would skip the rewrite.
-[[redirects]]
-  from = "http://shauna.dev/*"
-  to = "https://shauna.dev/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "http://www.shauna.dev/*"
-  to = "https://www.shauna.dev/:splat"
-  status = 301
-  force = true
 
 # ---------------------------------------------------------------------------
 # Security headers. The site is fully static, so it can afford a tight policy.
