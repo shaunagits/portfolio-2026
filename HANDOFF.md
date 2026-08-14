@@ -1,18 +1,20 @@
 # HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
-updated 2026-08-12
+updated 2026-08-14
 
 ## State: SHIPPED & IN SYNC
-- Live at https://shauna.digital. `main` == GitHub == prod at commit e26a6a5; tree clean.
+- Live at https://shauna.digital. `main` == GitHub == prod at commit 06557e9; tree clean.
   Push to `main` = auto-deploy to prod (see DEPLOY.md). Netlify project "byshauna"
   (id f63775ef-f653-4328-bf37-d5270d1882f2), PERSONAL account shauna.coy@gmail.com, NOT AAO.
 - Durable design rules + reasoning live in CLAUDE.md and DECISIONS.md. Read those first.
 - GitHub repo is shaunagits/portfolio-2026; `origin` points at it directly.
-- **https://shauna.dev now SERVES the link-in-bio page** (it no longer redirects).
-  www.shauna.dev serves the same page. Everything else on those hosts still 301s to
-  shauna.digital. VERIFIED LIVE 2026-08-12: both roots 200 text/html; both /_astro/
-  stylesheets 200 text/css SAME-ORIGIN; /blog + /work/* still 301; shauna.digital
-  unaffected; http upgrades to the same host; canonical = https://shauna.dev/; zero
-  console errors under the live CSP. Cert SAN still covers all four, expires 2026-10-31.
+- **THIS REPO NO LONGER SERVES shauna.dev.** Moved out 2026-08-13 to its own repo
+  (shaunagits/shauna.dev) and Netlify project "shauna-dev"
+  (id 72dd58e0-ee14-41fb-be3e-b9d535164274), with its own cert for shauna.dev +
+  www.shauna.dev. `src/pages/links.astro`, `src/data/links.json` and all host-keyed
+  rules are DELETED here; `/links` is a 301 to https://shauna.dev/. Build is 21 pages.
+  To change that page, edit `src/data/links.json` IN THE OTHER REPO and push.
+  CUTOVER-shauna-dev.md in this repo is SUPERSEDED — do not follow its rollback.
+- This site's cert now covers shauna.digital + www only, NOT the shauna.dev names.
 
 ## Done this session (2026-08-12) — SHIPPED (e26a6a5)
 - LINK-IN-BIO PAGE at src/pages/links.astro, data-driven from src/data/links.json

@@ -1,8 +1,17 @@
 # SPEC — getting launchkit.us live
 
-Written 2026-08-12. Lives in this repo because `src/data/links.json` links to
-`https://launchkit.us` from the shauna.dev links page, so this repo depends on
-it. The LaunchKit site itself is a separate project.
+Written 2026-08-12. The LaunchKit site itself is a separate project.
+
+> **Updated 2026-08-14.** Two things changed since this was written.
+>
+> **The links page left this repo.** It and `src/data/links.json` now live in
+> `shaunagits/shauna.dev`. Nothing in *this* repo depends on launchkit.us any
+> more, so the reason this file sits here is historical. Any instruction below
+> to edit `src/data/links.json` means **that repo, not this one.**
+>
+> **launchkit.us resolves.** Verified 200 on 2026-08-14, redirecting to
+> `https://www.launchkit.us/`. The "link is dead until step 2 lands" warning
+> further down is no longer current.
 
 **Claude does not edit DNS, touch billing, or change another project's Netlify
 settings.** Everything below is for Shauna to apply. The exact records are
@@ -119,11 +128,14 @@ canonical address. Recommended, and it is a one-line redirect rule.
 
 ## Impact on the links page while this is outstanding
 
-`https://shauna.dev/` currently links "Shop LaunchKits" to `https://launchkit.us`
-at Shauna's instruction, on the basis that the site ships the same day. **Until
-step 2 lands, that link is dead** (the host does not resolve, so visitors get a
-browser-level "can't find the server" error, not a 404 page).
+**Resolved 2026-08-14 — launchkit.us returns 200.** This section is kept for the
+recovery instruction at the end, which still works if the domain ever goes down.
 
-To revert the bar to a visible placeholder in the meantime, in
-`src/data/links.json` set the LaunchKit entry's `href` to `null` and add
-`"placeholder": true`. One line each, then redeploy.
+`https://shauna.dev/` links "Shop LaunchKits" to `https://launchkit.us`. When
+this was written the host did not resolve, so that link produced a browser-level
+"can't find the server" error rather than a 404.
+
+To revert the bar to a visible placeholder if that recurs, set the LaunchKit
+entry's `href` to `null` and add `"placeholder": true` in `src/data/links.json`
+— **in the `shaunagits/shauna.dev` repo**, not this one. One line each, then push
+to `main`; that repo auto-deploys.

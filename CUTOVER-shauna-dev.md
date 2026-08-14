@@ -1,6 +1,25 @@
 # CUTOVER — serving the link-in-bio page at shauna.dev
 
-Status: **EXECUTED AND VERIFIED LIVE 2026-08-12** (prod commit e26a6a5).
+> ## SUPERSEDED 2026-08-14 — everything below is history
+>
+> **This repo no longer serves shauna.dev, and `/links` no longer exists here.**
+> On 2026-08-13 the page moved to its own repo and Netlify project
+> (`shauna-dev`, from `github.com/shaunagits/shauna.dev`) with its own
+> certificate. `src/pages/links.astro`, `src/data/links.json` and every
+> host-keyed rule in `netlify.toml` were deleted; `/links` is now a 301 to
+> `https://shauna.dev/`. The build is back to 21 pages.
+>
+> **Do not follow the rollback below.** It restores `netlify.toml` to a state
+> that rewrites shauna.dev traffic here, and this site no longer holds that
+> domain — the rules would be dead at best and confusing at worst.
+>
+> To change the link-in-bio page, edit `src/data/links.json` **in the other
+> repo** and push. The current runbook is `CUTOVER.md` there.
+>
+> Kept because it records why the rules were shaped the way they were, and the
+> asset-passthrough trap is still worth knowing if host rules ever come back.
+
+Status (historical): **EXECUTED AND VERIFIED LIVE 2026-08-12** (prod commit e26a6a5).
 shauna.dev and www.shauna.dev both serve `/links`. This file is now a record
 plus the rollback procedure, not a pending runbook.
 Approach: Option A (host rewrite, one codebase). Shauna's call: **both hosts at
