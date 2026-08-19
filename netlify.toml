@@ -2,30 +2,16 @@
   command = "npm run build"
   publish = "dist"
 
-# shauna.dev moved to its own site and repo on 2026-08-13.
+# Domains, since the 2026-08-19 swap: shauna.dev is the PRIMARY custom domain
+# on this Netlify site (byshauna) and shauna.digital is a domain alias. Netlify
+# 301s every alias request to the primary automatically, path included, so no
+# host-keyed redirect rules are needed here — and none should be added. The
+# runbook for the swap (and the record of the 2026-08-13 API outage that is
+# the reason domain moves go through the Netlify UI only) is DOMAIN-SWAP.md.
 #
-# This file used to carry ~110 lines of host-keyed rules that served the
-# link-in-bio page at shauna.dev by rewriting that host's root to /links.
-# shauna.dev is now the shauna-dev Netlify project, built from
-# github.com/shaunagits/shauna.dev, with its own certificate. Nothing here
-# needs to know about it any more, and /links no longer exists in this repo.
-#
-# Do not re-add host rules for shauna.dev here. If that page ever needs to
-# change, it changes in the other repo.
-
-# The one thing left pointing that way: /links was a real 200 on this domain
-# until today, so it gets a 301 rather than becoming a 404. It was never linked
-# from anywhere in this site — it existed only to be rewritten onto shauna.dev —
-# so this is for anything already indexed or bookmarked, not for navigation.
-[[redirects]]
-  from = "/links"
-  to = "https://shauna.dev/"
-  status = 301
-
-[[redirects]]
-  from = "/links/*"
-  to = "https://shauna.dev/"
-  status = 301
+# /links is a real page in this repo again (src/pages/links.astro), returned
+# from the retired shauna-dev Netlify project in the same swap, so the 301s
+# that used to bridge it are gone.
 
 # ---------------------------------------------------------------------------
 # Security headers. The site is fully static, so it can afford a tight policy.

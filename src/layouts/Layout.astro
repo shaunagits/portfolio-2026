@@ -10,6 +10,12 @@ const {
   title = 'Shauna · Designer & Developer',
   description = 'Designer and developer building websites, web apps, and AI tools for founders, small teams, and nonprofits. Nike & Apple production background. Based in Hawaii.',
 } = Astro.props;
+
+// Primary domain is shauna.dev as of the 2026-08-19 swap; shauna.digital 301s
+// here at the Netlify level. `site` is set in astro.config.mjs — the canonical
+// is per-page so the redirect target search engines consolidate on is always
+// the page itself, not the homepage.
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 <!doctype html>
 <html lang="en">
@@ -17,6 +23,7 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -32,14 +39,14 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://shauna.digital" />
-    <meta property="og:image" content="https://shauna.digital/images/og-image.jpg" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="https://shauna.dev/images/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://shauna.digital/images/og-image.jpg" />
+    <meta name="twitter:image" content="https://shauna.dev/images/og-image.jpg" />
     <meta name="theme-color" content="#FFFFFF" />
   </head>
   <body>
