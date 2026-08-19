@@ -1,7 +1,11 @@
 # DOMAIN SWAP — shauna.dev becomes this site's primary domain
 
-Status: **CODE READY, CUTOVER NOT STARTED.** Branch `domain-swap-shauna-dev`,
-not yet merged. Nothing on Netlify or Namecheap has been touched.
+Status: **IN PROGRESS, 2026-08-19.** Step 1 done (merged, pushed, deployed and
+verified). Step 2 done (`shauna-dev` project deleted, both names released).
+Step 3 BLOCKED by Netlify's 3-changes-per-hour alias quota — shauna.dev is
+unclaimed and erroring until the window reopens. shauna.digital and all email
+are unaffected throughout. Step 4 can be done during the wait; it is at
+Cloudflare, not Namecheap, and the rewritten version below is the correct one.
 
 Decided with Shauna 2026-08-19. shauna.dev is the primary personal domain
 (shorter, and .dev says what the site is); shauna.digital reads as an agency
@@ -52,6 +56,20 @@ ships (destination TBD, likely portal.threadhawaii.com).
    before `byshauna` can claim either.
 4. **MX records are never part of this.** shauna.digital's Google Workspace MX
    and shauna.dev's Namecheap forwarding MX both stay exactly as they are.
+5. **Deleting the old site is what released the domain pair.** Netlify offered
+   no "Remove domain" on `www.shauna.dev`: the www partner is auto-created with
+   the apex and is not individually removable, and the apex could not be
+   removed while it was the project's primary. Deleting the `shauna-dev`
+   project released both at once (2026-08-19). The alternative, had the project
+   needed to survive, was to set `shauna-dev.netlify.app` as primary first and
+   then remove the alias.
+6. **The quota bit anyway, and it costs nothing here.** Adding the aliases to
+   `byshauna` hit `domain_aliases can only be changed 3 times per hour`
+   immediately after the delete. shauna.dev is down for the wait; shauna.digital
+   and all email are unaffected, and shauna.dev has no traffic. **Do not retry
+   during the window** — failed attempts can still count, which is how the
+   2026-08-13 incident stretched to an hour. Wait the full hour and spend the
+   window on the apex first; www can wait for the next one.
 
 ## Order of operations
 
@@ -78,12 +96,36 @@ neither site has traffic.)
 **Set as primary domain** on `shauna.dev`. `shauna.digital` (and its www)
 stay listed as aliases — that listing is what produces the automatic 301.
 
-### 4. Namecheap: repoint the www CNAME
+### 4. Cloudflare: repoint the records and TURN THE PROXY OFF
 
-Domain List → `shauna.dev` → Advanced DNS → CNAME `www`:
-`shauna-dev.netlify.app.` → **`byshauna.netlify.app.`** (keep the trailing dot
-if present). Leave the apex A record and all MX records alone. Nothing needs
-to change on shauna.digital's DNS at all.
+**shauna.dev's DNS is at Cloudflare, not Namecheap.** Namecheap is registrar
+only; the nameservers are `lewis`/`melissa.ns.cloudflare.com`. This was
+discovered mid-cutover on 2026-08-19 — the earlier draft of this step sent you
+to Namecheap Advanced DNS, which no longer holds these records. (shauna.digital
+IS still on Namecheap DNS: `dns1`/`dns2.registrar-servers.com`.)
+
+Both apex and www were **proxied** (orange cloud), resolving to Cloudflare IPs
+`172.67.137.65` / `104.21.86.222`. That breaks Netlify certificate issuance:
+Netlify verifies the hostname resolves to Netlify, and behind the proxy it sees
+Cloudflare. Netlify's guidance is DNS-only for external DNS, and there is no
+speed benefit to proxying in front of Netlify's CDN anyway.
+
+In the Cloudflare dashboard, zone `shauna.dev` → DNS → Records:
+
+| Type | Name | Value | Proxy |
+|---|---|---|---|
+| A | `@` | `75.2.60.5` | **DNS only (grey)** |
+| CNAME | `www` | `byshauna.netlify.app` | **DNS only (grey)** |
+
+`75.2.60.5` is Netlify's shared load balancer; routing is by hostname, so it is
+correct for any Netlify site. Then SSL/TLS → Overview → set encryption mode to
+**Full (strict)**. Flexible causes a redirect loop once Netlify answers.
+
+**Leave every MX record alone.** shauna.dev's mail is Namecheap forwarding
+(`eforward1-5.registrar-servers.com`) and those records live in this Cloudflare
+zone. MX cannot be proxied and must stay DNS-only regardless.
+
+Nothing changes on shauna.digital's DNS at all.
 
 ### 5. Let the certificate extend
 
