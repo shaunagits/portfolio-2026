@@ -1,11 +1,29 @@
 # DOMAIN SWAP — shauna.dev becomes this site's primary domain
 
-Status: **IN PROGRESS, 2026-08-19.** Step 1 done (merged, pushed, deployed and
-verified). Step 2 done (`shauna-dev` project deleted, both names released).
-Step 3 BLOCKED by Netlify's 3-changes-per-hour alias quota — shauna.dev is
-unclaimed and erroring until the window reopens. shauna.digital and all email
-are unaffected throughout. Step 4 can be done during the wait; it is at
-Cloudflare, not Namecheap, and the rewritten version below is the correct one.
+Status: **PARTLY DONE. Steps 3 and 4 were never finished** (re-verified live
+2026-09-17, a month later).
+
+| Step | State |
+|---|---|
+| 1 merge + deploy | DONE 2026-08-19 |
+| 2 release names from `shauna-dev` | DONE, project deleted |
+| 3 claim on `byshauna` | PARTLY: both names are aliases, but **"Set as primary" never ran** |
+| 4 Cloudflare DNS-only + Full (strict) | **NOT DONE: apex + www are still proxied** |
+| 5 certificate extends | Netlify's cert does cover all four names (expires 2026-10-31) |
+| 6 verify | Fails on the shauna.digital redirect check, see below |
+| 7 retire `shauna-dev` | DONE (project deleted); repo not yet archived |
+
+What that means today: all four hostnames serve this site, and canonicals say
+shauna.dev, but `custom_domain` on `byshauna` is STILL `shauna.digital`, so
+shauna.digital answers **200, not a 301** to shauna.dev. That is duplicate
+content held together only by the canonical tag. And shauna.dev resolves to
+Cloudflare (172.67.137.65 / 104.21.86.222, `server: cloudflare`) on a Google
+Trust Services cert, so visitors are not served Netlify's certificate at all.
+
+shauna.digital and all email were unaffected throughout, as planned.
+
+To finish: step 3's "Set as primary domain" on shauna.dev, then step 4. UI
+only, never the API, and count the alias changes against the hourly quota.
 
 Decided with Shauna 2026-08-19. shauna.dev is the primary personal domain
 (shorter, and .dev says what the site is); shauna.digital reads as an agency

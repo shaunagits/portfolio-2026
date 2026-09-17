@@ -1,6 +1,17 @@
 # CUTOVER — serving the link-in-bio page at shauna.dev
 
-> ## SUPERSEDED 2026-08-14 — everything below is history
+> ## SUPERSEDED TWICE — everything below is history, and so is the notice under it
+>
+> **2026-08-19: the move described below was REVERSED. This repo serves
+> shauna.dev again**, `/links` is a real page here (`src/pages/links.astro`),
+> and the `shauna-dev` Netlify project has been deleted. The runbook for that
+> reversal, including the two steps still outstanding, is DOMAIN-SWAP.md.
+> Nothing in this file or in the 2026-08-14 notice below is current. Kept only
+> as the record of the 2026-08-13 move out.
+>
+> ---
+>
+> ## SUPERSEDED 2026-08-14 (itself now history)
 >
 > **This repo no longer serves shauna.dev, and `/links` no longer exists here.**
 > On 2026-08-13 the page moved to its own repo and Netlify project

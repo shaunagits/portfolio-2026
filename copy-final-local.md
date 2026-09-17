@@ -64,8 +64,8 @@ Category: Digital Products
 Summary: A productized launch system for solo founders — combining strategy, design, development, and launch tools to help ideas go live faster.
 Problem: Solo founders and small business owners consistently stall between having an idea and getting it live — overwhelmed by the number of decisions, tools, and steps involved in launching a digital product or website.
 What I Did: Designed and built LaunchKit as a productized system — Canva templates, brand kits, and digital tools structured to move founders from concept to launch without getting stuck. Handled product design, distribution setup, and the full launch strategy.
-Outcome: A growing catalog of digital products sold via Etsy and Shopify, built on a repeatable system that scales without custom client work.
-Tools: Product Design · Canva · Astro · Shopify · Etsy · Brand Strategy · Digital Distribution
+Outcome: A growing catalog of digital products sold via Shopify, built on a repeatable system that scales without custom client work.
+Tools: Product Design · Canva · Astro · Shopify · Brand Strategy · Digital Distribution
 
 **Aloha Animal Outreach**
 Category: Nonprofit

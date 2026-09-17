@@ -1,7 +1,9 @@
 # DEPLOY.md — Portfolio (Netlify)
 
 Netlify auto-deploys on push to `main`. The site is already linked and live at
-https://shauna.digital (project "byshauna", personal account shauna.coy@gmail.com).
+https://shauna.dev (project "byshauna", personal account shauna.coy@gmail.com).
+shauna.digital serves the same deploy: it is still Netlify's primary domain, so it
+answers 200 rather than redirecting. See DOMAIN-SWAP.md for the two unfinished steps.
 
 ## Rule
 NEVER push to `main` without Shauna's approval — a push IS a production deploy.

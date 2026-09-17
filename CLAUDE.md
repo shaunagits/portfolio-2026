@@ -10,7 +10,11 @@ Durable rules for this repo. Edit only with Shauna's approval.
 Recalled memories (Netlify account, Formspree, hosting topology, working style) load automatically.
 
 ## What this is
-Personal portfolio at shauna.digital. Astro static site. Goal: personal brand
+Personal portfolio, live at **shauna.dev** (shauna.digital serves the same site;
+finishing the swap is DOMAIN-SWAP.md steps 3 and 4). `site:` in astro.config.mjs
+is https://shauna.dev, so every canonical and og:url points there. The
+link-in-bio page lives here too, at `src/pages/links.astro` + `src/data/links.json`.
+Astro static site. Goal: personal brand
 + a lasting record of work first; freelance/FTE second. The work is the hero.
 
 ## Design system (source of truth: src/styles/global.css :root)

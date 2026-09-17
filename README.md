@@ -1,13 +1,13 @@
 # Shauna Digital · Portfolio
 
-Source for [shauna.digital](https://shauna.digital), Shauna Arnold's personal portfolio. Astro static site: a home page, a case study per project, and a blog.
+Source for [shauna.dev](https://shauna.dev), Shauna Arnold's personal portfolio. Astro static site: a home page, a case study per project, a blog, and the link-in-bio page at `/links`. shauna.digital serves the same site (the domain swap is not fully finished: see `DOMAIN-SWAP.md`).
 
 ## Develop
 
 ```bash
 npm install
 npm run dev      # http://localhost:4321
-npm run build    # -> dist/ (17 pages: home + 5 /work/* case studies + 11 blog posts)
+npm run build    # -> dist/ (22 pages: home, /links, /blog + one page per post and per project)
 npm run preview
 ```
 
