@@ -195,7 +195,7 @@
     "client": "LaunchKit",
     "clientLabel": "Product",
     "category": "Product Design",
-    "summary": "Brand kits, each built for a specific niche and ready to launch. A growing catalog on Etsy and Shopify.",
+    "summary": "Brand kits, each built for a specific niche and ready to launch. A growing catalog on Shopify.",
     "image": "/images/project-launchkit.jpg",
     "frame": "triptych",
     "phoneImages": [
@@ -209,21 +209,21 @@
       "LaunchKit store collection page on mobile"
     ],
     "tint": "tint-3",
-    "urlLabel": "Etsy · Shopify",
+    "urlLabel": "Shopify",
     "role": "Design &amp; Product",
     "timeline": "Ongoing",
     "scope": "Digital products",
     "problem": "Solo founders and small business owners consistently stall between having an idea and getting it live, overwhelmed by the number of decisions, tools, and steps involved in launching a digital product or website.",
     "whatIDid": "Designed and built LaunchKit as a productized system: Canva templates, brand kits, and digital tools structured to move founders from concept to launch without getting stuck. Handled product design, distribution setup, and the full launch strategy.",
-    "outcome": "A growing catalog of digital products sold via Etsy and Shopify, built on a repeatable system that scales without custom client work.",
+    "outcome": "A growing catalog of digital products sold via Shopify, built on a repeatable system that scales without custom client work.",
     "stats": [
       {
         "n": "Repeatable",
         "l": "A system, not one-off client work"
       },
       {
-        "n": "Etsy + Shopify",
-        "l": "Two distribution channels"
+        "n": "Shopify",
+        "l": "Direct distribution channel"
       },
       {
         "n": "Scales",
@@ -235,7 +235,6 @@
       "Canva",
       "Astro",
       "Shopify",
-      "Etsy",
       "Brand Strategy",
       "Digital Distribution"
     ],

@@ -33,7 +33,6 @@
     { "icon": "instagram", "label": "Instagram", "href": "https://www.instagram.com/shaunadev_" },
     { "icon": "tiktok", "label": "TikTok", "href": "https://www.tiktok.com/@shauna.dev" },
     { "icon": "substack", "label": "Substack", "href": "https://byshauna.substack.com" },
-    { "icon": "etsy", "label": "Etsy shop", "href": "https://www.etsy.com/shop/launchkitus" },
     {
       "_note": "WhatsApp INVITE link (wa.me/qr/...), deliberately not wa.me/<number>. A number-form link would publish Shauna's personal mobile in the page source for scrapers; this opaque code does not. Tradeoff: it carries no prefilled message, and it BREAKS SILENTLY if the QR is ever reset in WhatsApp. If that happens, re-copy the link from the app. Verified resolving 2026-08-12.",
       "icon": "whatsapp",
@@ -58,7 +57,7 @@
       "href": "https://launchkit.us",
       "variant": "teal",
       "span": 6,
-      "tags": ["Brand kits", "Etsy & Shopify"]
+      "tags": ["Brand kits", "Shopify"]
     },
     {
       "title": "Hawaiʻi Dog Map",
