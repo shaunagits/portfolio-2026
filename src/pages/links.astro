@@ -388,8 +388,8 @@ const canonical = 'https://shauna.dev/links/';
     box-shadow: 0 0 0 0 var(--ink); background: var(--ink); color: var(--paper);
   }
   .pill.primary:active, .pill.primary:focus-visible {
-    background: var(--primary); border-color: var(--primary);
-    box-shadow: 0 0 0 0 var(--primary);
+    background: var(--primary-hover); border-color: var(--primary-hover);
+    box-shadow: 0 0 0 0 var(--primary-hover);
   }
   .pill:focus-visible, .ico:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
 
@@ -401,8 +401,8 @@ const canonical = 'https://shauna.dev/links/';
       box-shadow: 0 0 0 0 var(--ink); background: var(--ink); color: var(--paper);
     }
     .pill.primary:hover {
-      background: var(--primary); border-color: var(--primary);
-      box-shadow: 0 0 0 0 var(--primary);
+      background: var(--primary-hover); border-color: var(--primary-hover);
+      box-shadow: 0 0 0 0 var(--primary-hover);
     }
   }
 
@@ -475,7 +475,7 @@ const canonical = 'https://shauna.dev/links/';
   .bar.dark { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   .bar.dark .go { background: rgba(var(--paper-rgb), 0.16); }
 
-  .bar.teal { background: var(--primary); color: var(--on-accent); border-color: var(--primary); }
+  .bar.teal { background: var(--primary-hover); color: var(--on-accent); border-color: var(--primary-hover); }
   .bar.teal .go { background: rgba(var(--paper-rgb), 0.2); }
 
   .bar.tint { background: var(--primary-50); color: var(--accent-ink); border-color: var(--primary-200); }
@@ -618,8 +618,8 @@ const canonical = 'https://shauna.dev/links/';
 
     .contact { flex-direction: column; align-items: stretch; gap: 18px; padding: 18px; }
     .links { flex-direction: column; align-items: stretch; gap: 16px; }
-    /* 4 across, 2 rows — 8 icons in one row overflows a 360px screen */
-    .icons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; justify-items: center; }
+    /* 3 across, 2 rows: 6 icons in one row overflows a 360px screen */
+    .icons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; justify-items: center; }
 
     /* Line 1: title + arrow. Line 2: tags.
        `order` is doing the work — in source order .tags sits before .go,
