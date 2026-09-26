@@ -1,143 +1,142 @@
 {
   "_comment": [
     "Drives the link-in-bio page at https://shauna.dev/links/ (src/pages/links.astro).",
-    "Adding a link = adding one entry. Nothing else needs to change.",
+    "Adding a link = adding one entry to a group. Nothing else needs to change.",
     "",
-    "bars[].variant  plain | dark | teal | tint | quiet   (see links.astro rest-state block)",
-    "bars[].span     grid columns out of 6. Everything is 6 today; 3 gives a half-width bar.",
-    "bars[].href     omit or null + \"placeholder\": true to render a non-linking TBD bar.",
+    "Layout (2026-09-26): centred photo + 'Hi, I'm Shauna. Let's talk about...',",
+    "then the links in GROUPS. Each group heading is written to finish that",
+    "sentence ('...your project', '...Hawaiʻi projects', '...writing'), so keep",
+    "new headings in that shape.",
     "",
-    "The Writing section is DERIVED from the blog collection again (2026-08-19),",
-    "now that this page is back in the repo that carries the posts.",
-    "latestPostSlug below only PINS which post is 'Latest' — two posts share a",
+    "groups[].items[].variant  cta | dark | plain   (see links.astro rest-state block)",
+    "  cta   = the ONE call to action. Carries the offset-shape button gesture.",
+    "          There should only ever be one.",
+    "groups[].items[].desc     one short line under the title. Plain words, no",
+    "                          trailing period. Taken from each site's own copy.",
+    "groups[].items[].status   optional. Set (e.g. \"In build\") with href null to",
+    "                          render a NON-LINKING bar: for projects with nothing",
+    "                          to link yet. It never reads href when status is set.",
+    "",
+    "The Writing group is DERIVED from the blog collection (kind: \"writing\").",
+    "latestPostSlug only PINS which post is 'Latest': two posts share a",
     "publishedDate, so a date sort alone cannot decide. If the pin is removed or",
-    "the slug stops matching, links.astro falls back to newest-by-date. The",
-    "title comes from the post's frontmatter and needs no entry here."
+    "the slug stops matching, links.astro falls back to newest-by-date."
   ],
 
   "meta": {
-    "wordmark": "Shauna",
-    "kicker": "Selected links",
-    "domain": "shauna.dev",
     "footerLine": "© 2026 Shauna Arnold · Honolulu, HI"
   },
 
-  "contact": {
+  "intro": {
+    "photo": "/images/links-avatar.jpg",
+    "photoAlt": "Shauna Arnold",
     "status": "Booking into Q4",
-    "lede": "Let’s talk about your project.",
-    "sub": "I take a few at a time, so I answer everything myself.",
-    "cta": { "label": "Get in touch", "href": "/#contact" }
+    "greeting": "Hi, I’m Shauna.",
+    "prompt": "Let’s talk about…"
   },
 
-  "socials": [
-    { "icon": "instagram", "label": "Instagram", "href": "https://www.instagram.com/shaunadev_" },
-    { "icon": "tiktok", "label": "TikTok", "href": "https://www.tiktok.com/@shauna.dev" },
-    { "icon": "substack", "label": "Substack", "href": "https://byshauna.substack.com" },
-    {
-      "_note": "WhatsApp INVITE link (wa.me/qr/...), deliberately not wa.me/<number>. A number-form link would publish Shauna's personal mobile in the page source for scrapers; this opaque code does not. Tradeoff: it carries no prefilled message, and it BREAKS SILENTLY if the QR is ever reset in WhatsApp. If that happens, re-copy the link from the app. Re-verified 2026-09-17: the invite page loads the \"install WhatsApp\" prompt, while a deliberately bogus code on the same endpoint answers \"Link no longer valid\". That difference is the only way to tell a live invite from a reset one without the app.",
-      "icon": "whatsapp",
-      "label": "WhatsApp",
-      "href": "https://wa.me/qr/P54OK6KL2T7IF1"
-    },
-    { "icon": "github", "label": "GitHub", "href": "https://github.com/shaunagits" },
-    { "icon": "linkedin", "label": "LinkedIn", "href": "https://www.linkedin.com/in/shaunaarnold/" }
-  ],
-
-  "bars": [
-    {
-      "title": "My Portfolio",
-      "href": "/",
-      "variant": "dark",
-      "span": 6,
-      "tags": ["Case studies", "Services"]
-    },
-    {
-      "_note": "Verified live 2026-09-17: 200 over HTTPS, Cloudflare; the apex 301s to www.launchkit.us. Resolved: this domain was NOT resolving on 2026-08-12 and was linked anyway on Shauna's call (see LAUNCHKIT-DOMAIN.md). If it ever goes dark again, set href to null and placeholder to true to put the bar back to 'Link coming soon'.",
-      "title": "Shop LaunchKits",
-      "href": "https://launchkit.us",
-      "variant": "teal",
-      "span": 6,
-      "tags": ["Brand kits", "Shopify"]
-    },
-    {
-      "title": "Hawaiʻi Dog Map",
-      "href": "https://hawaiidogmap.com",
-      "variant": "tint",
-      "span": 6,
-      "tags": ["Dog-friendly spots", "4 islands"]
-    },
-    {
-      "_note": "Was an 'In build' bar under upcoming until 2026-08-13. Re-verified 2026-09-17: 200 over HTTPS, served by Vercel, real site (not a Namecheap URL forward).",
-      "title": "Thread Hawaiʻi",
-      "href": "https://threadhawaii.com",
-      "variant": "plain",
-      "span": 6,
-      "tags": ["My agency", "Custom software"]
-    },
-    {
-      "_note": "Was an 'In build' bar until 2026-08-13. Re-verified 2026-09-17: 200 over HTTPS, Cloudflare. The old naming mismatch is GONE: the site brands itself 'The Countdown Project' now (title and h1), with no ʻĪlio Project wording left on the page, so this label matches what a visitor lands on.",
-      "title": "Countdown Project",
-      "href": "https://countdownproject.org",
-      "variant": "plain",
-      "span": 6,
-      "tags": ["Nonprofit", "Spay and neuter access"]
-    },
-    {
-      "_note": "Re-verified 2026-09-17: 200 over HTTPS, served by Netlify.",
-      "title": "Aloha Animal Outreach",
-      "href": "https://alohaanimaloutreach.org",
-      "variant": "plain",
-      "span": 6,
-      "tags": ["Nonprofit", "Donate"]
-    },
-    {
-      "_note": "Re-verified 2026-09-17: 200 over HTTPS, Cloudflare. Oʻahu only — the site says so itself, and the tag says it here so nobody clicks expecting neighbour-island coverage.",
-      "title": "Hawaiʻi 311",
-      "href": "https://hawaii311.org",
-      "variant": "plain",
-      "span": 6,
-      "tags": ["Civic data", "Oʻahu"]
-    }
-  ],
-
-  "upcoming": {
+  "socials": {
     "_comment": [
-      "Projects in build. Rendered as NON-LINKING bars. Countdown Project and",
-      "Thread Hawaiʻi both went live and MOVED UP to \"bars\" on 2026-08-13.",
-      "Island Bound is the only one left: no domain is registered for it yet and",
-      "the repo is still pre-implementation (Phase 0 research complete), so there",
-      "is nothing to link.",
-      "",
-      "TO TAKE IT LIVE: move the entry into \"bars\" with an href and a variant.",
-      "Do NOT just add an href here — index.astro renders every item in this list",
-      "as a <span>, unconditionally. It never reads the \"building\" flag, so an",
-      "href on this side is silently ignored. (The old comment claimed otherwise.)",
-      "",
-      "Verify the URL actually serves before linking it: the standing trap on",
-      "these domains is a Namecheap URL Redirect Record answering with",
-      "'X-Served-By: Namecheap URL Forward', which looks alive but is a parking",
-      "page. Delete that record FIRST, then point DNS at the host."
+      "Trimmed 2026-09-26 from six to four. Removed, and why:",
+      "  substack  one post (Apr 2026) vs 13 on the site's own blog, which the",
+      "            Writing group already links. It sent people to the thinner home.",
+      "  whatsapp  a second contact route beside 'Get in touch'. Two ways to reach",
+      "            you split the one CTA. Its invite link was https://wa.me/qr/P54OK6KL2T7IF1",
+      "            (deliberately the QR form, not wa.me/<number>, so the mobile number",
+      "            is never in the page source).",
+      "Both SVGs are still in links.astro's ICONS map, so restoring either is one",
+      "entry here: { \"icon\": \"substack\", \"label\": \"Substack\", \"href\": \"https://byshauna.substack.com\" }"
     ],
-    "heading": "Building now",
+    "heading": "Elsewhere",
     "items": [
-      {
-        "title": "Island Bound Hawaiʻi",
-        "href": null,
-        "building": true,
-        "span": 6,
-        "tags": ["SaaS", "Moving pets to Hawaiʻi", "In build"]
-      }
+      { "icon": "linkedin", "label": "LinkedIn", "href": "https://www.linkedin.com/in/shaunaarnold/" },
+      { "icon": "github", "label": "GitHub", "href": "https://github.com/shaunagits" },
+      { "icon": "instagram", "label": "Instagram", "href": "https://www.instagram.com/shaunadev_" },
+      { "icon": "tiktok", "label": "TikTok", "href": "https://www.tiktok.com/@shauna.dev" }
     ]
   },
 
-  "writing": {
-    "heading": "Writing",
-    "latestPostSlug": "what-the-world-has-learned-about-stray-dogs",
-    "latestTag": "Latest",
-    "archive": {
-      "title": "All Posts",
-      "href": "/blog",
-      "tag": "Archive"
+  "groups": [
+    {
+      "heading": "your project",
+      "items": [
+        {
+          "title": "Get in touch",
+          "desc": "Tell me what you’re building",
+          "href": "/#contact",
+          "variant": "cta"
+        },
+        {
+          "title": "Portfolio",
+          "desc": "Case studies and services",
+          "href": "/",
+          "variant": "dark"
+        },
+        {
+          "_note": "Re-verified 2026-09-17: 200 over HTTPS, served by Vercel, real site (not a Namecheap URL forward).",
+          "title": "Thread Hawaiʻi",
+          "desc": "My agency: custom business software",
+          "href": "https://threadhawaii.com",
+          "variant": "plain"
+        },
+        {
+          "_note": "Verified live 2026-09-17: 200 over HTTPS, Cloudflare; the apex 301s to www.launchkit.us. If it ever goes dark, add \"status\": \"Coming soon\" and set href to null (see LAUNCHKIT-DOMAIN.md).",
+          "title": "LaunchKits",
+          "desc": "Custom brand kits, off the shelf",
+          "href": "https://launchkit.us",
+          "variant": "plain"
+        }
+      ]
+    },
+    {
+      "heading": "Hawaiʻi projects",
+      "items": [
+        {
+          "_note": "Re-verified 2026-09-17: 200 over HTTPS, Cloudflare. The site brands itself 'The Countdown Project' (title and h1), so this label matches.",
+          "title": "Countdown Project",
+          "desc": "Nonprofit for spay and neuter access",
+          "href": "https://countdownproject.org",
+          "variant": "plain"
+        },
+        {
+          "_note": "Re-verified 2026-09-17: 200 over HTTPS, served by Netlify.",
+          "title": "Aloha Animal Outreach",
+          "desc": "Care for pets in unhoused communities",
+          "href": "https://alohaanimaloutreach.org",
+          "variant": "plain"
+        },
+        {
+          "title": "Hawaiʻi Dog Map",
+          "desc": "Dog-friendly spots on 4 islands",
+          "href": "https://hawaiidogmap.com",
+          "variant": "plain"
+        },
+        {
+          "_note": "Re-verified 2026-09-17: 200 over HTTPS, Cloudflare. Oʻahu only; the desc says so, so nobody clicks expecting neighbour-island coverage.",
+          "title": "Hawaiʻi 311",
+          "desc": "What’s broken on Oʻahu right now",
+          "href": "https://hawaii311.org",
+          "variant": "plain"
+        },
+        {
+          "_note": "No domain registered yet; repo is pre-implementation. TO TAKE IT LIVE: add the href, delete `status`. Verify the URL actually serves first: the standing trap on these domains is a Namecheap URL Redirect Record ('X-Served-By: Namecheap URL Forward'), which looks alive but is a parking page.",
+          "title": "Island Bound Hawaiʻi",
+          "desc": "Moving pets to Hawaiʻi",
+          "href": null,
+          "status": "In build"
+        }
+      ]
+    },
+    {
+      "heading": "writing",
+      "kind": "writing",
+      "latestPostSlug": "what-the-world-has-learned-about-stray-dogs",
+      "latestDesc": "Latest post",
+      "archive": {
+        "title": "All posts",
+        "desc": "Websites, AI and animal welfare",
+        "href": "/blog"
+      }
     }
-  }
+  ]
 }
