@@ -8,7 +8,8 @@
  *
  * Redesigned 2026-09-26 as a single centred column: photo, "Hi, I'm Shauna.
  * Let's talk about...", then GROUPED links whose headings finish that
- * sentence, then the social icons. The old masthead (logomark, wordmark,
+ * sentence. Top portion follows the reference layout Shauna supplied:
+ * home + contact pill, photo, name, bio, social icons inline. The old masthead (logomark, wordmark,
  * "Selected links / shauna.dev") and the tinted contact band are gone. "Get in
  * touch" is now the first bar in the "your project" group instead of a pill
  * beside the icons, so every button on the page shares one width and one edge.
@@ -131,13 +132,35 @@ const canonical = 'https://shauna.dev/links/';
 
   <body class="links-page">
     <main class="wrap">
-      <!-- INTRO: photo, name, the sentence the group headings finish -->
+      <!-- TOP BAR: home (the portfolio) left, the contact pill right -->
+      <nav class="topbar" aria-label="Site">
+        <a class="round" href="/" aria-label="Portfolio home" title="Portfolio home">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.3 2.7a1 1 0 0 1 1.4 0l8.6 8.3c.6.6.2 1.7-.7 1.7H19v7.3a1 1 0 0 1-1 1h-3.5v-5.5h-5V21H6a1 1 0 0 1-1-1v-7.3H3.4c-.9 0-1.3-1.1-.7-1.7l8.6-8.3Z"/></svg>
+        </a>
+        <a class="pill-top" href={intro.topCta.href}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 6.5 9 6.5 9-6.5"/></svg>
+          {intro.topCta.label}
+        </a>
+      </nav>
+
+      <!-- INTRO: photo, name, bio, socials inline -->
       <header class="intro">
         <div class="avatar">
           <img src={intro.photo} alt={intro.photoAlt} width="192" height="192" />
         </div>
-        <p class="status"><span class="d" aria-hidden="true"></span>{intro.status}</p>
         <h1>{intro.greeting}</h1>
+        <p class="bio">{intro.bio}</p>
+        <ul class="icons" aria-label="Find me on">
+          {
+            socials.items.map((s) => (
+              <li>
+                <a class="ico" href={s.href} target="_blank" rel="noopener" aria-label={s.label} title={s.label}>
+                  <Fragment set:html={ICONS[s.icon]} />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
         <p class="prompt">{intro.prompt}</p>
       </header>
 
@@ -179,20 +202,6 @@ const canonical = 'https://shauna.dev/links/';
         ))
       }
 
-      <section class="group elsewhere" aria-label={socials.heading}>
-        <h2 class="rule plain">{socials.heading}</h2>
-        <ul class="icons">
-          {
-            socials.items.map((s) => (
-              <li>
-                <a class="ico" href={s.href} target="_blank" rel="noopener" aria-label={s.label} title={s.label}>
-                  <Fragment set:html={ICONS[s.icon]} />
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </section>
 
       <footer>{meta.footerLine}</footer>
     </main>
@@ -211,6 +220,17 @@ const canonical = 'https://shauna.dev/links/';
     position: relative;
     -webkit-tap-highlight-color: transparent;
   }
+  /* Fine vertical pinstripes behind the top of the page, fading out before
+     the links start: the texture from the reference layout. */
+  .links-page::before {
+    content: '';
+    position: absolute; inset: 0 0 auto 0; height: 520px;
+    pointer-events: none; z-index: 0;
+    background: repeating-linear-gradient(90deg, rgba(var(--ink-rgb), 0.045) 0 1px, transparent 1px 22px);
+    -webkit-mask-image: linear-gradient(#000 40%, transparent);
+            mask-image: linear-gradient(#000 40%, transparent);
+  }
+  .wrap { position: relative; z-index: 1; }
   .links-page::after {
     content: '';
     position: fixed;
@@ -228,48 +248,82 @@ const canonical = 'https://shauna.dev/links/';
     max-width: 520px;
     margin: 0 auto;
     /* padding-block/inline, not the shorthand — see CLAUDE.md */
-    padding-block: clamp(40px, 8vw, 72px) calc(48px + env(safe-area-inset-bottom));
+    padding-block: clamp(16px, 4vw, 32px) calc(48px + env(safe-area-inset-bottom));
     padding-inline: 20px;
   }
 
+  /* ---------- top bar ---------- */
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 18px;
+  }
+  .round, .pill-top {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--paper); color: var(--ink);
+    box-shadow: 0 1px 2px rgba(var(--ink-rgb), 0.06), 0 4px 14px -6px rgba(var(--ink-rgb), 0.18);
+    transition: background 0.25s var(--ease), color 0.25s var(--ease);
+  }
+  .round { width: 44px; height: 44px; border-radius: 50%; }
+  .round svg { width: 19px; height: 19px; }
+  .pill-top {
+    gap: 8px; min-height: 44px; padding: 0 18px;
+    border-radius: var(--radius-pill);
+    font-size: 0.9rem; font-weight: 500;
+  }
+  .pill-top svg { width: 17px; height: 17px; }
+  .round:active, .round:focus-visible, .pill-top:active, .pill-top:focus-visible {
+    background: var(--ink); color: var(--paper);
+  }
+  .round:focus-visible, .pill-top:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+  @media (hover: hover) {
+    .round:hover, .pill-top:hover { background: var(--ink); color: var(--paper); }
+  }
+
   /* ---------- intro ---------- */
-  .intro { text-align: center; margin-bottom: 8px; }
-  /* The photo wears the page's offset-shape gesture as a static echo: a teal
-     circle of the same silhouette, offset up-right. Zero-blur box-shadow, so
-     it inherits the 50% radius and can never drift from the frame. */
+  .intro { text-align: center; margin-bottom: 4px; }
   .avatar {
-    width: 112px; height: 112px; margin: 0 auto 18px;
+    width: 128px; height: 128px; margin: 0 auto 16px;
     border-radius: 50%;
-    border: 3px solid var(--paper);
-    box-shadow: 6px -6px 0 0 var(--primary);
+    border: 4px solid var(--paper);
+    box-shadow: 0 0 0 1px var(--line), 0 10px 26px -12px rgba(var(--ink-rgb), 0.45);
     overflow: hidden;
     background: var(--primary-100);
   }
   .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-  .status {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--accent-ink);
-    background: var(--primary-50); border: 1px solid var(--primary-200);
-    padding: 5px 12px; border-radius: var(--radius-pill);
-    margin-bottom: 14px;
-  }
-  .status .d {
-    width: 6px; height: 6px; border-radius: 50%; background: var(--primary);
-    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.18);
-  }
   h1 {
     font-family: var(--font-display); font-weight: 600;
-    font-size: clamp(1.9rem, 6vw, 2.3rem); line-height: 1.1;
+    font-size: clamp(1.8rem, 6vw, 2.15rem); line-height: 1.1;
     letter-spacing: -0.025em;
   }
+  .bio {
+    max-width: 34ch; margin: 8px auto 0; text-wrap: balance;
+    font-size: 0.98rem; line-height: 1.5; color: var(--ink-soft);
+  }
+
+  /* Plain glyphs, no rings: they read as part of the intro, not as buttons
+     competing with the link bars. Each still gets a 44px tap target. */
+  .icons { display: flex; justify-content: center; gap: 4px; list-style: none; margin-top: 10px; }
+  .ico {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: grid; place-items: center; color: var(--ink);
+    transition: color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  /* These SVGs are injected with set:html, so they never receive this
+     component's scope attribute: the size rule MUST be :global() or it
+     computes to height:0 and the icon vanishes. See CLAUDE.md. */
+  .ico :global(svg) { width: 20px; height: 20px; display: block; }
+  .ico:active, .ico:focus-visible { color: var(--accent-ink); background: rgba(var(--primary-rgb), 0.1); }
+  .ico:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+  @media (hover: hover) {
+    .ico:hover { color: var(--accent-ink); background: rgba(var(--primary-rgb), 0.1); }
+  }
+
   .prompt {
     font-family: var(--font-display); font-style: italic; font-weight: 400;
-    font-size: clamp(1.25rem, 4.4vw, 1.45rem); line-height: 1.2;
+    font-size: clamp(1.2rem, 4.2vw, 1.4rem); line-height: 1.2;
     letter-spacing: -0.015em; color: var(--ink-soft);
-    margin-top: 4px;
+    margin-top: 18px;
   }
 
   /* ---------- groups ---------- */
@@ -374,26 +428,6 @@ const canonical = 'https://shauna.dev/links/';
     letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink);
     padding: 4px 10px; border-radius: var(--radius-pill);
     border: 1px dashed currentColor;
-  }
-
-  /* ---------- social icons ---------- */
-  .elsewhere { margin-top: 34px; }
-  .icons { display: flex; justify-content: center; gap: 12px; list-style: none; }
-  .ico {
-    width: 46px; height: 46px; border-radius: 50%;
-    display: grid; place-items: center;
-    background: var(--paper); color: var(--ink);
-    border: 1px solid var(--line);
-    transition: background 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease);
-  }
-  /* These SVGs are injected with set:html, so they never receive this
-     component's scope attribute: the size rule MUST be :global() or it
-     computes to height:0 and the icon vanishes. See CLAUDE.md. */
-  .ico :global(svg) { width: 18px; height: 18px; display: block; }
-  .ico:active, .ico:focus-visible { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  .ico:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
-  @media (hover: hover) {
-    .ico:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   }
 
   footer {

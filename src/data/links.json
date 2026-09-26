@@ -30,9 +30,11 @@
   "intro": {
     "photo": "/images/links-avatar.jpg",
     "photoAlt": "Shauna Arnold",
-    "status": "Booking into Q4",
+    "_comment": "Top portion (2026-09-26): home button + Get in touch pill, photo, name, one-line bio, social icons inline. The 'Booking into Q4' status pill was dropped to match the reference layout; add \"status\" back to show it again.",
     "greeting": "Hi, I’m Shauna.",
-    "prompt": "Let’s talk about…"
+    "bio": "I build websites, web apps and AI tools from Honolulu.",
+    "prompt": "Let’s talk about…",
+    "topCta": { "label": "Get in touch", "href": "/#contact" }
   },
 
   "socials": {
@@ -47,8 +49,7 @@
       "Both SVGs are still in links.astro's ICONS map, so restoring either is one",
       "entry here: { \"icon\": \"substack\", \"label\": \"Substack\", \"href\": \"https://byshauna.substack.com\" }"
     ],
-    "heading": "Elsewhere",
-    "items": [
+        "items": [
       { "icon": "linkedin", "label": "LinkedIn", "href": "https://www.linkedin.com/in/shaunaarnold/" },
       { "icon": "github", "label": "GitHub", "href": "https://github.com/shaunagits" },
       { "icon": "instagram", "label": "Instagram", "href": "https://www.instagram.com/shaunadev_" },
@@ -75,7 +76,7 @@
         {
           "_note": "Re-verified 2026-09-17: 200 over HTTPS, served by Vercel, real site (not a Namecheap URL forward).",
           "title": "Thread Hawaiʻi",
-          "desc": "My agency: custom software for small businesses",
+          "desc": "My agency: custom business software",
           "href": "https://threadhawaii.com",
           "variant": "plain"
         },
