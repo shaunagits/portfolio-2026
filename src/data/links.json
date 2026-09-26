@@ -1,143 +1,64 @@
 {
   "_comment": [
     "Drives the link-in-bio page at https://shauna.dev/links/ (src/pages/links.astro).",
-    "Adding a link = adding one entry to a group. Nothing else needs to change.",
     "",
-    "Layout (2026-09-26): centred photo + 'Hi, I'm Shauna. Let's talk about...',",
-    "then the links in GROUPS. Each group heading is written to finish that",
-    "sentence ('...your project', '...Hawaiʻi projects', '...writing'), so keep",
-    "new headings in that shape.",
+    "2026-09-26: the page is now ONE profile card, modelled on a microsite card:",
+    "a photo mosaic of recent work, the avatar overlapping it, name + verified",
+    "badge, tags, bio, status, location and two buttons. The old grouped link",
+    "list is gone.",
     "",
-    "groups[].items[].variant  cta | dark | plain   (see links.astro rest-state block)",
-    "  cta   = the ONE call to action. Carries the offset-shape button gesture.",
-    "          There should only ever be one.",
-    "groups[].items[].desc     one short line under the title. Plain words, no",
-    "                          trailing period. Taken from each site's own copy.",
-    "groups[].items[].status   optional. Set (e.g. \"In build\") with href null to",
-    "                          render a NON-LINKING bar: for projects with nothing",
-    "                          to link yet. It never reads href when status is set.",
-    "",
-    "The Writing group is DERIVED from the blog collection (kind: \"writing\").",
-    "latestPostSlug only PINS which post is 'Latest': two posts share a",
-    "publishedDate, so a date sort alone cannot decide. If the pin is removed or",
-    "the slug stops matching, links.astro falls back to newest-by-date."
+    "GALLERY: add a project = add one entry to `gallery` and drop its image in",
+    "public/images/gallery/. The first three fill the mosaic (first = the big",
+    "tile); the third tile shows \"+N\" once there are more than three. Every",
+    "entry, shown on the card or not, is in the tap-to-open photo viewer.",
+    "Screenshots are 1440x900 JPEGs of each site's homepage. Keep that size so",
+    "the viewer does not jump between shapes."
   ],
 
-  "meta": {
-    "footerLine": "© 2026 Shauna Arnold · Honolulu, HI"
-  },
-
-  "intro": {
+  "profile": {
+    "name": "Shauna Arnold",
+    "verified": true,
     "photo": "/images/links-avatar.jpg",
     "photoAlt": "Shauna Arnold",
-    "_comment": "Top portion (2026-09-26): home button + Get in touch pill, photo, name, one-line bio, social icons inline. The 'Booking into Q4' status pill was dropped to match the reference layout; add \"status\" back to show it again.",
-    "greeting": "Hi, I’m Shauna.",
-    "bio": "I build websites, web apps and AI tools from Honolulu.",
-    "prompt": "Let’s talk about…",
-    "topCta": { "label": "Get in touch", "href": "/#contact" }
+    "tags": ["Designer", "Developer"],
+    "bio": "I take websites, web apps, and AI tools from idea to live for founders, small teams, and nonprofits.",
+    "status": "Booking into Q4",
+    "location": "Honolulu, Hawaiʻi"
   },
 
-  "socials": {
-    "_comment": [
-      "Trimmed 2026-09-26 from six to four. Removed, and why:",
-      "  substack  one post (Apr 2026) vs 13 on the site's own blog, which the",
-      "            Writing group already links. It sent people to the thinner home.",
-      "  whatsapp  a second contact route beside 'Get in touch'. Two ways to reach",
-      "            you split the one CTA. Its invite link was https://wa.me/qr/P54OK6KL2T7IF1",
-      "            (deliberately the QR form, not wa.me/<number>, so the mobile number",
-      "            is never in the page source).",
-      "Both SVGs are still in links.astro's ICONS map, so restoring either is one",
-      "entry here: { \"icon\": \"substack\", \"label\": \"Substack\", \"href\": \"https://byshauna.substack.com\" }"
-    ],
-        "items": [
-      { "icon": "linkedin", "label": "LinkedIn", "href": "https://www.linkedin.com/in/shaunaarnold/" },
-      { "icon": "github", "label": "GitHub", "href": "https://github.com/shaunagits" },
-      { "icon": "instagram", "label": "Instagram", "href": "https://www.instagram.com/shaunadev_" },
-      { "icon": "tiktok", "label": "TikTok", "href": "https://www.tiktok.com/@shauna.dev" }
-    ]
-  },
+  "socials": [
+    { "icon": "linkedin", "label": "LinkedIn", "href": "https://www.linkedin.com/in/shaunaarnold/" },
+    { "icon": "github", "label": "GitHub", "href": "https://github.com/shaunagits" },
+    { "icon": "instagram", "label": "Instagram", "href": "https://www.instagram.com/shaunadev_" },
+    { "icon": "tiktok", "label": "TikTok", "href": "https://www.tiktok.com/@shauna.dev" }
+  ],
 
-  "groups": [
+  "actions": [
+    { "label": "Get in touch", "href": "/#contact", "icon": "mail", "primary": true },
+    { "label": "View portfolio", "href": "/", "icon": "globe" }
+  ],
+
+  "gallery": [
     {
-      "heading": "your project",
-      "items": [
-        {
-          "title": "Get in touch",
-          "desc": "Tell me what you’re building",
-          "href": "/#contact",
-          "variant": "cta"
-        },
-        {
-          "title": "Portfolio",
-          "desc": "Case studies and services",
-          "href": "/",
-          "variant": "dark"
-        },
-        {
-          "_note": "Re-verified 2026-09-17: 200 over HTTPS, served by Vercel, real site (not a Namecheap URL forward).",
-          "title": "Thread Hawaiʻi",
-          "desc": "My agency: custom business software",
-          "href": "https://threadhawaii.com",
-          "variant": "plain"
-        },
-        {
-          "_note": "Verified live 2026-09-17: 200 over HTTPS, Cloudflare; the apex 301s to www.launchkit.us. If it ever goes dark, add \"status\": \"Coming soon\" and set href to null (see LAUNCHKIT-DOMAIN.md).",
-          "title": "LaunchKits",
-          "desc": "Custom brand kits, off the shelf",
-          "href": "https://launchkit.us",
-          "variant": "plain"
-        }
-      ]
+      "_note": "Captured 2026-09-26 during a live tropical storm warning, so the alerts in it will date. Re-capture when the feed is calm.",
+      "src": "/images/gallery/808alerts.jpg",
+      "title": "808 Alerts",
+      "caption": "Live Hawaiʻi warnings, road closures and outages",
+      "href": "https://808alerts.com"
     },
     {
-      "heading": "Hawaiʻi projects",
-      "items": [
-        {
-          "_note": "Re-verified 2026-09-17: 200 over HTTPS, Cloudflare. The site brands itself 'The Countdown Project' (title and h1), so this label matches.",
-          "title": "Countdown Project",
-          "desc": "Nonprofit for spay and neuter access",
-          "href": "https://countdownproject.org",
-          "variant": "plain"
-        },
-        {
-          "_note": "Re-verified 2026-09-17: 200 over HTTPS, served by Netlify.",
-          "title": "Aloha Animal Outreach",
-          "desc": "Care for pets in unhoused communities",
-          "href": "https://alohaanimaloutreach.org",
-          "variant": "plain"
-        },
-        {
-          "title": "Hawaiʻi Dog Map",
-          "desc": "Dog-friendly spots on 4 islands",
-          "href": "https://hawaiidogmap.com",
-          "variant": "plain"
-        },
-        {
-          "_note": "Re-verified 2026-09-17: 200 over HTTPS, Cloudflare. Oʻahu only; the desc says so, so nobody clicks expecting neighbour-island coverage.",
-          "title": "Hawaiʻi 311",
-          "desc": "What’s broken on Oʻahu right now",
-          "href": "https://hawaii311.org",
-          "variant": "plain"
-        },
-        {
-          "_note": "No domain registered yet; repo is pre-implementation. TO TAKE IT LIVE: add the href, delete `status`. Verify the URL actually serves first: the standing trap on these domains is a Namecheap URL Redirect Record ('X-Served-By: Namecheap URL Forward'), which looks alive but is a parking page.",
-          "title": "Island Bound Hawaiʻi",
-          "desc": "Moving pets to Hawaiʻi",
-          "href": null,
-          "status": "In build"
-        }
-      ]
+      "src": "/images/gallery/getlocalhawaii.jpg",
+      "title": "Get Local Hawaiʻi",
+      "caption": "Lei stands, markets and local produce",
+      "href": "https://getlocalhawaii.com"
     },
     {
-      "heading": "writing",
-      "kind": "writing",
-      "latestPostSlug": "what-the-world-has-learned-about-stray-dogs",
-      "latestDesc": "Latest post",
-      "archive": {
-        "title": "All posts",
-        "desc": "Websites, AI and animal welfare",
-        "href": "/blog"
-      }
+      "src": "/images/gallery/hawaiidogmap.jpg",
+      "title": "Hawaiʻi Dog Map",
+      "caption": "Dog-friendly parks, beaches and trails on four islands",
+      "href": "https://hawaiidogmap.com"
     }
-  ]
+  ],
+
+  "footerLine": "© 2026 Shauna Arnold"
 }

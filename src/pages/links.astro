@@ -2,55 +2,27 @@
 /**
  * Link-in-bio page, served at https://shauna.dev/links/.
  *
- * Returned to this repo 2026-08-19 when the portfolio took over shauna.dev as
- * its primary domain. Content is driven by src/data/links.json: adding a link
- * means adding one entry to a group there.
+ * 2026-09-26: rebuilt as a single profile card (a "microsite" card): a photo
+ * mosaic of recent work, the avatar overlapping it with a verified badge, the
+ * socials beside it, then name, tags, bio, status, location and two buttons.
+ * Tapping any mosaic tile opens a photo viewer over the page that pages
+ * through EVERY gallery entry, like the photos on a social profile.
  *
- * Redesigned 2026-09-26 as a single centred column: photo, "Hi, I'm Shauna.
- * Let's talk about...", then GROUPED links whose headings finish that
- * sentence. Top portion follows the reference layout Shauna supplied:
- * home + contact pill, photo, name, bio, social icons inline. The old masthead (logomark, wordmark,
- * "Selected links / shauna.dev") and the tinted contact band are gone. "Get in
- * touch" is now the first bar in the "your project" group instead of a pill
- * beside the icons, so every button on the page shares one width and one edge.
+ * All content is in src/data/links.json. Adding work = one gallery entry.
  *
  * Deliberately standalone: no Layout.astro (that carries the portfolio nav and
  * the scroll-progress bar). Only global.css is imported, so the design tokens
  * stay single-sourced.
  */
 import '../styles/global.css';
-import { getCollection } from 'astro:content';
 import links from '../data/links.json';
 
-const { meta, intro, socials, groups } = links;
+const { profile, socials, actions, gallery, footerLine } = links;
 
-// --- Writing group: derived from the blog collection --------------------
-// Two posts share publishedDate 2026-07-27, so a date sort alone cannot decide
-// "latest". links.json pins the slug; date order is the fallback if the pin is
-// removed or the file is renamed. The title always comes from the post's own
-// frontmatter, so the page and the blog can never show one article two ways.
-const writing = groups.find((g) => g.kind === 'writing');
-const posts = await getCollection('blog');
-const newestFirst = [...posts].sort(
-  (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf(),
-);
-const latest = posts.find((p) => p.id === writing?.latestPostSlug) ?? newestFirst[0];
-
-// Normalise every group to one item shape, so the markup has ONE bar renderer.
-// Two renderers for the same bar is how one of them ends up subtly wrong.
-const rendered = groups.map((g) =>
-  g.kind === 'writing'
-    ? {
-        heading: g.heading,
-        items: [
-          { title: latest.data.title, desc: g.latestDesc, href: `/blog/${latest.id}`, variant: 'plain', long: true },
-          { title: g.archive.title, desc: g.archive.desc, href: g.archive.href, variant: 'plain' },
-        ],
-      }
-    : g,
-);
-
-const isExternal = (href) => typeof href === 'string' && href.startsWith('http');
+// The mosaic shows the first three; the rest live only in the viewer. The
+// third tile carries "+N" when there are more than three.
+const tiles = gallery.slice(0, 3);
+const more = Math.max(0, gallery.length - 3);
 
 /**
  * Icon artwork, keyed by links.json `socials[].icon`.
@@ -90,9 +62,16 @@ const ICONS: Record<string, string> = {
   linkedin: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13Zm1.78 13.02H3.55V9h3.57v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0Z"/></svg>`,
 };
 
-const title = 'Shauna Arnold · Links';
+// Small line icons for the rows and buttons. Inline markup, so they get this
+// file's scope and need no :global() size rule.
+const UI = {
+  mail: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 6.5 9 6.5 9-6.5"/></svg>`,
+  globe: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.7 3.9 5.9 3.9 9.5s-1.3 6.8-3.9 9.5c-2.6-2.7-3.9-5.9-3.9-9.5S9.4 5.2 12 2.5Z"/></svg>`,
+};
+
+const title = 'Shauna Arnold · Designer and developer';
 const description =
-  'Work with Shauna Arnold, designer and developer in Honolulu: portfolio, Hawaiʻi projects, writing and contact.';
+  'Shauna Arnold takes websites, web apps and AI tools from idea to live, from Honolulu. Recent work, and how to get in touch.';
 const canonical = 'https://shauna.dev/links/';
 ---
 
@@ -106,19 +85,18 @@ const canonical = 'https://shauna.dev/links/';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="preload" as="image" href={intro.photo} />
     <title>{title}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap"
       rel="stylesheet"
     />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="profile" />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content="https://shauna.dev/images/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -132,317 +110,378 @@ const canonical = 'https://shauna.dev/links/';
 
   <body class="links-page">
     <main class="wrap">
-      <!-- TOP BAR: home (the portfolio) left, the contact pill right -->
-      <nav class="topbar" aria-label="Site">
-        <a class="round" href="/" aria-label="Portfolio home" title="Portfolio home">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.3 2.7a1 1 0 0 1 1.4 0l8.6 8.3c.6.6.2 1.7-.7 1.7H19v7.3a1 1 0 0 1-1 1h-3.5v-5.5h-5V21H6a1 1 0 0 1-1-1v-7.3H3.4c-.9 0-1.3-1.1-.7-1.7l8.6-8.3Z"/></svg>
-        </a>
-        <a class="pill-top" href={intro.topCta.href}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 6.5 9 6.5 9-6.5"/></svg>
-          {intro.topCta.label}
-        </a>
-      </nav>
-
-      <!-- INTRO: photo, name, bio, socials inline -->
-      <header class="intro">
-        <div class="avatar">
-          <img src={intro.photo} alt={intro.photoAlt} width="192" height="192" />
-        </div>
-        <h1>{intro.greeting}</h1>
-        <p class="bio">{intro.bio}</p>
-        <ul class="icons" aria-label="Find me on">
+      <article class="card">
+        <!-- MOSAIC: first three gallery entries. Buttons, not links: they open
+             the viewer, they don't navigate. -->
+        <div class={`mosaic n${tiles.length}`}>
           {
-            socials.items.map((s) => (
-              <li>
-                <a class="ico" href={s.href} target="_blank" rel="noopener" aria-label={s.label} title={s.label}>
-                  <Fragment set:html={ICONS[s.icon]} />
-                </a>
-              </li>
+            tiles.map((g, i) => (
+              <button
+                class={`tile t${i}`}
+                type="button"
+                data-open={i}
+                aria-label={i === 2 && more ? `${g.title}, and ${more} more. Open gallery` : `${g.title}. Open gallery`}
+              >
+                <img src={g.src} alt="" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" width="1440" height="900" />
+                {!(i === 2 && more > 0) && <span class="tag-name" aria-hidden="true">{g.title}</span>}
+                {i === 2 && more > 0 && <span class="more" aria-hidden="true">+{more}</span>}
+              </button>
             ))
           }
-        </ul>
-        <p class="prompt">{intro.prompt}</p>
-      </header>
+        </div>
 
-      {
-        rendered.map((g) => (
-          <section class="group" aria-label={g.heading}>
-            <h2 class="rule"><span aria-hidden="true">…</span>{g.heading}</h2>
-            <ul class="bars">
-              {g.items.map((b) => (
-                <li>
-                  {b.status ? (
-                    /* Not live yet: a span, never an anchor, so it cannot drop
-                       anyone on a parking page. Reads href never. */
-                    <span class="bar soon" aria-label={`${b.title}, ${b.status.toLowerCase()}, not yet live`}>
-                      <span class="txt">
-                        <span class="ttl">{b.title}</span>
-                        <span class="desc">{b.desc}</span>
-                      </span>
-                      <span class="badge">{b.status}</span>
-                    </span>
-                  ) : (
-                    <a
-                      class={`bar ${b.variant}${b.long ? ' long' : ''}`}
-                      href={b.href}
-                      target={isExternal(b.href) ? '_blank' : undefined}
-                      rel={isExternal(b.href) ? 'noopener' : undefined}
-                    >
-                      <span class="txt">
-                        <span class="ttl">{b.title}</span>
-                        <span class="desc">{b.desc}</span>
-                      </span>
-                      <span class="go" aria-hidden="true">→</span>
+        <div class="body">
+          <div class="id-row">
+            <div class="avatar">
+              <img src={profile.photo} alt={profile.photoAlt} width="192" height="192" />
+              {
+                profile.verified && (
+                  <span class="badge" title="Verified" aria-label="Verified">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1.5 14.6 3.4l3.2-.2.9 3.1 2.7 1.8-1 3.1 1 3.1-2.7 1.8-.9 3.1-3.2-.2L12 21.9 9.4 20l-3.2.2-.9-3.1-2.7-1.8 1-3.1-1-3.1 2.7-1.8.9-3.1 3.2.2L12 1.5Z"/><path d="m8 12.2 2.7 2.7L16.2 9.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                )
+              }
+            </div>
+            <ul class="socials" aria-label="Find me on">
+              {
+                socials.map((s) => (
+                  <li>
+                    <a class="ico" href={s.href} target="_blank" rel="noopener" aria-label={s.label} title={s.label}>
+                      <Fragment set:html={ICONS[s.icon]} />
                     </a>
-                  )}
-                </li>
-              ))}
+                  </li>
+                ))
+              }
             </ul>
-          </section>
-        ))
+          </div>
+
+          <h1>{profile.name}</h1>
+          <ul class="chips">
+            {profile.tags.map((t) => <li>{t}</li>)}
+          </ul>
+
+          <p class="bio">{profile.bio}</p>
+
+          <ul class="meta">
+            <li class="status"><span class="dot" aria-hidden="true"></span>{profile.status}</li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3 3 10.5l7.5 3L13.5 21 21 3Z"/></svg>
+              {profile.location}
+            </li>
+          </ul>
+
+          <div class="actions">
+            {
+              actions.map((a) => (
+                <a class={`btn${a.primary ? ' primary' : ''}`} href={a.href}>
+                  <Fragment set:html={UI[a.icon]} />
+                  {a.label}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </article>
+
+      <footer>{footerLine}</footer>
+    </main>
+
+    <!-- VIEWER: a native <dialog>, so focus trapping, Esc to close and the
+         backdrop come from the browser, not from script. -->
+    <dialog class="viewer" aria-label="Work gallery">
+      <div class="v-top">
+        <span class="v-count" aria-live="polite"></span>
+        <button class="v-close" type="button" aria-label="Close gallery">✕</button>
+      </div>
+      <div class="v-stage">
+        <button class="v-nav prev" type="button" aria-label="Previous">‹</button>
+        <img class="v-img" alt="" />
+        <button class="v-nav next" type="button" aria-label="Next">›</button>
+      </div>
+      <div class="v-cap">
+        <div>
+          <p class="v-title"></p>
+          <p class="v-text"></p>
+        </div>
+        <a class="v-visit" target="_blank" rel="noopener">Visit site ↗</a>
+      </div>
+    </dialog>
+
+    <script type="application/json" id="gallery-data" set:html={JSON.stringify(gallery.map(({ src, title, caption, href }) => ({ src, title, caption, href })))} />
+    <script>
+      const items = JSON.parse(document.getElementById('gallery-data')!.textContent || '[]');
+      const dlg = document.querySelector('.viewer') as HTMLDialogElement;
+      const img = dlg.querySelector('.v-img') as HTMLImageElement;
+      const count = dlg.querySelector('.v-count')!;
+      const ttl = dlg.querySelector('.v-title')!;
+      const txt = dlg.querySelector('.v-text')!;
+      const visit = dlg.querySelector('.v-visit') as HTMLAnchorElement;
+      let at = 0;
+
+      function show(i: number) {
+        at = (i + items.length) % items.length;
+        const g = items[at];
+        img.src = g.src;
+        img.alt = `${g.title} screenshot`;
+        count.textContent = `${at + 1} / ${items.length}`;
+        ttl.textContent = g.title;
+        txt.textContent = g.caption || '';
+        if (g.href) { visit.href = g.href; visit.hidden = false; } else { visit.hidden = true; }
+        // warm the next image so paging feels instant
+        const n = items[(at + 1) % items.length];
+        if (n) new Image().src = n.src;
       }
 
-
-      <footer>{meta.footerLine}</footer>
-    </main>
+      document.querySelectorAll<HTMLButtonElement>('[data-open]').forEach((b) =>
+        b.addEventListener('click', () => { show(Number(b.dataset.open)); dlg.showModal(); }),
+      );
+      dlg.querySelector('.prev')!.addEventListener('click', () => show(at - 1));
+      dlg.querySelector('.next')!.addEventListener('click', () => show(at + 1));
+      dlg.querySelector('.v-close')!.addEventListener('click', () => dlg.close());
+      // a click on the backdrop (the dialog itself, not its contents) closes
+      dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+      dlg.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') show(at - 1);
+        if (e.key === 'ArrowRight') show(at + 1);
+      });
+      // swipe on touch
+      let x0: number | null = null;
+      const stage = dlg.querySelector('.v-stage')!;
+      stage.addEventListener('touchstart', (e) => { x0 = (e as TouchEvent).touches[0].clientX; }, { passive: true });
+      stage.addEventListener('touchend', (e) => {
+        if (x0 === null) return;
+        const dx = (e as TouchEvent).changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 40) show(at + (dx < 0 ? 1 : -1));
+        x0 = null;
+      });
+      if (items.length < 2) dlg.querySelectorAll('.v-nav').forEach((b) => ((b as HTMLElement).hidden = true));
+    </script>
   </body>
 </html>
 
 <style>
-  /* Tokens all come from global.css :root. Nothing new is defined here except
-     the page-local button offset, which is smaller than the site's 7px. */
   .links-page {
-    --btn-offset: 5px;
+    --btn-offset: 4px;
     background: var(--paper-2);
     color: var(--ink);
     line-height: 1.5;
     min-height: 100vh;
-    position: relative;
     -webkit-tap-highlight-color: transparent;
   }
-  /* Fine vertical pinstripes behind the top of the page, fading out before
-     the links start: the texture from the reference layout. */
-  .links-page::before {
-    content: '';
-    position: absolute; inset: 0 0 auto 0; height: 520px;
-    pointer-events: none; z-index: 0;
-    background: repeating-linear-gradient(90deg, rgba(var(--ink-rgb), 0.045) 0 1px, transparent 1px 22px);
-    -webkit-mask-image: linear-gradient(#000 40%, transparent);
-            mask-image: linear-gradient(#000 40%, transparent);
-  }
-  .wrap { position: relative; z-index: 1; }
-  .links-page::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  /* One narrow column on every screen: a link-in-bio page is read top to
-     bottom on a phone, and a 940px grid of full-width bars was just long
-     lines on desktop. */
   .wrap {
-    max-width: 520px;
+    max-width: 440px;
     margin: 0 auto;
     /* padding-block/inline, not the shorthand — see CLAUDE.md */
-    padding-block: clamp(16px, 4vw, 32px) calc(48px + env(safe-area-inset-bottom));
-    padding-inline: 20px;
+    padding-block: clamp(14px, 5vw, 48px) calc(28px + env(safe-area-inset-bottom));
+    padding-inline: 14px;
   }
 
-  /* ---------- top bar ---------- */
-  .topbar {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 18px;
+  /* ---------- card ---------- */
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 10px;
+    box-shadow: 0 1px 2px rgba(var(--ink-rgb), 0.05), 0 18px 40px -24px rgba(var(--ink-rgb), 0.35);
   }
-  .round, .pill-top {
-    display: inline-flex; align-items: center; justify-content: center;
-    background: var(--paper); color: var(--ink);
-    box-shadow: 0 1px 2px rgba(var(--ink-rgb), 0.06), 0 4px 14px -6px rgba(var(--ink-rgb), 0.18);
-    transition: background 0.25s var(--ease), color 0.25s var(--ease);
+
+  /* ---------- mosaic ---------- */
+  .mosaic {
+    display: grid; gap: 6px;
+    grid-template-columns: 1.7fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: clamp(190px, 52vw, 230px);
+    border-radius: 15px; overflow: hidden;
   }
-  .round { width: 44px; height: 44px; border-radius: 50%; }
-  .round svg { width: 19px; height: 19px; }
-  .pill-top {
-    gap: 8px; min-height: 44px; padding: 0 18px;
-    border-radius: var(--radius-pill);
-    font-size: 0.9rem; font-weight: 500;
+  .mosaic.n1 { grid-template-columns: 1fr; grid-template-rows: 1fr; }
+  .mosaic.n2 { grid-template-rows: 1fr; }
+  .tile {
+    position: relative; overflow: hidden; padding: 0; border: 0;
+    background: var(--primary-100); cursor: zoom-in;
   }
-  .pill-top svg { width: 17px; height: 17px; }
-  .round:active, .round:focus-visible, .pill-top:active, .pill-top:focus-visible {
-    background: var(--ink); color: var(--paper);
+  .t0 { grid-row: 1 / -1; }
+  .tile img {
+    width: 100%; height: 100%; display: block;
+    object-fit: cover; object-position: top left;
+    transition: transform 0.5s var(--ease);
   }
-  .round:focus-visible, .pill-top:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+  .tag-name {
+    position: absolute; left: 7px; bottom: 7px;
+    font-family: var(--font-sans); font-size: 0.66rem; font-weight: 600;
+    background: rgba(var(--ink-rgb), 0.78); color: var(--paper);
+    padding: 3px 8px; border-radius: 6px;
+    max-width: calc(100% - 14px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  /* The avatar overlaps the big tile's lower-left corner, so its label sits
+     top-left instead. */
+  .t0 .tag-name { bottom: auto; top: 7px; }
+  .more {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    background: rgba(var(--ink-rgb), 0.5); color: var(--paper);
+    font-family: var(--font-sans); font-weight: 600; font-size: 1.5rem;
+  }
+  .tile:focus-visible { outline: 3px solid var(--primary); outline-offset: -3px; }
   @media (hover: hover) {
-    .round:hover, .pill-top:hover { background: var(--ink); color: var(--paper); }
+    .tile:hover img { transform: scale(1.04); }
   }
 
-  /* ---------- intro ---------- */
-  .intro { text-align: center; margin-bottom: 4px; }
-  .avatar {
-    width: 128px; height: 128px; margin: 0 auto 16px;
-    border-radius: 50%;
-    border: 4px solid var(--paper);
-    box-shadow: 0 0 0 1px var(--line), 0 10px 26px -12px rgba(var(--ink-rgb), 0.45);
-    overflow: hidden;
+  /* ---------- body ---------- */
+  .body { padding: 0 10px 8px; }
+  /* The avatar rides up over the mosaic; the socials sit on the card's own
+     white, level with the avatar's lower half. */
+  .id-row {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-top: -46px; margin-bottom: 12px;
+  }
+  .avatar { position: relative; flex: none; width: 96px; height: 96px; }
+  .avatar img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    border-radius: 50%; border: 4px solid var(--paper);
     background: var(--primary-100);
+    box-shadow: 0 6px 16px -8px rgba(var(--ink-rgb), 0.5);
   }
-  .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* Teal, not the example's blue: the palette is black, white and one teal
+     (CLAUDE.md / DECISIONS.md). --primary on white is fine at icon size. */
+  .badge {
+    position: absolute; right: 0; bottom: 4px;
+    width: 26px; height: 26px; color: var(--primary);
+    background: var(--paper); border-radius: 50%;
+    display: grid; place-items: center;
+  }
+  .badge svg { width: 24px; height: 24px; display: block; }
 
-  h1 {
-    font-family: var(--font-display); font-weight: 600;
-    font-size: clamp(1.8rem, 6vw, 2.15rem); line-height: 1.1;
-    letter-spacing: -0.025em;
-  }
-  .bio {
-    max-width: 34ch; margin: 8px auto 0; text-wrap: balance;
-    font-size: 0.98rem; line-height: 1.5; color: var(--ink-soft);
-  }
-
-  /* Plain glyphs, no rings: they read as part of the intro, not as buttons
-     competing with the link bars. Each still gets a 44px tap target. */
-  .icons { display: flex; justify-content: center; gap: 4px; list-style: none; margin-top: 10px; }
+  .socials { display: flex; gap: 2px; list-style: none; margin-bottom: 2px; }
   .ico {
-    width: 44px; height: 44px; border-radius: 50%;
+    width: 40px; height: 40px; border-radius: 50%;
     display: grid; place-items: center; color: var(--ink);
     transition: color 0.2s var(--ease), background 0.2s var(--ease);
   }
-  /* These SVGs are injected with set:html, so they never receive this
-     component's scope attribute: the size rule MUST be :global() or it
-     computes to height:0 and the icon vanishes. See CLAUDE.md. */
+  /* set:html SVGs never receive this file's scope attribute: :global() is
+     REQUIRED or the size computes to 0 and the icon vanishes. See CLAUDE.md. */
   .ico :global(svg) { width: 20px; height: 20px; display: block; }
   .ico:active, .ico:focus-visible { color: var(--accent-ink); background: rgba(var(--primary-rgb), 0.1); }
   .ico:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
-  @media (hover: hover) {
-    .ico:hover { color: var(--accent-ink); background: rgba(var(--primary-rgb), 0.1); }
-  }
+  @media (hover: hover) { .ico:hover { color: var(--accent-ink); background: rgba(var(--primary-rgb), 0.1); } }
 
-  .prompt {
-    font-family: var(--font-display); font-style: italic; font-weight: 400;
-    font-size: clamp(1.2rem, 4.2vw, 1.4rem); line-height: 1.2;
-    letter-spacing: -0.015em; color: var(--ink-soft);
-    margin-top: 18px;
+  h1 {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 1.6rem; line-height: 1.15; letter-spacing: -0.02em;
   }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin-top: 8px; }
+  .chips li {
+    font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent-ink); background: var(--primary-50);
+    border: 1px solid var(--primary-200);
+    padding: 3px 9px; border-radius: 6px;
+  }
+  .bio { margin-top: 14px; font-size: 1rem; line-height: 1.55; color: var(--ink); }
 
-  /* ---------- groups ---------- */
-  .group { margin-top: 28px; }
-  /* Headings finish the intro's sentence: "Let's talk about... your project".
-     The leading ellipsis is what ties them back to it. */
-  .rule {
+  .meta { list-style: none; margin-top: 14px; display: grid; gap: 9px; }
+  .meta li {
     display: flex; align-items: center; gap: 10px;
-    margin: 0 0 12px;
-    font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
-    letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft);
+    font-size: 0.9rem; color: var(--ink-soft);
   }
-  .rule span { color: var(--accent-ink); margin-right: -6px; }
-  .rule::after { content: ''; flex: 1; height: 1px; background: var(--line); }
-  .rule.plain { justify-content: center; }
-  .rule.plain::before { content: ''; flex: 1; height: 1px; background: var(--line); }
+  .meta svg { width: 18px; height: 18px; flex: none; }
+  .meta .status { color: var(--ink); font-weight: 600; }
+  .meta .dot {
+    width: 18px; height: 18px; flex: none; display: grid; place-items: center;
+  }
+  .meta .dot::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--primary);
+    box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.18);
+  }
 
-  .bars { list-style: none; display: grid; gap: 10px; }
-
-  /* =========================================================
-     LINK BARS
-     ========================================================= */
-  .bar {
-    display: flex; align-items: center; gap: 14px;
+  /* ---------- buttons ----------
+     The site's offset-shape gesture (CLAUDE.md): outlined at rest with a solid
+     shape of the same silhouette offset up-right; on hover/focus it slides
+     home and fills. Teal shape = primary, ink shape = secondary. */
+  .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 48px; padding: 0 12px;
+    border: 1.5px solid var(--ink); border-radius: 14px;
     background: var(--paper); color: var(--ink);
-    border: 1px solid var(--line); border-radius: 12px;
-    padding: 12px 14px 12px 18px; min-height: 60px;
-    transition: background 0.25s var(--ease), color 0.25s var(--ease),
-                border-color 0.25s var(--ease), box-shadow 0.3s var(--ease);
+    font-size: 0.9rem; font-weight: 600; white-space: nowrap;
+    box-shadow: var(--btn-offset) calc(var(--btn-offset) * -1) 0 0 var(--ink);
+    transition: box-shadow 0.3s var(--ease), background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
   }
-  .bar .txt { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
-  .bar .ttl {
-    font-family: var(--font-display); font-weight: 600; font-size: 1.04rem;
-    letter-spacing: -0.015em; line-height: 1.25;
+  .btn :global(svg) { width: 17px; height: 17px; flex: none; }
+  .btn.primary { border-color: var(--primary); box-shadow: var(--btn-offset) calc(var(--btn-offset) * -1) 0 0 var(--primary); }
+  .btn:active, .btn:focus-visible { box-shadow: 0 0 0 0 var(--ink); background: var(--ink); color: var(--paper); }
+  /* --primary-hover, not --primary: white on #2C8C99 is 3.95:1 and fails AA. */
+  .btn.primary:active, .btn.primary:focus-visible {
+    background: var(--primary-hover); border-color: var(--primary-hover); box-shadow: 0 0 0 0 var(--primary-hover);
   }
-  .bar .desc { font-size: 0.8rem; line-height: 1.35; color: var(--ink-soft); }
-  /* A blog headline runs long: body font, smaller, so it doesn't shout. */
-  .bar.long .ttl {
-    font-family: var(--font-sans); font-size: 0.92rem; font-weight: 500;
-    letter-spacing: 0; line-height: 1.4;
-  }
-  .bar .go {
-    flex: none; width: 28px; height: 28px; border-radius: 50%;
-    display: grid; place-items: center; font-size: 0.8rem;
-    background: rgba(var(--ink-rgb), 0.07);
-    transition: transform 0.25s var(--ease), background 0.25s var(--ease);
-  }
-
-  /* ---- REST states --------------------------------------------------
-     All declared BEFORE any hover/active rule: `.bar.dark` and `.bar:hover`
-     share specificity (0,2,0), so whichever is written last wins. */
-
-  /* THE CTA. The only element with the offset-shape button gesture, which is
-     what marks it as the page's one call to action. Outlined at rest with a
-     teal shape offset up-right; on hover the shape slides home and fills. */
-  .bar.cta {
-    border: 1.5px solid var(--primary);
-    box-shadow: var(--btn-offset) calc(var(--btn-offset) * -1) 0 0 var(--primary);
-  }
-  .bar.cta .go { background: var(--primary-hover); color: var(--on-accent); }
-
-  .bar.dark { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  .bar.dark .desc { color: var(--on-dark-2); }
-  .bar.dark .go { background: rgba(var(--paper-rgb), 0.16); }
-
-  /* ---- PRESS / FOCUS: every device ----------------------------------
-     Fills use --primary-hover (#1F6A75), NOT --primary: white on #2C8C99 is
-     3.95:1 and fails AA at this size. #1F6A75 is 6.2:1.
-     NOTE: --primary-deep is var(--ink) in global.css, not a teal. */
-  .bar:active, .bar:focus-visible { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  .bar.dark:active, .bar.dark:focus-visible,
-  .bar.cta:active, .bar.cta:focus-visible {
-    background: var(--primary-hover); color: var(--paper); border-color: var(--primary-hover);
-  }
-  .bar.cta:active, .bar.cta:focus-visible { box-shadow: 0 0 0 0 var(--primary-hover); }
-  .bar:active .desc, .bar:focus-visible .desc { color: var(--on-dark-2); }
-  .bar:active .go, .bar:focus-visible .go { background: rgba(var(--paper-rgb), 0.18); color: var(--paper); }
-  .bar:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
-
-  /* ---- HOVER: pointer devices only (touch has no un-hover) ---- */
+  .btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
   @media (hover: hover) {
-    .bar:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-    .bar.dark:hover, .bar.cta:hover {
-      background: var(--primary-hover); color: var(--paper); border-color: var(--primary-hover);
-    }
-    .bar.cta:hover { box-shadow: 0 0 0 0 var(--primary-hover); }
-    .bar:hover .desc { color: var(--on-dark-2); }
-    .bar:hover .go { background: rgba(var(--paper-rgb), 0.18); color: var(--paper); transform: rotate(-45deg); }
-  }
-
-  /* ---- IN BUILD -----------------------------------------------------
-     Real work with a name, just not live. Tinted ground + dashed edge says
-     "coming"; a badge replaces the arrow so it never reads as clickable. */
-  .bar.soon {
-    background: var(--primary-50); border: 1px dashed var(--primary-200);
-    border-color: rgba(var(--primary-rgb), 0.45);
-    cursor: default;
-  }
-  .badge {
-    flex: none;
-    font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink);
-    padding: 4px 10px; border-radius: var(--radius-pill);
-    border: 1px dashed currentColor;
+    .btn:hover { box-shadow: 0 0 0 0 var(--ink); background: var(--ink); color: var(--paper); }
+    .btn.primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); box-shadow: 0 0 0 0 var(--primary-hover); }
   }
 
   footer {
-    margin-top: 36px; text-align: center;
-    font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-soft);
+    margin-top: 18px; text-align: center;
+    font-family: var(--font-mono); font-size: 0.66rem; color: var(--ink-soft);
   }
 
-  /* global.css's reduced-motion block only kills `animation`; this page is
-     driven by transitions, so it needs its own guard. */
+  /* ---------- viewer ---------- */
+  .viewer {
+    width: min(1100px, 100vw); max-width: 100vw; height: 100dvh; max-height: 100dvh;
+    margin: auto; padding: 0; border: 0;
+    background: transparent; color: var(--paper);
+    display: none; flex-direction: column;
+  }
+  .viewer[open] { display: flex; }
+  .viewer::backdrop { background: rgba(var(--ink-rgb), 0.97); }
+  .v-top {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: calc(10px + env(safe-area-inset-top)) 14px 6px;
+  }
+  .v-count { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; color: var(--on-dark-2); }
+  .v-close, .v-nav {
+    width: 44px; height: 44px; border-radius: 50%; border: 0;
+    display: grid; place-items: center;
+    background: rgba(var(--paper-rgb), 0.12); color: var(--paper);
+    font-size: 1.1rem; cursor: pointer;
+  }
+  .v-nav { font-size: 1.8rem; line-height: 1; flex: none; }
+  .v-close:focus-visible, .v-nav:focus-visible, .v-visit:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
+  @media (hover: hover) {
+    .v-close:hover, .v-nav:hover { background: rgba(var(--paper-rgb), 0.24); }
+  }
+  .v-stage {
+    flex: 1; min-height: 0;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    padding: 0 12px;
+  }
+  .v-img {
+    min-width: 0; max-width: 100%; max-height: 100%;
+    object-fit: contain; border-radius: 10px;
+    box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.7);
+  }
+  .v-cap {
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    padding: 12px 16px calc(16px + env(safe-area-inset-bottom));
+  }
+  .v-title { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; }
+  .v-text { font-size: 0.85rem; color: var(--on-dark-2); }
+  .v-visit {
+    flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
+    border-radius: var(--radius-pill); background: var(--paper); color: var(--ink);
+    font-size: 0.85rem; font-weight: 600; white-space: nowrap;
+  }
+  /* On a phone the arrows float over the image edges: swipe is the main
+     control there, and side buttons would squeeze the screenshot. */
+  @media (max-width: 640px) {
+    .v-stage { position: relative; padding: 0 8px; }
+    .v-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(var(--ink-rgb), 0.55); width: 38px; height: 38px; font-size: 1.5rem; }
+    .v-nav.prev { left: 12px; }
+    .v-nav.next { right: 12px; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .links-page *,
-    .links-page *::before,
-    .links-page *::after {
-      transition: none !important;
-      animation: none !important;
+    .links-page *, .links-page *::before, .links-page *::after {
+      transition: none !important; animation: none !important;
     }
   }
 </style>
