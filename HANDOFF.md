@@ -1,5 +1,5 @@
 # HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
-updated 2026-09-17
+updated 2026-09-29
 
 ## State: SHIPPED & IN SYNC
 - `main` == GitHub == prod. Netlify project "byshauna"
@@ -27,7 +27,15 @@ updated 2026-09-17
   shauna.dev. To finish: DOMAIN-SWAP.md steps 3 (Set as primary) and 4 (proxy to DNS
   only + Full strict). UI only, never the API, and mind the 3-aliases-per-hour quota.
 
-## Done this session (2026-09-17) — SHIPPED
+## Done 2026-09-29 — SHIPPED
+- NEW HERO COPY (Shauna's): eyebrow "Hi, I'm Shauna · Product designer + developer",
+  H1 "I design software people can trust, and I build it too.", two subhead paragraphs,
+  CTAs See My Work (primary) / Work With Me. Layout unchanged. Verified at 1440/1024/768/390,
+  no horizontal overflow. Pushed to main from a cloud session (repo access granted).
+- A "field-notes" full redesign was prototyped on branch redesign-field-notes (PR #1) and
+  DROPPED by Shauna the same day. If that remote branch still exists, it is safe to delete.
+
+## Done 2026-09-17 — SHIPPED
 - ETSY REMOVED everywhere (abda02a): the social icon + its SVG, the LaunchKit bar tag
   ("Etsy & Shopify" -> "Shopify"), and the LaunchKit case study (summary, urlLabel,
   outcome, stats, tools) in projects.json + copy-final-local.md. `grep -ri etsy src/`

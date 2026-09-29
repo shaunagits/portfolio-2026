@@ -3,15 +3,16 @@
 <section class="hero" aria-label="Introduction">
   <div class="hero-inner container">
     <div class="status" data-animate><span class="dot"></span>Booking Q4 &middot; limited spots</div>
-    {/* The nav mark no longer spells the name, so the hero reintroduces it here.
-        The roles it replaced ("Designer · Developer · AI App Builder") already open
-        the subhead below — this slot was saying them twice. */}
-    <p class="mono hero-eyebrow" data-animate data-delay="1">Hi, I&rsquo;m Shauna</p>
-    <h1 class="hero-title" data-animate data-delay="2">I <em>build</em> websites, web apps, <span class="nb">&amp; AI tools</span></h1>
-    <p class="hero-subhead" data-animate data-delay="3">Designer and developer. I take websites, web apps, and AI tools from idea to live for founders, small teams, and nonprofits. No handoffs, no runaround.</p>
+    {/* The nav mark carries no name, so the eyebrow introduces it, followed by the role.
+        Copy set by Shauna 2026-09-29. Em dashes in her draft were swapped for commas
+        (house rule: no em dashes in customer-facing copy). */}
+    <p class="mono hero-eyebrow" data-animate data-delay="1"><span>Hi, I&rsquo;m Shauna &middot; <span class="nb">Product designer + developer</span></span></p>
+    <h1 class="hero-title" data-animate data-delay="2">I design software people can trust, and I <em>build</em> it too.</h1>
+    <p class="hero-subhead" data-animate data-delay="3">I design and ship digital products, operational tools, and custom systems end to end, from understanding the problem to designing the workflow and building the final product.</p>
+    <p class="hero-subhead hero-subhead--2" data-animate data-delay="3">My work spans nonprofit operations, field tools, AI-powered workflows, and business systems, backed by a decade of program and retail experience with Nike and Apple.</p>
     <div class="hero-ctas" data-animate data-delay="4">
-      <a href="#contact" class="btn btn-primary">Work With Me</a>
-      <a href="#work" class="btn">See the Work</a>
+      <a href="#work" class="btn btn-primary">See My Work</a>
+      <a href="#contact" class="btn">Work With Me</a>
     </div>
     <div class="hero-meta" data-animate data-delay="5">
       <div class="stat"><div class="n">10+</div><div class="l">Years experience</div></div>
@@ -45,6 +46,9 @@
   .hero-title em { font-style: normal; color: var(--primary); position: relative; }
   .hero-title em::after { content: ''; position: absolute; left: 0; bottom: 0.04em; height: 0.07em; width: 0; background: var(--accent); border-radius: 3px; transition: width 0.9s 0.35s var(--ease); }
   .hero-title.is-visible em::after { width: 100%; }
+  /* keeps the role on one line so it wraps as a unit on phones */
+  .hero-eyebrow .nb { white-space: nowrap; }
+  .hero-subhead--2 { margin-top: 1rem !important; }
   .hero-subhead { margin-top: 2rem; max-width: 52ch; font-size: clamp(1.06rem, 2vw, 1.3rem); color: var(--ink-soft); line-height: 1.55; }
   .hero-ctas { margin-top: 2.75rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
   .hero-meta { margin-top: 5rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; border-top: 1px solid var(--line); padding-top: 2rem; }

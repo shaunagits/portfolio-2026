@@ -40,8 +40,8 @@ Astro static site. Goal: personal brand
   The "Shauna." wordmark (black/white with a teal accent period) is retained in the
   FOOTER — it's where the full name now lives.
 - The nav mark carries no name, so the hero reintroduces it: the eyebrow reads
-  "Hi, I'm Shauna". It replaced "Designer · Developer · AI App Builder", which was
-  already the opening of the subhead directly beneath it.
+  "Hi, I'm Shauna · Product designer + developer" (role wrapped in .nb so it wraps as a
+  unit on phones). Set 2026-09-29.
 - Buttons: all three share one "offset shape" gesture — outlined pill at rest with a solid
   shape of the SAME silhouette offset up-right behind it; on hover/focus the shape slides
   home and the button takes that fill. The shape is a zero-blur box-shadow, NOT a
@@ -61,9 +61,11 @@ Astro static site. Goal: personal brand
 
 ## Structure / conventions
 - Homepage sections are components: Nav, Hero, Work, About, ServiceCards, Contact, Footer.
-- Hero line: "I build websites, web apps, & AI tools" — no trailing period. "build" is
-  emphasized + accent underline. "& AI tools" is wrapped in a .nb (white-space: nowrap)
-  span so it wraps to line 2 as a unit — don't replace this with a hard <br>.
+- Hero (Shauna's copy, 2026-09-29): H1 "I design software people can trust, and I build it
+  too." WITH a trailing period; "build" keeps the accent em + animated underline. Two
+  subhead paragraphs (.hero-subhead, then .hero-subhead--2). CTAs: "See My Work" (primary,
+  #work) then "Work With Me" (secondary, #contact). Her draft had em dashes; they were
+  swapped for commas (no em dashes in customer-facing copy).
 - Work is DATA-DRIVEN from src/data/projects.json. Each project has an id, frame, tint,
   role/timeline/scope, problem/whatIDid/outcome, stats, tools.
 - Media treatments live in ONE place: src/components/ProjectFrame.astro. Both the homepage
