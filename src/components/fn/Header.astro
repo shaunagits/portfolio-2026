@@ -57,6 +57,10 @@ import LogoS from '../LogoS.astro';
     backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
   }
+  /* The scroll-progress line (Layout.astro) is fixed at top:0, where this sticky
+     header covered it. On pages with this header it rides the header's bottom
+     edge instead, so it reads as an underline that grows as you scroll. */
+  :global(.scroll-progress) { top: 59px; z-index: 101; }
   .fn-header-inner {
     height: 60px; padding-inline: clamp(16px, 2.2vw, 28px);
     display: flex; align-items: center; justify-content: space-between; gap: 1rem;
