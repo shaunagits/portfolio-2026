@@ -119,3 +119,19 @@ Locked reasoning. Append new decisions; don't rewrite history.
 - NOT started as of this note. Web hosting stays on Netlify regardless; this is DNS + mailbox.
 - Rule: Claude supplies the exact Namecheap DNS records; Shauna applies them. Claude does not
   edit live DNS or billing.
+
+## 2026-09-29 — Field-notes redesign + repositioning (branch redesign-field-notes)
+- Positioning moves from "designer/developer portfolio, the work is the hero" to a
+  business-profitability service funnelled into a free assessment. Work stays on the
+  homepage as proof ("Field work", 2 to 3 projects with before/after results).
+- Layout modelled on an editorial "field notes" style: kicker + coordinates, oversized
+  headline with a teal full stop, numbered contents, margin note, fig. 1, NOW strip,
+  numbered sections with a left gutter.
+- SUPERSEDES the type lock: all Geist + Geist Mono (Fraunces, Inter, JetBrains Mono out).
+- Palette lock HOLDS: pure white paper, near-black ink, teal #2C8C99. Warm paper was
+  offered and declined. Dark mode added as an opt-in (Layout `themeable`); only the
+  redesigned homepage opts in for now.
+- fig. 1 is Lēʻahi (Diamond Head) from Waikīkī, Shauna's own landmark.
+- shauna.digital is the primary address again (`site:` in astro.config.mjs). shauna.dev
+  is being split off as a separate dev/building portfolio in its own session.
+- Assessment: questionnaire on this site (Formspree) then Cal.com booking.
