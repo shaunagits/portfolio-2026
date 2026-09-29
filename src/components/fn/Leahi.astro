@@ -1,0 +1,102 @@
+---
+/**
+ * fig. 1: Lēʻahi (Diamond Head) from Waikīkī, as a pen drawing.
+ * Chunk 1 version: the ridge draws itself in once, the gullies, shoreline and
+ * waves fade in after it. Chunk 3 adds the pen trail, ink colours and the
+ * calm-motion toggle.
+ *
+ * Drawn to the landmark's real profile as seen from Waikīkī: a long, gently
+ * rising inland (left) flank with the crater rim's bumps, the summit toward the
+ * seaward (right) end, then a steep fall to the water.
+ */
+---
+<figure class="leahi" aria-labelledby="fig1-cap">
+  <svg class="leahi-svg" viewBox="0 0 1200 260" role="img" aria-label="Line drawing of Lēʻahi, Diamond Head, seen from Waikīkī">
+    <!-- main silhouette -->
+    <path class="ridge" pathLength="1" d="
+      M60 222
+      C140 219 210 212 280 200
+      C340 190 390 176 440 166
+      C470 160 488 150 505 150
+      C520 150 530 158 548 154
+      C590 144 620 132 660 126
+      C690 121 706 112 722 113
+      C738 114 748 122 770 116
+      C800 108 828 92 856 76
+      C872 67 884 58 898 56
+      C910 55 918 62 926 72
+      C944 96 962 128 984 156
+      C1004 182 1030 204 1066 214
+      C1090 220 1116 222 1140 222" />
+
+    <!-- erosion gullies: the vertical striations the crater is known for -->
+    <g class="gullies">
+      <path d="M332 186 L326 212" /><path d="M378 176 L370 208" />
+      <path d="M430 168 L420 206" /><path d="M478 157 L466 204" />
+      <path d="M530 154 L518 202" /><path d="M582 142 L570 200" />
+      <path d="M632 130 L618 198" /><path d="M690 120 L676 196" />
+      <path d="M744 120 L730 196" /><path d="M798 106 L786 194" />
+      <path d="M848 80 L838 190" /><path d="M890 58 L884 186" />
+      <path d="M934 84 L942 180" /><path d="M968 132 L978 186" />
+      <path d="M1004 180 L1010 204" />
+    </g>
+
+    <!-- shoreline + waves -->
+    <path class="shore" d="M0 230 L1200 230" />
+    <g class="waves">
+      <path d="M150 246 q6 -5 12 0 t12 0 t12 0" />
+      <path d="M470 252 q6 -5 12 0 t12 0" />
+      <path d="M760 244 q6 -5 12 0 t12 0 t12 0" />
+      <path d="M1050 250 q6 -5 12 0 t12 0" />
+    </g>
+
+    <!-- two birds -->
+    <g class="birds">
+      <path d="M300 70 q7 -7 14 0 q7 -7 14 0" />
+      <path d="M338 92 q5 -5 10 0 q5 -5 10 0" />
+    </g>
+
+    <!-- summit marker -->
+    <g class="summit">
+      <circle cx="898" cy="56" r="4.5" />
+      <line x1="898" y1="46" x2="898" y2="22" />
+      <text x="906" y="26">232 m</text>
+    </g>
+  </svg>
+  <figcaption id="fig1-cap">fig. 1 &middot; L&#275;&#699;ahi, from Waik&#299;k&#299;</figcaption>
+</figure>
+
+<style>
+  .leahi { margin: 0; position: relative; }
+  .leahi-svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .leahi-svg path, .leahi-svg line { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+  .ridge { stroke: var(--ink); stroke-width: 1.6; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.6s 0.3s var(--ease) forwards; }
+  .gullies path { stroke: var(--ink-soft); stroke-width: 1.1; stroke-dasharray: 1 6; }
+  .shore { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 2 7; }
+  .waves path, .birds path { stroke: var(--ink-soft); stroke-width: 1.2; }
+  .summit circle { fill: var(--primary); }
+  .summit line { stroke: var(--primary); stroke-width: 1; stroke-dasharray: 2 3; }
+  .summit text { font-family: var(--font-mono); font-size: 13px; fill: var(--accent-ink); letter-spacing: 0.06em; }
+
+  .gullies, .shore, .waves, .birds, .summit { opacity: 0; animation: fade 1.2s var(--ease) forwards; }
+  .gullies { animation-delay: 1.8s; }
+  .shore, .waves { animation-delay: 2.2s; }
+  .birds { animation-delay: 2.6s; }
+  .summit { animation-delay: 2.9s; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes fade { to { opacity: 1; } }
+
+  figcaption {
+    margin-top: 0.75rem; text-align: right;
+    font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-soft); letter-spacing: 0.02em;
+  }
+
+  /* global.css kills every animation under reduced motion, which would leave
+     the ridge un-drawn and everything else at opacity 0. Show the finished
+     drawing instead. */
+  @media (prefers-reduced-motion: reduce) {
+    .ridge { stroke-dashoffset: 0; }
+    .gullies, .shore, .waves, .birds, .summit { opacity: 1; }
+  }
+</style>

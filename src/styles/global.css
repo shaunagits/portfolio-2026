@@ -54,9 +54,12 @@
   --c-accent: var(--primary);
 
   /* Typography */
-  --font-display: 'Fraunces', Georgia, serif;
-  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  /* 2026-09-29 redesign: all Geist. Display and body are the same family now;
+     --font-display is kept as its own token so headings can diverge again later
+     without touching every component. */
+  --font-display: 'Geist', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Geist', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Layout */
   --container-max: 1240px;
@@ -82,6 +85,39 @@
   --dur: 0.45s;
   --transition-fast: 150ms ease;
   --transition-mid: 300ms ease;
+
+  /* Field-notes layer (2026-09-29 redesign) */
+  --dot: rgba(var(--ink-rgb), 0.11);   /* hero dot grid */
+  --highlight: rgba(var(--primary-rgb), 0.14); /* marker behind highlighted words */
+  --gutter: clamp(0px, 9vw, 116px);    /* left column that holds section numbers */
+  color-scheme: light;
+}
+
+/* =============================================
+   DARK THEME
+   Only pages that opt in (Layout `themeable`) ever get data-theme, so the blog,
+   case studies and /links stay light until they are restyled.
+   Same three-channel rule as light: swap the channels, everything follows.
+   ============================================= */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --primary-rgb: 88, 184, 197;   /* #58B8C5 lifted teal, 7.9:1 on the dark paper */
+  --ink-rgb: 230, 237, 238;      /* #E6EDEE */
+  --paper-rgb: 13, 21, 23;       /* #0D1517 hue-shifted near-black */
+  --paper-2: #131E21;
+  --ink-soft: #97A8AC;
+  --primary-hover: #7CCAD4;
+  --accent-ink: #7CCAD4;
+  --primary-deep: #070D0F;
+  --primary-50: #122326;
+  --primary-100: #16292C;
+  --primary-200: #1B3135;
+  --on-dark: #FFFFFF;
+  --on-dark-2: rgba(255, 255, 255, 0.80);
+  --on-dark-3: rgba(255, 255, 255, 0.58);
+  --on-dark-line: rgba(255, 255, 255, 0.16);
+  --dot: rgba(var(--ink-rgb), 0.09);
+  --highlight: rgba(var(--primary-rgb), 0.18);
 }
 
 /* =============================================

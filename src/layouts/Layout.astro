@@ -4,16 +4,19 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  /* Opt-in dark mode. Only the redesigned pages pass this; everything else
+     never gets data-theme and stays light until it is restyled. */
+  themeable?: boolean;
 }
 
 const {
   title = 'Shauna · Designer & Developer',
   description = 'Designer and developer building websites, web apps, and AI tools for founders, small teams, and nonprofits. Nike & Apple production background. Based in Hawaii.',
+  themeable = false,
 } = Astro.props;
 
-// Primary domain is shauna.dev as of the 2026-08-19 swap; shauna.digital 301s
-// here at the Netlify level. `site` is set in astro.config.mjs — the canonical
-// is per-page so the redirect target search engines consolidate on is always
+// Primary domain is shauna.digital again (2026-09-29). `site` is set in
+// astro.config.mjs. The canonical is per-page so search engines consolidate on
 // the page itself, not the homepage.
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -32,21 +35,36 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap"
       rel="stylesheet"
     />
+    {themeable && (
+      /* Runs before paint so a dark-mode visitor never sees a white flash.
+         Saved choice wins; otherwise follow the OS. Storage can throw
+         (private mode, blocked site data), so every access is guarded. */
+      <script is:inline>
+        (function () {
+          var t = null;
+          try { t = localStorage.getItem('theme'); } catch (e) {}
+          if (t !== 'light' && t !== 'dark') {
+            t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', t);
+        })();
+      </script>
+    )}
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content="https://shauna.dev/images/og-image.jpg" />
+    <meta property="og:image" content="https://shauna.digital/images/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://shauna.dev/images/og-image.jpg" />
+    <meta name="twitter:image" content="https://shauna.digital/images/og-image.jpg" />
     <meta name="theme-color" content="#FFFFFF" />
   </head>
   <body>

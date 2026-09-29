@@ -1,22 +1,62 @@
 ---
+/**
+ * Homepage, field-notes redesign (branch redesign-field-notes, 2026-09-29).
+ * Chunk 1: header, hero, contents, fig. 1 and the NOW strip.
+ * The numbered sections (01 to 07) land in chunk 2; until then a placeholder
+ * holds their anchors so the contents links resolve.
+ * The previous homepage components (Nav, Hero, Work, About, ServiceCards,
+ * Contact) are left in src/components untouched; the blog, case studies and
+ * /links still use Nav + Footer.
+ */
 import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
-import Hero from '../components/Hero.astro';
-import Work from '../components/Work.astro';
-import About from '../components/About.astro';
-import ServiceCards from '../components/ServiceCards.astro';
-import Contact from '../components/Contact.astro';
+import Header from '../components/fn/Header.astro';
+import Hero from '../components/fn/Hero.astro';
 import Footer from '../components/Footer.astro';
+
+const upcoming = [
+  ['money', '01', 'Where the money goes'],
+  ['help', '02', 'What I can help with'],
+  ['goal', '03', 'The goal'],
+  ['how', '04', 'How it works'],
+  ['work', '05', 'Field work'],
+  ['training', '06', 'Team training'],
+  ['start', '07', 'Start here'],
+];
 ---
 
-<Layout>
-  <Nav />
+<Layout
+  themeable
+  title="Shauna · Make your business more profitable"
+  description="I find the expensive gaps in your workflows, systems, and processes, then build smarter ways to reduce costs, save time, and capture more revenue."
+>
+  <Header />
   <main id="main">
     <Hero />
-    <Work />
-    <About />
-    <ServiceCards />
-    <Contact />
+
+    {/* TEMPORARY (chunk 1 review only): stands in for sections 01 to 07. */}
+    <section class="wip" aria-label="Sections in progress">
+      <div class="wip-inner">
+        <p class="wip-label">Chunk 2 &middot; in progress</p>
+        <ol>
+          {upcoming.map(([id, n, label]) => (
+            <li id={id}><span>&sect; {n}</span>{label}</li>
+          ))}
+        </ol>
+      </div>
+    </section>
   </main>
   <Footer />
 </Layout>
+
+<style>
+  .wip { padding: 0 0 5rem; }
+  .wip-inner {
+    max-width: 1320px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 56px);
+  }
+  .wip-inner > * { margin-left: var(--gutter); }
+  .wip-label { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1rem; }
+  ol { border: 1px dashed var(--line-strong); border-radius: 6px; padding: 1.5rem 1.75rem; display: grid; gap: 0.6rem; }
+  li { scroll-margin-top: 80px; color: var(--ink-soft); display: flex; gap: 1.25rem; }
+  li span { font-family: var(--font-mono); font-size: 0.85rem; min-width: 3.5em; }
+  @media (max-width: 900px) { .wip-inner > * { margin-left: 0; } }
+</style>
