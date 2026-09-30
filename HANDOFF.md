@@ -1,5 +1,5 @@
 # HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
-updated 2026-09-30
+updated 2026-09-30 (end of session)
 
 ## State: live site SHIPPED & IN SYNC; homepage REDESIGN IN PROGRESS (design file only)
 - `main` == GitHub == prod (Netlify "byshauna", PERSONAL account shauna.coy@gmail.com). Push to
@@ -26,8 +26,8 @@ updated 2026-09-30
 - shauna.digital is the MAIN address again (Shauna, 2026-09-29); shauna.dev becomes a separate
   dev/building portfolio (other session). NOT DONE IN CODE: `site:` in astro.config.mjs and
   Layout og:image still say shauna.dev; links.astro canonical + footer label say shauna.dev/links.
-  Netlify primary is already shauna.digital. Decide where /links lives before changing.
-- Old DOMAIN-SWAP.md steps 3/4 are moot now that shauna.digital stays primary.
+  Netlify primary is already shauna.digital (DOMAIN-SWAP.md steps 3/4 now moot). Decide where
+  /links lives before changing.
 
 ## Flagged, NOT changed
 - Contrast: .btn-primary/.nav-cta hover white on #2C8C99 = 3.95:1 (fails AA). One-token fix.
