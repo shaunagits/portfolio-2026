@@ -119,3 +119,30 @@ Locked reasoning. Append new decisions; don't rewrite history.
 - NOT started as of this note. Web hosting stays on Netlify regardless; this is DNS + mailbox.
 - Rule: Claude supplies the exact Namecheap DNS records; Shauna applies them. Claude does not
   edit live DNS or billing.
+
+## 2026-09-29 — Hero copy + positioning (SHIPPED)
+- Hero is Shauna's copy: "Hi, I'm Shauna · Product designer + developer" / "I design software
+  people can trust, and I build it too." Positioning: product designer + developer who serves
+  two audiences, product teams (hiring) and small/growing businesses (clients).
+- A full "field notes" redesign (Geist, warm paper) was prototyped and DROPPED the same day.
+- shauna.digital is the main address again; shauna.dev will be a separate dev portfolio.
+
+## 2026-09-30 — Homepage redesign, designed on a canvas first (NOT built yet)
+- Work happens in the design file (https://claude.ai/artifact/CRouzXr7KHiGQ6yNnwELaD) before
+  code. Every section goes on BOTH desktop and phone artboards.
+- Fonts (design): Funnel Display headings, Archivo body, Space Grotesk labels. Palette lock
+  holds: white, ink #0B1416, one teal #2C8C99. Title case on buttons. No em dashes.
+- Hero: Booking Q4 pill and the eyebrow's leading rule REMOVED. S mark in the nav.
+- Selected work = "Feature + Index" (chosen after an independent design/UX review over
+  equal rows, before/after ledger, sticky casebook): 2 to 3 featured projects with device
+  frames on a grey plate, a before → after line (the ONLY teal per project), problem line,
+  role, what was built, whole block clickable; everything else in a "More work" table.
+  Rationale: ranking beats six identical rows, scales to any project mix, shortest on phone.
+  No forced metrics or placeholders. No section intro line.
+- Device frames by product type: website+app = browser + overlapping phone; web app =
+  browser; mobile-first = 2 to 3 phones (centre raised); physical work = plain photo.
+- Featured titles are generic "[what it is] for [what it serves]", no leading "A"/"An",
+  no client or product names (Shauna's call).
+- New sections (Shauna's copy, em dashes swapped): What I do (For product teams / For
+  businesses split), How I work (six questions), Experience (Independent, Nike, Apple +
+  résumé link), About ("I'm Shauna."), Client services (replaces "What I build").
