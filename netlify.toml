@@ -13,6 +13,21 @@
 # from the retired shauna-dev Netlify project in the same swap, so the 301s
 # that used to bridge it are gone.
 
+# /card is the business card's QR target and a real page (src/pages/card.astro).
+# The QR code is printed, so that route must never move. /cards is a typo net.
+[[redirects]]
+  from = "/cards"
+  to = "/card/"
+  status = 301
+
+# Save Contact on /card. text/vcard makes iOS and Android open the contact sheet
+# instead of showing raw text.
+[[headers]]
+  for = "/shauna-arnold.vcf"
+  [headers.values]
+    Content-Type = "text/vcard; charset=utf-8"
+    Content-Disposition = "attachment; filename=Shauna-Arnold.vcf"
+
 # ---------------------------------------------------------------------------
 # Security headers. The site is fully static, so it can afford a tight policy.
 # script-src/style-src need 'unsafe-inline' because Astro inlines the small

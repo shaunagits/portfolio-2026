@@ -1,0 +1,31 @@
+{
+  "_comment": [
+    "Drives https://shauna.digital/card (src/pages/card.astro) AND the Save Contact",
+    "file /shauna-arnold.vcf (src/pages/shauna-arnold.vcf.ts). One source, so the",
+    "page and the saved contact can never disagree.",
+    "",
+    "The printed business card's QR code opens /card. Keep this page matching the",
+    "card: same name, title, email, phone and tagline. Edit here, nowhere else.",
+    "`tagline` + `taglineAccent`: the accent word is drawn teal + bold, as on the card.",
+    "It must appear in the tagline exactly once."
+  ],
+  "name": "Shauna Arnold",
+  "givenName": "Shauna",
+  "familyName": "Arnold",
+  "title": "Product designer + developer",
+  "email": "hello@shauna.digital",
+  "phoneDisplay": "(808) 450-0827",
+  "phoneE164": "+18084500827",
+  "website": "https://shauna.digital",
+  "websiteLabel": "shauna.digital",
+  "city": "Honolulu",
+  "region": "HI",
+  "country": "USA",
+  "tagline": "I design software people can trust, and I build it too.",
+  "taglineAccent": "build",
+  "socials": [
+    { "icon": "linkedin", "label": "LinkedIn", "href": "https://www.linkedin.com/in/shaunaarnold/" },
+    { "icon": "github", "label": "GitHub", "href": "https://github.com/shaunagits" },
+    { "icon": "instagram", "label": "Instagram", "href": "https://www.instagram.com/shaunadev_" }
+  ]
+}
