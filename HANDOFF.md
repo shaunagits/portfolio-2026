@@ -21,10 +21,11 @@ updated 2026-10-06 (card session: business card, /card, email signature, docs)
 
 ## Email
 - hello@shauna.digital is Google Workspace, in daily use (MX smtp.google.com).
-- NOT DONE (Shauna applies, Claude supplies): SPF still `v=spf1 include:mailchannels.net ~all`
-  -> make it `v=spf1 include:_spf.google.com include:mailchannels.net ~all`. NO Google DKIM
-  (checked 2026-10-06; only a leftover dreamhost._domainkey): generate in Google Admin > Gmail >
-  Authenticate email, add TXT google._domainkey in Namecheap, then Start authentication.
+- DONE 2026-10-06 (Shauna applied in Namecheap): SPF = `v=spf1 include:_spf.google.com
+  include:mailchannels.net ~all`; Google DKIM TXT at google._domainkey (2048-bit), verified live
+  on Namecheap NS + 8.8.8.8 + 1.1.1.1. Last step: "Start authentication" in Google Admin >
+  Gmail > Authenticate email, then test (Show original: SPF/DKIM/DMARC PASS). Later: DMARC
+  p=none -> p=quarantine after ~2 clean weeks; drop mailchannels + dreamhost key once DreamHost goes.
 - Email signature (text-only HTML, Helvetica, matches card) delivered in chat 2026-10-06.
 
 ## Website (OTHER session owns it; not this one)
