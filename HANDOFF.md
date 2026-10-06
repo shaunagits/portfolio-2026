@@ -1,5 +1,14 @@
 # HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
-updated 2026-09-30 (end of session)
+updated 2026-09-30 (late session)
+
+## 2026-10-06 session (IN PROGRESS, full rewrite pending Shauna's answers)
+- Branch `fonts-funnel` (LOCAL ONLY, not pushed), commit 0fbff44: Funnel Display + Funnel Sans
+  replace Fraunces + Inter (business card match), card weights only, /card -> /links/ 302 in
+  netlify.toml. Build clean, 22 pages. See DECISIONS 2026-10-06. NOT on prod.
+- Live checks 2026-10-06: /card 404 on both domains. shauna.digital answers 200 and www 301s
+  to it (so it IS the Netlify primary); shauna.dev still behind Cloudflare proxy, 200.
+  Canonicals still say shauna.dev. MX shauna.digital = smtp.google.com, but SPF lists only
+  mailchannels and there is no Google DKIM. og-image.jpg still Fraunces + old headline.
 
 ## State: live site SHIPPED & IN SYNC; homepage REDESIGN IN PROGRESS (design file only)
 - `main` == GitHub == prod (Netlify "byshauna", PERSONAL account shauna.coy@gmail.com). Push to
@@ -12,6 +21,13 @@ updated 2026-09-30 (end of session)
   Details + reasoning: DECISIONS.md 2026-09-30. Nothing from it is in code yet.
 - Fonts IN THE DESIGN: Funnel Display / Archivo / Space Grotesk. LIVE SITE is still
   Fraunces / Inter / JetBrains Mono. Switch fonts only when the redesign ships.
+
+## NEW 2026-09-30: two-site split (see DECISIONS.md)
+- Design file is now "shauna.dev + shauna.digital homepages" (pages: shauna.dev, shauna.digital).
+  The 4 existing artboards = the SHAUNA.DEV homepage. shauna.digital homepage NOT designed yet.
+- Repos DECIDED (see DECISIONS): portfolio-2026 -> shauna.dev; new `shauna-digital` repo for the
+  business site + /links. shauna.digital homepage DRAFTED on the canvas (page 'shauna.digital'),
+  awaiting Shauna's edits. Blog to be archived. Nothing built yet.
 
 ## On hold (Shauna's call, do not chase)
 - Where "Work With Me" in Client services goes (/services page vs contact form).

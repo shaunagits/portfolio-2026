@@ -146,3 +146,73 @@ Locked reasoning. Append new decisions; don't rewrite history.
 - New sections (Shauna's copy, em dashes swapped): What I do (For product teams / For
   businesses split), How I work (six questions), Experience (Independent, Nike, Apple +
   résumé link), About ("I'm Shauna."), Client services (replaces "What I build").
+
+## 2026-09-30 (later) — Two sites, split by audience (Shauna)
+- shauna.dev = personal portfolio + professional identity (hiring managers, product/eng
+  leaders, collaborators). shauna.digital = business site that turns owners into clients.
+  Rationale: one homepage talking to both audiences forced the "For product teams / For
+  businesses" split everywhere; two sites let each speak plainly.
+- The redesigned homepage in the design file becomes the SHAUNA.DEV homepage. Client services
+  and the contact form were removed from it and replaced by a "Need something built?" band;
+  every "Work With Me ↗" on .dev points to shauna.digital (selling lives on one site).
+  .dev nav: Work, About, Résumé + Work With Me ↗. Lab/Notes only once they have real entries.
+- shauna.digital gets a NEW, leaner business homepage (not designed yet): outcome hero,
+  problems solved, offers, how it works, proof, one CTA. One strong /services page first.
+- Same project, different story: .dev case studies go deep (constraints, reasoning, what I
+  learned); .digital versions lead with the business problem and result. Titles stay generic.
+- Free Assessment: a real concept, still being developed. LEFT OFF both sites for now.
+- Blog: ARCHIVED (taken off the site for now; may return). Keep the content in the repo.
+- /links stays on shauna.digital.
+- Selected work on phone = swipe cards (next card peeks); desktop stays stacked, 3 featured.
+  Client portal moved to More work. Rescue platform (featured 03) uses three phone screens,
+  an exception to "website + app = browser + phone" (Shauna has 3 high-impact app screens).
+- REPOS (approved 2026-09-30): portfolio-2026 becomes SHAUNA.DEV (it holds the case studies,
+  projects.json and /work). A NEW repo `shauna-digital` + its own Netlify project holds the
+  business site and /links. The retired shaunagits/shauna.dev repo stays retired and gets
+  ARCHIVED on GitHub at cutover. Domain cutover happens LAST, in one planned step, with
+  Shauna's go-ahead; shauna.digital/work/* redirects to shauna.dev/work/* so shared links survive.
+- Order: design .digital homepage → build .dev (branch, preview) → build .digital (new repo,
+  preview) → domain cutover → résumé + job-facing extras → Shauna applies. UI quality check
+  (contrast/em dash) waits until the sites are ready to ship.
+
+## 2026-10-06 — Fonts: Funnel Display + Funnel Sans (match the business card)
+- Live site swapped Fraunces (display) + Inter (body) for Funnel Display (headings, name,
+  tagline) + Funnel Sans (body). JetBrains Mono stays for labels/meta. Reason: match Shauna's
+  new business card, and she never loved Fraunces. Supersedes the 2026-09-30 HANDOFF line
+  "switch fonts only when the redesign ships" for the live site.
+- Weights are the card's, and ONLY these load: Display 500/700, Sans 400/500, Mono 400/500.
+  Every CSS weight was moved onto that set (Display 400 -> 500, 600 -> 700; Sans 600 -> 500;
+  Mono 700 -> 500). Asking for an unloaded weight makes Chrome fake a bold, so don't.
+- Accent words: Funnel has no italic. The hero "build" and contact "building" were already
+  upright teal in code; they are now teal + Display 700, as on the card. Underline kept.
+- Funnel sets wider than Fraunces: hero H1 max-width 20ch -> 22ch (20ch left "too." alone on
+  a third line at desktop), and h1-h3 get text-wrap: balance site-wide (stops one-word last
+  lines on project card titles).
+- CSP unchanged: it already allows fonts.googleapis.com (style-src) and fonts.gstatic.com
+  (font-src).
+- NOT changed: public/images/og-image.jpg is a static image with Fraunces and the OLD headline
+  baked in (and an em dash); it needs regenerating separately.
+- /card -> /links/ added to netlify.toml as a 302 (QR code on the business card). 302, not
+  301, so the card's destination can change later without reprinting.
+
+## 2026-10-06 — /card is a real page, not a redirect (business card QR)
+- The printed card's QR decodes to https://shauna.digital/card (checked from the print PDF).
+  That route is now permanent. Shauna asked for it to be a designed page, so it replaces the
+  earlier /card -> /links/ 302 idea (that 302 is still in the parked fonts-funnel commit;
+  drop it there if that branch ever ships, or it would shadow nothing but confuse).
+- Page mirrors the card: Funnel Display/Sans on THIS page only, teal slash, mono contact
+  lines, dark "back" band with the tagline. Actions: Save Contact (vCard), Call, Text, Email.
+- One data file (src/data/card.json) drives the page AND /shauna-arnold.vcf, so the saved
+  contact can never drift from the page. /cards 301s to /card. noindex (QR landing page).
+- Branch `card-page` (7442ab5), off main, independent of the font swap.
+
+## 2026-10-06 — Card copy, and the two sites re-stated (Shauna)
+- Business card + /card: title "Designer + developer" (plain words for the people a printed
+  card reaches; "product designer" is jargon to a business owner). Tagline "Software that fits
+  how your business actually runs." with "fits" teal + bold. Replaces "I design software
+  people can trust, and I build it too." on the card; it also fixed that line's stranded "too.".
+- Sites: shauna.digital = the BUSINESS site and the main address (email + cards use it).
+  shauna.dev = personal portfolio + job applications (e.g. Anthropic roles). Thread is OUT for
+  now, to simplify. Reverses the 2026-08-19 "shauna.digital reads as an agency term" reasoning.
+- Fonts: Shauna is keeping Funnel Display + Funnel Sans site-wide (branch fonts-funnel), and
+  adding Funnel Sans 600 for bold body text.
