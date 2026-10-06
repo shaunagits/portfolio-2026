@@ -12,6 +12,7 @@ updated 2026-10-06 (card session: business card, /card, email signature, docs)
   Ship = `git switch main && git merge --ff-only card-fonts-b && git push origin main`.
 
 ## Business card (print)
+- LOCKED + SENT TO PRINTER 2026-10-06 (v2 file). Do not change card copy; /card must match it.
 - v2 print file made 2026-10-06 (in chat, not in the repo): 3.75x2.25in (3.5x2 trim + 0.125
   bleed), vector, font set B, new copy, QR -> https://shauna.digital/card (decoded + checked).
   The original PDF was a flat 288dpi JPEG. Fonts embed as Type 3; if the printer wants outlines,
