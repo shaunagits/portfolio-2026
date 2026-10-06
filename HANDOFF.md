@@ -1,56 +1,42 @@
 # HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
-updated 2026-09-30 (late session)
+updated 2026-10-06 (card session: business card, /card, email signature, docs)
 
-## 2026-10-06 session (IN PROGRESS, full rewrite pending Shauna's answers)
-- Branch `fonts-funnel` (LOCAL ONLY, not pushed), commit 0fbff44: Funnel Display + Funnel Sans
-  replace Fraunces + Inter (business card match), card weights only, /card -> /links/ 302 in
-  netlify.toml. Build clean, 22 pages. See DECISIONS 2026-10-06. NOT on prod.
-- Live checks 2026-10-06: /card 404 on both domains. shauna.digital answers 200 and www 301s
-  to it (so it IS the Netlify primary); shauna.dev still behind Cloudflare proxy, 200.
-  Canonicals still say shauna.dev. MX shauna.digital = smtp.google.com, but SPF lists only
-  mailchannels and there is no Google DKIM. og-image.jpg still Fraunces + old headline.
-
-## State: live site SHIPPED & IN SYNC; homepage REDESIGN IN PROGRESS (design file only)
+## State
 - `main` == GitHub == prod (Netlify "byshauna", PERSONAL account shauna.coy@gmail.com). Push to
-  `main` = prod deploy. Only branch on GitHub: `main`. Live hero = Shauna's 2026-09-29 copy.
-- NEXT BIG THING: build the redesigned homepage from the design file (Claude Design canvas
-  "shauna.digital homepage", https://claude.ai/artifact/CRouzXr7KHiGQ6yNnwELaD). 4 artboards:
-  desktop part 1/2, phone part 1/2 (canvas caps an artboard at 8000px tall, so pages are split).
-  Sections: Hero, 01 Selected work (Feature + Index), 02 What I do, 03 How I work,
-  04 Experience, 05 About ("I'm Shauna."), 06 Client services, 07 Work With Me, footer.
-  Details + reasoning: DECISIONS.md 2026-09-30. Nothing from it is in code yet.
-- Fonts IN THE DESIGN: Funnel Display / Archivo / Space Grotesk. LIVE SITE is still
-  Fraunces / Inter / JetBrains Mono. Switch fonts only when the redesign ships.
+  `main` = prod deploy. Cloud/VM sessions CANNOT push (no GitHub creds): Shauna runs the push.
+- LIVE 2026-10-06: https://shauna.digital/card, the digital business card (QR target, verified).
+  Save Contact (/shauna-arnold.vcf, text/vcard), Call/Text/Email. /cards 301s to /card/.
+  Content: src/data/card.json (drives the page AND the vCard). Live copy: "Designer + developer",
+  tagline "Software that fits how your business actually runs." ("fits" teal + bold).
+- Branch `card-fonts-b` (local, NOT pushed): /card switched to card font set B + these docs.
+  Ship = `git switch main && git merge --ff-only card-fonts-b && git push origin main`.
 
-## NEW 2026-09-30: two-site split (see DECISIONS.md)
-- Design file is now "shauna.dev + shauna.digital homepages" (pages: shauna.dev, shauna.digital).
-  The 4 existing artboards = the SHAUNA.DEV homepage. shauna.digital homepage NOT designed yet.
-- Repos DECIDED (see DECISIONS): portfolio-2026 -> shauna.dev; new `shauna-digital` repo for the
-  business site + /links. shauna.digital homepage DRAFTED on the canvas (page 'shauna.digital'),
-  awaiting Shauna's edits. Blog to be archived. Nothing built yet.
+## Business card (print)
+- v2 print file made 2026-10-06 (in chat, not in the repo): 3.75x2.25in (3.5x2 trim + 0.125
+  bleed), vector, font set B, new copy, QR -> https://shauna.digital/card (decoded + checked).
+  The original PDF was a flat 288dpi JPEG. Fonts embed as Type 3; if the printer wants outlines,
+  re-export. The QR URL is printed: /card must never move. Scan a proof before the print run.
+- Card font set B = Funnel Display (name, tagline) / Archivo (title) / Space Grotesk (contact).
 
-## On hold (Shauna's call, do not chase)
-- Where "Work With Me" in Client services goes (/services page vs contact form).
-- Where "View Résumé" goes (no résumé exists yet). Experience dates (keep "6 years").
-- New projects + images for Selected work (she will supply). Portal needs 3 phone
-  screenshots (frames show placeholders). Featured titles are deliberately GENERIC: no
-  client/product names (no AAO, Gradient, etc.); screenshots still show names.
-- Unanswered: "faf" (which project?), genericise AAO problem line?, generic names in
-  "More work" (LaunchKit/Nike/Apple)?, drop "What I do" intro line?
+## Email
+- hello@shauna.digital is Google Workspace, in daily use (MX smtp.google.com).
+- NOT DONE (Shauna applies, Claude supplies): SPF still `v=spf1 include:mailchannels.net ~all`
+  -> make it `v=spf1 include:_spf.google.com include:mailchannels.net ~all`. NO Google DKIM
+  (checked 2026-10-06; only a leftover dreamhost._domainkey): generate in Google Admin > Gmail >
+  Authenticate email, add TXT google._domainkey in Namecheap, then Start authentication.
+- Email signature (text-only HTML, Helvetica, matches card) delivered in chat 2026-10-06.
 
-## Domains
-- shauna.digital is the MAIN address again (Shauna, 2026-09-29); shauna.dev becomes a separate
-  dev/building portfolio (other session). NOT DONE IN CODE: `site:` in astro.config.mjs and
-  Layout og:image still say shauna.dev; links.astro canonical + footer label say shauna.dev/links.
-  Netlify primary is already shauna.digital (DOMAIN-SWAP.md steps 3/4 now moot). Decide where
-  /links lives before changing.
+## Website (OTHER session owns it; not this one)
+- Branch `fonts-funnel` (local): Funnel Display + Funnel Sans site-wide + a WIP commit pointing
+  site/canonicals/OG at shauna.digital + an OLD /card -> /links/ 302 that MUST be dropped (it
+  would fight the real /card page). Shauna then picked set B for the card; site fonts undecided.
+- Domains: shauna.digital = business site + main address; shauna.dev = personal portfolio + job
+  applications. Thread is out. Netlify primary is already shauna.digital; code canonicals still
+  say shauna.dev; shauna.dev still Cloudflare-proxied (DOMAIN-SWAP.md step 4). og-image.jpg is
+  stale (Fraunces, old headline, an em dash).
+- Redesign design file: https://claude.ai/artifact/CRouzXr7KHiGQ6yNnwELaD. AEO-PLAN-2026-09-17.md
+  untracked, unstarted, predates the 09-29/09-30/10-06 decisions.
 
-## Flagged, NOT changed
-- Contrast: .btn-primary/.nav-cta hover white on #2C8C99 = 3.95:1 (fails AA). One-token fix.
-- Email MX is Google (smtp.google.com); confirm, then DreamHost can go and CLAUDE.md be fixed.
-
-## Gotchas (rest in CLAUDE.md)
-- No em/en dashes in customer-facing copy (Shauna's rule). Title case on buttons.
-- Cloud sessions can push branches/main but CANNOT delete remote branches (proxy blocks it).
-- CSP is tight (Formspree only; fonts.googleapis/gstatic only). Dev server: portfolio-alt :4333.
-- Design canvas: artboard max 8000px; measure with fallback fonts, fonts load late there.
+## Gotchas
+- No em/en dashes in customer-facing copy. Title case on buttons. CSP: fonts.googleapis/gstatic.
+- Git in the VM needs delete permission on the folder or it strands .lock files.

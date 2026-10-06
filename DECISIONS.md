@@ -216,3 +216,16 @@ Locked reasoning. Append new decisions; don't rewrite history.
   now, to simplify. Reverses the 2026-08-19 "shauna.digital reads as an agency term" reasoning.
 - Fonts: Shauna is keeping Funnel Display + Funnel Sans site-wide (branch fonts-funnel), and
   adding Funnel Sans 600 for bold body text.
+
+## 2026-10-06 (later) — Card font set B; card v2; email
+- Card + /card use font set B: Funnel Display (name, tagline) / Archivo (title, body) /
+  Space Grotesk (contact lines, labels). Shauna's pick over the Funnel Sans + JetBrains Mono
+  set. Reason: shauna.digital and the card speak to business owners; Space Grotesk is friendlier
+  than a code-style mono, and B matches the redesign design file. Mono-flavoured type suits
+  shauna.dev (job applications) better. Website fonts are the other session's call.
+- Card v2 rebuilt as vector (the original export was a flat JPEG): same layout and size,
+  new copy, balanced 3-line tagline, larger QR (Q error correction), QR verified by decoding.
+- Email signature is text-only HTML with Helvetica/Arial: email clients cannot load web
+  fonts, and image signatures get blocked or show as attachments.
+- Email auth gap found: SPF lacks Google, and there is no Google DKIM (only a leftover DreamHost
+  key). Records supplied to Shauna; she applies them (house rule: Claude doesn't edit live DNS).

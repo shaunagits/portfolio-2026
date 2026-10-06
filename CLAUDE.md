@@ -10,9 +10,9 @@ Durable rules for this repo. Edit only with Shauna's approval.
 Recalled memories (Netlify account, Formspree, hosting topology, working style) load automatically.
 
 ## What this is
-Personal portfolio, live at **shauna.dev** (shauna.digital serves the same site;
-finishing the swap is DOMAIN-SWAP.md steps 3 and 4). `site:` in astro.config.mjs
-is https://shauna.dev, so every canonical and og:url points there. The
+Live at **shauna.digital**, the business site and main address (decided 2026-10-06;
+shauna.dev becomes the personal portfolio for job applications). `site:` in
+astro.config.mjs still says https://shauna.dev until the domain work lands (see HANDOFF). The
 link-in-bio page lives here too, at `src/pages/links.astro` + `src/data/links.json`.
 Astro static site. Goal: personal brand
 + a lasting record of work first; freelance/FTE second. The work is the hero.
@@ -82,6 +82,10 @@ Astro static site. Goal: personal brand
 - Elements that carry .container must NOT use the `padding` shorthand — its 0 inline values
   override .container's horizontal padding (Astro scoped selectors outrank .container) and
   the content goes flush to the viewport edge. Use padding-block / padding-top instead.
+- /card (src/pages/card.astro + src/data/card.json) is the business card's QR target and is
+  PRINTED: the route must never move. It mirrors the card in card font set B (Funnel Display /
+  Archivo / Space Grotesk, loaded on that page only). card.json also builds /shauna-arnold.vcf.
+  Change card copy there, and keep it identical to the printed card.
 - Blog (src/content/blog + src/pages/blog) is untouched by the redesign. Keep it intact.
 - Icon set: custom line icons (outline default, solid = active). Use OFFICIAL GitHub/
   LinkedIn marks in production; custom set for everything else.
