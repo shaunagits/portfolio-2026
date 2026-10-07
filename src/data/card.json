@@ -25,7 +25,6 @@
   "taglineAccent": "fits",
   "socials": [
     { "icon": "linkedin", "label": "LinkedIn", "href": "https://www.linkedin.com/in/shaunaarnold/" },
-    { "icon": "github", "label": "GitHub", "href": "https://github.com/shaunagits" },
-    { "icon": "instagram", "label": "Instagram", "href": "https://www.instagram.com/shaunadev_" }
+    { "icon": "github", "label": "GitHub", "href": "https://github.com/shaunagits" }
   ]
 }
