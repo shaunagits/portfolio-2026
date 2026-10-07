@@ -1,0 +1,9 @@
+---
+/** shauna.dev icon, drawn on the canvas (Icons-dev / Home2). Size via the `size` prop. */
+import icons from '../../data/icons-v2.json';
+interface Props { name: keyof typeof icons; size?: number; class?: string }
+const { name, size = 18, class: className } = Astro.props;
+const svg = (icons as Record<string, string>)[name].replace('<svg ', `<svg width="${size}" height="${size}" focusable="false" `);
+---
+<span class:list={['ico', className]} set:html={svg} />
+<style>.ico { display: inline-flex; flex: none; line-height: 0; } .ico :global(svg) { display: block; overflow: visible; }</style>

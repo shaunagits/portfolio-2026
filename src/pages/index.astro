@@ -1,22 +1,398 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
-import Hero from '../components/Hero.astro';
-import Work from '../components/Work.astro';
-import About from '../components/About.astro';
-import ServiceCards from '../components/ServiceCards.astro';
-import Contact from '../components/Contact.astro';
-import Footer from '../components/Footer.astro';
----
+/**
+ * shauna.dev homepage v2 (design file: "Homepage v2", shauna.dev page).
+ * Watercolour hero, lead design-systems case study, selected work, the system
+ * behind the site, how it was built, about. The animated dog is phase 2.
+ */
+import LayoutV2 from '../layouts/LayoutV2.astro';
+import Icon from '../components/v2/Icon.astro';
+import PhoneFrame from '../components/v2/PhoneFrame.astro';
+import BrowserFrame from '../components/v2/BrowserFrame.astro';
 
-<Layout>
-  <Nav />
-  <main id="main">
-    <Hero />
-    <Work />
-    <About />
-    <ServiceCards />
-    <Contact />
-  </main>
-  <Footer />
-</Layout>
+const tiles = [
+  ['tile-home', 'Home'], ['tile-messages', 'Messages'], ['tile-waiting', 'Waiting'],
+  ['tile-protected', 'Protected'], ['tile-medicine', 'Medicine'], ['tile-vet-visit', 'Vet visit'],
+] as const;
+const tabs = [['tab-home', 'Home', true], ['tab-messages', 'Messages', false], ['tab-events', 'Events', false], ['tab-notes', 'Notes', false]] as const;
+const swatches = [
+  ['--sky', '#83BDDF', 'Painted sky'], ['--lagoon', '#24C0CB', 'Shallow water'], ['--reef', '#2C8C99', 'Primary accent'],
+  ['--sand', '#EDE6DD', 'Warm surface'], ['--palm', '#5E6B3A', 'Fronds'], ['--koa', '#A65F35', 'Canoe outrigger'], ['--ink', '#0B1416', 'Text'],
+];
+const spaces = [4, 8, 16, 24, 32, 48, 64];
+const steps = [
+  { t: 'Designed on canvas', a: 'I work through each page at desktop and mobile sizes before touching production code.', b: 'That lets me solve the layout, hierarchy, and copy first instead of designing accidentally in the browser.' },
+  { t: 'Built with Claude Code', a: 'Each page is built on its own branch, reviewed on a preview deployment, and merged only after it feels right in context.', b: 'AI speeds up the implementation. The product decisions are still mine.' },
+  { t: 'Checked by rules', a: 'The design system is written down in code, not held together by memory.', b: 'Automated checks catch the small inconsistencies that usually creep in as a product grows.' },
+];
+const checks = [
+  'Text contrast stays at or above 4.5:1, including interactive states',
+  'Colour, typography, and spacing come from shared tokens',
+  'Buttons use consistent casing and language',
+  'Images include alternative text and controls have accessible labels',
+  'Motion follows one system and respects reduced-motion preferences',
+];
+---
+<LayoutV2>
+  <link slot="head" rel="preload" as="image" href="/media/hero-poster.jpg" />
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-h">
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/media/hero-poster.jpg"
+      aria-label="Watercolour of an outrigger canoe on a white-sand beach, with palms overhead, two small islands offshore and seagulls flying past behind the palms.">
+      <source src="/media/hero-720.mp4" type="video/mp4" media="(max-width: 760px)" />
+      <source src="/media/hero-1280.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-fade" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <p class="hero-pill">Product designer + developer · Hawaiʻi</p>
+      <h1 id="hero-h">I design software people can trust, and I build it too.</h1>
+    </div>
+    <button type="button" class="hero-pause" aria-pressed="false" aria-label="Pause background animation"><span aria-hidden="true">❚❚</span></button>
+  </section>
+
+  <!-- Intro -->
+  <section class="intro wrap">
+    <p class="intro-big">I work across product design and development, usually on tools where the workflow behind the screen matters just as much as the screen itself.</p>
+    <div class="intro-side">
+      <p class="muted">That has meant building software for animal rescue operations, designing phone-first tools for field teams, creating AI-assisted workflows, and turning messy internal processes into systems people can actually rely on.</p>
+      <p class="muted">Before software, I spent a decade working across retail programs, marketing operations, and production for Nike and Apple.</p>
+      <div class="btn-row"><a href="#work" class="btn">See My Work</a><a href="/resume/" class="btn btn--koa">View Résumé</a></div>
+      <p class="now"><span class="label">Now · </span>Designing systems, drawing icons, and writing the code that ships them.</p>
+    </div>
+  </section>
+
+  <!-- 01 Lead case study -->
+  <section class="lead" id="work" aria-labelledby="lead-h">
+    <div class="wrap">
+      <div class="split">
+        <div class="split-main"><p class="label">01 · Lead case study<span class="hide-sm"> · Design systems</span></p><h2 class="h2 lead-h2" id="lead-h">Three apps had started to feel like three different products.</h2></div>
+        <div class="split-side">
+          <p class="muted">The public site, admin app, and foster app had each evolved on their own.</p>
+          <p class="muted">I brought them back together with a custom icon set, shared components, and a common set of design tokens, then built those decisions into the products themselves.</p>
+          <p class="muted">The result is a system that can keep growing without every new screen starting from scratch.</p>
+          <a href="/work/rescue-platform/" class="text-link hide-sm">Read the Case Study →</a>
+        </div>
+      </div>
+      <div class="lead-grid">
+        <div class="lead-plate">
+          <PhoneFrame src="/images/v2/rescue-messages.jpg" alt="Messages screen: rescue updates, requests from other fosters, and conversations" class="lp lp-1" />
+          <PhoneFrame src="/images/v2/rescue-home.jpg" alt="Home screen: each dog in care with what is due and a one-tap Mark given" class="lp lp-2" />
+          <PhoneFrame src="/images/v2/rescue-cover-request.jpg" alt="Vacation cover request: what other fosters see, with an I can help button" class="lp lp-3" />
+        </div>
+        <div class="lead-cards">
+          <div class="card">
+            <div class="card-head"><span class="meta">Icon set · 24px grid · 1.8 stroke</span><span class="meta">Outline / selected</span></div>
+            <ul class="tiles">
+              {tiles.map(([n, l]) => <li><span class="tile"><span class="tile-ring" aria-hidden="true"></span><Icon name={n} size={32} /></span><span class="tile-l">{l}</span></li>)}
+            </ul>
+          </div>
+          <div class="card hide-sm">
+            <div class="card-head"><span class="meta">Tab bar · States</span></div>
+            <ul class="tabbar">
+              {tabs.map(([n, l, sel]) => <li class:list={[sel && 'sel']}><Icon name={n} size={28} /><span>{l}</span></li>)}
+            </ul>
+          </div>
+          <div class="stat-row">
+            <div class="card stat"><div class="stat-big">6 tools <span class="arrow">→</span> 1 platform</div><p class="muted">One system for the work behind the rescue.</p></div>
+            <div class="card stat"><div class="stat-big">3 apps <span class="arrow">→</span> 1 visual language</div><p class="muted">Shared tokens, components, and icons.</p></div>
+          </div>
+          <a href="/work/rescue-platform/" class="text-link show-sm">Read the Case Study →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 Selected work -->
+  <section class="work wrap" aria-labelledby="work-h">
+    <div class="work-head">
+      <div><p class="label">02 · Selected work</p><h2 class="h2" id="work-h">Systems built around real work.</h2></div>
+      <a href="/work/" class="text-link hide-sm">All Work →</a>
+    </div>
+    <div class="work-grid">
+      <a class="wcard" href="/work/aao-ecosystem/">
+        <div class="wplate">
+          <BrowserFrame src="/images/v2/outreach-website.jpg" alt="Outreach website homepage with donate buttons and dog photos" label="Public website" class="wb" />
+          <PhoneFrame src="/images/v2/outreach-field-app.jpg" alt="Field app home with a Give button, totals and a map of recent visits" class="wp" />
+        </div>
+        <div class="wtext">
+          <span class="meta">Nonprofit · 2025–now · Live</span>
+          <h3>Field operations platform for animal welfare outreach</h3>
+          <p class="muted">A phone-first system for managing outreach, animals, owners, medical needs, and field records without relying on a stack of disconnected spreadsheets.</p>
+          <p class="wba">6 spreadsheets <span class="arrow">→</span> 1 field app</p>
+        </div>
+      </a>
+      <a class="wcard" href="/work/gradient/">
+        <div class="wplate">
+          <BrowserFrame src="/images/v2/recruiting-dashboard.jpg" alt="Recruiting dashboard: a greeting with what needs attention, expected fees, and open searches plotted by stage and age" label="Recruiting dashboard" class="wb" />
+          <PhoneFrame src="/images/v2/recruiting-phone.jpg" alt="Recruiting dashboard on phone: expected fees and open searches listed by stage" class="wp" />
+        </div>
+        <div class="wtext">
+          <span class="meta">Web app · AI · 2026 · In daily use</span>
+          <h3>AI recruiting platform for tech hiring</h3>
+          <p class="muted">A structured recruiting workflow that turns applicant review from a manual sorting exercise into a six-phase AI-assisted pipeline.</p>
+          <p class="wba">Manual triage <span class="arrow">→</span> 6-phase workflow</p>
+        </div>
+      </a>
+    </div>
+    <a href="/work/" class="text-link show-sm work-all">All Work →</a>
+  </section>
+
+  <!-- 03 System -->
+  <section class="sys wrap" id="system" aria-labelledby="sys-h">
+    <div class="split">
+      <div class="split-main"><p class="label">03 · The system behind this site</p><h2 class="h2" id="sys-h">The painting sets the mood. The system keeps everything else in line.</h2></div>
+      <div class="split-side">
+        <p class="muted">The colour palette started with the artwork. From there, type, spacing, components, states, and motion all run through one shared token system.</p>
+        <p class="muted">Turn on <strong>X-ray</strong> in the menu to see those decisions exposed on the page, or open the full system to see how it fits together.</p>
+        <div class="btn-row hide-sm"><a href="/system/" class="btn">Open the System Page</a></div>
+      </div>
+    </div>
+    <ul class="swatches">
+      {swatches.map(([n, hex, d]) => <li><span class="sw" style={`background:${hex}`}></span><span class="sw-n">{n}</span><span class="sw-h">{hex}</span><span class="sw-d">{d}</span></li>)}
+    </ul>
+    <div class="sys-cards">
+      <div class="card sc">
+        <div class="meta sc-h">Type</div>
+        <div class="type-row"><span class="t-disp">Funnel Display</span><span class="meta">Headlines</span></div>
+        <div class="type-row"><span class="t-body">Archivo</span><span class="meta">Body</span></div>
+        <div class="type-row"><span class="t-lab">Space Grotesk</span><span class="meta">Labels + data</span></div>
+      </div>
+      <div class="card sc hide-sm">
+        <div class="meta sc-h">Spacing · 4px base system</div>
+        <ul class="spaces">{spaces.map((s, i) => <li><span class="bar" style={`width:${s}px`}></span><span class="sp-l">space-{i + 1} · {s}</span></li>)}</ul>
+      </div>
+      <div class="card sc hide-sm">
+        <div class="meta sc-h">Motion + states</div>
+        <p class="sc-p">One easing curve. 180ms. Motion pauses automatically when reduced motion is enabled.</p>
+        <div class="states">
+          <span class="btn">Default</span>
+          <span class="btn st-hover">Hover</span>
+          <span class="btn st-focus">Focus</span>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row show-sm sys-btn"><a href="/system/" class="btn">Open the System Page</a></div>
+  </section>
+
+  <!-- 04 How this site was built -->
+  <section class="built wrap" id="built" aria-labelledby="built-h">
+    <div class="built-in">
+      <div class="built-main">
+        <p class="label">04 · How this site was built</p>
+        <h2 class="h2 built-h2" id="built-h">Designed visually. Built in code. Kept consistent by rules.</h2>
+        <ol class="bsteps">
+          {steps.map((s, i) => <li><span class="bn">{String(i + 1).padStart(2, '0')}</span><div><div class="bt">{s.t}</div><p class="muted">{s.a}</p><p class="muted">{s.b}</p></div></li>)}
+        </ol>
+        <a href="/system/#build" class="text-link build-link">Read the Build Notes →</a>
+      </div>
+      <div class="term" role="img" aria-label="Terminal output of npm run check:ui with five passing checks">
+        <div class="term-h"><span>$ npm run check:ui</span><span>Runs on every build.</span></div>
+        {checks.map((c) => <div class="term-r"><span class="tick">✓</span><span>{c}</span></div>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 About -->
+  <section class="about" id="about" aria-labelledby="about-h">
+    <div class="wrap about-in">
+      <img class="about-img" src="/images/v2/shauna-headshot.jpg" alt="Shauna smiling, wearing tortoiseshell glasses and a brown blazer." width="900" height="900" loading="lazy" />
+      <div class="about-text">
+        <p class="label">05 · About</p>
+        <div class="about-head"><img class="about-face" src="/images/v2/shauna-headshot.jpg" alt="" width="900" height="900" loading="lazy" /><h2 class="h2" id="about-h">I’m Shauna.</h2></div>
+        <p>I’m a product designer and developer based in Hawaiʻi.</p>
+        <p>Before I started building software, I spent years working across retail programs, marketing operations, production, and project management for Nike and Apple.</p>
+        <p>That background still shapes the way I work.</p>
+        <p>I tend to look past the interface and into the system behind it: where information comes from, where work gets handed off, where things drift apart, and what people have quietly learned to work around.</p>
+        <p>Then I design something better.</p>
+        <div class="btn-row"><a href="/resume/" class="btn btn--koa">View Résumé</a><a href="https://shauna.digital/contact/" class="btn">Work With Me ↗</a></div>
+      </div>
+    </div>
+  </section>
+</LayoutV2>
+
+<script>
+  // Reduced motion: show the poster frame instead of the loop. Otherwise offer a pause button.
+  const v = document.querySelector<HTMLVideoElement>('.hero-video');
+  const b = document.querySelector<HTMLButtonElement>('.hero-pause');
+  const rm = matchMedia('(prefers-reduced-motion: reduce)');
+  const apply = () => { if (!v) return; if (rm.matches) { v.pause(); v.removeAttribute('autoplay'); } };
+  apply(); rm.addEventListener('change', apply);
+  b?.addEventListener('click', () => {
+    if (!v) return;
+    const paused = !v.paused; paused ? v.pause() : v.play();
+    b.setAttribute('aria-pressed', String(paused));
+    b.setAttribute('aria-label', paused ? 'Play background animation' : 'Pause background animation');
+    b.querySelector('span')!.textContent = paused ? '▶' : '❚❚';
+  });
+</script>
+
+<style>
+  /* Hero */
+  .hero { position: relative; height: 800px; overflow: hidden; }
+  .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+  .hero-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 160px; background: linear-gradient(to bottom, rgba(251,248,243,0) 0%, rgba(251,248,243,0.55) 45%, var(--paper) 100%); pointer-events: none; }
+  .hero-copy { position: absolute; left: 50%; top: 80px; width: min(660px, calc(100% - 40px)); transform: translateX(-50%); display: flex; flex-direction: column; gap: 24px; text-align: center; }
+  .hero-pill { align-self: center; padding: 7px 14px; border-radius: 100px; background: rgba(255,255,255,0.6); font-family: var(--font-label); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+  .hero h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.375rem, 4.9vw, 4.375rem); line-height: 1.02; letter-spacing: -0.03em; text-wrap: balance; text-shadow: 0 0 28px rgba(235,246,250,0.9), 0 0 6px rgba(235,246,250,0.6); }
+  .hero-pause { position: absolute; right: var(--gutter); bottom: 28px; width: 44px; height: 44px; border-radius: 22px; background: rgba(255,253,249,0.75); border: 1px solid rgba(var(--ink-rgb), 0.15); font-size: 11px; letter-spacing: -1px; }
+  .hero-pause:hover { background: var(--card); }
+
+  /* Intro */
+  .intro { position: relative; padding-top: 72px; padding-bottom: 96px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; align-items: start; }
+  .intro-big { grid-column: 1 / span 7; font-family: var(--font-display); font-size: clamp(1.4375rem, 2.2vw, 2rem); line-height: 1.28; letter-spacing: -0.01em; }
+  .intro-side { grid-column: 9 / span 4; display: flex; flex-direction: column; gap: 16px; }
+  .btn-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .now { padding-top: 16px; border-top: 1px solid var(--line); font-size: 0.9375rem; line-height: 1.6; }
+  .now .label { font-size: 0.6875rem; letter-spacing: 0.12em; }
+
+  /* split heading rows */
+  .split { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; align-items: start; margin-bottom: 48px; }
+  .split-main { grid-column: 1 / span 7; display: flex; flex-direction: column; gap: 18px; }
+  .split-side { grid-column: 9 / span 4; display: flex; flex-direction: column; gap: 16px; }
+  .split-side strong { color: var(--ink); font-weight: 600; }
+
+  /* Lead */
+  .lead { background: var(--sand); padding: 96px 0; }
+  .lead-h2 { font-size: clamp(1.875rem, 3.6vw, 3.25rem); }
+  .lead-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; align-items: center; }
+  .lead-plate { grid-column: 1 / span 7; position: relative; aspect-ratio: 16 / 10; }
+  .lead-plate :global(.lp) { position: absolute; width: 22%; top: 13%; }
+  .lead-plate :global(.lp-1) { left: 11%; } .lead-plate :global(.lp-2) { left: 39%; top: 6%; } .lead-plate :global(.lp-3) { left: 67%; }
+  .lead-cards { grid-column: 8 / span 5; display: flex; flex-direction: column; gap: 20px; }
+  .card { border: 1px solid var(--line-soft); border-radius: 16px; padding: 24px; background: var(--card); }
+  .card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 18px; }
+  .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px 12px; justify-items: center; }
+  .tiles li { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+  .tile { position: relative; width: 72px; height: 72px; display: grid; place-items: center; border: 1px solid var(--line-soft); border-radius: 12px; background-color: var(--card);
+    background-image: linear-gradient(rgba(44,140,153,0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(44,140,153,0.14) 1px, transparent 1px); background-size: 12px 12px; background-position: -1px -1px; }
+  .tile-ring { position: absolute; inset: 20px; border: 1px dashed rgba(44,140,153,0.45); border-radius: 50%; }
+  .tile-l { font-family: var(--font-label); font-size: 0.6875rem; color: var(--muted); }
+  .tabbar { display: flex; justify-content: space-around; align-items: center; }
+  .tabbar li { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--muted); }
+  .tabbar li.sel { color: var(--teal-text); font-weight: 600; }
+  .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .stat { padding: 22px; }
+  .stat-big { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.15; }
+  .stat p { margin-top: 6px; font-size: 0.875rem; line-height: 1.5; }
+
+  /* Work */
+  .work { padding-top: 104px; padding-bottom: 96px; }
+  .work-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 48px; }
+  .work-head > div { display: flex; flex-direction: column; gap: 16px; }
+  .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .wcard { display: flex; flex-direction: column; gap: 22px; }
+  .wplate { position: relative; background: var(--sand); border-radius: 16px; aspect-ratio: 4 / 3; overflow: hidden; transition: background var(--dur-3) var(--ease); }
+  .wcard:hover .wplate { background: #EEE6DA; }
+  .wplate :global(.wb) { position: absolute; left: 7%; top: 9%; width: 72%; }
+  .wplate :global(.wp) { position: absolute; right: 7%; top: 20%; width: 23%; }
+  .wtext { display: flex; flex-direction: column; gap: 10px; }
+  .wtext h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.375rem, 2vw, 1.75rem); line-height: 1.15; }
+  .wcard:hover h3 { color: var(--teal-text); }
+  .wba { font-family: var(--font-display); font-size: 1.1875rem; }
+
+  /* System */
+  .sys { padding-top: 104px; padding-bottom: 104px; }
+  .swatches { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .swatches li { display: flex; flex-direction: column; gap: 8px; }
+  .sw { height: 84px; border-radius: 10px; border: 1px solid var(--line-soft); }
+  .sw-n { font-family: var(--font-label); font-size: 0.75rem; }
+  .sw-h { font-family: var(--font-label); font-size: 0.6875rem; color: var(--muted); }
+  .sw-d { font-size: 0.8125rem; color: var(--muted); }
+  .sys-cards { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 20px; }
+  .sc { padding: 32px; }
+  .sc-h { margin-bottom: 18px; }
+  .type-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+  .t-disp { font-family: var(--font-display); font-size: 2.5rem; line-height: 1; }
+  .t-body { font-size: 1.375rem; }
+  .t-lab { font-family: var(--font-label); font-size: 1.125rem; }
+  .spaces { display: flex; flex-direction: column; gap: 9px; }
+  .spaces li { display: flex; align-items: center; gap: 12px; }
+  .bar { height: 12px; border-radius: 3px; background: var(--reef); flex: none; }
+  .sp-l { font-family: var(--font-label); font-size: 0.6875rem; color: var(--muted); }
+  .sc-p { font-size: 0.875rem; line-height: 1.55; }
+  .states { display: flex; gap: 14px; flex-wrap: wrap; padding: 14px 6px 0; }
+  .states .btn { cursor: default; }
+  .states .st-hover { background: var(--ink); color: #fff; box-shadow: none; }
+  .states .st-focus { outline: 3px solid var(--reef); outline-offset: 3px; }
+
+  /* Built */
+  .built { padding-bottom: 112px; }
+  .built-in { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; align-items: start; padding-top: 96px; border-top: 1px solid var(--line); }
+  .built-main { grid-column: 1 / span 6; display: flex; flex-direction: column; gap: 18px; }
+  .built-h2 { font-size: clamp(1.875rem, 2.95vw, 2.625rem); }
+  .bsteps { margin-top: 12px; }
+  .bsteps li { display: grid; grid-template-columns: 44px 1fr; gap: 12px; padding: 18px 0; border-top: 1px solid var(--line-soft); }
+  .bn { font-family: var(--font-label); font-size: 0.8125rem; color: var(--teal-text); }
+  .bt { font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 6px; }
+  .bsteps p { font-size: 0.9375rem; }
+  .bsteps p + p { margin-top: 10px; }
+  .term { grid-column: 8 / span 5; margin-top: 40px; background: var(--ink); color: #E6EEF0; border-radius: 16px; padding: 24px 26px; font-family: var(--font-label); font-size: 0.875rem; line-height: 1.5; }
+  .term-h { display: flex; justify-content: space-between; gap: 12px; color: #8FA3A8; padding-bottom: 12px; }
+  .term-r { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.1); }
+  .tick { color: #7FD3DC; }
+
+  /* About */
+  .about { background: var(--sand); }
+  .about-in { padding-top: 96px; padding-bottom: 96px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; align-items: center; }
+  .about-img { grid-column: 1 / span 3; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 16px; }
+  .about-text { grid-column: 5 / span 7; display: flex; flex-direction: column; gap: 18px; }
+  .about-text > p:not(.label) { font-size: 1.125rem; line-height: 1.65; }
+  .about-text .btn-row { margin-top: 8px; }
+
+  .show-sm, .about-face { display: none; }
+  @media (max-width: 1100px) {
+    .intro-big, .split-main, .lead-plate, .built-main { grid-column: 1 / -1; }
+    .intro-side, .split-side, .lead-cards, .term { grid-column: 1 / -1; }
+    .intro-side, .split-side { margin-top: 24px; }
+    .lead-cards { margin-top: 32px; }
+    .swatches { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .sys-cards { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 760px) {
+    .hero { height: 600px; }
+    .hero-video { object-position: 53% center; }
+    .hero-fade { height: 110px; }
+    .hero-copy { top: 32px; gap: 16px; }
+    .hero-pill { font-size: 0.625rem; }
+    .hero-pause { bottom: 20px; }
+    .intro { padding-top: 36px; padding-bottom: 56px; display: flex; flex-direction: column; gap: 18px; }
+    .intro-side { margin-top: 0; gap: 18px; }
+    .split { display: flex; flex-direction: column; gap: 18px; margin-bottom: 28px; }
+    .split-side { margin-top: 0; }
+    .label { font-size: 0.6875rem; }
+    .lead { padding: 56px 0; }
+    .lead-grid { display: flex; flex-direction: column; gap: 20px; }
+    .lead-plate { width: 100%; }
+    .lead-cards { margin-top: 0; width: 100%; }
+    .stat-row { grid-template-columns: 1fr; }
+    .work { padding-top: 56px; padding-bottom: 56px; }
+    .work-head { flex-direction: column; align-items: flex-start; margin-bottom: 28px; }
+    .work-grid { grid-template-columns: 1fr; gap: 40px; }
+    .sys { padding-top: 56px; padding-bottom: 56px; }
+    .swatches { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+    .sw { height: 48px; }
+    .sw-d { display: none; }
+    .sys-cards { grid-template-columns: 1fr; }
+    .sc { padding: 24px; }
+    .built { padding-bottom: 56px; }
+    .built-in { padding-top: 56px; display: flex; flex-direction: column; gap: 32px; }
+    .term { margin-top: 0; font-size: 0.8125rem; }
+    .term-h span:last-child { display: none; }
+    .about-in { padding-top: 56px; padding-bottom: 56px; display: flex; flex-direction: column; align-items: flex-start; gap: 28px; }
+    .about-img { display: none; }
+    .about-head { display: flex; gap: 16px; align-items: center; }
+    .about-face { display: block; width: 96px; height: 96px; object-fit: cover; border-radius: 50%; }
+    .hide-sm { display: none !important; }
+    .show-sm { display: flex; }
+    .text-link.show-sm { display: inline-block; align-self: flex-start; }
+    .work-all { margin-top: 32px; }
+    .built-main { display: contents; }
+    .built-in > .built-main > * { order: 1; }
+    .term { order: 2; }
+    .built-in > .built-main > .build-link { order: 3; }
+    .sys-btn { margin-top: 24px; }
+    .type-row .meta { display: none; }
+    .t-disp { font-size: 1.875rem; }
+    .about-text > p:not(.label) { font-size: 1rem; }
+  }
+</style>

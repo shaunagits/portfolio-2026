@@ -1,0 +1,77 @@
+---
+import LogoS from '../LogoS.astro';
+import Icon from './Icon.astro';
+const path = Astro.url.pathname;
+const items = [
+  { label: 'Work', href: '/#work', icon: 'nav-work' },
+  { label: 'System', href: '/system/', icon: 'nav-system' },
+  { label: 'About', href: '/#about', icon: 'nav-about' },
+  { label: 'Résumé', href: '/resume/', icon: 'nav-resume' },
+] as const;
+---
+<header class="sh">
+  <div class="sh-in">
+    <a href="/" class="sh-brand" aria-label="Shauna Arnold, home">
+      <LogoS class="sh-mark" /><span class="sh-name">Shauna Arnold</span>
+    </a>
+    <nav class="sh-nav" aria-label="Main navigation">
+      {items.map((i) => (
+        <a href={i.href} aria-current={path === i.href ? 'page' : undefined}><Icon name={i.icon} size={18} />{i.label}</a>
+      ))}
+      <a href="https://shauna.digital/contact/" class="btn sh-cta">Work With Me<Icon name="nav-external" size={16} /><span class="sr-only">(opens shauna.digital)</span></a>
+    </nav>
+    <button type="button" class="sh-toggle" aria-expanded="false" aria-controls="sh-menu" aria-label="Open menu">
+      <Icon name="menu" size={20} class="i-open" /><Icon name="close" size={18} class="i-close" />
+    </button>
+  </div>
+  <div class="sh-menu" id="sh-menu" hidden>
+    <nav aria-label="Menu">
+      <a href="/">Home</a>
+      {items.map((i) => <a href={i.href}><Icon name={i.icon} size={22} />{i.label}</a>)}
+      <a href="https://shauna.digital/contact/" class="btn">Work With Me<Icon name="nav-external" size={16} /></a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const t = document.querySelector<HTMLButtonElement>('.sh-toggle');
+  const m = document.getElementById('sh-menu');
+  const set = (open: boolean) => {
+    if (!t || !m) return;
+    m.hidden = !open; t.setAttribute('aria-expanded', String(open));
+    t.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    t.classList.toggle('is-open', open); document.body.style.overflow = open ? 'hidden' : '';
+  };
+  t?.addEventListener('click', () => set(m?.hidden ?? false));
+  m?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => set(false)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && m && !m.hidden) { set(false); t?.focus(); } });
+  matchMedia('(min-width: 980px)').addEventListener('change', (e) => { if (e.matches) set(false); });
+</script>
+
+<style>
+  .sh { position: sticky; top: 0; z-index: 50; background: rgba(251, 248, 243, 0.94); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(var(--ink-rgb), 0.08); }
+  .sh-in { max-width: var(--max); margin: 0 auto; padding-inline: var(--gutter); height: 76px; display: flex; align-items: center; justify-content: space-between; }
+  .sh-brand { display: flex; align-items: center; gap: 12px; min-height: 44px; }
+  .sh-brand :global(.sh-mark) { height: 30px; width: auto; color: var(--reef); }
+  .sh-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; white-space: nowrap; }
+  .sh-nav { display: flex; align-items: center; gap: 28px; font-size: 0.875rem; font-weight: 500; }
+  .sh-nav > a:not(.btn) { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 2px solid transparent; transition: border-color var(--dur-2) var(--ease); }
+  .sh-nav > a:not(.btn):hover, .sh-nav > a[aria-current='page'] { border-color: var(--reef); }
+  .sh-cta { --btn-offset: 5px; min-height: 40px; padding: 0 16px 0 18px; font-size: 0.875rem; }
+  .sh-cta:hover :global(svg *), .sh-menu .btn:hover :global(svg *) { fill: #fff; stroke: #fff; }
+  .sh-toggle { display: none; width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid rgba(var(--ink-rgb), 0.13); border-radius: 22px; background: var(--card); }
+  .sh-toggle :global(.i-close), .sh-toggle.is-open :global(.i-open) { display: none; }
+  .sh-toggle.is-open :global(.i-close) { display: inline-flex; }
+  .sh-menu { position: fixed; inset: 64px 0 0 0; background: var(--paper); padding: 24px var(--gutter); overflow-y: auto; }
+  .sh-menu nav { display: flex; flex-direction: column; }
+  .sh-menu a:not(.btn) { display: flex; align-items: center; gap: 14px; font-family: var(--font-display); font-size: 1.75rem; font-weight: 500; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .sh-menu .btn { margin-top: 32px; align-self: flex-start; }
+  @media (max-width: 979px) {
+    .sh { background: var(--card); }
+    .sh-in { height: 64px; }
+    .sh-name { font-size: 1.0625rem; }
+    .sh-brand :global(.sh-mark) { height: 26px; }
+    .sh-nav { display: none; }
+    .sh-toggle { display: inline-flex; }
+  }
+</style>

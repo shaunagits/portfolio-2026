@@ -1,0 +1,43 @@
+---
+const index = [
+  { label: 'Selected Work', href: '/#work' },
+  { label: 'System', href: '/system/' },
+  { label: 'How This Site Was Built', href: '/#built' },
+  { label: 'Résumé', href: '/resume/' },
+  { label: 'About', href: '/#about' },
+  { label: 'Work With Me ↗', href: 'https://shauna.digital/contact/' },
+];
+const elsewhere = [
+  { label: 'shauna.digital/links', href: 'https://shauna.digital/links/' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/shaunaarnold/' },
+  { label: 'GitHub', href: 'https://github.com/shaunagits' },
+];
+---
+<footer class="sf">
+  <div class="sf-in">
+    <div class="sf-grid">
+      <div>
+        <div class="sf-name">Shauna<span>.</span></div>
+        <p class="sf-line">Product designer and developer based in Hawaiʻi. I design and build software around the way people actually work.</p>
+      </div>
+      <nav class="sf-col" aria-labelledby="sf-i"><div class="sf-lbl" id="sf-i">Index</div>{index.map((l) => <a href={l.href}>{l.label}</a>)}</nav>
+      <nav class="sf-col" aria-labelledby="sf-e"><div class="sf-lbl" id="sf-e">Elsewhere</div>{elsewhere.map((l) => <a href={l.href}>{l.label}</a>)}</nav>
+    </div>
+    <div class="sf-base"><div class="sf-lbl">© {new Date().getFullYear()} Shauna</div><div class="sf-lbl">Designed and built in Hawaiʻi</div></div>
+  </div>
+</footer>
+<style>
+  .sf { background: var(--ink); color: #fff; }
+  .sf-in { max-width: var(--max); margin: 0 auto; padding: 72px clamp(20px, calc(17.5vw - 112px), 140px) 40px; }
+  .sf-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.16); }
+  .sf-name { font-family: var(--font-display); font-size: 1.875rem; font-weight: 600; line-height: 1.2; }
+  .sf-name span { color: var(--reef); }
+  .sf-line { margin-top: 16px; max-width: 300px; font-size: 0.9375rem; line-height: 1.6; color: rgba(255,255,255,0.8); }
+  .sf-col { display: flex; flex-direction: column; gap: 12px; }
+  .sf-col .sf-lbl { margin-bottom: 6px; }
+  .sf-col a { font-size: 0.9375rem; align-self: flex-start; border-bottom: 1px solid transparent; }
+  .sf-col a:hover { border-color: #fff; }
+  .sf-lbl { font-family: var(--font-label); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.58); }
+  .sf-base { padding-top: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; }
+  @media (max-width: 760px) { .sf-grid { grid-template-columns: 1fr; } }
+</style>
