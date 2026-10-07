@@ -127,6 +127,19 @@ const steps = [
           <p class="wba">Manual triage <span class="arrow">→</span> 6-phase workflow</p>
         </div>
       </a>
+      <a class="wcard wcard--wide" href="https://hawaii311.org">
+        <div class="wplate">
+          <BrowserFrame src="/images/v2/hawaii311-map.jpg" alt="Dark map of Oʻahu with amber clusters of open 311 reports and a legend of how long they have been open" label="hawaii311.org" class="wb" />
+          <PhoneFrame src="/images/v2/hawaii311-list.jpg" alt="List view on phone: open reports newest first, each with its category, street and age" class="wp" />
+        </div>
+        <div class="wtext">
+          <span class="meta">Civic data · 2026 · Live</span>
+          <h3>A permanent record of Oʻahu’s 311 reports</h3>
+          <p class="muted">The city’s feed forgets every report after 14 days. I built the collector that keeps them and a live map of what is still open, with privacy rules that keep anything about a person at block level.</p>
+          <p class="wba">14-day window <span class="arrow">→</span> permanent archive</p>
+          <span class="text-link">Visit hawaii311.org ↗</span>
+        </div>
+      </a>
     </div>
     <a href="/work/" class="text-link show-sm work-all">All Work →</a>
   </section>
@@ -276,6 +289,7 @@ const steps = [
   .work-head > div { display: flex; flex-direction: column; gap: 16px; }
   .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
   .wcard { display: flex; flex-direction: column; gap: 22px; }
+  .wcard--wide { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
   .wplate { position: relative; background: var(--sand); border-radius: 16px; aspect-ratio: 4 / 3; overflow: hidden; transition: background var(--dur-slow) var(--ease); }
   .wcard:hover .wplate { background: var(--plate-hover); }
   .wplate :global(.wb) { position: absolute; left: 7%; top: 9%; width: 72%; }
@@ -363,6 +377,7 @@ const steps = [
     .work { padding-top: 56px; padding-bottom: 56px; }
     .work-head { flex-direction: column; align-items: flex-start; margin-bottom: 28px; }
     .work-grid { grid-template-columns: 1fr; gap: 40px; }
+    .wcard--wide { display: flex; flex-direction: column; gap: 22px; }
     .sys { padding-top: 56px; padding-bottom: 56px; }
     .swatches { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
     .sw { height: 48px; }

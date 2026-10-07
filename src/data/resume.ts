@@ -49,6 +49,11 @@ export const resume = {
         text: '(hawaiidogmap.com): an interactive map of dog-friendly places across four Hawaiian islands. Recolored an open vector map style to the brand palette, and designed one set of category line icons (paw, tree, waves, mountain, utensils) shared by map pins, filters, and the list view.',
       },
       {
+        name: 'Hawaiʻi 311',
+        href: 'https://hawaii311.org',
+        text: '(hawaii311.org): a permanent public archive and live map of Oʻahu’s 311 service requests, which the city’s own feed drops after 14 days. A twice-daily Python collector, a git-versioned archive, a self-hosted vector basemap, and tested privacy rules that keep report descriptions private and place any report about a person at block level.',
+      },
+      {
         name: 'shauna.dev',
         href: 'https://shauna.dev',
         text: ': this portfolio is itself a working design system. One token file generates every color, type, space, and motion value; a written rule set guides every change; and an automated check fails the build if text contrast, tokens, button language, alt text, or motion drift.',
