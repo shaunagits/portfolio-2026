@@ -240,3 +240,8 @@ Locked reasoning. Append new decisions; don't rewrite history.
 - 2026-10-06: Instagram (@shaunadev_) removed from /links and /card at Shauna's request. The icon
   artwork stays in links.astro/card.astro, so restoring it is one JSON line.
 - 2026-10-06: TikTok (@shauna.dev) removed from /links too. Socials are now LinkedIn + GitHub only.
+- 2026-10-07: Save Contact vCard includes Shauna's photo (centre-cropped 400x400 JPEG, base64,
+  PHOTO;ENCODING=b;TYPE=JPEG). Reason: people remember who they met after events. The lock-screen QR
+  cannot carry a photo (QR capacity), so it stays text only.
+- Where to send from: Gmail on the web for first impressions (signature lives in the account, best
+  HTML); Apple Mail on the Mac is fine; phones send a plain one-line signature.

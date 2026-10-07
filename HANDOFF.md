@@ -1,5 +1,5 @@
 # HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
-updated 2026-10-06 (card session: business card, /card, email signature, docs)
+updated 2026-10-07 (card session wrap-up: card printed, /card, email + signature, contact QR)
 
 ## HOSTING CHANGED 2026-10-07 (read first)
 - shauna.digital is now a SEPARATE site: repo folder `../shauna-digital`, Netlify project
@@ -12,14 +12,13 @@ updated 2026-10-06 (card session: business card, /card, email signature, docs)
 - No blog on shauna.digital. The old posts stay here on shauna.dev for now.
 
 ## State
-- `main` == GitHub == prod (Netlify "byshauna", PERSONAL account shauna.coy@gmail.com). Push to
-  `main` = prod deploy. Cloud/VM sessions CANNOT push (no GitHub creds): Shauna runs the push.
-- LIVE 2026-10-06: https://shauna.digital/card, the digital business card (QR target, verified).
-  Save Contact (/shauna-arnold.vcf, text/vcard), Call/Text/Email. /cards 301s to /card/.
-  Content: src/data/card.json (drives the page AND the vCard). Live copy: "Designer + developer",
-  tagline "Software that fits how your business actually runs." ("fits" teal + bold).
-- Branch `card-fonts-b` (local, NOT pushed): /card switched to card font set B + these docs.
-  Ship = `git switch main && git merge --ff-only card-fonts-b && git push origin main`.
+- `main` == GitHub == prod for shauna.dev (Netlify "byshauna"). Push to `main` = prod deploy.
+  Cloud/VM sessions CANNOT push (no GitHub creds): Shauna runs the push.
+- /card + Save Contact live on shauna.digital from ../shauna-digital (src/data/card.json drives the
+  page AND the vCard). Copy: "Designer + developer", "Software that fits how your business actually
+  runs." ("fits" teal + bold), card font set B. 2026-10-07: vCard carries a 400x400 photo (from
+  links-avatar.jpg, 26 KB file); Instagram + TikTok removed on BOTH sites (socials: LinkedIn, GitHub).
+- Local branches `card-page` and `card-fonts-b` are merged into main (safe to delete later).
 
 ## Business card (print)
 - LOCKED + SENT TO PRINTER 2026-10-06 (v2 file). Do not change card copy; /card must match it.
@@ -51,10 +50,8 @@ updated 2026-10-06 (card session: business card, /card, email signature, docs)
 - Branch `fonts-funnel` (local): Funnel Display + Funnel Sans site-wide + a WIP commit pointing
   site/canonicals/OG at shauna.digital + an OLD /card -> /links/ 302 that MUST be dropped (it
   would fight the real /card page). Shauna then picked set B for the card; site fonts undecided.
-- Domains: shauna.digital = business site + main address; shauna.dev = personal portfolio + job
-  applications. Thread is out. Netlify primary is already shauna.digital; code canonicals still
-  say shauna.dev; shauna.dev still Cloudflare-proxied (DOMAIN-SWAP.md step 4). og-image.jpg is
-  stale (Fraunces, old headline, an em dash).
+- Domains: see HOSTING CHANGED above. shauna.dev still Cloudflare-proxied (DOMAIN-SWAP.md
+  step 4). og-image.jpg is stale (Fraunces, old headline, an em dash).
 - Redesign design file: https://claude.ai/artifact/CRouzXr7KHiGQ6yNnwELaD. AEO-PLAN-2026-09-17.md
   untracked, unstarted, predates the 09-29/09-30/10-06 decisions.
 
