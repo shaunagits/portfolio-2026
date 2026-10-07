@@ -236,6 +236,7 @@ Locked reasoning. Append new decisions; don't rewrite history.
   no signal at events (the Gala), but it is frozen, so regenerate it if contact details change.
 - No web page can add a contact by itself (iOS/Android don't allow it); /card's Save Contact is the
   one-tap path and opens the phone's own contact sheet.
-- Signature currently has the teal "fits" (matches the card). Keep vs drop is Shauna's open call.
+- Signature keeps the teal "fits" to match the card (Shauna, 2026-10-06).
 - 2026-10-06: Instagram (@shaunadev_) removed from /links and /card at Shauna's request. The icon
   artwork stays in links.astro/card.astro, so restoring it is one JSON line.
+- 2026-10-06: TikTok (@shauna.dev) removed from /links too. Socials are now LinkedIn + GitHub only.

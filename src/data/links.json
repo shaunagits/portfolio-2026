@@ -28,8 +28,7 @@
 
   "socials": [
     { "icon": "linkedin", "label": "LinkedIn", "href": "https://www.linkedin.com/in/shaunaarnold/" },
-    { "icon": "github", "label": "GitHub", "href": "https://github.com/shaunagits" },
-    { "icon": "tiktok", "label": "TikTok", "href": "https://www.tiktok.com/@shauna.dev" }
+    { "icon": "github", "label": "GitHub", "href": "https://github.com/shaunagits" }
   ],
 
   "actions": [
