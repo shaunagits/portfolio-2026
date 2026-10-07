@@ -81,13 +81,9 @@ const items = [
   /* Over the watercolour hero (homepage) */
   .sh--over { position: fixed; left: 0; right: 0; background: transparent; backdrop-filter: none; border-bottom-color: transparent;
     transition: background var(--dur-slow) var(--ease), border-color var(--dur-slow) var(--ease), backdrop-filter var(--dur-slow) var(--ease); }
-  .sh--over::before { content: ''; position: absolute; inset: 0 0 -36px 0; z-index: -1; pointer-events: none;
-    background: linear-gradient(to bottom, rgba(var(--paper-rgb), 0.82) 0%, rgba(var(--paper-rgb), 0.55) 55%, rgba(var(--paper-rgb), 0) 100%);
-    transition: opacity var(--dur-slow) var(--ease); }
   .sh--over.is-solid { background: rgba(var(--paper-rgb), 0.94); backdrop-filter: blur(8px); border-bottom-color: rgba(var(--ink-rgb), 0.08); }
-  .sh--over.is-solid::before { opacity: 0; }
   .sh--over:has(.sh-toggle.is-open) { background: var(--paper); }
-  .sh--over .sh-toggle { background: rgba(var(--card-rgb), 0.8); }
+  .sh--over .sh-toggle { background: transparent; }
   @media (max-width: 979px) {
     .sh:not(.sh--over) { background: var(--card); }
     .sh--over.is-solid { background: var(--card); }
