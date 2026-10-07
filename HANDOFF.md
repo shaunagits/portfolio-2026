@@ -13,8 +13,8 @@ updated 2026-10-07 late (composer demo, Hawaiʻi 311, /card without Call; sessio
 
 ## State (end of session 2026-10-07)
 - `main` == prod for shauna.dev (Netlify "byshauna"). Push to `main` = prod deploy.
-- `redesign-v2` on GitHub is 3 commits AHEAD of main and approved by Shauna for prod:
-  ad8f30c Hawaiʻi 311 card + résumé line, 4327384 composer demo, 833ad21+ notes.
+- `redesign-v2` on GitHub is AHEAD of main and approved by Shauna for prod:
+  ad8f30c Hawaiʻi 311 card + résumé line, 4327384 composer demo, then notes commits.
   If main has not moved: `git checkout main && git pull && git merge --ff-only origin/redesign-v2 && git push`.
   Check https://shauna.dev/work/composer/ after (~1 min).
 - LIVE on shauna.dev: homepage (H1 "Design systems drawn by hand and shipped in code.", lead heading
