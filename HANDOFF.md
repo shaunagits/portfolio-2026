@@ -42,6 +42,11 @@ updated 2026-10-06 (card session: business card, /card, email signature, docs)
 - Redesign design file: https://claude.ai/artifact/CRouzXr7KHiGQ6yNnwELaD. AEO-PLAN-2026-09-17.md
   untracked, unstarted, predates the 09-29/09-30/10-06 decisions.
 
+## Flag for the faf session (not this repo)
+- shauna.digital DNS (Namecheap) has TWO CNAME records for host `faf-app` (cname.vercel-dns.com. and
+  73ee9b52ac9d146e.vercel-dns-017.com.). A host can only have one CNAME; one is ignored or erroring.
+  Keep whichever Vercel's project domain settings ask for and delete the other. Not touched here.
+
 ## Gotchas
 - No em/en dashes in customer-facing copy. Title case on buttons. CSP: fonts.googleapis/gstatic.
 - Git in the VM needs delete permission on the folder or it strands .lock files.
