@@ -65,6 +65,18 @@
   status = 301
   force = true
 
+# /links lives on shauna.digital since 2026-10-07.
+[[redirects]]
+  from = "/links"
+  to = "https://shauna.digital/links/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/links/"
+  to = "https://shauna.digital/links/"
+  status = 301
+  force = true
+
 # TEMPORARY (2026-10-07): homepage v2 links to pages still being built.
 # 302 so nothing caches them; delete each rule when its page ships.
 [[redirects]]
