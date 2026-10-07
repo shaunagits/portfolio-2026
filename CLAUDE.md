@@ -10,9 +10,8 @@ Durable rules for this repo. Edit only with Shauna's approval.
 Recalled memories (Netlify account, Formspree, hosting topology, working style) load automatically.
 
 ## What this is
-Live at **shauna.digital**, the business site and main address (decided 2026-10-06;
-shauna.dev becomes the personal portfolio for job applications). `site:` in
-astro.config.mjs still says https://shauna.dev until the domain work lands (see HANDOFF). The
+Live at **shauna.dev**, the personal portfolio (since 2026-10-07). shauna.digital is a
+separate business site in ../shauna-digital with its own Netlify project; it is not this repo. The
 link-in-bio page lives here too, at `src/pages/links.astro` + `src/data/links.json`.
 Astro static site. Goal: personal brand
 + a lasting record of work first; freelance/FTE second. The work is the hero.

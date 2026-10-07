@@ -1,7 +1,10 @@
 # DOMAIN SWAP — shauna.dev becomes this site's primary domain
 
-Status: **PARTLY DONE. Steps 3 and 4 were never finished** (re-verified live
-2026-09-17, a month later).
+Status: **SUPERSEDED 2026-10-07.** shauna.dev is now the primary domain on `byshauna`
+(step 3 done in the Netlify UI), and shauna.digital no longer redirects here: it was
+removed from `byshauna` and now serves its own business site (Netlify project
+`shauna-digital`, folder ../shauna-digital). Step 4 (Cloudflare proxy off for shauna.dev)
+is still not done. Everything below is history.
 
 | Step | State |
 |---|---|

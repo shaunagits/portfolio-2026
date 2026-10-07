@@ -1,9 +1,9 @@
 # DEPLOY.md — Portfolio (Netlify)
 
-Netlify auto-deploys on push to `main`. The site is already linked and live at
-https://shauna.dev (project "byshauna", personal account shauna.coy@gmail.com).
-shauna.digital serves the same deploy: it is still Netlify's primary domain, so it
-answers 200 rather than redirecting. See DOMAIN-SWAP.md for the two unfinished steps.
+Netlify auto-deploys on push to `main`. The site is live at https://shauna.dev only
+(project "byshauna", personal account shauna.coy@gmail.com; shauna.dev is its primary
+domain since 2026-10-07). shauna.digital is a different site and project now
+("shauna-digital", repo folder ../shauna-digital); deploying this repo does not touch it.
 
 ## Rule
 NEVER push to `main` without Shauna's approval — a push IS a production deploy.
@@ -25,7 +25,7 @@ NEVER push to `main` without Shauna's approval — a push IS a production deploy
    - `git push origin main` (auto-build from GitHub — preferred; keeps repo == prod), or
    - `netlify deploy --build --prod` (CLI direct — faster, but then `main` lags prod until
      you also push; don't leave it out of sync).
-6. Verify on https://shauna.digital, then update HANDOFF.md and
+6. Verify on https://shauna.dev, then update HANDOFF.md and
    /Users/shauna/Desktop/claudecode/NOW.md.
 
 ## Notes

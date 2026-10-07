@@ -1,6 +1,16 @@
 # HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
 updated 2026-10-06 (card session: business card, /card, email signature, docs)
 
+## HOSTING CHANGED 2026-10-07 (read first)
+- shauna.digital is now a SEPARATE site: repo folder `../shauna-digital`, Netlify project
+  "shauna-digital" (personal account). Business site: home, services, results + stories, about,
+  contact, /links, /card. Its README has the deploy command.
+- THIS repo (Netlify "byshauna") now serves **shauna.dev only** (primary domain set 2026-10-07,
+  shauna.digital removed from this project). shauna.digital/work/* 301s here.
+- /links and /card are LIVE from the shauna-digital site now. Edits here to links.json,
+  card.json or card.astro do NOT reach shauna.digital; make them in ../shauna-digital too.
+- No blog on shauna.digital. The old posts stay here on shauna.dev for now.
+
 ## State
 - `main` == GitHub == prod (Netlify "byshauna", PERSONAL account shauna.coy@gmail.com). Push to
   `main` = prod deploy. Cloud/VM sessions CANNOT push (no GitHub creds): Shauna runs the push.
