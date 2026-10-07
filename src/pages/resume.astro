@@ -1,0 +1,156 @@
+---
+/**
+ * /resume: the web résumé. Content lives in src/data/resume.ts.
+ * The PDF (public/shauna-arnold-resume.pdf) is printed from this same page with
+ * `npm run resume:pdf`, using the print styles below, so the two never drift.
+ */
+import LayoutV2 from '../layouts/LayoutV2.astro';
+import Icon from '../components/v2/Icon.astro';
+import { resume as r } from '../data/resume';
+const pdf = '/shauna-arnold-resume.pdf';
+---
+<LayoutV2 title="Résumé · Shauna Arnold" description="Résumé of Shauna Arnold, product designer and developer in Hawaiʻi: design systems, accessibility, and production apps built end to end.">
+  <article class="rs wrap">
+    <header class="rs-top">
+      <p class="label rs-screen">Résumé</p>
+      <h1 class="rs-name">{r.name}</h1>
+      <p class="rs-role">{r.headline} <span class="rs-dot" aria-hidden="true">·</span> {r.focus}</p>
+      <p class="rs-contact">
+        <span>{r.location}</span>
+        {r.contact.map((c) => <a href={c.href}>{c.label}</a>)}
+      </p>
+      <div class="rs-actions rs-screen">
+        <a class="btn" href={pdf} download="Shauna-Arnold-Resume.pdf">Download PDF</a>
+        <a class="btn btn--koa" href="https://shauna.digital/contact/">Work With Me <Icon name="nav-external" size={16} /></a>
+      </div>
+    </header>
+
+    <section class="rs-sec">
+      <h2 class="rs-h">Summary</h2>
+      <div class="rs-body">{r.summary.map((s) => <p>{s}</p>)}</div>
+    </section>
+
+    <section class="rs-sec">
+      <h2 class="rs-h">What I bring</h2>
+      <ul class="rs-body rs-list">{r.bring.map(([b, t]) => <li><strong>{b}:</strong> {t}</li>)}</ul>
+    </section>
+
+    <section class="rs-sec">
+      <h2 class="rs-h">Selected work</h2>
+      <div class="rs-body">
+        <div class="rs-job">
+          <h3>{r.work.org} <span class="rs-sep">|</span> {r.work.role}</h3>
+          <p class="meta rs-when">{r.work.when} · {r.work.where}</p>
+          <p>{r.work.intro}</p>
+          <ul class="rs-list">
+            {r.work.projects.map((p) => (
+              <li>
+                <strong>{p.href ? <a href={p.href}>{p.name}</a> : p.name}</strong>{p.text.startsWith(':') ? '' : ' '}{p.text}
+                {p.points && <ul class="rs-sub">{p.points.map((pt) => <li>{pt}</li>)}</ul>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="rs-sec">
+      <h2 class="rs-h">Earlier experience</h2>
+      <div class="rs-body">
+        {r.earlier.map((e) => (
+          <div class="rs-job">
+            <h3>{e.org} <span class="rs-sep">|</span> {e.role}</h3>
+            <p class="meta rs-when">{e.when} · {e.where}</p>
+            {e.note && <p class="rs-note">{e.note}</p>}
+            {e.intro && <p>{e.intro}</p>}
+            <ul class="rs-list">{e.points.map((pt) => <li>{pt}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="rs-sec">
+      <h2 class="rs-h">Board leadership</h2>
+      <div class="rs-body rs-job">
+        <h3>{r.board.org} <span class="rs-sep">|</span> {r.board.role}</h3>
+        <p>{r.board.text}</p>
+      </div>
+    </section>
+
+    <section class="rs-sec">
+      <h2 class="rs-h">Education</h2>
+      <div class="rs-body"><p>{r.education}</p></div>
+    </section>
+
+    <section class="rs-sec">
+      <h2 class="rs-h">Skills</h2>
+      <dl class="rs-body rs-skills">{r.skills.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+    </section>
+  </article>
+</LayoutV2>
+
+<style>
+  .rs { padding-block: var(--space-8) var(--space-9); max-width: 1120px; }
+  .rs-top { padding-bottom: var(--space-7); border-bottom: 1px solid var(--line); }
+  .rs-name { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.02; letter-spacing: -0.03em; margin-top: var(--space-3); }
+  .rs-role { font-family: var(--font-display); font-size: clamp(1.25rem, 2vw, 1.625rem); margin-top: var(--space-2); }
+  .rs-dot { color: var(--reef); /* graphic */ }
+  .rs-contact { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); margin-top: var(--space-4); font-size: 0.9375rem; color: var(--muted); }
+  .rs-contact a { color: var(--teal-text); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+  .rs-actions { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-6); }
+  .rs-sec { display: grid; grid-template-columns: 240px 1fr; gap: var(--space-6); padding-block: var(--space-6); border-bottom: 1px solid var(--line); }
+  .rs-h { font-family: var(--font-label); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-text); padding-top: 6px; }
+  .rs-body { max-width: 760px; }
+  .rs-body p + p { margin-top: var(--space-3); }
+  .rs-job + .rs-job { margin-top: var(--space-6); }
+  .rs-job h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.375rem; line-height: 1.2; }
+  .rs-sep { color: var(--muted); font-weight: 400; }
+  .rs-when { margin: var(--space-1) 0 var(--space-3); }
+  .rs-note { font-style: italic; color: var(--muted); font-size: 0.9375rem; }
+  .rs-list { margin-top: var(--space-3); display: grid; gap: var(--space-3); }
+  .rs-list > li { position: relative; padding-left: 20px; }
+  .rs-list > li::before { content: ''; position: absolute; left: 2px; top: 0.7em; width: 6px; height: 6px; border-radius: 50%; background: var(--reef); }
+  .rs-list a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--reef-line); }
+  .rs-sub { margin-top: var(--space-2); display: grid; gap: var(--space-2); color: var(--muted); font-size: 0.9375rem; }
+  .rs-sub li { position: relative; padding-left: 18px; }
+  .rs-sub li::before { content: ''; position: absolute; left: 2px; top: 0.75em; width: 8px; height: 1px; background: var(--muted); }
+  .rs-skills { display: grid; gap: var(--space-3); }
+  .rs-skills dt { font-weight: 600; }
+  .rs-skills dd { color: var(--muted); }
+  @media (max-width: 979px) {
+    .rs { padding-block: var(--space-7) var(--space-8); }
+    .rs-sec { grid-template-columns: 1fr; gap: var(--space-3); padding-block: var(--space-5); }
+    .rs-h { padding-top: 0; }
+  }
+
+  /* Print / PDF: two Letter pages, no site chrome */
+  @page { size: Letter; margin: 0.5in 0.6in; }
+  @media print {
+    :global(header.sh), :global(footer), .rs-screen { display: none !important; }
+    :global(body) { font-size: 9.1pt; line-height: 1.36; background: var(--white); }
+    .rs { padding: 0; max-width: none; }
+    .rs-top { padding-bottom: 8pt; }
+    .rs-name { font-size: 22pt; margin-top: 0; }
+    .rs-role { font-size: 11pt; margin-top: 2pt; }
+    .rs-contact { font-size: 8.4pt; margin-top: 4pt; gap: 2pt 12pt; }
+    .rs-contact a { text-decoration: none; }
+    .rs-sec { display: block; padding-block: 8pt; }
+    .rs-h { font-size: 7.8pt; padding-top: 0; margin-bottom: 4pt; break-after: avoid; }
+    .rs-body { max-width: none; }
+    .rs-body p + p { margin-top: 3pt; }
+    .rs-job + .rs-job { margin-top: 7pt; }
+    .rs-job h3 { font-size: 10.5pt; break-after: avoid; }
+    .rs-h + .rs-body, .rs-h + .rs-body > .rs-job:first-child > h3 { break-before: avoid; }
+    .rs-when { font-size: 7.4pt; margin: 1pt 0 3pt; }
+    .rs-note { font-size: 8.4pt; }
+    .rs-list { margin-top: 3pt; gap: 2.5pt; }
+    .rs-list > li { padding-left: 11pt; break-inside: avoid; }
+    .rs-list > li::before { width: 4pt; height: 4pt; top: 0.55em; }
+    .rs-list a { text-decoration: none; }
+    .rs-sub { margin-top: 2pt; gap: 1.5pt; font-size: 8.5pt; }
+    .rs-sub li { padding-left: 10pt; }
+    .rs-sub li::before { width: 5pt; }
+    .rs-skills { gap: 2pt; }
+    .rs-skills div { display: flex; gap: 5pt; }
+  }
+</style>

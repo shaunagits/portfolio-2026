@@ -9,7 +9,8 @@
     "build": "node scripts/tokens.mjs && astro build && node scripts/check-ui.mjs",
     "check:ui": "node scripts/check-ui.mjs",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "resume:pdf": "node scripts/resume-pdf.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.14",

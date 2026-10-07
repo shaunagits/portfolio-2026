@@ -88,14 +88,6 @@
   to = "/#system"
   status = 302
 [[redirects]]
-  from = "/resume/"
-  to = "https://www.linkedin.com/in/shaunaarnold/"
-  status = 302
-[[redirects]]
-  from = "/resume"
-  to = "https://www.linkedin.com/in/shaunaarnold/"
-  status = 302
-[[redirects]]
   from = "/work/rescue-platform/"
   to = "https://shauna.digital/results/rescue-platform/"
   status = 302
