@@ -57,9 +57,14 @@ updated 2026-10-07 late (composer demo, Hawaiʻi 311, /card without Call; sessio
 ## Next (in order)
 1. Collaboration section on shauna.dev: copy drafted (see DECISIONS 2026-10-07), ON HOLD by Shauna.
 2. Rebuild the other case studies in v2; then drop the /work redirect.
-3. Optional: a Hawaiʻi 311 case study page (archive + privacy rules; not the 62% finding).
-4. Canvas Home2 lead heading still old; asked Shauna whether to update to "Three apps, one design language."
-5. Client portal off app.threadhawaii.com (DNS, Supabase auth URLs, tell users). Own task.
+3. 808alerts.com card next to Hawaiʻi 311 in Selected work, plus a résumé line (Shauna OK 2026-10-07).
+   Pitch: official Hawaiʻi alerts (NWS, HCCDA, Hawaiian Electric) in one feed; warnings pin; level
+   colours; grouped multi-zone alerts; quiet, source-unreachable and possibly-stale states; says it is
+   not an official alert system. Read ../808-alert/CLAUDE.md for facts. Preview before prod.
+   TMK Reports stays OFF until Shauna says it is fixed (she reported it broken; not yet diagnosed).
+4. Optional: a Hawaiʻi 311 case study page (archive + privacy rules; not the 62% finding).
+5. Canvas Home2 lead heading still old; asked Shauna whether to update to "Three apps, one design language."
+6. Client portal off app.threadhawaii.com (DNS, Supabase auth URLs, tell users). Own task.
 - Shauna to push: AAO website/app, FAF app, Gradient, recruiting site (ThreadCredit edits, local), and
   merge Fireside branch credit-shauna-digital. Gradient Supabase service_role key rotation: TABLED.
 - Design file: https://claude.ai/artifact/CRouzXr7KHiGQ6yNnwELaD. AEO-PLAN-2026-09-17.md untracked, unstarted.
