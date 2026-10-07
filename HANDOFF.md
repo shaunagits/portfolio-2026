@@ -14,7 +14,12 @@ updated 2026-10-07 late (composer demo, Hawaiʻi 311, /card without Call; sessio
 ## TOP PRIORITY next session: "Paint a theme" (approved by Shauna 2026-10-07)
 A curated gallery of Shauna's own watercolours and drawings; picking one re-themes the WHOLE site live.
 Not novel as "image to theme" (Material You, palette tools exist): the pitch is doing it better. Build:
-1. Meaning-based tokens first: surface / text / accent roles with light + dark values (today tokens are
+0. DONE 2026-10-07 (preview https://dusk--byshauna.netlify.app, on redesign-v2, not yet prod): Day/Dusk
+   switch in the header (+ phone menu), dusk values in tokens.json -> dusk, contrast checked in both
+   themes, hero painting "at dusk" via a multiply wash, soft wash transition from the switch (View
+   Transitions). Added --on-ink, --deep, --shadow; icons now currentColor. Rules in DESIGN.md Colour.
+   First visit follows the system setting (flag to Shauna: reviewers on dark OS land in dusk).
+1. Meaning-based tokens next (dusk works on today's names; a rename to surface/text roles is optional): surface / text / accent roles with light + dark values (today tokens are
    named paper/ink). Migrate the site to them; check-ui contrast runs on BOTH themes. This also closes the
    "tokens, theming" gap (no dark mode exists anywhere in her work yet).
 2. Painter's-eye role casting: read VALUE structure, not colour frequency. Paper/pale washes -> surface,
