@@ -13,20 +13,7 @@
 # from the retired shauna-dev Netlify project in the same swap, so the 301s
 # that used to bridge it are gone.
 
-# /card is the business card's QR target and a real page (src/pages/card.astro).
-# The QR code is printed, so that route must never move. /cards is a typo net.
-[[redirects]]
-  from = "/cards"
-  to = "/card/"
-  status = 301
 
-# Save Contact on /card. text/vcard makes iOS and Android open the contact sheet
-# instead of showing raw text.
-[[headers]]
-  for = "/shauna-arnold.vcf"
-  [headers.values]
-    Content-Type = "text/vcard; charset=utf-8"
-    Content-Disposition = "attachment; filename=Shauna-Arnold.vcf"
 
 # ---------------------------------------------------------------------------
 # Security headers. The site is fully static, so it can afford a tight policy.
@@ -55,6 +42,28 @@
   for = "/images/*"
   [headers.values]
     Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+# The business card (QR target) lives on shauna.digital since 2026-10-07.
+[[redirects]]
+  from = "/card"
+  to = "https://shauna.digital/card/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/card/"
+  to = "https://shauna.digital/card/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/cards"
+  to = "https://shauna.digital/card/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/shauna-arnold.vcf"
+  to = "https://shauna.digital/shauna-arnold.vcf"
+  status = 301
+  force = true
 
 # TEMPORARY (2026-10-07): homepage v2 links to pages still being built.
 # 302 so nothing caches them; delete each rule when its page ships.
