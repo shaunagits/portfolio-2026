@@ -236,4 +236,4 @@ Locked reasoning. Append new decisions; don't rewrite history.
   no signal at events (the Gala), but it is frozen, so regenerate it if contact details change.
 - No web page can add a contact by itself (iOS/Android don't allow it); /card's Save Contact is the
   one-tap path and opens the phone's own contact sheet.
-- Signature keeps the teal "fits" (matches the card); review panel's no-highlight note was optional.
+- Signature currently has the teal "fits" (matches the card). Keep vs drop is Shauna's open call.
