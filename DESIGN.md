@@ -1,0 +1,44 @@
+# DESIGN.md · read by people and by Claude
+
+The rules for shauna.dev. Claude reads this before writing any UI here, and
+`npm run check:ui` turns the checkable ones into a build failure.
+Tokens live in `tokens/tokens.json`; `src/styles/tokens.css` is generated from it.
+
+## Colour
+- Text uses `--ink`, `--muted` or `--teal-text` (and `--white` on ink). Never `--reef`:
+  it is 3.7:1 on paper, so graphics and large text only.
+- Ink, reef and teal-text are shared with shauna.digital. Koa is shauna.dev only,
+  for the résumé button shadow and small marks.
+- The art palette (sky, lagoon, art-sand, palm) is for the painting and swatches only.
+  Never text, buttons or states.
+- No raw hex or rgb values in component styles. Add a token instead.
+
+## Type
+- Funnel Display for headlines, Archivo for reading, Space Grotesk for labels and data.
+- Seven sizes: display-xl 70, display-l 52, heading 46, title 28, body-l 18, body 16, label 12.
+
+## Space and layout
+- 4px base: 4, 8, 12, 16, 24, 32, 48, 64, 96.
+- Desktop: 12 columns, 32px gutters, 64px margins. Phone: one column, 20px margins.
+
+## Buttons
+- Use the `.btn` pill. Never hand-style a link as a button.
+- Labels in Title Case. No em dashes anywhere in copy.
+- Reef shape for the main action, koa for the résumé, ink for the rest.
+
+## Icons
+- 24px grid, 2px padding. Rescue set: 1.8 outline, filled when selected.
+  shauna.dev set: solid ink with paper cut-outs.
+- One accent per icon, a tile when selected, one small movement.
+- Every icon is decorative (`aria-hidden`) unless it is the only label, then `aria-label`.
+
+## Motion
+- One curve: `--ease`. Three speeds: fast 120ms (hover, press), base 180ms
+  (buttons, toggles, X-ray), slow 320ms (panels, sections).
+- Stop every loop when `prefers-reduced-motion` is set. Looping video also gets a pause button.
+
+## Accessibility
+- Text contrast at or above 4.5:1 in every state.
+- Every image has alt text (`alt=""` only when purely decorative).
+- Every button and link has a visible label or an `aria-label`.
+- Touch targets at least 44px.

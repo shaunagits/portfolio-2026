@@ -32,11 +32,11 @@ const checks = [
   'Motion follows one system and respects reduced-motion preferences',
 ];
 ---
-<LayoutV2>
+<LayoutV2 headerOverHero>
   <link slot="head" rel="preload" as="image" href="/media/hero-poster.jpg" />
 
   <!-- Hero -->
-  <section class="hero" aria-labelledby="hero-h">
+  <section class="hero" aria-labelledby="hero-h" data-hero>
     <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/media/hero-poster.jpg"
       aria-label="Watercolour of an outrigger canoe on a white-sand beach, with palms overhead, two small islands offshore and seagulls flying past behind the palms.">
       <source src="/media/hero-720.mp4" type="video/mp4" media="(max-width: 760px)" />
@@ -47,7 +47,7 @@ const checks = [
       <p class="hero-pill">Product designer + developer · Hawaiʻi</p>
       <h1 id="hero-h">I design software people can trust, and I build it too.</h1>
     </div>
-    <button type="button" class="hero-pause" aria-pressed="false" aria-label="Pause background animation"><span aria-hidden="true">❚❚</span></button>
+    <button type="button" class="hero-pause" data-pause aria-pressed="false" aria-label="Pause background animation"><span aria-hidden="true">❚❚</span></button>
   </section>
 
   <!-- Intro -->
@@ -228,13 +228,13 @@ const checks = [
 
 <style>
   /* Hero */
-  .hero { position: relative; height: 800px; overflow: hidden; }
+  .hero { position: relative; height: 876px; overflow: hidden; }
   .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
-  .hero-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 160px; background: linear-gradient(to bottom, rgba(251,248,243,0) 0%, rgba(251,248,243,0.55) 45%, var(--paper) 100%); pointer-events: none; }
-  .hero-copy { position: absolute; left: 50%; top: 80px; width: min(660px, calc(100% - 40px)); transform: translateX(-50%); display: flex; flex-direction: column; gap: 24px; text-align: center; }
-  .hero-pill { align-self: center; padding: 7px 14px; border-radius: 100px; background: rgba(255,255,255,0.6); font-family: var(--font-label); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
-  .hero h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.375rem, 4.9vw, 4.375rem); line-height: 1.02; letter-spacing: -0.03em; text-wrap: balance; text-shadow: 0 0 28px rgba(235,246,250,0.9), 0 0 6px rgba(235,246,250,0.6); }
-  .hero-pause { position: absolute; right: var(--gutter); bottom: 28px; width: 44px; height: 44px; border-radius: 22px; background: rgba(255,253,249,0.75); border: 1px solid rgba(var(--ink-rgb), 0.15); font-size: 11px; letter-spacing: -1px; }
+  .hero-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 160px; background: linear-gradient(to bottom, rgba(var(--paper-rgb), 0) 0%, rgba(var(--paper-rgb), 0.55) 45%, var(--paper) 100%); pointer-events: none; }
+  .hero-copy { position: absolute; left: 50%; top: 156px; width: min(660px, calc(100% - 40px)); transform: translateX(-50%); display: flex; flex-direction: column; gap: 24px; text-align: center; }
+  .hero-pill { align-self: center; padding: 7px 14px; border-radius: 100px; background: rgba(var(--white-rgb), 0.6); font-family: var(--font-label); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+  .hero h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.375rem, 4.9vw, 4.375rem); line-height: 1.02; letter-spacing: -0.03em; text-wrap: balance; text-shadow: 0 0 28px rgba(var(--haze-rgb), 0.9), 0 0 6px rgba(var(--haze-rgb), 0.6); }
+  .hero-pause { position: absolute; right: var(--gutter); bottom: 28px; width: 44px; height: 44px; border-radius: 22px; background: rgba(var(--card-rgb), 0.75); border: 1px solid rgba(var(--ink-rgb), 0.15); font-size: 11px; letter-spacing: -1px; }
   .hero-pause:hover { background: var(--card); }
 
   /* Intro */
@@ -264,8 +264,8 @@ const checks = [
   .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px 12px; justify-items: center; }
   .tiles li { display: flex; flex-direction: column; gap: 8px; align-items: center; }
   .tile { position: relative; width: 72px; height: 72px; display: grid; place-items: center; border: 1px solid var(--line-soft); border-radius: 12px; background-color: var(--card);
-    background-image: linear-gradient(rgba(44,140,153,0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(44,140,153,0.14) 1px, transparent 1px); background-size: 12px 12px; background-position: -1px -1px; }
-  .tile-ring { position: absolute; inset: 20px; border: 1px dashed rgba(44,140,153,0.45); border-radius: 50%; }
+    background-image: linear-gradient(rgba(var(--reef-rgb), 0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--reef-rgb), 0.14) 1px, transparent 1px); background-size: 12px 12px; background-position: -1px -1px; }
+  .tile-ring { position: absolute; inset: 20px; border: 1px dashed rgba(var(--reef-rgb), 0.45); border-radius: 50%; }
   .tile-l { font-family: var(--font-label); font-size: 0.6875rem; color: var(--muted); }
   .tabbar { display: flex; justify-content: space-around; align-items: center; }
   .tabbar li { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--muted); }
@@ -281,8 +281,8 @@ const checks = [
   .work-head > div { display: flex; flex-direction: column; gap: 16px; }
   .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
   .wcard { display: flex; flex-direction: column; gap: 22px; }
-  .wplate { position: relative; background: var(--sand); border-radius: 16px; aspect-ratio: 4 / 3; overflow: hidden; transition: background var(--dur-3) var(--ease); }
-  .wcard:hover .wplate { background: #EEE6DA; }
+  .wplate { position: relative; background: var(--sand); border-radius: 16px; aspect-ratio: 4 / 3; overflow: hidden; transition: background var(--dur-slow) var(--ease); }
+  .wcard:hover .wplate { background: var(--plate-hover); }
   .wplate :global(.wb) { position: absolute; left: 7%; top: 9%; width: 72%; }
   .wplate :global(.wp) { position: absolute; right: 7%; top: 20%; width: 23%; }
   .wtext { display: flex; flex-direction: column; gap: 10px; }
@@ -312,7 +312,7 @@ const checks = [
   .sc-p { font-size: 0.875rem; line-height: 1.55; }
   .states { display: flex; gap: 14px; flex-wrap: wrap; padding: 14px 6px 0; }
   .states .btn { cursor: default; }
-  .states .st-hover { background: var(--ink); color: #fff; box-shadow: none; }
+  .states .st-hover { background: var(--ink); color: var(--white); box-shadow: none; }
   .states .st-focus { outline: 3px solid var(--reef); outline-offset: 3px; }
 
   /* Built */
@@ -326,10 +326,10 @@ const checks = [
   .bt { font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 6px; }
   .bsteps p { font-size: 0.9375rem; }
   .bsteps p + p { margin-top: 10px; }
-  .term { grid-column: 8 / span 5; margin-top: 40px; background: var(--ink); color: #E6EEF0; border-radius: 16px; padding: 24px 26px; font-family: var(--font-label); font-size: 0.875rem; line-height: 1.5; }
-  .term-h { display: flex; justify-content: space-between; gap: 12px; color: #8FA3A8; padding-bottom: 12px; }
-  .term-r { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.1); }
-  .tick { color: #7FD3DC; }
+  .term { grid-column: 8 / span 5; margin-top: 40px; background: var(--ink); color: var(--term-text); border-radius: 16px; padding: 24px 26px; font-family: var(--font-label); font-size: 0.875rem; line-height: 1.5; }
+  .term-h { display: flex; justify-content: space-between; gap: 12px; color: var(--term-dim); padding-bottom: 12px; }
+  .term-r { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-top: 1px solid rgba(var(--white-rgb), 0.1); }
+  .tick { color: var(--term-ok); }
 
   /* About */
   .about { background: var(--sand); }
@@ -349,10 +349,10 @@ const checks = [
     .sys-cards { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 760px) {
-    .hero { height: 600px; }
+    .hero { height: 664px; }
     .hero-video { object-position: 53% center; }
     .hero-fade { height: 110px; }
-    .hero-copy { top: 32px; gap: 16px; }
+    .hero-copy { top: 96px; gap: 16px; }
     .hero-pill { font-size: 0.625rem; }
     .hero-pause { bottom: 20px; }
     .intro { padding-top: 36px; padding-bottom: 56px; display: flex; flex-direction: column; gap: 18px; }

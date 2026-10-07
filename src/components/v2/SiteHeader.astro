@@ -1,6 +1,8 @@
 ---
 import LogoS from '../LogoS.astro';
 import Icon from './Icon.astro';
+interface Props { overHero?: boolean }
+const { overHero = false } = Astro.props;
 const path = Astro.url.pathname;
 const items = [
   { label: 'Work', href: '/#work', icon: 'nav-work' },
@@ -9,7 +11,7 @@ const items = [
   { label: 'Résumé', href: '/resume/', icon: 'nav-resume' },
 ] as const;
 ---
-<header class="sh">
+<header class:list={["sh", overHero && "sh--over"]} data-over={overHero ? "" : undefined}>
   <div class="sh-in">
     <a href="/" class="sh-brand" aria-label="Shauna Arnold, home">
       <LogoS class="sh-mark" /><span class="sh-name">Shauna Arnold</span>
@@ -46,19 +48,29 @@ const items = [
   m?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => set(false)));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && m && !m.hidden) { set(false); t?.focus(); } });
   matchMedia('(min-width: 980px)').addEventListener('change', (e) => { if (e.matches) set(false); });
+
+  // Over the hero: transparent while the painting is behind it, solid once it scrolls away.
+  const h = document.querySelector<HTMLElement>('.sh[data-over]');
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  if (h && hero) {
+    const io = new IntersectionObserver(([e]) => h.classList.toggle('is-solid', !e.isIntersecting), { rootMargin: '-90px 0px 0px 0px', threshold: 0 });
+    const s = document.createElement('div');
+    s.style.cssText = 'position:absolute;left:0;bottom:120px;height:1px;width:1px;pointer-events:none';
+    hero.appendChild(s); io.observe(s);
+  }
 </script>
 
 <style>
-  .sh { position: sticky; top: 0; z-index: 50; background: rgba(251, 248, 243, 0.94); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(var(--ink-rgb), 0.08); }
+  .sh { position: sticky; top: 0; z-index: 50; background: rgba(var(--paper-rgb), 0.94); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(var(--ink-rgb), 0.08); }
   .sh-in { max-width: var(--max); margin: 0 auto; padding-inline: var(--gutter); height: 76px; display: flex; align-items: center; justify-content: space-between; }
   .sh-brand { display: flex; align-items: center; gap: 12px; min-height: 44px; }
-  .sh-brand :global(.sh-mark) { height: 30px; width: auto; color: var(--reef); }
+  .sh-brand :global(.sh-mark) { height: 30px; width: auto; color: var(--reef); /* graphic */ }
   .sh-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; white-space: nowrap; }
   .sh-nav { display: flex; align-items: center; gap: 28px; font-size: 0.875rem; font-weight: 500; }
-  .sh-nav > a:not(.btn) { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 2px solid transparent; transition: border-color var(--dur-2) var(--ease); }
+  .sh-nav > a:not(.btn) { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 2px solid transparent; transition: border-color var(--dur-base) var(--ease); }
   .sh-nav > a:not(.btn):hover, .sh-nav > a[aria-current='page'] { border-color: var(--reef); }
   .sh-cta { --btn-offset: 5px; min-height: 40px; padding: 0 16px 0 18px; font-size: 0.875rem; }
-  .sh-cta:hover :global(svg *), .sh-menu .btn:hover :global(svg *) { fill: #fff; stroke: #fff; }
+  .sh-cta:hover :global(svg *), .sh-menu .btn:hover :global(svg *) { fill: var(--white); stroke: var(--white); }
   .sh-toggle { display: none; width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid rgba(var(--ink-rgb), 0.13); border-radius: 22px; background: var(--card); }
   .sh-toggle :global(.i-close), .sh-toggle.is-open :global(.i-open) { display: none; }
   .sh-toggle.is-open :global(.i-close) { display: inline-flex; }
@@ -66,8 +78,19 @@ const items = [
   .sh-menu nav { display: flex; flex-direction: column; }
   .sh-menu a:not(.btn) { display: flex; align-items: center; gap: 14px; font-family: var(--font-display); font-size: 1.75rem; font-weight: 500; padding: 14px 0; border-bottom: 1px solid var(--line); }
   .sh-menu .btn { margin-top: 32px; align-self: flex-start; }
+  /* Over the watercolour hero (homepage) */
+  .sh--over { position: fixed; left: 0; right: 0; background: transparent; backdrop-filter: none; border-bottom-color: transparent;
+    transition: background var(--dur-slow) var(--ease), border-color var(--dur-slow) var(--ease), backdrop-filter var(--dur-slow) var(--ease); }
+  .sh--over::before { content: ''; position: absolute; inset: 0 0 -36px 0; z-index: -1; pointer-events: none;
+    background: linear-gradient(to bottom, rgba(var(--paper-rgb), 0.82) 0%, rgba(var(--paper-rgb), 0.55) 55%, rgba(var(--paper-rgb), 0) 100%);
+    transition: opacity var(--dur-slow) var(--ease); }
+  .sh--over.is-solid { background: rgba(var(--paper-rgb), 0.94); backdrop-filter: blur(8px); border-bottom-color: rgba(var(--ink-rgb), 0.08); }
+  .sh--over.is-solid::before { opacity: 0; }
+  .sh--over:has(.sh-toggle.is-open) { background: var(--paper); }
+  .sh--over .sh-toggle { background: rgba(var(--card-rgb), 0.8); }
   @media (max-width: 979px) {
-    .sh { background: var(--card); }
+    .sh:not(.sh--over) { background: var(--card); }
+    .sh--over.is-solid { background: var(--card); }
     .sh-in { height: 64px; }
     .sh-name { font-size: 1.0625rem; }
     .sh-brand :global(.sh-mark) { height: 26px; }

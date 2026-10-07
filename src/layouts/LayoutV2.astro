@@ -2,9 +2,10 @@
 import '../styles/v2.css';
 import SiteHeader from '../components/v2/SiteHeader.astro';
 import SiteFooter from '../components/v2/SiteFooter.astro';
-interface Props { title?: string; description?: string }
+interface Props { title?: string; description?: string; headerOverHero?: boolean }
 const {
   title = 'Shauna Arnold · Product designer + developer',
+  headerOverHero = false,
   description = 'Product designer and developer in Hawaiʻi. Design systems, icons and motion, built in code: software people can trust, for animal rescue, field teams and AI-assisted workflows.',
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -18,7 +19,7 @@ const ld = {
 };
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-system="v2">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -47,12 +48,12 @@ const ld = {
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
-    <SiteHeader />
+    <SiteHeader overHero={headerOverHero} />
     <main id="main"><slot /></main>
     <SiteFooter />
   </body>
 </html>
 <style is:global>
-  .skip { position: absolute; left: -9999px; top: 8px; z-index: 100; background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 8px; }
+  .skip { position: absolute; left: -9999px; top: 8px; z-index: 100; background: var(--ink); color: var(--white); padding: 10px 16px; border-radius: 8px; }
   .skip:focus { left: 8px; }
 </style>

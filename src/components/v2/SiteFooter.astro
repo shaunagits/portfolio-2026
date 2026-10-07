@@ -27,17 +27,17 @@ const elsewhere = [
   </div>
 </footer>
 <style>
-  .sf { background: var(--ink); color: #fff; }
+  .sf { background: var(--ink); color: var(--white); }
   .sf-in { max-width: var(--max); margin: 0 auto; padding: 72px clamp(20px, calc(17.5vw - 112px), 140px) 40px; }
-  .sf-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.16); }
+  .sf-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; padding-bottom: 48px; border-bottom: 1px solid rgba(var(--white-rgb), 0.16); }
   .sf-name { font-family: var(--font-display); font-size: 1.875rem; font-weight: 600; line-height: 1.2; }
-  .sf-name span { color: var(--reef); }
-  .sf-line { margin-top: 16px; max-width: 300px; font-size: 0.9375rem; line-height: 1.6; color: rgba(255,255,255,0.8); }
+  .sf-name span { color: var(--reef); /* graphic */ }
+  .sf-line { margin-top: 16px; max-width: 300px; font-size: 0.9375rem; line-height: 1.6; color: rgba(var(--white-rgb), 0.8); }
   .sf-col { display: flex; flex-direction: column; gap: 12px; }
   .sf-col .sf-lbl { margin-bottom: 6px; }
   .sf-col a { font-size: 0.9375rem; align-self: flex-start; border-bottom: 1px solid transparent; }
-  .sf-col a:hover { border-color: #fff; }
-  .sf-lbl { font-family: var(--font-label); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.58); }
+  .sf-col a:hover { border-color: var(--white); }
+  .sf-lbl { font-family: var(--font-label); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(var(--white-rgb), 0.58); }
   .sf-base { padding-top: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; }
   @media (max-width: 760px) { .sf-grid { grid-template-columns: 1fr; } }
 </style>

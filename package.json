@@ -3,8 +3,11 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "tokens": "node scripts/tokens.mjs",
+    "predev": "node scripts/tokens.mjs",
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/tokens.mjs && astro build && node scripts/check-ui.mjs",
+    "check:ui": "node scripts/check-ui.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
