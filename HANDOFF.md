@@ -11,6 +11,23 @@ updated 2026-10-07 late (composer demo, Hawaiʻi 311, /card without Call; sessio
   card.json or card.astro do NOT reach shauna.digital; make them in ../shauna-digital too.
 - No blog on shauna.digital. The old posts stay here on shauna.dev for now.
 
+## TOP PRIORITY next session: "Paint a theme" (approved by Shauna 2026-10-07)
+A curated gallery of Shauna's own watercolours and drawings; picking one re-themes the WHOLE site live.
+Not novel as "image to theme" (Material You, palette tools exist): the pitch is doing it better. Build:
+1. Meaning-based tokens first: surface / text / accent roles with light + dark values (today tokens are
+   named paper/ink). Migrate the site to them; check-ui contrast runs on BOTH themes. This also closes the
+   "tokens, theming" gap (no dark mode exists anywhere in her work yet).
+2. Painter's-eye role casting: read VALUE structure, not colour frequency. Paper/pale washes -> surface,
+   deepest dark -> text, small saturated spark -> accent (even at 2% of the image).
+3. Contrast fixes move LIGHTNESS ONLY in OKLCH (hue + chroma kept). Show "darkened 12% to reach 4.6:1".
+4. Dark mode = "the same painting at dusk": rebuild the value structure, keep colour relationships.
+5. Theme change spreads like a wet wash across the page; reduced motion = simple cross-fade.
+6. A painter's note per role in Shauna's voice ("the ground is the sand along the bottom edge").
+7. Curated, no upload: 5-6 named themes, each with a shareable URL. "Download tokens" exports tokens.json.
+8. The composer (/work/composer/) stays as the test piece that re-themes inside it.
+Write-up names Material You as precedent and says what this does differently. Plan on the canvas first,
+preview before prod. NEED FROM SHAUNA: the paintings/drawings (she has many; ask where they are).
+
 ## State (end of session 2026-10-07)
 - `main` == prod for shauna.dev (Netlify "byshauna"). Push to `main` = prod deploy.
 - `redesign-v2` on GitHub is AHEAD of main and approved by Shauna for prod:

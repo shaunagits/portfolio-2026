@@ -300,3 +300,11 @@ Locked reasoning. Append new decisions; don't rewrite history.
   Not WhatsApp: a regular text works on every phone with nothing to install (Shauna agreed).
 - Collaboration section (Nike guidelines kept current from field reports, surveys, close-outs; FAF
   usage analysis 2026-08-22 and the inbox that moved to Gmail) drafted in chat, ON HOLD by Shauna.
+
+## 2026-10-07 — Next showcase: "Paint a theme" (supersedes extending the composer)
+- Chosen over: theming the composer alone, "Break the system" sandbox (kept as a later follow-up), and a
+  Claude-run replay. Reason: it closes the theming gap and ties Shauna's painting to the token system.
+- Honest framing: image-to-theme exists (Google Material You, palette tools). Never claim it is new.
+  The difference is the craft: value-structure role casting, lightness-only contrast fixes, dusk dark
+  mode, visible reasoning, curated own artwork, and real token export.
+- Curated gallery only, no visitor uploads (safer, more on-brand).
