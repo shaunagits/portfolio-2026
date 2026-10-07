@@ -1,0 +1,436 @@
+---
+/**
+ * A message composer with every state a real one needs: empty, typing, attachments,
+ * context, streaming, stop, error and retry. Replies are scripted, files stay in the
+ * browser. Everything visual comes from the site's tokens, so check:ui covers it.
+ */
+const I = {
+  attach: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.5 11.5 12.4 19.6a5 5 0 0 1-7.1-7.1l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7l-8.4 8.4a1.7 1.7 0 0 1-2.4-2.4l7.7-7.7"/></svg>',
+  plus: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg>',
+  send: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg>',
+  stop: '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="5" y="5" width="14" height="14" rx="2.5" fill="currentColor"/></svg>',
+  down: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5.5 12.5 12 19l6.5-6.5"/></svg>',
+};
+const contexts = ['This page', 'Design tokens', 'Résumé', 'Case studies'];
+const suggestions = ['How do the design tokens work?', 'What does X-ray mode show?', 'Which checks run on every build?'];
+---
+<div class="cmp-demo">
+  <div class="cmp" data-composer data-state="empty">
+    <div class="cmp-top">
+      <span class="cmp-dot" aria-hidden="true"></span>
+      <span class="meta">Composer</span>
+      <span class="cmp-state meta" data-state-label>Empty</span>
+    </div>
+
+    <div class="cmp-thread" data-thread tabindex="0" aria-label="Conversation">
+      <div class="cmp-empty" data-empty>
+        <p class="cmp-empty-h">Ask about this site.</p>
+        <p class="muted">Pick a question to fill the box, or write your own. Nothing sends until you do.</p>
+        <div class="cmp-sugs">
+          {suggestions.map((s) => <button type="button" class="cmp-sug" data-sug>{s}</button>)}
+        </div>
+      </div>
+      <ol class="cmp-msgs" data-msgs></ol>
+    </div>
+
+    <button type="button" class="cmp-jump" data-jump hidden><Fragment set:html={I.down} />Jump to Latest</button>
+
+    <form class="cmp-box" data-box novalidate>
+      <div class="cmp-drop" aria-hidden="true">Drop to attach</div>
+      <ul class="cmp-chips" data-chips aria-label="Attached files and context"></ul>
+      <label for="cmp-input" class="sr-only">Message</label>
+      <textarea id="cmp-input" class="cmp-input" data-input rows="1" placeholder="Ask about this site…" aria-describedby="cmp-hint"></textarea>
+      <div class="cmp-bar">
+        <div class="cmp-tools">
+          <button type="button" class="cmp-icon" data-attach aria-label="Attach files"><Fragment set:html={I.attach} /></button>
+          <input type="file" multiple hidden data-file tabindex="-1" />
+          <div class="cmp-ctx">
+            <button type="button" class="cmp-ctx-btn" data-ctx aria-haspopup="menu" aria-expanded="false" aria-controls="cmp-menu"><Fragment set:html={I.plus} />Context</button>
+            <ul class="cmp-menu" id="cmp-menu" role="menu" aria-label="Add context" data-menu hidden>
+              {contexts.map((c) => <li role="menuitemcheckbox" aria-checked="false" tabindex="-1" data-ctx-item={c}><span class="cmp-check" aria-hidden="true"></span>{c}</li>)}
+            </ul>
+          </div>
+        </div>
+        <p id="cmp-hint" class="cmp-hint" data-hint>Enter to send · Shift+Enter for a new line</p>
+        <button type="submit" class="cmp-send" data-send aria-label="Send message" disabled>
+          <span class="i-send"><Fragment set:html={I.send} /></span><span class="i-stop"><Fragment set:html={I.stop} /></span>
+        </button>
+      </div>
+    </form>
+    <p class="sr-only" role="status" data-status></p>
+  </div>
+
+  <aside class="cmp-side" aria-label="Demo controls">
+    <fieldset class="cmp-seg">
+      <legend class="meta">Next reply</legend>
+      <div class="cmp-seg-row">
+        <label><input type="radio" name="cmp-mode" value="normal" checked /><span>Normal</span></label>
+        <label><input type="radio" name="cmp-mode" value="slow" /><span>Slow</span></label>
+        <label><input type="radio" name="cmp-mode" value="fail" /><span>Fails</span></label>
+      </div>
+      <p class="muted cmp-side-p">Slow gives you time to stop it. Fails cuts out partway, so you can see the error and retry.</p>
+    </fieldset>
+    <div class="cmp-kb">
+      <p class="meta">Keyboard</p>
+      <dl class="cmp-keys">
+        <div><dt><kbd>Enter</kbd></dt><dd>Send</dd></div>
+        <div><dt><kbd>Shift</kbd> + <kbd>Enter</kbd></dt><dd>New line</dd></div>
+        <div><dt><kbd>Esc</kbd></dt><dd>Stop a reply, close the menu</dd></div>
+        <div><dt><kbd>↑</kbd> <kbd>↓</kbd></dt><dd>Move through the context menu</dd></div>
+      </dl>
+    </div>
+    <p class="muted cmp-side-p">Replies are scripted; no AI is connected. Files you attach never leave your browser.</p>
+  </aside>
+</div>
+
+<script>
+  type State = 'empty' | 'ready' | 'streaming' | 'stopped' | 'error' | 'done';
+  type FileChip = { kind: 'file'; id: number; name: string; size: number; tooBig: boolean };
+  type CtxChip = { kind: 'ctx'; id: number; name: string };
+  type Chip = FileChip | CtxChip;
+
+  const MAX_FILES = 5;
+  const MAX_BYTES = 10 * 1024 * 1024;
+  const LABELS: Record<State, string> = { empty: 'Empty', ready: 'Ready', streaming: 'Streaming', stopped: 'Stopped', error: 'Error', done: 'Finished' };
+
+  const REPLIES: [RegExp, string][] = [
+    [/token|colou?r|type scale|spacing/i, 'Every colour, size, space and motion value on this site comes from one file, tokens/tokens.json. A script turns it into CSS variables, and a check fails the build if a page uses a raw hex value or a font size that is not on the type scale. This composer follows the same rules, so if you switch on X-ray mode its parts get labelled too.'],
+    [/x-?ray/i, 'X-ray mode draws a box around each part of the page and labels it with its font, size, line height, colour token and contrast ratio, all measured live in your browser. It is the switch in the header. Turn it on here and the composer shows its own tokens.'],
+    [/check|rule|build/i, 'Six rules run after every build: text contrast, tokens only, button language, alt text and labels, motion, and hover. If a page breaks one, the site does not build, whoever wrote the code. The checks case study shows what happened when I tested them on Claude.'],
+    [/r[ée]sum[ée]|hire|experience|nike|apple/i, 'Shauna is a product designer who builds the system and ships the product on top of it: a decade of retail brand work for Nike and Apple, then design systems and production apps for small businesses and nonprofits. The full résumé is one click away in the header.'],
+  ];
+  const FALLBACK = 'This reply is scripted, so I cannot really answer that. What you are testing is the composer itself: streaming, stopping, attachments, context and errors. Try stopping a reply halfway, or set the next reply to fail and see how it recovers.';
+
+  const root = document.querySelector<HTMLElement>('[data-composer]');
+  if (root) {
+    const $ = <T extends HTMLElement>(s: string) => root.querySelector<T>(s)!;
+    const thread = $('[data-thread]'), msgs = $<HTMLOListElement>('[data-msgs]'), empty = $('[data-empty]');
+    const input = $<HTMLTextAreaElement>('[data-input]'), box = $<HTMLFormElement>('[data-box]');
+    const send = $<HTMLButtonElement>('[data-send]'), chipsEl = $<HTMLUListElement>('[data-chips]');
+    const fileIn = $<HTMLInputElement>('[data-file]'), attachBtn = $<HTMLButtonElement>('[data-attach]');
+    const ctxBtn = $<HTMLButtonElement>('[data-ctx]'), menu = $<HTMLUListElement>('[data-menu]');
+    const status = $('[data-status]'), label = $('[data-state-label]'), jump = $<HTMLButtonElement>('[data-jump]');
+    const hint = $('[data-hint]');
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+
+    let state: State = 'empty';
+    let chips: Chip[] = [];
+    let uid = 0;
+    let timer = 0;
+    let follow = true;
+    let lastPrompt: { text: string; files: FileChip[]; ctx: CtxChip[] } | null = null;
+
+    const setState = (s: State) => {
+      state = s; root.dataset.state = s; label.textContent = LABELS[s];
+      const streaming = s === 'streaming';
+      send.setAttribute('aria-label', streaming ? 'Stop reply' : 'Send message');
+      hint.textContent = streaming ? 'Esc or the button to stop · keep typing your next message' : 'Enter to send · Shift+Enter for a new line';
+      updateSend();
+    };
+    const sendable = () => input.value.trim().length > 0 || chips.some((c) => c.kind === 'file' && !c.tooBig);
+    const updateSend = () => {
+      send.disabled = state !== 'streaming' && !sendable();
+      if (state !== 'streaming' && !msgs.children.length) { root.dataset.state = sendable() ? 'ready' : 'empty'; label.textContent = LABELS[sendable() ? 'ready' : 'empty']; }
+    };
+
+    // Textarea grows with its content up to a cap, then scrolls.
+    const grow = () => { input.style.height = 'auto'; input.style.height = `${Math.min(input.scrollHeight, 200)}px`; };
+    input.addEventListener('input', () => { grow(); updateSend(); });
+
+    // Thread follows new text only while you are at the bottom. Scroll up and it lets go.
+    const atBottom = () => thread.scrollHeight - thread.scrollTop - thread.clientHeight < 40;
+    const toBottom = (smooth = false) => thread.scrollTo({ top: thread.scrollHeight, behavior: smooth && !reduced.matches ? 'smooth' : 'auto' });
+    thread.addEventListener('scroll', () => { follow = atBottom(); if (follow) jump.hidden = true; });
+    jump.addEventListener('click', () => { follow = true; jump.hidden = true; toBottom(true); input.focus(); });
+    const keepUp = () => { if (follow) toBottom(); else jump.hidden = false; };
+
+    // Chips: attachments and context share one row, each removable.
+    const fmt = (b: number) => (b < 1024 ? `${b} B` : b < 1048576 ? `${Math.round(b / 1024)} KB` : `${(b / 1048576).toFixed(1)} MB`);
+    const renderChips = () => {
+      chipsEl.replaceChildren(...chips.map((c) => {
+        const li = document.createElement('li');
+        li.className = `cmp-chip cmp-chip--${c.kind}${c.kind === 'file' && c.tooBig ? ' is-bad' : ''}`;
+        const name = document.createElement('span'); name.className = 'cmp-chip-n'; name.textContent = c.name;
+        li.append(name);
+        if (c.kind === 'file') { const m = document.createElement('span'); m.className = 'cmp-chip-m'; m.textContent = c.tooBig ? 'Too large' : fmt(c.size); li.append(m); }
+        const x = document.createElement('button'); x.type = 'button'; x.className = 'cmp-chip-x';
+        x.setAttribute('aria-label', `Remove ${c.name}`); x.textContent = '×';
+        x.addEventListener('click', () => {
+          const i = chips.indexOf(c); chips = chips.filter((d) => d !== c);
+          if (c.kind === 'ctx') syncMenu();
+          renderChips(); updateSend();
+          const next = chipsEl.querySelectorAll<HTMLButtonElement>('.cmp-chip-x')[Math.min(i, chips.length - 1)];
+          (next ?? input).focus();
+          say(`${c.name} removed`);
+        });
+        li.append(x); return li;
+      }));
+      chipsEl.hidden = !chips.length;
+    };
+
+    const addFiles = (list: FileList | File[]) => {
+      const files = [...list];
+      const room = MAX_FILES - chips.filter((c) => c.kind === 'file').length;
+      files.slice(0, Math.max(room, 0)).forEach((f) => chips.push({ kind: 'file', id: ++uid, name: f.name, size: f.size, tooBig: f.size > MAX_BYTES }));
+      renderChips(); updateSend();
+      const big = files.slice(0, room).filter((f) => f.size > MAX_BYTES).length;
+      const over = files.length - Math.max(room, 0);
+      say([files.length && `${Math.min(files.length, Math.max(room, 0))} file${files.length === 1 ? '' : 's'} attached`, big && `${big} over 10 MB and will not send`, over > 0 && `${over} not added, the limit is ${MAX_FILES}`].filter(Boolean).join('. '));
+    };
+    attachBtn.addEventListener('click', () => fileIn.click());
+    fileIn.addEventListener('change', () => { if (fileIn.files) addFiles(fileIn.files); fileIn.value = ''; input.focus(); });
+    let depth = 0;
+    box.addEventListener('dragenter', (e) => { if (!e.dataTransfer?.types.includes('Files')) return; e.preventDefault(); depth++; box.classList.add('is-drop'); });
+    box.addEventListener('dragover', (e) => { if (e.dataTransfer?.types.includes('Files')) e.preventDefault(); });
+    box.addEventListener('dragleave', () => { if (--depth <= 0) { depth = 0; box.classList.remove('is-drop'); } });
+    box.addEventListener('drop', (e) => { e.preventDefault(); depth = 0; box.classList.remove('is-drop'); if (e.dataTransfer?.files.length) addFiles(e.dataTransfer.files); });
+
+    // Context menu: a real menu, arrow keys and all.
+    const items = [...menu.querySelectorAll<HTMLLIElement>('[data-ctx-item]')];
+    const syncMenu = () => items.forEach((it) => it.setAttribute('aria-checked', String(chips.some((c) => c.kind === 'ctx' && c.name === it.dataset.ctxItem))));
+    const openMenu = (focusIdx = 0) => { menu.hidden = false; ctxBtn.setAttribute('aria-expanded', 'true'); syncMenu(); items[focusIdx]?.focus(); };
+    const closeMenu = (refocus = true) => { if (menu.hidden) return; menu.hidden = true; ctxBtn.setAttribute('aria-expanded', 'false'); if (refocus) ctxBtn.focus(); };
+    const toggleCtx = (it: HTMLLIElement) => {
+      const name = it.dataset.ctxItem!;
+      const had = chips.find((c) => c.kind === 'ctx' && c.name === name);
+      chips = had ? chips.filter((c) => c !== had) : [...chips, { kind: 'ctx', id: ++uid, name }];
+      syncMenu(); renderChips(); updateSend();
+      say(`${name} ${had ? 'removed' : 'added'} as context`);
+    };
+    ctxBtn.addEventListener('click', () => (menu.hidden ? openMenu() : closeMenu()));
+    ctxBtn.addEventListener('keydown', (e) => { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); openMenu(e.key === 'ArrowUp' ? items.length - 1 : 0); } });
+    items.forEach((it, i) => {
+      it.addEventListener('click', () => toggleCtx(it));
+      it.addEventListener('keydown', (e) => {
+        const go = (n: number) => { e.preventDefault(); items[(n + items.length) % items.length].focus(); };
+        if (e.key === 'ArrowDown') go(i + 1); else if (e.key === 'ArrowUp') go(i - 1);
+        else if (e.key === 'Home') go(0); else if (e.key === 'End') go(items.length - 1);
+        else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCtx(it); }
+        else if (e.key === 'Escape' || e.key === 'Tab') { if (e.key === 'Escape') e.preventDefault(); closeMenu(e.key === 'Escape'); }
+      });
+    });
+    document.addEventListener('pointerdown', (e) => { if (!menu.hidden && !(e.target as Element).closest('.cmp-ctx')) closeMenu(false); });
+
+    // Messages
+    const say = (t: string) => { status.textContent = ''; requestAnimationFrame(() => (status.textContent = t)); };
+    const bubble = (who: 'you' | 'reply') => {
+      const li = document.createElement('li'); li.className = `cmp-msg cmp-msg--${who}`;
+      const body = document.createElement('div'); body.className = 'cmp-body'; li.append(body);
+      msgs.append(li); empty.hidden = true; return { li, body };
+    };
+    const addUser = (text: string, files: FileChip[], ctx: CtxChip[]) => {
+      const { li, body } = bubble('you');
+      if (text) body.textContent = text;
+      if (files.length || ctx.length) {
+        const tags = document.createElement('ul'); tags.className = 'cmp-tags'; tags.setAttribute('aria-label', 'Sent with');
+        [...ctx.map((c) => [c.name, 'ctx']), ...files.map((f) => [`${f.name} · ${fmt(f.size)}`, 'file'])].forEach(([t, k]) => {
+          const t2 = document.createElement('li'); t2.className = `cmp-tag cmp-tag--${k}`; t2.textContent = t; tags.append(t2);
+        });
+        li.append(tags);
+      }
+      follow = true; toBottom();
+    };
+
+    const compose = (p: NonNullable<typeof lastPrompt>) => {
+      const hit = REPLIES.find(([re]) => re.test(p.text) || p.ctx.some((c) => re.test(c.name)));
+      const lead: string[] = [];
+      if (p.ctx.length) lead.push(`Using ${p.ctx.map((c) => c.name).join(', ')} as context.`);
+      if (p.files.length) lead.push(`You attached ${p.files.length === 1 ? p.files[0].name : `${p.files.length} files`}. I can see the name and size only; nothing was uploaded.`);
+      return [...lead, hit ? hit[1] : FALLBACK].join(' ');
+    };
+
+    const actions = (li: HTMLLIElement, kind: 'done' | 'stopped' | 'error', text: string) => {
+      li.querySelector('.cmp-acts')?.remove();
+      const row = document.createElement('div'); row.className = 'cmp-acts';
+      if (kind !== 'done') {
+        const note = document.createElement('p'); note.className = `cmp-note${kind === 'error' ? ' is-err' : ''}`;
+        note.textContent = kind === 'error' ? 'The reply was interrupted. Your message is safe.' : 'You stopped this reply.';
+        row.append(note);
+      }
+      const mk = (t: string, fn: () => void) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'cmp-act'; b.textContent = t; b.addEventListener('click', fn); row.append(b); return b; };
+      if (kind === 'done') {
+        const c = mk('Copy', async () => {
+          try { await navigator.clipboard.writeText(text); c.textContent = 'Copied'; say('Reply copied'); } catch { c.textContent = 'Copy failed'; }
+          setTimeout(() => (c.textContent = 'Copy'), 1600);
+        });
+      } else {
+        mk(kind === 'error' ? 'Try Again' : 'Regenerate', () => { li.remove(); reply(); });
+      }
+      li.append(row);
+    };
+
+    const reply = () => {
+      if (!lastPrompt) return;
+      const mode = (document.querySelector<HTMLInputElement>('input[name="cmp-mode"]:checked')?.value ?? 'normal') as 'normal' | 'slow' | 'fail';
+      const full = compose(lastPrompt);
+      const words = full.match(/\S+\s*/g) ?? [];
+      const failAt = mode === 'fail' ? Math.floor(words.length * 0.45) : Infinity;
+      const step = reduced.matches ? 8 : 1;
+      const delay = mode === 'slow' ? 140 : 38;
+      const { li, body } = bubble('reply');
+      li.setAttribute('aria-busy', 'true');
+      const textNode = document.createTextNode(''); const caret = document.createElement('span'); caret.className = 'cmp-caret'; caret.setAttribute('aria-hidden', 'true');
+      body.append(textNode, caret);
+      let i = 0;
+      setState('streaming'); say('Reply started'); keepUp();
+      const finish = (kind: 'done' | 'stopped' | 'error') => {
+        clearTimeout(timer); caret.remove(); li.removeAttribute('aria-busy');
+        li.classList.toggle('is-err', kind === 'error');
+        actions(li, kind, textNode.data);
+        setState(kind); keepUp();
+        say(kind === 'done' ? `Reply: ${textNode.data}` : kind === 'stopped' ? 'Reply stopped' : 'Reply interrupted. Try Again is available.');
+        stopReply = null;
+      };
+      stopReply = () => finish('stopped');
+      const tick = () => {
+        if (i >= failAt) return finish('error');
+        textNode.data += words.slice(i, i + step).join(''); i += step;
+        keepUp();
+        if (i >= words.length) return finish('done');
+        timer = window.setTimeout(tick, delay + Math.random() * delay * 0.6);
+      };
+      timer = window.setTimeout(tick, mode === 'slow' ? 700 : 320);
+    };
+    let stopReply: null | (() => void) = null;
+
+    const submit = () => {
+      if (state === 'streaming') { stopReply?.(); return; }
+      if (!sendable()) return;
+      const text = input.value.trim();
+      const files = chips.filter((c): c is FileChip => c.kind === 'file' && !c.tooBig);
+      const ctx = chips.filter((c): c is CtxChip => c.kind === 'ctx');
+      lastPrompt = { text, files, ctx };
+      addUser(text, files, ctx);
+      input.value = ''; grow();
+      chips = chips.filter((c) => c.kind === 'ctx'); // context stays for the next message, files are spent
+      renderChips();
+      reply();
+      input.focus();
+    };
+    box.addEventListener('submit', (e) => { e.preventDefault(); submit(); });
+    send.addEventListener('click', (e) => { if (state === 'streaming') { e.preventDefault(); stopReply?.(); input.focus(); } });
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); if (state !== 'streaming') submit(); }
+      else if (e.key === 'Escape' && state === 'streaming') { e.preventDefault(); stopReply?.(); }
+    });
+    root.addEventListener('keydown', (e) => { if (e.key === 'Escape' && state === 'streaming' && e.target !== input) stopReply?.(); });
+
+    root.querySelectorAll<HTMLButtonElement>('[data-sug]').forEach((b) => b.addEventListener('click', () => {
+      input.value = b.textContent ?? ''; grow(); updateSend(); input.focus(); input.setSelectionRange(input.value.length, input.value.length);
+    }));
+
+    renderChips(); updateSend();
+  }
+</script>
+
+<style is:global>
+  /* Global on purpose: messages, chips and actions are built in script and never get Astro's scope attribute. Every class is cmp- prefixed. */
+  .cmp-demo { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--space-7); align-items: start; }
+
+  .cmp { position: relative; display: flex; flex-direction: column; height: 620px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-card); box-shadow: 0 30px 60px -40px rgba(var(--ink-rgb), 0.35); overflow: hidden; }
+  .cmp-top { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-5); border-bottom: 1px solid var(--line-soft); }
+  .cmp-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--chrome-dot); transition: background var(--dur-base) var(--ease); }
+  .cmp[data-state='streaming'] .cmp-dot { background: var(--reef); /* graphic */ animation: cmp-pulse calc(var(--dur-slow) * 4) var(--ease) infinite; }
+  .cmp[data-state='error'] .cmp-dot { background: var(--koa); }
+  .cmp-state { margin-left: auto; color: var(--teal-text); }
+
+  .cmp-thread { flex: 1; overflow-y: auto; padding: var(--space-5); scroll-padding-bottom: var(--space-5); overscroll-behavior: contain; }
+  .cmp-thread:focus-visible { outline-offset: -3px; }
+  .cmp-empty { display: flex; flex-direction: column; gap: var(--space-3); max-width: 440px; margin: var(--space-7) auto 0; text-align: center; align-items: center; }
+  .cmp-empty-h { font-family: var(--font-display); font-size: var(--text-title); line-height: 1.15; }
+  .cmp-empty[hidden] { display: none; }
+  .cmp-sugs { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2); margin-top: var(--space-3); }
+  .cmp-sug { min-height: 40px; padding: 0 var(--space-4); border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--paper); font-size: var(--text-small); transition: border-color var(--dur-base) var(--ease), background var(--dur-base) var(--ease); }
+  .cmp-sug:hover { border-color: var(--reef-line); background: var(--reef-tint); }
+
+  .cmp-msgs { display: flex; flex-direction: column; gap: var(--space-5); }
+  .cmp-msg { display: flex; flex-direction: column; gap: var(--space-2); max-width: 86%; animation: cmp-in var(--dur-slow) var(--ease) backwards; }
+  .cmp-msg--you { align-self: flex-end; align-items: flex-end; }
+  .cmp-msg--you .cmp-body { padding: var(--space-3) var(--space-4); border-radius: var(--radius-card) var(--radius-card) var(--radius-sm) var(--radius-card); background: var(--ink); color: var(--white); white-space: pre-wrap; overflow-wrap: anywhere; }
+  .cmp-msg--reply .cmp-body { font-size: var(--text-body); line-height: 1.65; overflow-wrap: anywhere; }
+  .cmp-msg--reply.is-err .cmp-body { color: var(--muted); }
+  .cmp-caret { display: inline-block; width: 0.5em; height: 1.05em; margin-left: 2px; vertical-align: text-bottom; border-radius: 2px; background: var(--reef); /* graphic */ animation: cmp-blink calc(var(--dur-slow) * 3) steps(1) infinite; }
+  .cmp-tags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-1); }
+  .cmp-tag { padding: 2px var(--space-2); border-radius: var(--radius-sm); font-family: var(--font-label); font-size: var(--text-label); background: var(--sand); color: var(--muted); }
+  .cmp-tag--ctx { background: var(--reef-tint); color: var(--teal-text); }
+  .cmp-acts { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+  .cmp-note { font-size: var(--text-small); color: var(--muted); }
+  .cmp-note.is-err { color: var(--ink); padding-left: var(--space-3); border-left: 3px solid var(--koa); }
+  .cmp-act { min-height: 32px; padding: 0 var(--space-3); border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--card); font-size: var(--text-small); font-weight: 500; transition: border-color var(--dur-base) var(--ease), background var(--dur-base) var(--ease); }
+  .cmp-act:hover { border-color: var(--ink); background: var(--paper); }
+
+  .cmp-jump { position: absolute; left: 50%; bottom: 150px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: var(--space-2); min-height: 36px; padding: 0 var(--space-4); border-radius: var(--radius-pill); background: var(--ink); color: var(--white); font-size: var(--text-small); font-weight: 500; box-shadow: 0 10px 24px -12px rgba(var(--ink-rgb), 0.6); }
+  .cmp-jump[hidden] { display: none; }
+
+  .cmp-box { position: relative; margin: 0 var(--space-4) var(--space-4); padding: var(--space-3); border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--paper); transition: border-color var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease); }
+  .cmp-box:focus-within { border-color: var(--teal-text); box-shadow: 0 0 0 3px var(--reef-tint); }
+  .cmp-drop { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; border: 2px dashed var(--reef); /* graphic */ border-radius: inherit; background: rgba(var(--reef-tint-rgb), 0.94); color: var(--teal-text); font-weight: 500; opacity: 0; pointer-events: none; transition: opacity var(--dur-base) var(--ease); }
+  .cmp-box.is-drop .cmp-drop { opacity: 1; }
+  .cmp-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-2); }
+  .cmp-chips[hidden] { display: none; }
+  .cmp-chip { display: inline-flex; align-items: center; gap: var(--space-2); max-width: 100%; min-height: 32px; padding-left: var(--space-3); border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--card); font-size: var(--text-small); animation: cmp-in var(--dur-base) var(--ease) backwards; }
+  .cmp-chip--ctx { border-color: var(--reef-line); background: var(--reef-tint); color: var(--teal-text); }
+  .cmp-chip.is-bad { border-color: var(--koa); background: var(--koa-tint); }
+  .cmp-chip-n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 220px; }
+  .cmp-chip-m { font-family: var(--font-label); font-size: var(--text-label); color: var(--muted); white-space: nowrap; }
+  .cmp-chip.is-bad .cmp-chip-m { color: var(--ink); font-weight: 500; }
+  .cmp-chip-x { width: 32px; height: 32px; flex: none; display: grid; place-items: center; border-radius: var(--radius-sm); font-size: var(--text-body-l); line-height: 1; color: inherit; }
+  .cmp-chip-x:hover { background: rgba(var(--ink-rgb), 0.07); }
+
+  .cmp-input { display: block; width: 100%; min-height: 28px; max-height: 200px; padding: var(--space-1) var(--space-1); border: 0; background: transparent; resize: none; font: inherit; font-size: var(--text-body); line-height: 1.5; color: var(--ink); outline: none; }
+  .cmp-input::placeholder { color: var(--muted); }
+  .cmp-bar { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-2); }
+  .cmp-tools { display: flex; align-items: center; gap: var(--space-1); }
+  .cmp-icon, .cmp-ctx-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 40px; border-radius: var(--radius-pill); color: var(--ink); transition: background var(--dur-base) var(--ease); }
+  .cmp-icon { width: 40px; }
+  .cmp-ctx-btn { padding: 0 var(--space-3) 0 10px; font-size: var(--text-small); font-weight: 500; }
+  .cmp-icon:hover, .cmp-ctx-btn:hover, .cmp-ctx-btn[aria-expanded='true'] { background: rgba(var(--ink-rgb), 0.06); }
+  .cmp-hint { flex: 1; min-width: 0; font-size: var(--text-label); font-family: var(--font-label); color: var(--muted); text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cmp-send { width: 40px; height: 40px; flex: none; display: grid; place-items: center; border-radius: 50%; background: var(--ink); color: var(--white); transition: background var(--dur-base) var(--ease), opacity var(--dur-base) var(--ease); }
+  .cmp-send:disabled { background: var(--chrome-dot); color: var(--muted); cursor: not-allowed; }
+  .cmp-send:not(:disabled):hover { background: var(--teal-text); }
+  .cmp-send > span { grid-area: 1 / 1; display: grid; place-items: center; transition: opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease); }
+  .cmp-send .i-stop, .cmp[data-state='streaming'] .cmp-send .i-send { opacity: 0; transform: scale(0.6); }
+  .cmp[data-state='streaming'] .cmp-send .i-stop { opacity: 1; transform: none; }
+
+  .cmp-ctx { position: relative; }
+  .cmp-menu { position: absolute; left: 0; bottom: calc(100% + var(--space-2)); z-index: 3; min-width: 220px; padding: var(--space-1); border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--card); box-shadow: 0 18px 40px -20px rgba(var(--ink-rgb), 0.45); animation: cmp-in var(--dur-base) var(--ease); }
+  .cmp-menu[hidden] { display: none; }
+  .cmp-menu li { display: flex; align-items: center; gap: var(--space-3); min-height: 40px; padding: 0 var(--space-3); border-radius: var(--radius-sm); font-size: var(--text-small); cursor: pointer; outline: none; }
+  .cmp-menu li:hover, .cmp-menu li:focus-visible { background: var(--reef-tint); }
+  .cmp-menu li:focus-visible { box-shadow: inset 0 0 0 2px var(--reef); }
+  .cmp-check { width: 16px; height: 16px; flex: none; border: 1.5px solid var(--muted); border-radius: 4px; display: grid; place-items: center; }
+  .cmp-menu li[aria-checked='true'] .cmp-check { background: var(--teal-text); border-color: var(--teal-text); }
+  .cmp-menu li[aria-checked='true'] .cmp-check::after { content: ''; width: 8px; height: 4px; margin-top: -2px; border: 2px solid var(--white); border-top: 0; border-right: 0; transform: rotate(-45deg); }
+
+  .cmp-side { display: flex; flex-direction: column; gap: var(--space-6); }
+  .cmp-seg { border: 0; display: flex; flex-direction: column; gap: var(--space-3); }
+  .cmp-seg-row { display: grid; grid-template-columns: repeat(3, 1fr); padding: var(--space-1); border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--card); }
+  .cmp-seg-row label { position: relative; }
+  .cmp-seg-row input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .cmp-seg-row span { display: grid; place-items: center; min-height: 40px; border-radius: var(--radius-pill); font-size: var(--text-small); font-weight: 500; transition: background var(--dur-base) var(--ease), color var(--dur-base) var(--ease); }
+  .cmp-seg-row input:checked + span { background: var(--ink); color: var(--white); }
+  .cmp-seg-row input:focus-visible + span { outline: 3px solid var(--reef); outline-offset: 2px; }
+  .cmp-side-p { font-size: var(--text-small); line-height: 1.55; }
+  .cmp-keys { display: flex; flex-direction: column; margin-top: var(--space-3); }
+  .cmp-keys div { display: grid; grid-template-columns: 130px 1fr; gap: var(--space-3); padding: 10px 0; border-top: 1px solid var(--line); font-size: var(--text-small); }
+  .cmp-keys kbd { display: inline-block; min-width: 24px; padding: 1px 6px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; background: var(--card); font-family: var(--font-label); font-size: var(--text-label); text-align: center; }
+
+  @keyframes cmp-in { from { opacity: 0; transform: translateY(6px); } }
+  @keyframes cmp-blink { 50% { opacity: 0; } }
+  @keyframes cmp-pulse { 50% { opacity: 0.35; } }
+  @media (prefers-reduced-motion: reduce) {
+    .cmp-msg, .cmp-chip, .cmp-menu { animation: none; }
+    .cmp-caret, .cmp[data-state='streaming'] .cmp-dot { animation: none; }
+  }
+  @media (max-width: 979px) {
+    .cmp-demo { grid-template-columns: 1fr; }
+    .cmp { height: min(620px, 78svh); }
+    .cmp-hint { display: none; }
+    .cmp-bar { justify-content: space-between; }
+    .cmp-msg { max-width: 92%; }
+    .cmp-chip-n { max-width: 150px; }
+  }
+  /* Phones and tablets without a keyboard: the shortcut list is noise. */
+  @media (hover: none) and (max-width: 979px) { .cmp-kb { display: none; } }
+</style>

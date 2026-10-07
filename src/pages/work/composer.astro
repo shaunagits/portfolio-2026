@@ -1,0 +1,122 @@
+---
+/**
+ * Interaction demo: a message composer with every state. The component is
+ * src/components/v2/Composer.astro; replies are scripted, files stay in the browser.
+ */
+import LayoutV2 from '../../layouts/LayoutV2.astro';
+import Composer from '../../components/v2/Composer.astro';
+
+const meta = [['Role', 'Interaction design and code'], ['Year', '2026'], ['Built with', 'Astro, TypeScript, this site’s tokens'], ['Status', 'Live demo']];
+const states = [
+  ['Empty', 'Three suggested questions. Send is disabled until there is something to send.'],
+  ['Ready', 'Text, or at least one file that can be sent. Send turns solid.'],
+  ['Attaching', 'Files and context sit as chips above the text, each one removable. Drop files anywhere on the box.'],
+  ['Streaming', 'The reply arrives word by word. Send becomes Stop in the same spot.'],
+  ['Stopped', 'What arrived stays. A note says you stopped it, with Regenerate beside it.'],
+  ['Error', 'The reply cuts out partway. The message you sent is untouched, and Try Again is one tap away.'],
+  ['Finished', 'The reply settles and gets a Copy action. Context stays for the next message; files are spent.'],
+];
+const decisions = [
+  ['Send and Stop share one button.', 'The control you need next is always under your thumb. Nothing moves, so nothing gets tapped by mistake.'],
+  ['You can keep typing while a reply streams.', 'Enter waits until the reply finishes or you stop it, so a draft is never lost and never sent early.'],
+  ['Streaming is quiet for screen readers.', 'Announcing every word would be noise. The reply is read once, in full, when it finishes, and Stop and errors are announced when they happen.'],
+  ['Scrolling up wins.', 'If you scroll back to read, new text stops pulling you down, and a Jump to Latest button appears instead.'],
+  ['Bad files are shown, not swallowed.', 'A file over 10 MB stays in the row marked Too large, so you can see why it will not send and remove it yourself.'],
+  ['Suggestions fill the box, they do not send.', 'You get to edit before anything goes. A suggestion that sends on tap is a guess made for you.'],
+  ['Context stays, attachments go.', 'Context describes the conversation, so it carries over. A file belongs to the message it was sent with.'],
+];
+---
+<LayoutV2 title="A message composer, every state of it · Shauna Arnold" description="An interactive message composer with attachments, context, streaming, stop, errors and full keyboard support, built on the shauna.dev design system. Try it in the browser.">
+  <article>
+    <header class="cs-top wrap">
+      <a class="back meta" href="/#work">← All work</a>
+      <div class="cs-head">
+        <div>
+          <p class="label">Interaction · Demo</p>
+          <h1 data-xray="display-xl">A message composer, every state of it.</h1>
+        </div>
+        <p class="cs-lede">The composer is where people talk to AI, so it carries more states than it looks: typing, attaching, streaming, stopping, failing. This one is built on the same tokens and checks as the rest of this site. Try it below.</p>
+      </div>
+      <dl class="cs-meta">{meta.map(([k, v]) => <div><dt class="meta">{k}</dt><dd>{v}</dd></div>)}</dl>
+    </header>
+
+    <section class="sec sec--sand" aria-labelledby="t-h">
+      <div class="wrap">
+        <div class="sec-head">
+          <div><p class="label">01 · Try it</p><h2 class="h2" id="t-h">Type, attach, stop it halfway.</h2></div>
+          <p class="muted">Set the next reply to Fails to see the error state, or Slow to give yourself time to stop it. Turn on X-ray in the header to see the tokens underneath.</p>
+        </div>
+        <Composer />
+      </div>
+    </section>
+
+    <section class="sec sec--rule wrap" aria-labelledby="s-h">
+      <div class="sec-head">
+        <div><p class="label">02 · States</p><h2 class="h2" id="s-h">Seven states, one component.</h2></div>
+        <p class="muted">The label in the composer’s top bar shows which one you are in.</p>
+      </div>
+      <ol class="rules">{states.map(([t, d], i) => <li><span class="nl-n">0{i + 1}</span><div><h3>{t}</h3><p class="muted">{d}</p></div></li>)}</ol>
+    </section>
+
+    <section class="sec sec--rule wrap" aria-labelledby="d-h">
+      <div class="sec-head">
+        <div><p class="label">03 · Decisions</p><h2 class="h2" id="d-h">The small calls that make it feel trustworthy.</h2></div>
+        <p class="muted">None of these show up in a screenshot. All of them show up the first time something goes wrong.</p>
+      </div>
+      <ol class="rules">{decisions.map(([t, d], i) => <li><span class="nl-n">0{i + 1}</span><div><h3>{t}</h3><p class="muted">{d}</p></div></li>)}</ol>
+    </section>
+
+    <section class="sec sec--rule wrap" aria-labelledby="b-h">
+      <div class="two">
+        <div><p class="label">04 · Built on the system</p><h2 class="h2" id="b-h">No new colours, no new sizes.</h2></div>
+        <div class="prod">
+          <p>Every colour, size, radius and duration here is a token from the same file as the rest of the site. The build checks hold it to the same six rules: contrast, tokens only, button language, labels, motion, and hover.</p>
+          <p class="muted">Motion respects reduced-motion settings: no blinking caret, no slide-ins, and replies arrive in larger chunks. The replies are scripted and no AI is connected, so the demo can’t fail in ways I didn’t design. Files you attach never leave your browser.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="nextcs" aria-labelledby="n-h">
+      <div class="wrap nextcs-in">
+        <div><p class="label">Next</p><p class="nextcs-t" id="n-h">See how the rules that hold this component together were tested on Claude.</p></div>
+        <div class="nextcs-b"><a href="/work/ui-checks/" class="btn">See What the Checks Caught</a><a href="/system/" class="btn btn--ink">Open the System Page</a></div>
+      </div>
+    </section>
+  </article>
+</LayoutV2>
+
+<style>
+  .cs-top { padding-block: var(--space-8) var(--space-7); }
+  .back { display: inline-block; margin-bottom: var(--space-6); }
+  .cs-head { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--space-7); align-items: end; }
+  .cs-head h1 { font-family: var(--font-display); font-weight: 500; font-size: var(--text-display-xl); line-height: 1.02; letter-spacing: -0.03em; margin-top: var(--space-4); text-wrap: balance; }
+  .cs-lede { font-size: var(--text-body-l); line-height: 1.6; }
+  .cs-meta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-6); margin-top: var(--space-8); }
+  .cs-meta div { display: flex; flex-direction: column; gap: var(--space-2); padding-top: 14px; border-top: 1px solid var(--line); }
+
+  .sec { padding-block: var(--space-9); }
+  .sec--sand { background: var(--sand); }
+  .sec--rule { border-top: 1px solid var(--line); }
+  .sec--sand + .sec--rule { border-top: 0; }
+  .sec-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: var(--space-6) var(--space-7); align-items: end; margin-bottom: var(--space-7); }
+  .sec-head .h2, .two .h2 { margin-top: var(--space-3); }
+  .two { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--space-7); align-items: end; }
+  .nl-n { font-family: var(--font-label); font-size: var(--text-small); color: var(--teal-text); }
+  h3 { font-family: var(--font-display); font-weight: 500; font-size: var(--text-lead); line-height: 1.2; }
+  .rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-7); }
+  .rules li { display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 20px 0; border-top: 1px solid var(--line); }
+  .rules p { margin-top: 6px; }
+  .prod { display: flex; flex-direction: column; gap: var(--space-4); font-size: var(--text-body-l); }
+
+  .nextcs { background: var(--paper); border-top: 1px solid var(--line); padding-block: var(--space-8) var(--space-9); }
+  .nextcs-in { display: grid; grid-template-columns: 1fr auto; gap: var(--space-6); align-items: center; }
+  .nextcs-t { font-family: var(--font-display); font-size: var(--text-heading); line-height: 1.1; margin-top: var(--space-3); max-width: 820px; }
+  .nextcs-b { display: flex; gap: var(--space-5); flex-wrap: wrap; }
+
+  @media (max-width: 979px) {
+    .cs-head, .sec-head, .two, .nextcs-in, .rules { grid-template-columns: 1fr; }
+    .cs-head { gap: var(--space-5); }
+    .cs-meta { grid-template-columns: 1fr 1fr; gap: var(--space-5); margin-top: var(--space-7); }
+    .sec { padding-block: var(--space-8); }
+  }
+</style>

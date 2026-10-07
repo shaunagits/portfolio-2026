@@ -190,7 +190,7 @@ const steps = [
         <ol class="bsteps">
           {steps.map((s, i) => <li><span class="bn">{String(i + 1).padStart(2, '0')}</span><div><div class="bt">{s.t}</div><p class="muted">{s.a}</p><p class="muted">{s.b}</p></div></li>)}
         </ol>
-        <a href="/work/ui-checks/" class="text-link build-link">See What the Checks Caught →</a>
+        <div class="build-links"><a href="/work/ui-checks/" class="text-link">See What the Checks Caught →</a><a href="/work/composer/" class="text-link">Try the Composer Demo →</a></div>
       </div>
       <div class="term" role="img" aria-label={`Terminal output of npm run check:ui with ${checks.length} passing checks`}>
         <div class="term-h"><span>$ npm run check:ui</span><span>Runs on every build.</span></div>
@@ -329,6 +329,7 @@ const steps = [
   .built-in { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; align-items: start; padding-top: 96px; border-top: 1px solid var(--line); }
   .built-main { grid-column: 1 / span 6; display: flex; flex-direction: column; gap: 18px; }
   .built-h2 { font-size: var(--text-heading); }
+  .build-links { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-6); }
   .bsteps { margin-top: 12px; }
   .bsteps li { display: grid; grid-template-columns: 44px 1fr; gap: 12px; padding: 18px 0; border-top: 1px solid var(--line-soft); }
   .bn { font-family: var(--font-label); font-size: var(--text-small); color: var(--teal-text); }
@@ -399,7 +400,7 @@ const steps = [
     .built-main { display: contents; }
     .built-in > .built-main > * { order: 1; }
     .term { order: 2; }
-    .built-in > .built-main > .build-link { order: 3; }
+    .built-in > .built-main > .build-links { order: 3; }
     .sys-btn { margin-top: 24px; }
     .type-row .meta { display: none; }
     .t-disp { font-size: var(--text-title); }
