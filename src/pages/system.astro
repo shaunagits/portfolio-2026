@@ -14,6 +14,9 @@ import { checks } from '../data/checks';
 
 const c = tokens.color as Record<string, string>;
 const art = tokens.art as Record<string, string>;
+const dusk = { ...tokens.dusk.color, ...tokens.dusk.art } as Record<string, string>;
+// Hex label for a token in both themes; CSS shows the one that matches the page.
+const hexes = (k: string, v: string) => dusk[k] && dusk[k] !== v ? [v, dusk[k]] : [v, v];
 const lum = (h: string) => {
   const ch = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255).map((x) => (x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4));
   return 0.2126 * ch[0] + 0.7152 * ch[1] + 0.0722 * ch[2];
@@ -92,7 +95,7 @@ const toc = [['colour', 'Colour'], ['type', 'Type'], ['spacing', 'Spacing + grid
     </div>
     <ul class="sw-grid">
       {swatches.map(([k, d]) => (
-        <li data-xray={`--${k}`} data-xray-kind="raw" data-xray-note={`--${k} · ${c[k]}`}><span class="sw" style={`background:var(--${k})`}></span><span class="sw-n">--{k}</span><span class="sw-h">{c[k]}</span><span class="sw-d">{d}</span></li>
+        <li data-xray={`--${k}`} data-xray-kind="raw" data-xray-note={`--${k} · ${c[k]}`}><span class="sw" style={`background:var(--${k})`}></span><span class="sw-n">--{k}</span><span class="sw-h"><span class="h-day">{c[k]}</span><span class="h-dusk">{hexes(k, c[k])[1]}</span></span><span class="sw-d">{d}</span></li>
       ))}
     </ul>
     <div class="col-2">
@@ -118,7 +121,7 @@ const toc = [['colour', 'Colour'], ['type', 'Type'], ['spacing', 'Spacing + grid
       <div>
         <p class="meta tbl-cap">Artwork palette · sampled from the painting</p>
         <ul class="sw-art">
-          {artSw.map(([k, n]) => <li><span class="sw sw--sm" style={`background:var(--${k})`}></span><span class="sw-n">--{n}</span><span class="sw-h">{art[k]}</span></li>)}
+          {artSw.map(([k, n]) => <li><span class="sw sw--sm" style={`background:var(--${k})`}></span><span class="sw-n">--{n}</span><span class="sw-h"><span class="h-day">{art[k]}</span><span class="h-dusk">{hexes(k, art[k])[1]}</span></span></li>)}
         </ul>
         <p class="muted small">Used in the artwork only. Never for text, buttons or states.</p>
       </div>
@@ -331,6 +334,8 @@ const toc = [['colour', 'Colour'], ['type', 'Type'], ['spacing', 'Spacing + grid
   .sw-n { font-family: var(--font-label); font-size: var(--text-small); margin-top: 4px; }
   .sw-h { font-family: var(--font-label); font-size: var(--text-label); color: var(--muted); }
   .sw-d { font-size: var(--text-small); line-height: 1.35; color: var(--muted); }
+  .h-dusk, :global([data-theme='dusk']) .h-day { display: none; }
+  :global([data-theme='dusk']) .h-dusk { display: inline; }
   .sw-art { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-4); }
   .tbl-cap { margin-bottom: var(--space-3); }
   .tbl { width: 100%; border-collapse: collapse; font-size: var(--text-body); }
@@ -402,7 +407,7 @@ const toc = [['colour', 'Colour'], ['type', 'Type'], ['spacing', 'Spacing + grid
   .states { display: flex; flex-wrap: wrap; gap: var(--space-5) var(--space-4); }
   .states > div { display: flex; flex-direction: column; gap: 10px; }
   .st-l { font-size: var(--text-small); color: var(--muted); }
-  .st-hover { background: var(--ink); color: var(--white); box-shadow: 0 0 0 0 var(--reef); }
+  .st-hover { background: var(--ink); color: var(--on-ink); box-shadow: 0 0 0 0 var(--reef); }
   .st-focus { outline: 3px solid var(--reef); outline-offset: 3px; }
   .st-dis { color: var(--muted); border-color: var(--line); box-shadow: none; }
   .lp { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-4); margin-top: var(--space-4); }
@@ -421,7 +426,7 @@ const toc = [['colour', 'Colour'], ['type', 'Type'], ['spacing', 'Spacing + grid
 
   /* guidance */
   .guide { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-5); align-items: start; }
-  .term { background: var(--ink); color: var(--term-text); border-radius: var(--radius-card); padding: var(--space-5); font-family: var(--font-label); font-size: var(--text-small); line-height: 1.6; white-space: pre-wrap; overflow: auto; }
+  .term { background: var(--deep); color: var(--term-text); border-radius: var(--radius-card); padding: var(--space-5); font-family: var(--font-label); font-size: var(--text-small); line-height: 1.6; white-space: pre-wrap; overflow: auto; }
   .term--md { max-height: 520px; }
   .md-h { color: var(--term-ok); }
   .term--checks { white-space: normal; }

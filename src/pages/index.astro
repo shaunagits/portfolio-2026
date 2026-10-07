@@ -36,6 +36,7 @@ const steps = [
       <source src="/media/hero-720.mp4" type="video/mp4" media="(max-width: 760px)" />
       <source src="/media/hero-1280.mp4" type="video/mp4" />
     </video>
+    <div class="hero-dusk" aria-hidden="true"></div>
     <div class="hero-fade" aria-hidden="true"></div>
     <div class="hero-copy">
       <p class="hero-pill" data-xray="pill" data-xray-kind="raw" data-xray-note="pill · label 12 · radius-pill">Product designer + developer · Hawaiʻi</p>
@@ -237,9 +238,14 @@ const steps = [
   /* Hero */
   .hero { position: relative; height: 876px; overflow: hidden; }
   .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+  /* Dusk: the same painting at evening. A multiply wash from --dusk-high to --dusk-low (both white,
+     so invisible, in day), and the light taken down a little. */
+  .hero-dusk { display: none; position: absolute; inset: 0; background: linear-gradient(to bottom, var(--dusk-high) 0%, var(--dusk-high) 30%, var(--dusk-low) 78%); mix-blend-mode: multiply; pointer-events: none; }
+  :global([data-theme='dusk']) .hero-dusk { display: block; }
+  :global([data-theme='dusk']) .hero-video { filter: brightness(0.86) saturate(0.9); }
   .hero-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 160px; background: linear-gradient(to bottom, rgba(var(--paper-rgb), 0) 0%, rgba(var(--paper-rgb), 0.55) 45%, var(--paper) 100%); pointer-events: none; }
   .hero-copy { position: absolute; left: 50%; top: 156px; width: min(660px, calc(100% - 40px)); transform: translateX(-50%); display: flex; flex-direction: column; gap: 24px; text-align: center; }
-  .hero-pill { align-self: center; padding: 7px 14px; border-radius: 100px; background: rgba(var(--white-rgb), 0.6); font-family: var(--font-label); font-size: var(--text-label); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+  .hero-pill { align-self: center; padding: 7px 14px; border-radius: 100px; background: rgba(var(--on-ink-rgb), 0.6); font-family: var(--font-label); font-size: var(--text-label); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
   .hero h1 { font-family: var(--font-display); font-weight: 500; font-size: var(--text-display-xl); line-height: 1.02; letter-spacing: -0.03em; text-wrap: balance; text-shadow: 0 0 28px rgba(var(--haze-rgb), 0.9), 0 0 6px rgba(var(--haze-rgb), 0.6); }
   .hero-pause { position: absolute; right: var(--gutter); bottom: 28px; width: 44px; height: 44px; border-radius: 22px; background: rgba(var(--card-rgb), 0.75); border: 1px solid rgba(var(--ink-rgb), 0.15); font-size: var(--text-label); letter-spacing: -1px; }
   .hero-pause:hover { background: var(--card); }
@@ -321,7 +327,7 @@ const steps = [
   .sc-p { font-size: var(--text-small); line-height: 1.55; }
   .states { display: flex; gap: 14px; flex-wrap: wrap; padding: 14px 6px 0; }
   .states .btn { cursor: default; }
-  .states .st-hover { background: var(--ink); color: var(--white); box-shadow: none; }
+  .states .st-hover { background: var(--ink); color: var(--on-ink); box-shadow: none; }
   .states .st-focus { outline: 3px solid var(--reef); outline-offset: 3px; }
 
   /* Built */
@@ -336,7 +342,7 @@ const steps = [
   .bt { font-family: var(--font-display); font-size: var(--text-lead); margin-bottom: 6px; }
   .bsteps p { font-size: var(--text-body); }
   .bsteps p + p { margin-top: 10px; }
-  .term { grid-column: 8 / span 5; margin-top: 40px; background: var(--ink); color: var(--term-text); border-radius: 16px; padding: 24px 26px; font-family: var(--font-label); font-size: var(--text-small); line-height: 1.5; }
+  .term { grid-column: 8 / span 5; margin-top: 40px; background: var(--deep); color: var(--term-text); border-radius: 16px; padding: 24px 26px; font-family: var(--font-label); font-size: var(--text-small); line-height: 1.5; }
   .term-h { display: flex; justify-content: space-between; gap: 12px; color: var(--term-dim); padding-bottom: 12px; }
   .term-r { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-top: 1px solid rgba(var(--white-rgb), 0.1); }
   .tick { color: var(--term-ok); }

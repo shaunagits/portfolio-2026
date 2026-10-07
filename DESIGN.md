@@ -5,13 +5,22 @@ The rules for shauna.dev. Claude reads this before writing any UI here, and
 Tokens live in `tokens/tokens.json`; `src/styles/tokens.css` is generated from it.
 
 ## Colour
-- Text uses `--ink`, `--muted` or `--teal-text` (and `--white` on ink). Never `--reef`:
+- Text uses `--ink`, `--muted` or `--teal-text` (and `--on-ink` on an ink fill). Never `--reef`:
   it is 3.7:1 on paper, so graphics and large text only.
 - Ink, reef and teal-text are shared with shauna.digital. Koa is shauna.dev only,
   for the résumé button shadow and small marks.
 - The art palette (sky, lagoon, art-sand, palm) is for the painting and swatches only.
   Never text, buttons or states.
 - No raw hex or rgb values in component styles. Add a token instead.
+
+Two themes, day and dusk, from the same roles. Dusk values live in tokens.json -> dusk; the
+switch is in the header and the first visit follows the system setting. To stay correct in both:
+- Text on a solid --ink fill uses --on-ink (white by day, dark at dusk). Never --white for that.
+- Surfaces that stay dark in both themes (footer, terminals, code, phone bodies) use --deep with
+  --white or the --term-* colours.
+- Shadows use rgba(var(--shadow-rgb), a), never --ink-rgb (ink turns light at dusk).
+- Icons draw in currentColor; paper knockouts follow --paper. Never hardcode an icon colour.
+- check:ui tests every contrast pair in both themes.
 
 ## Type
 - Funnel Display for headlines, Archivo for reading, Space Grotesk for labels and data.

@@ -3,7 +3,14 @@
 import icons from '../../data/icons-v2.json';
 interface Props { name: keyof typeof icons; size?: number; class?: string }
 const { name, size = 18, class: className } = Astro.props;
-const svg = (icons as Record<string, string>)[name].replace('<svg ', `<svg width="${size}" height="${size}" focusable="false" `);
+// The drawn files carry literal ink and paper. Ink becomes currentColor and the paper knockouts
+// become token-driven, so every icon follows the theme (day or dusk) without redrawing it.
+const svg = (icons as Record<string, string>)[name]
+  .replace('<svg ', `<svg width="${size}" height="${size}" focusable="false" `)
+  .replaceAll('"#0B1416"', '"currentColor"')
+  .replaceAll('fill="#FBF8F3"', 'data-k-fill').replaceAll('stroke="#FBF8F3"', 'data-k-stroke')
+  .replaceAll('fill="#FFFDF9"', 'data-k-card');
 ---
 <span class:list={['ico', className]} set:html={svg} />
-<style>.ico { display: inline-flex; flex: none; line-height: 0; } .ico :global(svg) { display: block; overflow: visible; }</style>
+<style>.ico { display: inline-flex; flex: none; line-height: 0; } .ico :global(svg) { display: block; overflow: visible; }
+  .ico :global([data-k-fill]) { fill: var(--paper); } .ico :global([data-k-stroke]) { stroke: var(--paper); } .ico :global([data-k-card]) { fill: var(--card); }</style>

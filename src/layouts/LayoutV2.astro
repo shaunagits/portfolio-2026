@@ -22,6 +22,8 @@ const ld = {
 <html lang="en" data-system="v2">
   <head>
     <meta charset="UTF-8" />
+    <!-- Dusk before first paint: a saved choice wins, otherwise follow the system setting. -->
+    <script is:inline>try{var t=localStorage.getItem('shauna-theme');if(t==='dusk'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.dataset.theme='dusk'}catch(e){}</script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -54,6 +56,6 @@ const ld = {
   </body>
 </html>
 <style is:global>
-  .skip { position: absolute; left: -9999px; top: 8px; z-index: 100; background: var(--ink); color: var(--white); padding: 10px 16px; border-radius: 8px; }
+  .skip { position: absolute; left: -9999px; top: 8px; z-index: 100; background: var(--ink); color: var(--on-ink); padding: 10px 16px; border-radius: 8px; }
   .skip:focus { left: 8px; }
 </style>

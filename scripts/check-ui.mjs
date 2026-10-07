@@ -19,14 +19,16 @@ const text = (h) => strip(h).replace(/<[^>]+>/g, ' ').replace(/&[a-z#0-9]+;/gi, 
 // 1. Contrast
 const lum = (h) => { const c = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255).map((x) => (x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4)); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; };
 const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
-const all = { ...tokens.color, ...tokens.art };
-const lowPairs = tokens.contrast.pairs.map(([f, b]) => [f, b, ratio(all[f], all[b])]).filter(([, , r]) => r < 4.5).map(([f, b, r]) => `${f} on ${b} is ${r.toFixed(2)}:1`);
+// Every pair is checked in both themes: day, and dusk (day values with the dusk overrides on top).
+const themes = { day: { ...tokens.color, ...tokens.art }, dusk: { ...tokens.color, ...tokens.art, ...tokens.dusk.color, ...tokens.dusk.art } };
+const lowPairs = Object.entries(themes).flatMap(([name, all]) => tokens.contrast.pairs.map(([f, b]) => [f, b, ratio(all[f], all[b])])
+  .filter(([, , r]) => r < 4.5).map(([f, b, r]) => `${name}: ${f} on ${b} is ${r.toFixed(2)}:1`));
 const srcFiles = walk(join(root, 'src')).filter((p) => /src\/(styles\/v2\.css|components\/v2\/|layouts\/LayoutV2|pages\/(index|system|resume|work\/rescue-platform|work\/ui-checks|work\/composer)\.astro)/.test(p));
 // --reef (3.73:1) is for graphics only: logo mark, accent period, arrows. Mark those lines `/* graphic */`.
 const reefText = srcFiles.flatMap((f) => readFileSync(f, 'utf8').split('\n').map((l, i) => [l, i + 1])
   .filter(([l]) => /(^|[^-])color:\s*var\(--reef\)/.test(l) && !l.includes('/* graphic */'))
   .map(([, n]) => `${f.replace(root, '')}:${n} uses --reef for text (mark graphic uses with /* graphic */)`));
-check('Text contrast stays at or above 4.5:1, including interactive states', [...lowPairs, ...reefText]);
+check('Text contrast stays at or above 4.5:1 in day and dusk, including interactive states', [...lowPairs, ...reefText]);
 
 // 2. Tokens only: no raw colour literals in v2 style code
 const raw = [];

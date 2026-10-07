@@ -2,6 +2,7 @@
 import LogoS from '../LogoS.astro';
 import Icon from './Icon.astro';
 import XRay from './XRay.astro';
+import ThemeToggle from './ThemeToggle.astro';
 interface Props { overHero?: boolean }
 const { overHero = false } = Astro.props;
 const path = Astro.url.pathname;
@@ -22,6 +23,7 @@ const items = [
         <a href={i.href} aria-current={path === i.href ? 'page' : undefined}><Icon name={i.icon} size={18} />{i.label}</a>
       ))}
       <XRay />
+      <ThemeToggle />
       <a href="https://shauna.digital/contact/" class="btn sh-cta">Work With Me<Icon name="nav-external" size={16} /><span class="sr-only">(opens shauna.digital)</span></a>
     </nav>
     <button type="button" class="sh-toggle" aria-expanded="false" aria-controls="sh-menu" aria-label="Open menu">
@@ -34,6 +36,7 @@ const items = [
       <a href="/">Home</a>
       {items.map((i) => <a href={i.href}><Icon name={i.icon} size={22} />{i.label}</a>)}
       <XRay variant="menu" />
+      <ThemeToggle variant="menu" />
       <a href="https://shauna.digital/contact/" class="btn">Work With Me<Icon name="nav-external" size={16} /></a>
     </nav>
   </div>
@@ -70,11 +73,11 @@ const items = [
   .sh-brand { display: flex; align-items: center; gap: 12px; min-height: 44px; }
   .sh-brand :global(.sh-mark) { height: 30px; width: auto; color: var(--reef); /* graphic */ }
   .sh-name { font-family: var(--font-display); font-size: var(--text-lead); font-weight: 600; white-space: nowrap; }
-  .sh-nav { display: flex; align-items: center; gap: 28px; font-size: var(--text-small); font-weight: 500; }
+  .sh-nav { display: flex; align-items: center; gap: 24px; font-size: var(--text-small); font-weight: 500; }
   .sh-nav > a:not(.btn) { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 2px solid transparent; transition: border-color var(--dur-base) var(--ease); }
   .sh-nav > a:not(.btn):hover, .sh-nav > a[aria-current='page'] { border-color: var(--reef); }
   .sh-cta { --btn-offset: 5px; min-height: 40px; padding: 0 16px 0 18px; font-size: var(--text-small); }
-  .sh-cta:hover :global(svg *), .sh-menu .btn:hover :global(svg *) { fill: var(--white); stroke: var(--white); }
+  .sh-cta:hover :global(svg *), .sh-menu .btn:hover :global(svg *) { fill: var(--on-ink); stroke: var(--on-ink); }
   .sh-toggle { display: none; width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid rgba(var(--ink-rgb), 0.13); border-radius: 22px; background: var(--card); }
   .sh-toggle :global(.i-close), .sh-toggle.is-open :global(.i-open) { display: none; }
   .sh-toggle.is-open :global(.i-close) { display: inline-flex; }

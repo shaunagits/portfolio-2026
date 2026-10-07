@@ -18,7 +18,7 @@ img, video { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 ul, ol { list-style: none; }
 button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
-::selection { background: var(--reef); color: var(--white); }
+::selection { background: var(--reef); color: var(--on-ink); }
 :focus-visible { outline: 3px solid var(--reef); outline-offset: 3px; border-radius: 4px; }
 
 .wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--gutter); }
@@ -38,7 +38,7 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
   box-shadow: var(--btn-offset) calc(var(--btn-offset) * -1) 0 0 var(--shape, var(--reef));
   transition: background var(--dur-base) var(--ease), color var(--dur-base) var(--ease), box-shadow var(--dur-slow) var(--ease), border-color var(--dur-base) var(--ease);
 }
-.btn:hover, .btn:focus-visible { background: var(--ink); color: var(--white); box-shadow: 0 0 0 0 var(--shape, var(--reef)); }
+.btn:hover, .btn:focus-visible { background: var(--ink); color: var(--on-ink); box-shadow: 0 0 0 0 var(--shape, var(--reef)); }
 .btn--koa { --shape: var(--koa); }
 .btn--ink { --shape: var(--ink); }
 

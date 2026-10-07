@@ -10,7 +10,7 @@ const { src, alt, label, class: className, loading = 'lazy' } = Astro.props;
 </div>
 <style>
   .browser { container-type: inline-size; }
-  .browser-body { border-radius: clamp(6px, 1.6cqw, 12px); overflow: hidden; background: var(--card); border: 1px solid var(--line-soft); box-shadow: 0 30px 60px -30px rgba(var(--ink-rgb), 0.45); }
+  .browser-body { border-radius: clamp(6px, 1.6cqw, 12px); overflow: hidden; background: var(--card); border: 1px solid var(--line-soft); box-shadow: 0 30px 60px -30px rgba(var(--shadow-rgb), 0.45); }
   .browser-bar { height: clamp(20px, 4.6cqw, 30px); display: flex; align-items: center; gap: clamp(4px, 1cqw, 6px); padding: 0 clamp(8px, 2cqw, 12px); background: var(--chrome-bar); border-bottom: 1px solid rgba(var(--ink-rgb), 0.08); }
   .dot { width: clamp(5px, 1.3cqw, 8px); aspect-ratio: 1; border-radius: 50%; background: var(--chrome-dot); flex: none; }
   .url { margin-left: clamp(6px, 2cqw, 12px); font-family: var(--font-label); font-size: clamp(7px, 1.7cqw, 11px); /* scales with the frame */ color: var(--muted); white-space: nowrap; }

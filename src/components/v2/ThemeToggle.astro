@@ -1,0 +1,92 @@
+---
+/**
+ * Day / Dusk switch. Dusk is the same design roles at night (tokens.json -> dusk), not an
+ * inverted page. The first visit follows the system setting; a click is remembered for
+ * this visitor. LayoutV2 sets data-theme in <head> before paint, so there is no flash.
+ * The change spreads out from the switch like a wash (View Transitions); with reduced
+ * motion, or where the browser has no View Transitions, it simply switches.
+ */
+interface Props { variant?: 'bar' | 'menu' }
+const { variant = 'bar' } = Astro.props;
+---
+<button type="button" class:list={['tt', variant === 'menu' && 'tt--menu']} data-theme-toggle aria-pressed="false" aria-label={variant === 'bar' ? 'Dusk' : undefined}>
+  <svg class="tt-ico" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+    <defs><clipPath id={`tt-sky-${variant}`}><rect x="0" y="0" width="24" height="16.2" /></clipPath></defs>
+    <g clip-path={`url(#tt-sky-${variant})`}>
+      <g class="tt-sun">
+        <circle cx="12" cy="13" r="3.6" />
+        <path d="M12 5.6v1.6M6.2 8.2l1.1 1.1M17.8 8.2l-1.1 1.1M4.4 13.4h1.5M18.1 13.4h1.5" />
+      </g>
+    </g>
+    <path class="tt-moon" d="M17.6 3.4a3.3 3.3 0 1 0 3.1 4.6 2.6 2.6 0 0 1-3.1-4.6Z" />
+    <path class="tt-star" d="M6 4.2v1.6M5.2 5h1.6" />
+    <path d="M3 16.5h18M7 19.8h10" />
+  </svg>
+  {variant === 'menu' && <><span>Dusk</span><span class="tt-state" aria-hidden="true">Off</span></>}
+</button>
+
+<style>
+  .tt { display: inline-grid; place-items: center; width: 40px; height: 40px; border: 1px solid rgba(var(--ink-rgb), 0.2); border-radius: var(--radius-pill); color: var(--ink);
+    transition: background var(--dur-base) var(--ease), border-color var(--dur-base) var(--ease), color var(--dur-base) var(--ease); }
+  .tt:hover { border-color: var(--ink); }
+  .tt[aria-pressed='true'] { background: var(--reef-tint); border-color: var(--reef); color: var(--teal-text); }
+  .tt--menu { display: inline-flex; gap: 8px; width: auto; min-height: 44px; height: auto; padding: 0 14px; margin-top: 12px; align-self: flex-start;
+    font-family: var(--font-label); font-size: var(--text-label); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; }
+  .tt-state { color: var(--muted); }
+  .tt[aria-pressed='true'] .tt-state { color: var(--teal-text); }
+  /* The sun sets below the horizon; a moon and one star come out. */
+  .tt-sun, .tt-moon, .tt-star { transition: transform var(--dur-slow) var(--ease), opacity var(--dur-slow) var(--ease); }
+  .tt-moon, .tt-star { opacity: 0; transform: translateY(3px); }
+  .tt[aria-pressed='true'] .tt-sun { transform: translateY(7px); }
+  .tt[aria-pressed='true'] .tt-moon { opacity: 1; transform: none; transition-delay: calc(var(--dur-fast)); }
+  .tt[aria-pressed='true'] .tt-star { opacity: 1; transform: none; transition-delay: calc(var(--dur-base)); }
+  @media (prefers-reduced-motion: reduce) { .tt-sun, .tt-moon, .tt-star { transition: none; } }
+</style>
+
+<style is:global>
+  /* The wash: the new theme spreads out from the switch with a soft edge, like wet paint. */
+  @property --wash-r { syntax: '<length>'; inherits: true; initial-value: 0px; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+  html.washing::view-transition-new(root) {
+    -webkit-mask-image: radial-gradient(circle at var(--wx, 50%) var(--wy, 0px), var(--shadow) calc(var(--wash-r) - 140px), transparent var(--wash-r));
+    mask-image: radial-gradient(circle at var(--wx, 50%) var(--wy, 0px), var(--shadow) calc(var(--wash-r) - 140px), transparent var(--wash-r));
+    animation: tt-wash calc(var(--dur-slow) * 4) ease-in-out both; /* slower and even, like paint spreading, not a UI snap */
+  }
+  @keyframes tt-wash { from { --wash-r: 0px; } to { --wash-r: 170vmax; } }
+</style>
+
+<script>
+  const KEY = 'shauna-theme';
+  const html = document.documentElement;
+  const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]');
+  const dark = matchMedia('(prefers-color-scheme: dark)');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const stored = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
+
+  const sync = () => {
+    const dusk = html.dataset.theme === 'dusk';
+    buttons.forEach((b) => {
+      b.setAttribute('aria-pressed', String(dusk));
+      const s = b.querySelector('.tt-state'); if (s) s.textContent = dusk ? 'On' : 'Off';
+    });
+    if (meta) meta.content = getComputedStyle(html).getPropertyValue('--paper').trim();
+  };
+  const set = (dusk: boolean) => { if (dusk) html.dataset.theme = 'dusk'; else delete html.dataset.theme; sync(); };
+
+  buttons.forEach((b) => b.addEventListener('click', () => {
+    const next = html.dataset.theme !== 'dusk';
+    try { localStorage.setItem(KEY, next ? 'dusk' : 'day'); } catch { /* storage blocked: still switches for this page */ }
+    const doc = document as Document & { startViewTransition?: (cb: () => void) => { finished: Promise<void> } };
+    if (!doc.startViewTransition || reduced.matches) { set(next); return; }
+    const r = b.getBoundingClientRect();
+    html.style.setProperty('--wx', `${r.left + r.width / 2}px`);
+    html.style.setProperty('--wy', `${r.top + r.height / 2}px`);
+    html.classList.add('washing');
+    doc.startViewTransition(() => set(next)).finished.finally(() => html.classList.remove('washing'));
+  }));
+
+  // No choice made yet: keep following the system setting if it changes.
+  dark.addEventListener('change', (e) => { if (!stored()) set(e.matches); });
+  sync();
+</script>

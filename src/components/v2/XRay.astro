@@ -34,7 +34,7 @@ const { variant = 'bar' } = Astro.props;
   .xr-bar a { text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
   #xr-layer { position: absolute; left: 0; top: 0; z-index: 40; pointer-events: none; overflow: hidden; }
   .xr-box { position: absolute; outline: 1px dashed var(--reef); outline-offset: 0; border-radius: 4px; animation: xr-in var(--dur-base) var(--ease); }
-  .xr-tag { position: absolute; left: -1px; bottom: calc(100% + 4px); white-space: nowrap; padding: 2px 7px; border-radius: 4px; background: var(--teal-text); color: var(--white);
+  .xr-tag { position: absolute; left: -1px; bottom: calc(100% + 4px); white-space: nowrap; padding: 2px 7px; border-radius: 4px; background: var(--teal-text); color: var(--on-ink);
     font-family: var(--font-label); font-size: var(--text-label); line-height: 1.5; letter-spacing: 0.02em; max-width: calc(100vw - 8px); overflow: hidden; text-overflow: ellipsis; }
   .xr-box.is-low .xr-tag { bottom: auto; top: calc(100% + 4px); }
   .xr-box.is-right .xr-tag { left: auto; right: -1px; }
