@@ -28,7 +28,8 @@ updated 2026-10-06 (card session: business card, /card, email signature, docs)
   Shauna sends from Apple Mail as well as Gmail: the signature goes in both. Later: DMARC
   p=none -> p=quarantine after ~2 clean weeks; drop mailchannels + dreamhost key once DreamHost goes.
 - Email signature (text-only HTML, Helvetica, matches card): ADDED to Gmail web for hello@ as "Shauna"
-  2026-10-06 (default for new + reply, above quoted text). Apple Mail + iPhone: Shauna to add.
+  2026-10-06 (default for new + reply, above quoted text). Also in Apple Mail (Mac, designed version)
+  and iPhone Mail (plain line). All verified by test sends; iPhone also passes SPF/DKIM/DMARC. EMAIL DONE.
 
 ## Website (OTHER session owns it; not this one)
 - Branch `fonts-funnel` (local): Funnel Display + Funnel Sans site-wide + a WIP commit pointing
