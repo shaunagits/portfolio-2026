@@ -1,0 +1,270 @@
+---
+/**
+ * Lead case study: the rescue platform's design system (design file: "Case study · rescue").
+ * Illustrations (icon tiles, care card, decision sketches, tab bar) come straight from the
+ * canvas in src/data/case-rescue-art.json, recoloured to tokens. Facts confirmed by Shauna.
+ */
+import LayoutV2 from '../../layouts/LayoutV2.astro';
+import PhoneFrame from '../../components/v2/PhoneFrame.astro';
+import art from '../../data/case-rescue-art.json';
+import tokens from '../../../tokens/tokens.json';
+
+const meta = [['Role', 'Design and code, start to finish'], ['Year', '2026'], ['Apps', 'Website, admin app, foster app'], ['Status', 'Live. Foster app in pilot.']];
+const stats = [['950+', 'dogs in one place'], ['1,775', 'donations tracked'], ['Instant', 'replies to applicants. It used to take 3.6 days.']];
+const system = [['3', 'apps'], ['9', 'icons'], ['4', 'core components'], ['1', 'set of tokens']];
+const problem = [
+  'Dogs, fosters, applications and donations lived in six separate tools.',
+  'Public listings were updated by hand, so they were often out of date.',
+  'Each app looked a little different. Nothing felt like one rescue.',
+];
+const decisions = [
+  { art: art.dec1, t: 'Icons drawn from the logo.', d: 'Option B was cleaner, but it could have been any app. Option A borrows the logo’s house and paw, so the app feels like the rescue’s own.' },
+  { art: art.dec2, t: 'No halo on Waiting.', d: 'A paw with a halo read like a pet that had passed. Waiting became a paw and a clock.' },
+  { art: art.dec3, t: 'One page, not four tabs.', d: 'Tabs hid today’s care behind a tap. One page puts what’s due right at the top.' },
+];
+const parts = [
+  ['Tab bar', 'Four places to go. The one you’re on sits on a soft tile, and its accent moves once.'],
+  ['Care card', 'One dog, what’s due, and one button: Mark Given.'],
+  ['Request card', 'A clear ask, the dates, and one button: I Can Help.'],
+  ['Message row', 'Photo, name, one line and a time. Nothing else.'],
+];
+const tokenRows = [
+  ['color.ink', '#0B1416', 'ink'], ['color.accent', '#2C8C99', 'reef'], ['color.accent.text', '#1F6A75', 'teal-text'], ['icon.tile.selected', '#E2F0F1', 'reef-tint'],
+  ['icon.stroke', '1.8 idle, 2.0 selected', ''], ['motion.select', '320ms', ''], ['motion.curve', tokens.motion.ease, ''],
+];
+const access = [['44px', 'Every tap target is at least 44 pixels.'], ['Labels', 'Every icon has a text label.'], ['AA', 'All text meets WCAG AA contrast.']];
+const next = ['Take the foster app out of pilot.', 'Write usage notes for each component, so every new screen starts from the kit, whether I build it or Claude does.'];
+---
+<LayoutV2 title="Rescue platform design system · Case study · Shauna Arnold" description="Three apps that finally speak the same language: the icon set, components and tokens I designed and built for an animal rescue’s website, admin app and foster app.">
+  <article>
+    <header class="cs-top wrap">
+      <a class="back meta" href="/#work">← All work</a>
+      <div class="cs-head">
+        <div>
+          <p class="label">Case study · Design system</p>
+          <h1 data-xray="display-xl">Three apps that finally speak the same language.</h1>
+        </div>
+        <p class="cs-lede">The rescue ran on six tools that didn’t talk to each other. I designed one set of icons, colours and components, then built them into its website, admin app and foster app.</p>
+      </div>
+      <dl class="cs-meta">{meta.map(([k, v]) => <div><dt class="meta">{k}</dt><dd>{v}</dd></div>)}</dl>
+    </header>
+
+    <div class="wrap">
+      <div class="panel" role="img" aria-label="The system at a glance: nine icons, a care card with a Mark Given button, and four tokens">
+        <div class="panel-col"><p class="meta">Icons</p><div class="frag" set:html={art.icons} /></div>
+        <div class="panel-col panel-col--c"><p class="meta">Components</p><div class="frag frag--care" set:html={art.care} /></div>
+        <div class="panel-col"><p class="meta">Tokens</p><div class="frag frag--tokens" set:html={art.tokens} /></div>
+      </div>
+
+      <div class="stats">{stats.map(([n, l]) => <div class="stat"><span class="stat-n">{n}</span><span class="stat-l">{l}</span></div>)}</div>
+      <div class="sysline"><span class="meta">The system</span><ul>{system.map(([n, l]) => <li><span class="sl-n">{n}</span>{l}</li>)}</ul></div>
+    </div>
+
+    <section class="sec sec--rule wrap" aria-labelledby="p-h">
+      <div class="two">
+        <div><p class="label">01 · The problem</p><h2 class="h2" id="p-h">Six tools. No shared language.</h2></div>
+        <ol class="numlist">{problem.map((p, i) => <li><span class="nl-n">0{i + 1}</span><p>{p}</p></li>)}</ol>
+      </div>
+    </section>
+
+    <section class="sec sec--sand" aria-labelledby="d-h">
+      <div class="wrap">
+        <div class="sec-head">
+          <div><p class="label">02 · Decisions</p><h2 class="h2" id="d-h">Three calls that shaped it.</h2></div>
+          <p class="muted">I designed every option on screen before choosing. These are the ones that changed the system.</p>
+        </div>
+        <div class="dec-grid">
+          {decisions.map((d, i) => (
+            <div class="dec">
+              <div class="dec-art" aria-hidden="true" set:html={d.art} />
+              <div class="dec-txt"><span class="nl-n">0{i + 1}</span><h3>{d.t}</h3><p class="muted">{d.d}</p></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="sec wrap" aria-labelledby="i-h">
+      <div class="sec-head">
+        <div><p class="label">03 · The icon set</p><h2 class="h2" id="i-h">Drawn for the work fosters actually do.</h2></div>
+        <p class="muted">Medicine, vet visits, transport, waiting for a home. Stock icon packs don’t have these, so I drew them. One grid, one stroke, one accent. When you select an icon, its accent moves once.</p>
+      </div>
+      <div class="iconset">
+        <div class="frag frag--cons" aria-hidden="true" set:html={art.cons} />
+        <div class="frag frag--right" set:html={art.iconright} />
+      </div>
+    </section>
+
+    <section class="sec sec--sand" aria-labelledby="c-h">
+      <div class="wrap">
+        <div class="sec-head">
+          <div><p class="label">04 · Components</p><h2 class="h2" id="c-h">Four parts run most of the foster app.</h2></div>
+          <p class="muted">Each one does one job and has one main button.</p>
+        </div>
+        <div class="comp">
+          <div class="comp-art">
+            <div class="phones">
+              <div class="ph ph-1"><span class="badge">02</span><PhoneFrame src="/images/v2/rescue-home.jpg" alt="Foster app home: each dog in care with what is due and a Mark given button" /></div>
+              <div class="ph ph-2"><span class="badge">03</span><PhoneFrame src="/images/v2/rescue-cover-request.jpg" alt="Vacation cover request: the dates, drop-off details and an I can help button" /></div>
+              <div class="ph ph-3"><span class="badge">04</span><PhoneFrame src="/images/v2/rescue-messages.jpg" alt="Messages: rescue updates, requests from other fosters, and conversations" /></div>
+            </div>
+            <div class="frag frag--tab" aria-hidden="true" set:html={art.tabbar} />
+          </div>
+          <ol class="parts">{parts.map(([t, d], i) => <li><span class="badge badge--in">0{i + 1}</span><div><h3>{t}</h3><p class="muted">{d}</p></div></li>)}</ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec wrap" aria-labelledby="t-h">
+      <div class="sec-head">
+        <div><p class="label">05 · Tokens + code</p><h2 class="h2" id="t-h">Set once. Used in all three apps.</h2></div>
+        <p class="muted">Colour, type, spacing and motion are defined once. The website, admin app and foster app all use them, so one change shows up everywhere.</p>
+      </div>
+      <div class="tk">
+        <div class="card">
+          <p class="meta tk-cap">Token values</p>
+          <ul class="tk-rows">
+            {tokenRows.map(([n, v, sw]) => <li>{sw ? <span class="tk-sw" style={`background:var(--${sw})`}></span> : <span class="tk-sw tk-sw--none"></span>}<span class="tk-n">{n}</span><span class="tk-v">{v}</span></li>)}
+          </ul>
+        </div>
+        <div>
+          <div class="code">
+            <div class="code-top">Usage · same in all three apps</div>
+            <pre>{`// one icon, every app
+<Icon name="medicine" />
+<Icon name="home" selected />
+
+// one card, every dog
+<CareCard dog={dog} due={dose}
+  action="Mark Given" />`}</pre>
+          </div>
+          <p class="muted code-note">I built the components with Claude Code, so the design and the app use the same parts.</p>
+        </div>
+      </div>
+      <div class="access"><span class="meta">Built for one hand, one glance</span>{access.map(([k, v]) => <div><span class="ac-k">{k}</span><p>{v}</p></div>)}</div>
+    </section>
+
+    <section class="sec sec--rule wrap" aria-labelledby="n-h">
+      <div class="two">
+        <div><p class="label">06 · What’s next</p><h2 class="h2" id="n-h">What I’d do next.</h2></div>
+        <ol class="numlist">{next.map((p, i) => <li><span class="nl-n">0{i + 1}</span><p>{p}</p></li>)}</ol>
+      </div>
+    </section>
+
+    <section class="nextcs">
+      <div class="wrap nextcs-in">
+        <div><p class="meta">Next case study</p><p class="nextcs-t">Field operations platform for animal welfare outreach</p></div>
+        <div class="nextcs-b"><a class="btn btn--koa" href="/resume/">View Résumé</a><a class="btn" href="/work/aao-ecosystem/">Read Next</a></div>
+      </div>
+    </section>
+  </article>
+</LayoutV2>
+
+<style>
+  .cs-top { padding-block: var(--space-8) var(--space-7); }
+  .back { display: inline-block; margin-bottom: var(--space-6); }
+  .back:hover { color: var(--ink); }
+  .cs-head { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--space-7); align-items: end; }
+  .cs-head h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.5rem, 4.8vw, 4.25rem); line-height: 1.02; letter-spacing: -0.03em; margin-top: var(--space-4); text-wrap: balance; }
+  .cs-lede { font-size: 1.125rem; line-height: 1.6; }
+  .cs-meta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-6); margin-top: var(--space-8); }
+  .cs-meta div { display: flex; flex-direction: column; gap: var(--space-2); padding-top: 14px; border-top: 1px solid var(--line); }
+
+  .frag :global(svg) { max-width: 100%; }
+  .panel { display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(0, 360px); gap: var(--space-7); align-items: start; padding: var(--space-8) var(--space-8) var(--space-8); border-radius: 24px; background: var(--sand); }
+  .panel-col { display: flex; flex-direction: column; gap: var(--space-4); }
+  .panel-col--c { align-items: center; }
+  .frag--care { width: 100%; display: flex; flex-direction: column; align-items: center; }
+  .frag--care > :global(div) { width: 100%; align-items: center; }
+  .frag--care :global(> div > span:first-child) { display: none; }
+  .frag--tokens :global(> div > span:first-child) { display: none; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); margin-top: var(--space-8); }
+  .stat { display: flex; flex-direction: column; gap: 10px; padding-top: 18px; border-top: 2px solid var(--ink); }
+  .stat-n { font-family: var(--font-display); font-size: clamp(2.75rem, 4.2vw, 3.75rem); line-height: 1; letter-spacing: -0.03em; }
+  .stat-l { font-size: 1.0625rem; color: var(--muted); }
+  .sysline { display: flex; align-items: center; gap: var(--space-7); margin-top: var(--space-7); padding: 20px 28px; border-radius: var(--radius-card); background: var(--card); border: 1px solid var(--line-soft); }
+  .sysline ul { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-7); }
+  .sysline li { display: flex; align-items: baseline; gap: 10px; color: var(--muted); }
+  .sl-n { font-family: var(--font-display); font-size: 1.75rem; color: var(--teal-text); }
+
+  .sec { padding-block: var(--space-9); }
+  .sec--sand { background: var(--sand); }
+  .sec--rule { border-top: 1px solid var(--line); }
+  .sec-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: var(--space-6) var(--space-7); align-items: end; margin-bottom: var(--space-7); }
+  .sec-head .h2, .two .h2 { margin-top: var(--space-3); }
+  .two { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--space-7); }
+  .numlist li { display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 18px 0; border-top: 1px solid var(--line); font-size: 1.125rem; }
+  .nl-n { font-family: var(--font-label); font-size: 0.8125rem; color: var(--teal-text); padding-top: 4px; }
+
+  .dec-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); }
+  .dec { display: flex; flex-direction: column; gap: 22px; padding: 28px; border-radius: 20px; background: var(--card); border: 1px solid var(--line-soft); }
+  .dec-art { min-height: 190px; overflow: hidden; }
+  .dec-art > :global(div) { min-height: 0 !important; }
+  .dec-txt { display: flex; flex-direction: column; gap: 10px; padding-top: 20px; border-top: 1px solid var(--line); }
+  .dec-txt h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; line-height: 1.15; }
+
+  .iconset { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: var(--space-8); align-items: center; }
+  .frag--cons > :global(div) { width: 100% !important; height: auto !important; aspect-ratio: 1; }
+  .frag--cons :global(svg) { width: 100%; height: auto; }
+
+  .comp-art { min-width: 0; }
+  .comp { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--space-7); align-items: start; }
+  .phones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); align-items: start; }
+  .ph { position: relative; }
+  .ph-2 { margin-top: 48px; }
+  .badge { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: var(--white); font-family: var(--font-label); font-size: 0.8125rem; box-shadow: 0 0 0 3px var(--sand); }
+  .ph .badge { position: absolute; left: -10px; top: 90px; z-index: 2; }
+  .frag--tab { display: flex; justify-content: center; margin-top: var(--space-6); }
+  .frag--tab > :global(div) { max-width: 100%; }
+  .parts li { display: grid; grid-template-columns: 44px 1fr; gap: 12px; padding: 20px 0; border-top: 1px solid var(--line); }
+  .badge--in { box-shadow: none; }
+  .parts h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; margin-bottom: 6px; }
+
+  .tk { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); align-items: start; }
+  .card { border: 1px solid var(--line-soft); border-radius: var(--radius-card); padding: 24px 28px 12px; background: var(--card); }
+  .tk-cap { margin-bottom: 12px; }
+  .tk-rows li { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 0.9375rem; }
+  .tk-sw { width: 24px; height: 24px; border-radius: 6px; border: 1px solid var(--line); flex: none; }
+  .tk-sw--none { border-color: transparent; }
+  .tk-n { font-family: var(--font-label); }
+  .tk-v { margin-left: auto; font-family: var(--font-label); color: var(--muted); text-align: right; }
+  .code { border-radius: var(--radius-card); overflow: hidden; background: var(--ink); color: var(--term-text); }
+  .code-top { padding: 14px 20px; border-bottom: 1px solid rgba(var(--white-rgb), 0.1); font-family: var(--font-label); font-size: 0.8125rem; color: var(--term-dim); }
+  .code pre { padding: 20px; font-family: var(--font-label); font-size: 0.875rem; line-height: 1.6; white-space: pre-wrap; }
+  .code-note { margin-top: var(--space-4); }
+  .access { display: grid; grid-template-columns: auto 1fr 1fr 1fr; gap: var(--space-6); align-items: baseline; margin-top: var(--space-7); padding: 28px; border-radius: var(--radius-card); background: var(--sand); }
+  .access > div { display: flex; align-items: baseline; gap: 12px; }
+  .ac-k { font-family: var(--font-display); font-size: 1.375rem; color: var(--teal-text); }
+
+  .nextcs { background: var(--sand); padding-block: var(--space-8) var(--space-9); }
+  .nextcs-in { display: grid; grid-template-columns: 1fr auto; gap: var(--space-6); align-items: center; }
+  .nextcs-t { font-family: var(--font-display); font-size: clamp(1.75rem, 2.8vw, 2.5rem); line-height: 1.1; margin-top: var(--space-3); max-width: 820px; }
+  .nextcs-b { display: flex; gap: var(--space-5); flex-wrap: wrap; }
+
+  @media (max-width: 1100px) {
+    .panel { grid-template-columns: auto minmax(0, 1fr); padding: var(--space-7); }
+    .panel-col:last-child { grid-column: 1 / -1; }
+    .dec-grid { grid-template-columns: 1fr 1fr; }
+    .access { grid-template-columns: 1fr 1fr; }
+    .access > .meta { grid-column: 1 / -1; }
+  }
+  @media (max-width: 979px) {
+    .cs-head, .sec-head, .two, .iconset, .comp, .tk, .nextcs-in { grid-template-columns: 1fr; }
+    .cs-head { gap: var(--space-5); }
+    .cs-meta { grid-template-columns: 1fr 1fr; gap: var(--space-5); margin-top: var(--space-7); }
+    .panel { grid-template-columns: 1fr; padding: var(--space-6) var(--space-5); gap: var(--space-7); }
+    .stats { grid-template-columns: 1fr; gap: var(--space-5); }
+    .sysline { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+    .sec { padding-block: var(--space-8); }
+    .dec-grid { grid-template-columns: 1fr; }
+    .dec-art { min-height: 0; }
+    .iconset { gap: var(--space-6); }
+    .frag--cons { max-width: 320px; }
+    .frag--right :global(div[style*='repeat(9']) { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; row-gap: 16px !important; }
+    .frag--right :global(div[style*='repeat(4']) { grid-template-columns: 1fr 1fr !important; }
+    .phones { gap: var(--space-3); }
+    .ph .badge { left: -6px; top: 40px; width: 28px; height: 28px; font-size: 0.75rem; }
+    .access { grid-template-columns: 1fr; gap: var(--space-4); }
+  }
+</style>

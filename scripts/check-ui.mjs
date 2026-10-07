@@ -21,7 +21,7 @@ const lum = (h) => { const c = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 
 const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
 const all = { ...tokens.color, ...tokens.art };
 const lowPairs = tokens.contrast.pairs.map(([f, b]) => [f, b, ratio(all[f], all[b])]).filter(([, , r]) => r < 4.5).map(([f, b, r]) => `${f} on ${b} is ${r.toFixed(2)}:1`);
-const srcFiles = walk(join(root, 'src')).filter((p) => /src\/(styles\/v2\.css|components\/v2\/|layouts\/LayoutV2|pages\/(index|system|resume)\.astro)/.test(p));
+const srcFiles = walk(join(root, 'src')).filter((p) => /src\/(styles\/v2\.css|components\/v2\/|layouts\/LayoutV2|pages\/(index|system|resume|work\/rescue-platform)\.astro)/.test(p));
 // --reef (3.73:1) is for graphics only: logo mark, accent period, arrows. Mark those lines `/* graphic */`.
 const reefText = srcFiles.flatMap((f) => readFileSync(f, 'utf8').split('\n').map((l, i) => [l, i + 1])
   .filter(([l]) => /(^|[^-])color:\s*var\(--reef\)/.test(l) && !l.includes('/* graphic */'))
