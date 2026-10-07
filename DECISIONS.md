@@ -229,3 +229,11 @@ Locked reasoning. Append new decisions; don't rewrite history.
   fonts, and image signatures get blocked or show as attachments.
 - Email auth gap found: SPF lacks Google, and there is no Google DKIM (only a leftover DreamHost
   key). Records supplied to Shauna; she applies them (house rule: Claude doesn't edit live DNS).
+
+## 2026-10-06 (late) — Two QR codes, two jobs
+- Printed card QR -> https://shauna.digital/card (a URL): the page can change forever without
+  reprinting. Lock-screen / digital QR -> the vCard itself: one scan, "Add to Contacts", works with
+  no signal at events (the Gala), but it is frozen, so regenerate it if contact details change.
+- No web page can add a contact by itself (iOS/Android don't allow it); /card's Save Contact is the
+  one-tap path and opens the phone's own contact sheet.
+- Signature keeps the teal "fits" (matches the card); review panel's no-highlight note was optional.

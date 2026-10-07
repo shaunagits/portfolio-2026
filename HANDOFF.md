@@ -19,6 +19,12 @@ updated 2026-10-06 (card session: business card, /card, email signature, docs)
   re-export. The QR URL is printed: /card must never move. Scan a proof before the print run.
 - Card font set B = Funnel Display (name, tagline) / Archivo (title) / Space Grotesk (contact).
 
+## Contact QR (lock screen) 2026-10-06
+- Made in chat, not in the repo: Shauna-lockscreen-QR.png (1320x2868, iPhone 16 Pro Max) + Shauna-contact-QR.png.
+  The QR holds the vCard ITSELF (name, title, email, phone, shauna.digital), so scanning offers Add to
+  Contacts with no website or signal. It is static: if the phone/email/title changes, regenerate it.
+  The printed card's QR is different on purpose: it points at /card, which can change any time.
+
 ## Email
 - hello@shauna.digital is Google Workspace, in daily use (MX smtp.google.com).
 - DONE 2026-10-06 (Shauna applied in Namecheap): SPF = `v=spf1 include:_spf.google.com
