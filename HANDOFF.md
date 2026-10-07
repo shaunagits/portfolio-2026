@@ -24,7 +24,8 @@ updated 2026-10-06 (card session: business card, /card, email signature, docs)
 - DONE 2026-10-06 (Shauna applied in Namecheap): SPF = `v=spf1 include:_spf.google.com
   include:mailchannels.net ~all`; Google DKIM TXT at google._domainkey (2048-bit), verified live
   on Namecheap NS + 8.8.8.8 + 1.1.1.1. Google Admin status: "Authenticating email with DKIM"
-  (2026-10-06). Still to do: a test send (Show original: SPF/DKIM/DMARC PASS). Later: DMARC
+  (2026-10-06). VERIFIED by test send 2026-10-06: SPF PASS, DKIM PASS (shauna.digital), DMARC PASS.
+  Shauna sends from Apple Mail as well as Gmail: the signature goes in both. Later: DMARC
   p=none -> p=quarantine after ~2 clean weeks; drop mailchannels + dreamhost key once DreamHost goes.
 - Email signature (text-only HTML, Helvetica, matches card) delivered in chat 2026-10-06.
 
