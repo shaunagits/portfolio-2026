@@ -1,0 +1,127 @@
+---
+/**
+ * X-ray: a header toggle that outlines the tokens and components behind any page.
+ * Mark an element with data-xray="<token>" and the tag is measured live from the
+ * rendered page: typeface, size/line-height, colour token and its contrast.
+ * data-xray-kind="raw" + data-xray-note="..." shows a fixed note instead (media, cards).
+ * Buttons (.btn) read their offset and duration from the tokens.
+ * State is remembered between pages for this visitor only.
+ */
+import Icon from './Icon.astro';
+interface Props { variant?: 'bar' | 'menu' }
+const { variant = 'bar' } = Astro.props;
+---
+<button type="button" class:list={['xr-btn', variant === 'menu' && 'xr-btn--menu']} data-xray-toggle aria-pressed="false">
+  <Icon name="nav-xray" size={16} /><span>X-ray</span><span class="xr-state" aria-hidden="true">Off</span>
+</button>
+
+<style>
+  .xr-btn { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid rgba(var(--ink-rgb), 0.2); border-radius: var(--radius-pill);
+    font-family: var(--font-label); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); background: transparent;
+    transition: background var(--dur-base) var(--ease), border-color var(--dur-base) var(--ease); }
+  .xr-btn:hover { border-color: var(--ink); }
+  .xr-btn[aria-pressed='true'] { background: var(--reef-tint); border-color: var(--reef); color: var(--teal-text); }
+  .xr-state { color: var(--muted); }
+  .xr-btn[aria-pressed='true'] .xr-state { color: var(--teal-text); }
+  .xr-btn--menu { margin-top: 24px; align-self: flex-start; min-height: 44px; }
+</style>
+
+<style is:global>
+  .xr-bar { display: none; }
+  html.xray .xr-bar { display: flex; }
+  .xr-bar { align-items: center; justify-content: space-between; gap: 16px; padding: 10px var(--gutter); background: var(--reef-tint); border-top: 1px solid var(--reef-line); border-bottom: 1px solid var(--reef-line); font-family: var(--font-label); font-size: 0.8125rem; color: var(--teal-text); }
+  .xr-bar strong { font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-right: 12px; }
+  .xr-bar a { text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+  #xr-layer { position: absolute; left: 0; top: 0; z-index: 40; pointer-events: none; overflow: hidden; }
+  .xr-box { position: absolute; outline: 1px dashed var(--reef); outline-offset: 0; border-radius: 4px; animation: xr-in var(--dur-base) var(--ease); }
+  .xr-tag { position: absolute; left: -1px; bottom: calc(100% + 4px); white-space: nowrap; padding: 2px 7px; border-radius: 4px; background: var(--teal-text); color: var(--white);
+    font-family: var(--font-label); font-size: 11px; line-height: 1.5; letter-spacing: 0.02em; max-width: calc(100vw - 8px); overflow: hidden; text-overflow: ellipsis; }
+  .xr-box.is-low .xr-tag { bottom: auto; top: calc(100% + 4px); }
+  .xr-box.is-right .xr-tag { left: auto; right: -1px; }
+  @keyframes xr-in { from { opacity: 0; } to { opacity: 1; } }
+  @media (max-width: 979px) { .xr-bar { font-size: 0.75rem; } .xr-bar .xr-long { display: none; } }
+</style>
+
+<script>
+  const KEY = 'shauna-xray';
+  const html = document.documentElement;
+  const read = () => { try { return localStorage.getItem(KEY) === 'on'; } catch { return false; } };
+  const save = (on: boolean) => { try { localStorage.setItem(KEY, on ? 'on' : 'off'); } catch { /* storage blocked: still works for this page */ } };
+
+  // Token lookup: computed colour -> token name, read from :root so it can't drift from tokens.css.
+  const names = ['ink', 'muted', 'teal-text', 'reef', 'koa', 'white', 'paper', 'sand', 'card', 'reef-tint'];
+  const probe = document.createElement('span');
+  const rgbOf = (css: string) => { probe.style.color = css; document.body.appendChild(probe); const v = getComputedStyle(probe).color; probe.remove(); return v; };
+  let map: Record<string, string> | null = null;
+  const tokenFor = (rgb: string) => {
+    map ??= Object.fromEntries(names.map((n) => [rgbOf(`var(--${n})`), n]));
+    return map[rgb] ?? rgb;
+  };
+  const parse = (rgb: string) => (rgb.match(/[\d.]+/g) ?? []).slice(0, 4).map(Number);
+  const lum = ([r, g, b]: number[]) => { const c = [r, g, b].map((x) => { x /= 255; return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; }); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; };
+  const bgOf = (el: Element | null): string => {
+    while (el) { const bg = getComputedStyle(el).backgroundColor; const a = parse(bg)[3]; if (bg && bg !== 'transparent' && (a === undefined || a > 0.6)) return bg; el = el.parentElement; }
+    return getComputedStyle(document.body).backgroundColor;
+  };
+  const describe = (el: HTMLElement) => {
+    const name = el.dataset.xray ?? '';
+    if (el.dataset.xrayKind === 'raw') return el.dataset.xrayNote ?? name;
+    const cs = getComputedStyle(el);
+    if (el.classList.contains('btn')) {
+      const root = getComputedStyle(html);
+      const dur = root.getPropertyValue('--dur-base').trim();
+      const ms = /ms$/.test(dur) ? dur : `${Math.round(parseFloat(dur) * 1000)}ms`;
+      return `button · offset ${cs.getPropertyValue('--btn-offset').trim() || root.getPropertyValue('--btn-offset').trim()} · ease ${ms}`;
+    }
+    const fam = cs.fontFamily.split(',')[0].replace(/['"]/g, '');
+    const size = parseFloat(cs.fontSize);
+    const lh = cs.lineHeight === 'normal' ? '' : `/${(parseFloat(cs.lineHeight) / size).toFixed(2).replace(/0$/, '')}`;
+    const fg = parse(cs.color), bg = parse(bgOf(el));
+    const [hi, lo] = [lum(fg), lum(bg)].sort((a, b) => b - a);
+    const ratio = ((hi + 0.05) / (lo + 0.05)).toFixed(1);
+    return `${name} · ${fam} ${Math.round(size)}${lh} · ${tokenFor(cs.color)} ${ratio}:1`;
+  };
+
+  let layer: HTMLDivElement | null = null;
+  const draw = () => {
+    layer?.remove(); layer = null;
+    if (!html.classList.contains('xray')) return;
+    const placed: [number, number, number, number][] = [];
+    layer = document.createElement('div'); layer.id = 'xr-layer';
+    layer.style.width = `${document.documentElement.clientWidth}px`; layer.style.height = `${document.documentElement.scrollHeight}px`; layer.setAttribute('aria-hidden', 'true');
+    document.querySelectorAll<HTMLElement>('[data-xray]').forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (!r.width || !r.height || getComputedStyle(el).visibility === 'hidden') return;
+      const box = document.createElement('div'); box.className = 'xr-box';
+      const pad = 4;
+      const bx = Math.max(2, r.left + scrollX - pad), bw = Math.min(r.width + pad * 2, document.documentElement.clientWidth - bx - 2);
+      Object.assign(box.style, { left: `${bx}px`, top: `${r.top + scrollY - pad}px`, width: `${bw}px`, height: `${r.height + pad * 2}px` });
+      const tag = document.createElement('span'); tag.className = 'xr-tag'; tag.textContent = describe(el);
+      box.appendChild(tag); layer!.appendChild(box);
+      // Keep tags from colliding: try above-left, then above-right, then below.
+      const x = bx, y = r.top + scrollY - pad, w = tag.offsetWidth, h = tag.offsetHeight + 4;
+      const spots: [string, number, number][] = [['', x, y - h], ['is-right', x + bw - w, y - h], ['is-low', x, y + r.height + pad * 2 + 4]];
+      const hit = (sx: number, sy: number) => sy < 124 || placed.some(([px, py, pw, ph]) => sx < px + pw && sx + w > px && sy < py + ph && sy + h > py);
+      const spot = spots.find(([, sx, sy]) => !hit(sx, sy)) ?? spots[2];
+      if (spot[0]) box.classList.add(spot[0]);
+      placed.push([spot[1], spot[2], w, h]);
+      // Small boxes also block tags (so a tag never covers another tagged line of text).
+      if (r.height < 200) placed.push([x, y, r.width + pad * 2, r.height + pad * 2]);
+    });
+    document.body.appendChild(layer);
+  };
+
+  const set = (on: boolean) => {
+    html.classList.toggle('xray', on);
+    document.querySelectorAll<HTMLButtonElement>('[data-xray-toggle]').forEach((b) => {
+      b.setAttribute('aria-pressed', String(on));
+      const st = b.querySelector('.xr-state'); if (st) st.textContent = on ? 'On' : 'Off';
+    });
+    draw();
+  };
+  document.querySelectorAll<HTMLButtonElement>('[data-xray-toggle]').forEach((b) => b.addEventListener('click', () => { const on = !html.classList.contains('xray'); save(on); set(on); }));
+  let t = 0;
+  addEventListener('resize', () => { clearTimeout(t); t = window.setTimeout(draw, 120); });
+  document.fonts?.ready.then(() => { if (read()) set(true); });
+  if (read()) set(true);
+</script>

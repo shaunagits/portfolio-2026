@@ -13,20 +13,20 @@ const pdf = '/shauna-arnold-resume.pdf';
   <article class="rs wrap">
     <header class="rs-top">
       <p class="label rs-screen">Résumé</p>
-      <h1 class="rs-name">{r.name}</h1>
+      <h1 class="rs-name" data-xray="display-xl">{r.name}</h1>
       <p class="rs-role">{r.headline} <span class="rs-dot" aria-hidden="true">·</span> {r.focus}</p>
       <p class="rs-contact">
         <span>{r.location}</span>
         {r.contact.map((c) => <a href={c.href}>{c.label}</a>)}
       </p>
       <div class="rs-actions rs-screen">
-        <a class="btn" href={pdf} download="Shauna-Arnold-Resume.pdf">Download PDF</a>
+        <a class="btn" data-xray="button" href={pdf} download="Shauna-Arnold-Resume.pdf">Download PDF</a>
         <a class="btn btn--koa" href="https://shauna.digital/contact/">Work With Me <Icon name="nav-external" size={16} /></a>
       </div>
     </header>
 
     <section class="rs-sec">
-      <h2 class="rs-h">Summary</h2>
+      <h2 class="rs-h" data-xray="label">Summary</h2>
       <div class="rs-body">{r.summary.map((s) => <p>{s}</p>)}</div>
     </section>
 

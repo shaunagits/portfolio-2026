@@ -1,6 +1,7 @@
 ---
 import LogoS from '../LogoS.astro';
 import Icon from './Icon.astro';
+import XRay from './XRay.astro';
 interface Props { overHero?: boolean }
 const { overHero = false } = Astro.props;
 const path = Astro.url.pathname;
@@ -20,16 +21,19 @@ const items = [
       {items.map((i) => (
         <a href={i.href} aria-current={path === i.href ? 'page' : undefined}><Icon name={i.icon} size={18} />{i.label}</a>
       ))}
+      <XRay />
       <a href="https://shauna.digital/contact/" class="btn sh-cta">Work With Me<Icon name="nav-external" size={16} /><span class="sr-only">(opens shauna.digital)</span></a>
     </nav>
     <button type="button" class="sh-toggle" aria-expanded="false" aria-controls="sh-menu" aria-label="Open menu">
       <Icon name="menu" size={20} class="i-open" /><Icon name="close" size={18} class="i-close" />
     </button>
   </div>
+  <div class="xr-bar" role="status"><span><strong>X-ray on</strong><span class="xr-long">You are seeing the tokens and components behind this page.</span></span><a href="/system/">Open the System Page →</a></div>
   <div class="sh-menu" id="sh-menu" hidden>
     <nav aria-label="Menu">
       <a href="/">Home</a>
       {items.map((i) => <a href={i.href}><Icon name={i.icon} size={22} />{i.label}</a>)}
+      <XRay variant="menu" />
       <a href="https://shauna.digital/contact/" class="btn">Work With Me<Icon name="nav-external" size={16} /></a>
     </nav>
   </div>

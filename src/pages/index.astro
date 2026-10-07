@@ -8,6 +8,7 @@ import LayoutV2 from '../layouts/LayoutV2.astro';
 import Icon from '../components/v2/Icon.astro';
 import PhoneFrame from '../components/v2/PhoneFrame.astro';
 import BrowserFrame from '../components/v2/BrowserFrame.astro';
+import { checks } from '../data/checks';
 
 const tiles = [
   ['tile-home', 'Home'], ['tile-messages', 'Messages'], ['tile-waiting', 'Waiting'],
@@ -24,39 +25,32 @@ const steps = [
   { t: 'Built with Claude Code', a: 'Each page is built on its own branch, reviewed on a preview deployment, and merged only after it feels right in context.', b: 'AI speeds up the implementation. The product decisions are still mine.' },
   { t: 'Checked by rules', a: 'The design system is written down in code, not held together by memory.', b: 'Automated checks catch the small inconsistencies that usually creep in as a product grows.' },
 ];
-const checks = [
-  'Text contrast stays at or above 4.5:1, including interactive states',
-  'Colour, typography, and spacing come from shared tokens',
-  'Buttons use consistent casing and language',
-  'Images include alternative text and controls have accessible labels',
-  'Motion follows one system and respects reduced-motion preferences',
-];
 ---
 <LayoutV2 headerOverHero>
   <link slot="head" rel="preload" as="image" href="/media/hero-poster.jpg" />
 
   <!-- Hero -->
   <section class="hero" aria-labelledby="hero-h" data-hero>
-    <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/media/hero-poster.jpg"
+    <video class="hero-video" data-xray="media" data-xray-kind="raw" data-xray-note="media/hero · loop · pauses for reduced motion" autoplay muted loop playsinline preload="metadata" poster="/media/hero-poster.jpg"
       aria-label="Watercolour of an outrigger canoe on a white-sand beach, with palms overhead, two small islands offshore and seagulls flying past behind the palms.">
       <source src="/media/hero-720.mp4" type="video/mp4" media="(max-width: 760px)" />
       <source src="/media/hero-1280.mp4" type="video/mp4" />
     </video>
     <div class="hero-fade" aria-hidden="true"></div>
     <div class="hero-copy">
-      <p class="hero-pill">Product designer + developer · Hawaiʻi</p>
-      <h1 id="hero-h">Design systems drawn by hand and shipped in code.</h1>
+      <p class="hero-pill" data-xray="pill" data-xray-kind="raw" data-xray-note="pill · label 12 · radius-pill">Product designer + developer · Hawaiʻi</p>
+      <h1 id="hero-h" data-xray="display-xl">Design systems drawn by hand and shipped in code.</h1>
     </div>
     <button type="button" class="hero-pause" data-pause aria-pressed="false" aria-label="Pause background animation"><span aria-hidden="true">❚❚</span></button>
   </section>
 
   <!-- Intro -->
   <section class="intro wrap">
-    <p class="intro-big">I work across product design and development, usually on tools where the workflow behind the screen matters just as much as the screen itself.</p>
+    <p class="intro-big" data-xray="body-xl">I work across product design and development, usually on tools where the workflow behind the screen matters just as much as the screen itself.</p>
     <div class="intro-side">
-      <p class="muted">That has meant building software for animal rescue operations, designing phone-first tools for field teams, creating AI-assisted workflows, and turning messy internal processes into systems people can actually rely on.</p>
+      <p class="muted" data-xray="body">That has meant building software for animal rescue operations, designing phone-first tools for field teams, creating AI-assisted workflows, and turning messy internal processes into systems people can actually rely on.</p>
       <p class="muted">Before software, I spent a decade working across retail programs, marketing operations, and production for Nike and Apple.</p>
-      <div class="btn-row"><a href="#work" class="btn">See My Work</a><a href="/resume/" class="btn btn--koa">View Résumé</a></div>
+      <div class="btn-row"><a href="#work" class="btn" data-xray="button">See My Work</a><a href="/resume/" class="btn btn--koa">View Résumé</a></div>
       <p class="now"><span class="label">Now · </span>Designing systems, drawing icons, and writing the code that ships them.</p>
     </div>
   </section>
@@ -65,7 +59,7 @@ const checks = [
   <section class="lead" id="work" aria-labelledby="lead-h">
     <div class="wrap">
       <div class="split">
-        <div class="split-main"><p class="label">01 · Lead case study<span class="hide-sm"> · Design systems</span></p><h2 class="h2 lead-h2" id="lead-h">Three apps had started to feel like three different products.</h2></div>
+        <div class="split-main"><p class="label" data-xray="label">01 · Lead case study<span class="hide-sm"> · Design systems</span></p><h2 class="h2 lead-h2" id="lead-h" data-xray="display-l">Three apps had started to feel like three different products.</h2></div>
         <div class="split-side">
           <p class="muted">The public site, admin app, and foster app had each evolved on their own.</p>
           <p class="muted">I brought them back together with a custom icon set, shared components, and a common set of design tokens, then built those decisions into the products themselves.</p>
@@ -80,13 +74,13 @@ const checks = [
           <PhoneFrame src="/images/v2/rescue-cover-request.jpg" alt="Vacation cover request: what other fosters see, with an I can help button" class="lp lp-3" />
         </div>
         <div class="lead-cards">
-          <div class="card">
+          <div class="card" data-xray="card" data-xray-kind="raw" data-xray-note="card · radius-16 · icons 24 grid, 1.8 stroke">
             <div class="card-head"><span class="meta">Icon set · 24px grid · 1.8 stroke</span><span class="meta">Outline / selected</span></div>
             <ul class="tiles">
               {tiles.map(([n, l]) => <li><span class="tile"><span class="tile-ring" aria-hidden="true"></span><Icon name={n} size={32} /></span><span class="tile-l">{l}</span></li>)}
             </ul>
           </div>
-          <div class="card hide-sm">
+          <div class="card hide-sm" data-xray="tab-bar" data-xray-kind="raw" data-xray-note="tab-bar · selected = filled + reef">
             <div class="card-head"><span class="meta">Tab bar · States</span></div>
             <ul class="tabbar">
               {tabs.map(([n, l, sel]) => <li class:list={[sel && 'sel']}><Icon name={n} size={28} /><span>{l}</span></li>)}
@@ -241,6 +235,7 @@ const checks = [
   .intro { position: relative; padding-top: 72px; padding-bottom: 96px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; align-items: start; }
   .intro-big { grid-column: 1 / span 7; font-family: var(--font-display); font-size: clamp(1.4375rem, 2.2vw, 2rem); line-height: 1.28; letter-spacing: -0.01em; }
   .intro-side { grid-column: 9 / span 4; display: flex; flex-direction: column; gap: 16px; }
+  :global(html.xray) .hero-copy { transform: translate(-50%, 44px); }
   .btn-row { display: flex; gap: 16px; flex-wrap: wrap; }
   .now { padding-top: 16px; border-top: 1px solid var(--line); font-size: 0.9375rem; line-height: 1.6; }
   .now .label { font-size: 0.6875rem; letter-spacing: 0.12em; }

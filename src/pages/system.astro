@@ -1,0 +1,470 @@
+---
+/**
+ * /system: the design system behind shauna.dev (design file: "System", shauna.dev page).
+ * Every number here is read from tokens/tokens.json or DESIGN.md at build time,
+ * so the page can't drift from the code it describes.
+ */
+import LayoutV2 from '../layouts/LayoutV2.astro';
+import Icon from '../components/v2/Icon.astro';
+import BrowserFrame from '../components/v2/BrowserFrame.astro';
+import tokens from '../../tokens/tokens.json';
+import designMd from '../../DESIGN.md?raw';
+import icons from '../data/icons-system.json';
+import { checks } from '../data/checks';
+
+const c = tokens.color as Record<string, string>;
+const art = tokens.art as Record<string, string>;
+const lum = (h: string) => {
+  const ch = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255).map((x) => (x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4));
+  return 0.2126 * ch[0] + 0.7152 * ch[1] + 0.0722 * ch[2];
+};
+const ratio = (a: string, b: string) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
+
+const swatches = [
+  ['paper', 'Page background, watercolour paper'],
+  ['sand', 'Alternate section surface'],
+  ['ink', 'Text and dark surfaces · shared'],
+  ['muted', 'Secondary text'],
+  ['teal-text', 'Labels and links · shared'],
+  ['reef', 'Accent graphics · shared'],
+  ['koa', 'Warm accent, shadows and marks'],
+] as const;
+const pairs = [['ink', 'paper'], ['muted', 'paper'], ['teal-text', 'paper'], ['muted', 'sand'], ['koa', 'paper'], ['reef', 'paper']] as const;
+const artSw = [['sky', 'sky'], ['lagoon', 'lagoon'], ['art-sand', 'sand'], ['palm', 'palm']] as const;
+
+const sample = 'Drawn by hand, shipped in code';
+const types = [
+  { t: 'display-xl', cls: 'ty-dxl', s: sample, spec: 'Funnel Display · 70 / 1.02 · 500' },
+  { t: 'display-l', cls: 'ty-dl', s: sample, spec: 'Funnel Display · 52 / 1.05 · 500' },
+  { t: 'heading', cls: 'ty-h', s: sample, spec: 'Funnel Display · 46 / 1.05 · 500' },
+  { t: 'title', cls: 'ty-t', s: sample, spec: 'Funnel Display · 28 / 1.15 · 500' },
+  { t: 'body-l', cls: 'ty-bl', s: 'Design systems, built end to end.', spec: 'Archivo · 18 / 1.65 · 400' },
+  { t: 'body', cls: 'ty-b', s: 'Design systems, built end to end.', spec: 'Archivo · 16 / 1.65 · 400' },
+  { t: 'label', cls: 'ty-l', s: 'Design systems, built end to end.', spec: 'Space Grotesk · 12 / 1.4 · 500 · caps 0.14em' },
+];
+const space = tokens.space as number[];
+const motion = [
+  ['ease-standard', tokens.motion.ease, 'Every transition'],
+  ['duration-fast', tokens.motion.fast, 'Hover, press'],
+  ['duration-base', tokens.motion.base, 'Buttons, toggles, X-ray'],
+  ['duration-slow', tokens.motion.slow, 'Panels, page sections'],
+];
+const rescue = [
+  ['rescue-home', 'Home', false], ['rescue-home-selected', 'Home', true], ['rescue-messages', 'Messages', false], ['rescue-messages-selected', 'Messages', true],
+  ['rescue-waiting', 'Waiting', false], ['rescue-protected', 'Protected', false], ['rescue-medicine', 'Medicine', false], ['rescue-vet-visit', 'Vet visit', false],
+  ['rescue-event', 'Event', false], ['rescue-transport', 'Transport', false], ['rescue-notes', 'Notes', false],
+] as const;
+const dev = [['work', 'Work'], ['system', 'System'], ['about', 'About'], ['resume', 'Résumé'], ['x-ray', 'X-ray'], ['external-link', 'External link'], ['menu', 'Menu'],
+  ['close', 'Close'], ['copy', 'Copy'], ['check', 'Check'], ['download', 'Download'], ['tokens', 'Tokens'], ['motion', 'Motion'], ['build', 'Build']] as const;
+const ic = icons as Record<string, string>;
+
+// A short, real excerpt of tokens.json (the file is longer).
+const tokenExcerpt = JSON.stringify({
+  color: Object.fromEntries(['ink', 'muted', 'teal-text', 'reef', 'koa', 'paper', 'sand'].map((k) => [k, c[k]])),
+  font: { display: 'Funnel Display', body: 'Archivo', label: 'Space Grotesk' },
+  space: '[' + space.join(', ') + ']',
+  radius: tokens.radius,
+  motion: { ease: tokens.motion.ease, base: tokens.motion.base },
+}, null, 2).replace('"[' + space.join(', ') + ']"', '[' + space.join(', ') + ']').replace(/"radius": \{[^}]*\}/, (m) => m.replace(/\s+/g, ' '));
+const mdLines = designMd.split('\n').reduce<string[]>((out, l) => {
+  const prev = out[out.length - 1];
+  const cont = l.trim() !== '' && !/^\s*(-|#)/.test(l) && prev !== undefined && prev.trim() !== '' && !prev.startsWith('#');
+  if (cont) out[out.length - 1] = prev + ' ' + l.trim(); else if (!(l === '' && prev === '')) out.push(l);
+  return out;
+}, []);
+const toc = [['colour', 'Colour'], ['type', 'Type'], ['spacing', 'Spacing + grid'], ['icons', 'Icons'], ['motion', 'Motion'], ['components', 'Components'], ['guidance', 'Guidance for Claude'], ['checks', 'Checks']];
+---
+<LayoutV2 title="System · shauna.dev" description="The design system behind shauna.dev: one token file, two icon sets, one motion curve, written down for people and for Claude, and checked on every build.">
+  <section class="hero wrap" aria-labelledby="sys-h">
+    <div class="hero-main">
+      <p class="label">System · shauna.dev</p>
+      <h1 id="sys-h" data-xray="display-xl">One token file, one line weight, one set of rules.</h1>
+      <p class="lead" data-xray="body-l">This is the system this site is built from. The palette comes from my painting, both icon sets follow one rule, and everything is written down so that people and Claude apply it the same way. Everything here is checked automatically on every build.</p>
+    </div>
+    <nav class="toc" aria-label="On this page">
+      <p class="meta">On this page</p>
+      <ul>{toc.map(([id, l]) => <li><a href={`#${id}`}>{l}</a></li>)}</ul>
+    </nav>
+  </section>
+
+  <!-- 01 Colour -->
+  <section class="sec wrap" id="colour" aria-labelledby="colour-h">
+    <div class="sec-head">
+      <div><p class="label">01 · Colour</p><h2 class="h2" id="colour-h" data-xray="heading">Warm paper, ink, and two accents.</h2></div>
+      <p class="muted">Ink, reef and teal-text are shared with shauna.digital, so the two sites read as one family. shauna.dev adds warm paper and koa, both taken from the painting.</p>
+    </div>
+    <ul class="sw-grid">
+      {swatches.map(([k, d]) => (
+        <li data-xray={`--${k}`} data-xray-kind="raw" data-xray-note={`--${k} · ${c[k]}`}><span class="sw" style={`background:var(--${k})`}></span><span class="sw-n">--{k}</span><span class="sw-h">{c[k]}</span><span class="sw-d">{d}</span></li>
+      ))}
+    </ul>
+    <div class="col-2">
+      <div>
+        <p class="meta tbl-cap">Contrast pairs · computed from the tokens</p>
+        <table class="tbl" data-xray="table" data-xray-kind="raw" data-xray-note="table · label 11 headers · line rule">
+          <thead><tr><th>Pair</th><th>Sample</th><th>Ratio</th><th>Use</th></tr></thead>
+          <tbody>
+            {pairs.map(([f, b]) => {
+              const r = ratio(c[f], c[b]);
+              return (
+                <tr>
+                  <td>{f} on {b}</td>
+                  <td><span class="aa" style={`color:var(--${f});background:var(--${b})`}>Aa Sample</span></td>
+                  <td class="num">{r.toFixed(1)}:1</td>
+                  <td><span class:list={['use', r < 4.5 && 'use--warn']}>{r >= 4.5 ? 'Body text' : 'Large + graphics only'}</span></td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <p class="meta tbl-cap">Artwork palette · sampled from the painting</p>
+        <ul class="sw-art">
+          {artSw.map(([k, n]) => <li><span class="sw sw--sm" style={`background:var(--${k})`}></span><span class="sw-n">--{n}</span><span class="sw-h">{art[k]}</span></li>)}
+        </ul>
+        <p class="muted small">Used in the artwork only. Never for text, buttons or states.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 Type -->
+  <section class="sec sec--sand" id="type" aria-labelledby="type-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label">02 · Type</p><h2 class="h2" id="type-h">Three typefaces, seven sizes.</h2></div>
+        <p class="muted">Funnel Display carries the voice, Archivo does the reading, and Space Grotesk labels and measures things.</p>
+      </div>
+      <table class="tbl tbl--type">
+        <thead><tr><th>Token</th><th>Sample</th><th>Spec</th></tr></thead>
+        <tbody>
+          {types.map((t) => <tr><td class="tok">{t.t}</td><td><span class={t.cls}>{t.s}</span></td><td class="spec">{t.spec}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 03 Spacing + grid -->
+  <section class="sec wrap" id="spacing" aria-labelledby="space-h">
+    <div class="sec-head">
+      <div><p class="label">03 · Spacing + grid</p><h2 class="h2" id="space-h">A 4px base and a 12-column grid.</h2></div>
+      <p class="muted">Desktop uses 12 columns with 32px gutters and 64px margins. Phone uses one column with 20px margins.</p>
+    </div>
+    <div class="col-2 col-2--even">
+      <div class="card">
+        <p class="meta card-cap">Space scale</p>
+        <ul class="spaces">{space.map((s, i) => <li><span class="sp-l">space-{i + 1} · {s}</span><span class="bar" style={`width:${(s / space[space.length - 1]) * 100}%`}></span></li>)}</ul>
+      </div>
+      <div class="card">
+        <p class="meta card-cap">Desktop grid · 1440</p>
+        <div class="grid-demo" aria-hidden="true">
+          <div class="cols">{Array.from({ length: 12 }, () => <span></span>)}</div>
+          <div class="blocks"><span class="b-ink"></span><span class="b-muted"></span><span class="b-reef"></span><span class="b-reef"></span><span class="b-reef"></span></div>
+        </div>
+        <div class="grid-l meta"><span>margin 64</span><span>12 columns · gutter 32</span><span>margin 64</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 Icons -->
+  <section class="sec sec--sand" id="icons" aria-labelledby="icons-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label">04 · Icons</p><h2 class="h2" id="icons-h">Two icon sets, one set of rules.</h2></div>
+        <p class="muted">Both sets are drawn on a 24px grid and follow the same rule: one accent, a tile when selected, and one small movement. The rescue app uses an outline; this site uses solid ink with a koa accent.</p>
+      </div>
+      <div class="ic-top">
+        <div class="card">
+          <div class="card-row"><p class="meta">Icon set · from the rescue app</p><p class="meta">Outline idle · filled selected</p></div>
+          <ul class="ic-rescue">
+            {rescue.map(([k, l, sel]) => (
+              <li><span class="ic-tile" set:html={ic[k]} /><span class="ic-l">{l}{sel && <span class="sel-dot" aria-label="(selected)"></span>}</span></li>
+            ))}
+          </ul>
+        </div>
+        <div class="card" data-xray="icon" data-xray-kind="raw" data-xray-note="icon · 24 grid · 2px padding · 1.8 stroke">
+          <p class="meta card-cap">Construction</p>
+          <div class="cons"><span class="cons-grid" aria-hidden="true"></span><span class="cons-pad" aria-hidden="true"></span><span class="cons-ic" set:html={ic['construction']} /></div>
+          <dl class="specs">
+            <div><dt>Grid</dt><dd>24 × 24, 2px padding</dd></div>
+            <div><dt>Stroke</dt><dd>1.8 idle · 2.0 selected</dd></div>
+            <div><dt>Ends</dt><dd>Round caps + joins</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="card ic-dev-card">
+        <div class="card-row"><p class="meta">Icon set · shauna.dev · solid ink</p><p class="meta">One koa accent · tile when selected</p></div>
+        <ul class="ic-dev">{dev.map(([k, l]) => <li><span class="ic-dev-i" set:html={ic[`dev-${k}`]} /><span class="ic-l">{l}</span></li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 Motion -->
+  <section class="sec wrap" id="motion" aria-labelledby="motion-h">
+    <div class="sec-head">
+      <div><p class="label">05 · Motion</p><h2 class="h2" id="motion-h">One curve, three speeds, and an off switch.</h2></div>
+      <p class="muted">Motion explains a change and then gets out of the way. When reduced motion is on, the painting stops.</p>
+    </div>
+    <div class="col-2">
+      <table class="tbl">
+        <thead><tr><th>Token</th><th>Value</th><th>Used for</th></tr></thead>
+        <tbody>{motion.map(([t, v, u]) => <tr><td class="tok">{t}</td><td>{v}</td><td>{u}</td></tr>)}</tbody>
+      </table>
+      <div class="card curve-card">
+        <div class="card-row"><p class="meta">ease-standard</p><button type="button" class="play" data-play aria-label="Play the easing curve">Play</button></div>
+        <svg class="curve" viewBox="0 0 260 170" aria-hidden="true">
+          <line x1="30" y1="150" x2="240" y2="150" class="axis" />
+          <line x1="30" y1="150" x2="30" y2="20" class="axis" />
+          <path d="M30 150 C72 59 72 24 240 24" class="bez" />
+          <circle cx="30" cy="150" r="4" class="pt" />
+          <circle cx="240" cy="24" r="4" class="pt" />
+        </svg>
+        <div class="track" aria-hidden="true"><span class="ball"></span></div>
+        <div class="grid-l meta"><span>0ms</span><span>{tokens.motion.base}</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 Components -->
+  <section class="sec sec--sand" id="components" aria-labelledby="comp-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label">06 · Components</p><h2 class="h2" id="comp-h">Small kit, every state drawn.</h2></div>
+        <p class="muted">Each component is specified in every state before it is built, including focus and disabled, so nothing is improvised in code.</p>
+      </div>
+      <div class="comp-grid">
+        <div class="card">
+          <div class="card-row"><p class="meta">Button</p><p class="meta">radius-pill · offset shadow 7px</p></div>
+          <div class="states">
+            <div><span class="btn" aria-hidden="true">See My Work</span><span class="st-l">default</span></div>
+            <div><span class="btn st-hover" aria-hidden="true">See My Work</span><span class="st-l">hover</span></div>
+            <div><span class="btn st-focus" aria-hidden="true">See My Work</span><span class="st-l">focus</span></div>
+            <div><span class="btn st-dis" aria-hidden="true">See My Work</span><span class="st-l">disabled</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-row"><p class="meta">Label + pill</p><p class="meta">label · teal-text</p></div>
+          <p class="label">01 · Lead case study</p>
+          <div class="lp"><p class="pill">Product designer + developer</p>
+          <span class="xr-demo" aria-hidden="true"><span class="xr-sw"></span>X-ray</span></div>
+        </div>
+        <div class="card">
+          <div class="card-row"><p class="meta">Work card</p><p class="meta">radius-16 · sand plate</p></div>
+          <div class="wc">
+            <div class="wc-plate"><BrowserFrame src="/images/v2/recruiting-dashboard.jpg" alt="Recruiting dashboard used as a work card example" label="Recruiting dashboard" /></div>
+            <div class="wc-body"><p class="meta">Web app · AI</p><p class="wc-t">AI recruiting platform for tech hiring</p><a class="text-link" href="/#work">View Case Study →</a></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-row"><p class="meta">Tab bar</p><p class="meta">icon 28 · selected = filled + reef</p></div>
+          <ul class="tabbar">
+            <li class="sel"><Icon name="tab-home" size={28} /><span>Home</span></li>
+            <li><Icon name="tab-messages" size={28} /><span>Messages</span></li>
+            <li><Icon name="tab-events" size={28} /><span>Events</span></li>
+            <li><Icon name="tab-notes" size={28} /><span>Notes</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 Guidance + 08 Checks -->
+  <section class="sec wrap" id="guidance" aria-labelledby="guide-h">
+    <div class="sec-head">
+      <div><p class="label">07 · Guidance for Claude</p><h2 class="h2" id="guide-h">The rules are written for Claude too.</h2></div>
+      <p class="muted">Most of this site was built with Claude Code. So the system is written down as plain rules and tokens that Claude reads before it writes any UI, and the same rules become automated checks.</p>
+    </div>
+    <div class="guide">
+      <div>
+        <p class="meta card-cap">Rules · DESIGN.md</p>
+        <pre class="term term--md" tabindex="0" aria-label="DESIGN.md">{mdLines.map((l) => <span class:list={[l.startsWith('#') && 'md-h']}>{l + '\n'}</span>)}</pre>
+      </div>
+      <div>
+        <p class="meta card-cap">Tokens · tokens.json</p>
+        <pre class="term" tabindex="0" aria-label="Excerpt of tokens.json">{tokenExcerpt}</pre>
+      </div>
+      <div id="checks">
+        <p class="meta card-cap">08 · Checks</p>
+        <div class="term term--checks">
+          <div class="chk-top"><span>$ npm run check:ui</span><span>Runs on every build.</span></div>
+          <ul>{checks.map((ch) => <li><span class="tick" aria-hidden="true">✓</span>{ch}</li>)}</ul>
+        </div>
+        <p class="muted small">A build fails if a page breaks a rule, whether a person or Claude wrote it.</p>
+      </div>
+    </div>
+  </section>
+</LayoutV2>
+
+<script>
+  // Play the easing curve once: the ball travels the track on --ease over --dur-base x4 so it is visible.
+  const b = document.querySelector<HTMLButtonElement>('[data-play]');
+  const card = b?.closest('.curve-card');
+  b?.addEventListener('click', () => {
+    if (!card) return;
+    card.classList.remove('is-playing');
+    void (card as HTMLElement).offsetWidth;
+    card.classList.add('is-playing');
+  });
+</script>
+
+<style>
+  .hero { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--space-8); align-items: end; padding-block: var(--space-9) var(--space-8); border-bottom: 1px solid var(--line); }
+  .hero h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.5rem, 5vw, 4.375rem); line-height: 1.02; letter-spacing: -0.03em; margin: var(--space-4) 0 var(--space-5); text-wrap: balance; max-width: 20ch; }
+  .lead { font-size: 1.125rem; max-width: 62ch; }
+  .toc ul { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+  .toc a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border: 1px solid var(--line); border-radius: var(--radius-pill); font-size: 0.875rem; transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
+  .toc a:hover { border-color: var(--ink); background: var(--card); }
+
+  .sec { padding-block: var(--space-9); }
+  .sec--sand { background: var(--sand); }
+  .sec-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: var(--space-6) var(--space-7); align-items: end; margin-bottom: var(--space-7); }
+  .sec-head .h2 { margin-top: var(--space-3); }
+  .small { font-size: 0.875rem; margin-top: var(--space-3); }
+  .card { background: var(--card); border: 1px solid var(--line-soft); border-radius: var(--radius-card); padding: var(--space-6); }
+  .card-cap { margin-bottom: var(--space-5); }
+  .card-row { display: flex; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-5); }
+  .col-2 { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-7); align-items: start; }
+  .col-2--even { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: var(--space-5); }
+
+  /* colour */
+  .sw-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--space-4); margin-bottom: var(--space-8); }
+  .sw-grid li, .sw-art li { display: flex; flex-direction: column; gap: 6px; }
+  .sw { height: 86px; border-radius: 10px; border: 1px solid var(--line-soft); }
+  .sw--sm { height: 50px; }
+  .sw-n { font-family: var(--font-label); font-size: 0.8125rem; margin-top: 4px; }
+  .sw-h { font-family: var(--font-label); font-size: 0.75rem; color: var(--muted); }
+  .sw-d { font-size: 0.8125rem; line-height: 1.35; color: var(--muted); }
+  .sw-art { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-4); }
+  .tbl-cap { margin-bottom: var(--space-3); }
+  .tbl { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+  .tbl th { text-align: left; font-family: var(--font-label); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 12px 12px 12px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .tbl td { padding: 14px 12px 14px 0; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  .num { font-family: var(--font-label); }
+  .aa { display: inline-block; padding: 4px 12px; border: 1px solid var(--line); border-radius: 6px; font-size: 0.9375rem; }
+  .use { display: inline-block; padding: 2px 8px; border-radius: 6px; font-family: var(--font-label); font-size: 0.75rem; color: var(--teal-text); background: var(--reef-tint); }
+  .use--warn { color: var(--koa); background: var(--koa-tint); }
+
+  /* type */
+  .tbl--type td { padding-block: 22px; }
+  .tok { font-family: var(--font-label); font-size: 0.875rem; color: var(--teal-text); white-space: nowrap; width: 160px; }
+  .spec { font-family: var(--font-label); font-size: 0.8125rem; color: var(--muted); width: 280px; }
+  .ty-dxl, .ty-dl, .ty-h, .ty-t { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.02em; display: block; }
+  .ty-dxl { font-size: clamp(2.25rem, 4.9vw, 4.375rem); line-height: 1.02; letter-spacing: -0.03em; }
+  .ty-dl { font-size: clamp(2rem, 3.6vw, 3.25rem); line-height: 1.05; }
+  .ty-h { font-size: clamp(1.75rem, 3.2vw, 2.875rem); line-height: 1.05; }
+  .ty-t { font-size: 1.75rem; line-height: 1.15; }
+  .ty-bl { font-size: 1.125rem; }
+  .ty-b { font-size: 1rem; }
+  .ty-l { font-family: var(--font-label); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+
+  /* spacing */
+  .spaces { display: grid; gap: 10px; }
+  .spaces li { display: grid; grid-template-columns: 110px minmax(0, 1fr); align-items: center; }
+  .sp-l { font-family: var(--font-label); font-size: 0.8125rem; color: var(--muted); }
+  .bar { height: 12px; border-radius: 3px; background: var(--reef); max-width: 100%; }
+  .grid-demo { position: relative; height: 220px; border: 1px solid var(--line-soft); border-radius: 10px; overflow: hidden; padding-inline: 4.4%; }
+  .cols { position: absolute; inset: 0 4.4%; display: grid; grid-template-columns: repeat(12, 1fr); gap: 2.2%; }
+  .cols span { background: var(--reef-tint); border-inline: 1px solid var(--reef-line); }
+  .blocks { position: relative; display: grid; grid-template-columns: repeat(12, 1fr); gap: 2.2%; padding-top: 28px; row-gap: 32px; }
+  .blocks span { height: 64px; border-radius: 8px; }
+  .b-ink { grid-column: span 7; background: var(--ink); }
+  .b-muted { grid-column: 9 / span 4; background: var(--muted); height: 40px !important; align-self: end; }
+  .b-reef { grid-column: span 4; background: var(--reef); }
+  .grid-l { display: flex; justify-content: space-between; margin-top: var(--space-3); }
+
+  /* icons */
+  .ic-top { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); gap: var(--space-5); margin-bottom: var(--space-5); }
+  .ic-rescue { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-5) var(--space-3); }
+  .ic-rescue li, .ic-dev li { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .ic-tile { width: 72px; height: 72px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 10px; color: var(--ink);
+    background-color: var(--card); background-image: linear-gradient(var(--reef-tint) 1px, transparent 1px), linear-gradient(90deg, var(--reef-tint) 1px, transparent 1px); background-size: 6px 6px; }
+  .ic-tile :global(svg) { width: 30px; height: 30px; }
+  .ic-l { font-size: 0.8125rem; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+  .sel-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+  .cons { position: relative; width: 192px; height: 192px; margin: 0 auto var(--space-6); border: 1px solid var(--line); border-radius: 10px; color: var(--ink);
+    background-image: linear-gradient(var(--reef-tint) 1px, transparent 1px), linear-gradient(90deg, var(--reef-tint) 1px, transparent 1px); background-size: 8px 8px; }
+  .cons-pad { position: absolute; inset: 16px; border: 1px dashed var(--reef); }
+  .cons-ic { position: absolute; inset: 16px; display: grid; place-items: center; }
+  .cons-ic :global(svg) { width: 100%; height: 100%; }
+  .specs div { display: grid; grid-template-columns: 1fr 1.6fr; padding: 10px 0; border-top: 1px solid var(--line); font-size: 0.875rem; }
+  .specs dd { color: var(--muted); }
+  .ic-dev { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--space-3); }
+  .ic-dev li { padding: 18px 8px 14px; border-radius: 10px; background: var(--paper); color: var(--ink); transition: background var(--dur-fast) var(--ease); }
+  .ic-dev li:hover { background: var(--koa-tint); }
+  .ic-dev-i :global(svg) { width: 28px; height: 28px; display: block; }
+  .ic-dev li:hover .ic-dev-i { transform: translateY(-2px); transition: transform var(--dur-base) var(--ease); }
+
+  /* motion */
+  .curve { width: 100%; height: auto; display: block; }
+  .axis { stroke: var(--muted); stroke-width: 1; opacity: 0.35; }
+  .bez { fill: none; stroke: var(--reef); stroke-width: 3; stroke-linecap: round; }
+  .pt { fill: var(--ink); }
+  .play { min-height: 32px; padding: 0 12px; border: 1px solid var(--line); border-radius: var(--radius-pill); font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .play:hover { border-color: var(--ink); }
+  .track { position: relative; height: 18px; margin-top: var(--space-3); border-radius: 9px; background: var(--paper); }
+  .ball { position: absolute; left: 3px; top: 3px; width: 12px; height: 12px; border-radius: 50%; background: var(--reef); }
+  .is-playing .ball { animation: travel calc(var(--dur-base) * 4) var(--ease) forwards; }
+  @keyframes travel { to { left: calc(100% - 15px); } }
+
+  /* components */
+  .comp-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: var(--space-5); }
+  .states { display: flex; flex-wrap: wrap; gap: var(--space-5) var(--space-4); }
+  .states > div { display: flex; flex-direction: column; gap: 10px; }
+  .st-l { font-size: 0.8125rem; color: var(--muted); }
+  .st-hover { background: var(--ink); color: var(--white); box-shadow: 0 0 0 0 var(--reef); }
+  .st-focus { outline: 3px solid var(--reef); outline-offset: 3px; }
+  .st-dis { color: var(--muted); border-color: var(--line); box-shadow: none; }
+  .lp { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-4); margin-top: var(--space-4); }
+  .pill { display: inline-block; padding: 8px 14px; border-radius: var(--radius-pill); background: var(--reef-tint); font-family: var(--font-label); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-text); }
+  .xr-demo { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 14px 0 8px; border: 1px solid var(--line); border-radius: var(--radius-pill); font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; }
+  .xr-sw { width: 26px; height: 16px; border-radius: 8px; background: var(--line); position: relative; }
+  .xr-sw::after { content: ''; position: absolute; left: 2px; top: 2px; width: 12px; height: 12px; border-radius: 50%; background: var(--card); }
+  .wc { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--space-5); align-items: center; }
+  .wc-plate { background: var(--sand); border-radius: var(--radius-card); padding: var(--space-5); }
+  .wc-body { display: flex; flex-direction: column; gap: var(--space-2); }
+  .wc-t { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.2; }
+  .tabbar { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); padding-top: var(--space-4); }
+  .tabbar li { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 0.8125rem; color: var(--muted); }
+  .tabbar li.sel { color: var(--teal-text); font-weight: 600; }
+  .tabbar li.sel :global(svg) { color: var(--reef); /* graphic */ }
+
+  /* guidance */
+  .guide { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-5); align-items: start; }
+  .term { background: var(--ink); color: var(--term-text); border-radius: var(--radius-card); padding: var(--space-5); font-family: var(--font-label); font-size: 0.8125rem; line-height: 1.6; white-space: pre-wrap; overflow: auto; }
+  .term--md { max-height: 520px; }
+  .md-h { color: var(--term-ok); }
+  .term--checks { white-space: normal; }
+  .chk-top { display: flex; justify-content: space-between; gap: 8px; padding-bottom: 12px; border-bottom: 1px solid rgba(var(--white-rgb), 0.12); color: var(--term-dim); }
+  .term--checks li { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(var(--white-rgb), 0.08); }
+  .term--checks li:last-child { border-bottom: 0; }
+  .tick { color: var(--term-ok); }
+
+  @media (max-width: 1100px) {
+    .sw-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .guide { grid-template-columns: 1fr 1fr; }
+    .guide > div:last-child { grid-column: 1 / -1; }
+    .ic-dev { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  }
+  @media (max-width: 979px) {
+    .hero { grid-template-columns: 1fr; gap: var(--space-6); padding-block: var(--space-8) var(--space-7); }
+    .sec { padding-block: var(--space-8); }
+    .sec-head, .col-2, .col-2--even, .ic-top, .comp-grid, .guide, .wc { grid-template-columns: 1fr; }
+    .sec-head { gap: var(--space-3); margin-bottom: var(--space-6); }
+    .ic-rescue { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .ic-dev { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .tbl--type .spec { display: none; }
+    .tok { width: 96px; }
+  }
+  @media (max-width: 560px) {
+    .sw-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4) var(--space-3); }
+    .sw { height: 56px; }
+    .sw-art { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ic-rescue { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .ic-dev { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .ic-tile { width: 64px; height: 64px; }
+    .tbl { font-size: 0.875rem; }
+    .tbl th:nth-child(4), .tbl td:nth-child(4) { display: none; }
+    .card { padding: var(--space-5); }
+    .tbl--type th:first-child, .tbl--type td:first-child { display: none; }
+  }
+</style>

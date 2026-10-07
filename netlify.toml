@@ -80,14 +80,6 @@
 # TEMPORARY (2026-10-07): homepage v2 links to pages still being built.
 # 302 so nothing caches them; delete each rule when its page ships.
 [[redirects]]
-  from = "/system"
-  to = "/#system"
-  status = 302
-[[redirects]]
-  from = "/system/"
-  to = "/#system"
-  status = 302
-[[redirects]]
   from = "/work/rescue-platform/"
   to = "https://shauna.digital/results/rescue-platform/"
   status = 302
