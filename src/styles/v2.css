@@ -13,7 +13,7 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; scroll-padding-top: 88px; }
-body { font-family: var(--font-body); font-size: 1rem; line-height: 1.65; background: var(--paper); color: var(--ink); overflow-x: hidden; }
+body { font-family: var(--font-body); font-size: var(--text-body); line-height: 1.65; background: var(--paper); color: var(--ink); overflow-x: hidden; }
 img, video { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 ul, ol { list-style: none; }
@@ -22,11 +22,11 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
 :focus-visible { outline: 3px solid var(--reef); outline-offset: 3px; border-radius: 4px; }
 
 .wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--gutter); }
-.label { font-family: var(--font-label); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-text); }
-.meta { font-family: var(--font-label); font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.label { font-family: var(--font-label); font-size: var(--text-label); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-text); }
+.meta { font-family: var(--font-label); font-size: var(--text-label); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 .muted { color: var(--muted); }
 .arrow { color: var(--reef); /* graphic */ }
-.text-link { font-size: 0.9375rem; font-weight: 500; border-bottom: 1px solid var(--ink); padding-bottom: 2px; align-self: flex-start; transition: color var(--dur-base) var(--ease), border-color var(--dur-base) var(--ease); }
+.text-link { font-size: var(--text-body); font-weight: 500; border-bottom: 1px solid var(--ink); padding-bottom: 2px; align-self: flex-start; transition: color var(--dur-base) var(--ease), border-color var(--dur-base) var(--ease); }
 .text-link:hover { color: var(--teal-text); border-color: var(--teal-text); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
@@ -34,7 +34,7 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
 .btn {
   display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 24px;
   border: 1px solid var(--ink); border-radius: 100px; background: var(--card); color: var(--ink);
-  font-size: 0.9375rem; font-weight: 500; white-space: nowrap;
+  font-size: var(--text-body); font-weight: 500; white-space: nowrap;
   box-shadow: var(--btn-offset) calc(var(--btn-offset) * -1) 0 0 var(--shape, var(--reef));
   transition: background var(--dur-base) var(--ease), color var(--dur-base) var(--ease), box-shadow var(--dur-slow) var(--ease), border-color var(--dur-base) var(--ease);
 }
@@ -42,7 +42,7 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
 .btn--koa { --shape: var(--koa); }
 .btn--ink { --shape: var(--ink); }
 
-.h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.875rem, 3.2vw, 2.875rem); line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance; }
+.h2 { font-family: var(--font-display); font-weight: 500; font-size: var(--text-heading); line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }

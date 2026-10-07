@@ -92,26 +92,26 @@ const pdf = '/shauna-arnold-resume.pdf';
 <style>
   .rs { padding-block: var(--space-8) var(--space-9); max-width: 1120px; }
   .rs-top { padding-bottom: var(--space-7); border-bottom: 1px solid var(--line); }
-  .rs-name { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.02; letter-spacing: -0.03em; margin-top: var(--space-3); }
-  .rs-role { font-family: var(--font-display); font-size: clamp(1.25rem, 2vw, 1.625rem); margin-top: var(--space-2); }
+  .rs-name { font-family: var(--font-display); font-weight: 500; font-size: var(--text-display-xl); line-height: 1.02; letter-spacing: -0.03em; margin-top: var(--space-3); }
+  .rs-role { font-family: var(--font-display); font-size: var(--text-title); margin-top: var(--space-2); }
   .rs-dot { color: var(--reef); /* graphic */ }
-  .rs-contact { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); margin-top: var(--space-4); font-size: 0.9375rem; color: var(--muted); }
+  .rs-contact { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); margin-top: var(--space-4); font-size: var(--text-body); color: var(--muted); }
   .rs-contact a { color: var(--teal-text); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
   .rs-actions { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-6); }
   .rs-sec { display: grid; grid-template-columns: 240px 1fr; gap: var(--space-6); padding-block: var(--space-6); border-bottom: 1px solid var(--line); }
-  .rs-h { font-family: var(--font-label); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-text); padding-top: 6px; }
+  .rs-h { font-family: var(--font-label); font-size: var(--text-label); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-text); padding-top: 6px; }
   .rs-body { max-width: 760px; }
   .rs-body p + p { margin-top: var(--space-3); }
   .rs-job + .rs-job { margin-top: var(--space-6); }
-  .rs-job h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.375rem; line-height: 1.2; }
+  .rs-job h3 { font-family: var(--font-display); font-weight: 500; font-size: var(--text-lead); line-height: 1.2; }
   .rs-sep { color: var(--muted); font-weight: 400; }
   .rs-when { margin: var(--space-1) 0 var(--space-3); }
-  .rs-note { font-style: italic; color: var(--muted); font-size: 0.9375rem; }
+  .rs-note { font-style: italic; color: var(--muted); font-size: var(--text-body); }
   .rs-list { margin-top: var(--space-3); display: grid; gap: var(--space-3); }
   .rs-list > li { position: relative; padding-left: 20px; }
   .rs-list > li::before { content: ''; position: absolute; left: 2px; top: 0.7em; width: 6px; height: 6px; border-radius: 50%; background: var(--reef); }
   .rs-list a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--reef-line); }
-  .rs-sub { margin-top: var(--space-2); display: grid; gap: var(--space-2); color: var(--muted); font-size: 0.9375rem; }
+  .rs-sub { margin-top: var(--space-2); display: grid; gap: var(--space-2); color: var(--muted); font-size: var(--text-body); }
   .rs-sub li { position: relative; padding-left: 18px; }
   .rs-sub li::before { content: ''; position: absolute; left: 2px; top: 0.75em; width: 8px; height: 1px; background: var(--muted); }
   .rs-skills { display: grid; gap: var(--space-3); }

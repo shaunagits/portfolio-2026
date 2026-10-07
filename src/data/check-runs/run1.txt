@@ -1,0 +1,7 @@
+$ npm run check:ui   (5 pages)
+✓ Text contrast stays at or above 4.5:1, including interactive states
+✓ Colour, typography, and spacing come from shared tokens
+✓ Buttons use consistent casing and language
+✓ Images include alternative text and controls have accessible labels
+✓ Motion follows one system and respects reduced-motion preferences
+All checks passed.

@@ -1,0 +1,9 @@
+$ npm run check:ui   (4 pages)
+✓ Text contrast stays at or above 4.5:1, including interactive states
+✓ Colour, typography, and spacing come from shared tokens
+✓ Buttons use consistent casing and language
+✓ Images include alternative text and controls have accessible labels
+✓ Motion follows one system and respects reduced-motion preferences
+✗ Only links and buttons move on hover
+    src/pages/system.astro: ".ic-dev li:hover .ic-dev-i" moves on hover but is not a link or button
+1 problem(s). Build failed.

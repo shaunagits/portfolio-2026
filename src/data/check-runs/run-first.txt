@@ -1,0 +1,10 @@
+$ npm run check:ui   (1 pages)
+✗ Text contrast stays at or above 4.5:1, including interactive states
+    src/components/v2/SiteFooter.astro uses --reef for text
+    src/components/v2/SiteHeader.astro uses --reef for text
+    src/styles/v2.css uses --reef for text
+✓ Colour, typography, and spacing come from shared tokens
+✓ Buttons use consistent casing and language
+✓ Images include alternative text and controls have accessible labels
+✓ Motion follows one system and respects reduced-motion preferences
+3 problem(s). Build failed.

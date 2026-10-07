@@ -15,8 +15,8 @@ export const resume = {
     { label: 'shauna.digital', href: 'https://shauna.digital' },
   ],
   summary: [
-    'Product designer who builds the system and ships the product on top of it. For the past two years I have designed and built production apps end to end for nonprofits and small businesses, each one on a tokenized design system I created and maintain: color, type, spacing, icons, and components, landed in code alongside the screens that use them. I design in Claude Design and build in React, TypeScript, and Tailwind with Claude Code as my daily partner.',
-    'Before that, a decade producing brand-perfect retail experiences for Nike and Apple, including authoring Nike’s 200-page Retail Brand Marketing Guidelines: a design system before I wrote software.',
+    'Product designer who builds the system and ships the product on top of it. I have spent my career making experiences consistent at scale: first a decade of retail brand work for Nike and Apple, including authoring Nike’s 200-page Retail Brand Marketing Guidelines, used across North America, a design system before I wrote software.',
+    'Now I design and build production apps end to end for nonprofits and small businesses, each on a tokenized design system I created and maintain: color, type, spacing, icons, and components, landed in code alongside the screens that use them. I design in Claude Design and build in React, TypeScript, and Tailwind with Claude Code as my daily partner.',
   ],
   bring: [
     ['Design systems, foundations to components', 'tokens, theming, shared components, and a single-source rule for every vocabulary that appears on more than one screen.'],

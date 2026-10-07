@@ -15,7 +15,10 @@ Tokens live in `tokens/tokens.json`; `src/styles/tokens.css` is generated from i
 
 ## Type
 - Funnel Display for headlines, Archivo for reading, Space Grotesk for labels and data.
-- Seven sizes: display-xl 70, display-l 52, heading 46, title 28, body-l 18, body 16, label 12.
+- Ten sizes, all tokens (`--text-*`): display-xl 70, display-l 52, heading 46, intro 32,
+  title 28, lead 22, body-l 18, body 16, small 14, label 12. Display sizes are fluid.
+- Every `font-size` is a `--text-*` token. The only exceptions are print sizes (pt) and
+  type inside a scaled illustration (cqw). Need a new size? Add a token, don't type a number.
 
 ## Space and layout
 - 4px base: 4, 8, 12, 16, 24, 32, 48, 64, 96.
@@ -36,6 +39,8 @@ Tokens live in `tokens/tokens.json`; `src/styles/tokens.css` is generated from i
 - One curve: `--ease`. Three speeds: fast 120ms (hover, press), base 180ms
   (buttons, toggles, X-ray), slow 320ms (panels, sections).
 - Stop every loop when `prefers-reduced-motion` is set. Looping video also gets a pause button.
+- Only things you can click move on hover. A card that lifts promises a click; if it
+  isn't a link or button, it stays still.
 
 ## Accessibility
 - Text contrast at or above 4.5:1 in every state.

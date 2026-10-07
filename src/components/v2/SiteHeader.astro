@@ -69,18 +69,18 @@ const items = [
   .sh-in { max-width: var(--max); margin: 0 auto; padding-inline: var(--gutter); height: 76px; display: flex; align-items: center; justify-content: space-between; }
   .sh-brand { display: flex; align-items: center; gap: 12px; min-height: 44px; }
   .sh-brand :global(.sh-mark) { height: 30px; width: auto; color: var(--reef); /* graphic */ }
-  .sh-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; white-space: nowrap; }
-  .sh-nav { display: flex; align-items: center; gap: 28px; font-size: 0.875rem; font-weight: 500; }
+  .sh-name { font-family: var(--font-display); font-size: var(--text-lead); font-weight: 600; white-space: nowrap; }
+  .sh-nav { display: flex; align-items: center; gap: 28px; font-size: var(--text-small); font-weight: 500; }
   .sh-nav > a:not(.btn) { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 2px solid transparent; transition: border-color var(--dur-base) var(--ease); }
   .sh-nav > a:not(.btn):hover, .sh-nav > a[aria-current='page'] { border-color: var(--reef); }
-  .sh-cta { --btn-offset: 5px; min-height: 40px; padding: 0 16px 0 18px; font-size: 0.875rem; }
+  .sh-cta { --btn-offset: 5px; min-height: 40px; padding: 0 16px 0 18px; font-size: var(--text-small); }
   .sh-cta:hover :global(svg *), .sh-menu .btn:hover :global(svg *) { fill: var(--white); stroke: var(--white); }
   .sh-toggle { display: none; width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid rgba(var(--ink-rgb), 0.13); border-radius: 22px; background: var(--card); }
   .sh-toggle :global(.i-close), .sh-toggle.is-open :global(.i-open) { display: none; }
   .sh-toggle.is-open :global(.i-close) { display: inline-flex; }
   .sh-menu { position: fixed; inset: 64px 0 0 0; background: var(--paper); padding: 24px var(--gutter); overflow-y: auto; }
   .sh-menu nav { display: flex; flex-direction: column; }
-  .sh-menu a:not(.btn) { display: flex; align-items: center; gap: 14px; font-family: var(--font-display); font-size: 1.75rem; font-weight: 500; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .sh-menu a:not(.btn) { display: flex; align-items: center; gap: 14px; font-family: var(--font-display); font-size: var(--text-title); font-weight: 500; padding: 14px 0; border-bottom: 1px solid var(--line); }
   .sh-menu .btn { margin-top: 32px; align-self: flex-start; }
   /* Over the watercolour hero (homepage) */
   .sh--over { position: fixed; left: 0; right: 0; background: transparent; backdrop-filter: none; border-bottom-color: transparent;
@@ -98,7 +98,7 @@ const items = [
     .sh:not(.sh--over) { background: var(--card); }
     .sh--over.is-solid { background: var(--card); }
     .sh-in { height: 64px; }
-    .sh-name { font-size: 1.0625rem; }
+    .sh-name { font-size: var(--text-body-l); }
     .sh-brand :global(.sh-mark) { height: 26px; }
     .sh-nav { display: none; }
     .sh-toggle { display: inline-flex; }

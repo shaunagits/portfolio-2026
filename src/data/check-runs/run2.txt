@@ -1,0 +1,16 @@
+$ npm run check:ui   (5 pages)
+✓ Text contrast stays at or above 4.5:1, including interactive states
+✗ Colour, typography, and spacing come from shared tokens
+    src/components/v2/BookingCard.astro:96 font-size 12px is not on the type scale
+    src/components/v2/BookingCard.astro:103 font-size 28px is not on the type scale
+    src/components/v2/BookingCard.astro:111 font-size 16px is not on the type scale
+    src/components/v2/BookingCard.astro:124 font-size 28px is not on the type scale
+    src/components/v2/BookingCard.astro:130 font-size 16px is not on the type scale
+    src/components/v2/BookingCard.astro:141 font-size 16px is not on the type scale
+    src/components/v2/BookingCard.astro:175 font-size 16px is not on the type scale
+✓ Buttons use consistent casing and language
+✓ Images include alternative text and controls have accessible labels
+✓ Motion follows one system and respects reduced-motion preferences
+✗ Only links and buttons move on hover
+    src/components/v2/BookingCard.astro: ".booking-card:hover" moves on hover but is not a link or button
+8 problem(s). Build failed.

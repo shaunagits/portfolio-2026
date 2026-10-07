@@ -22,7 +22,7 @@ const swatches = [
 const spaces = [4, 8, 16, 24, 32, 48, 64];
 const steps = [
   { t: 'Designed on canvas', a: 'I work through each page at desktop and mobile sizes before touching production code.', b: 'That lets me solve the layout, hierarchy, and copy first instead of designing accidentally in the browser.' },
-  { t: 'Built with Claude Code', a: 'Each page is built on its own branch, reviewed on a preview deployment, and merged only after it feels right in context.', b: 'AI speeds up the implementation. The product decisions are still mine.' },
+  { t: 'Built with Claude Code', a: 'Each page is built on its own branch, reviewed on a preview deployment, and merged only after it feels right in context.', b: 'Claude Code is part of my daily build loop: exploring options, refactoring system changes and checking consistency. The design and product decisions stay mine.' },
   { t: 'Checked by rules', a: 'The design system is written down in code, not held together by memory.', b: 'Automated checks catch the small inconsistencies that usually creep in as a product grows.' },
 ];
 ---
@@ -46,10 +46,10 @@ const steps = [
 
   <!-- Intro -->
   <section class="intro wrap">
-    <p class="intro-big" data-xray="body-xl">I work across product design and development, usually on tools where the workflow behind the screen matters just as much as the screen itself.</p>
+    <p class="intro-big" data-xray="body-xl">I design systems and build them into the product, so the tokens, icons and motion people see are the same ones that ship in the code.</p>
     <div class="intro-side">
       <p class="muted" data-xray="body">That has meant building software for animal rescue operations, designing phone-first tools for field teams, creating AI-assisted workflows, and turning messy internal processes into systems people can actually rely on.</p>
-      <p class="muted">Before software, I spent a decade working across retail programs, marketing operations, and production for Nike and Apple.</p>
+      <p class="muted">Before software, I spent a decade on retail brand work for Nike and Apple, including writing Nike’s 200-page brand guidelines: a design system before I wrote software.</p>
       <div class="btn-row"><a href="#work" class="btn" data-xray="button">See My Work</a><a href="/resume/" class="btn btn--koa">View Résumé</a></div>
       <p class="now"><span class="label">Now · </span>Designing systems, drawing icons, and writing the code that ships them.</p>
     </div>
@@ -177,9 +177,9 @@ const steps = [
         <ol class="bsteps">
           {steps.map((s, i) => <li><span class="bn">{String(i + 1).padStart(2, '0')}</span><div><div class="bt">{s.t}</div><p class="muted">{s.a}</p><p class="muted">{s.b}</p></div></li>)}
         </ol>
-        <a href="/system/#build" class="text-link build-link">Read the Build Notes →</a>
+        <a href="/work/ui-checks/" class="text-link build-link">See What the Checks Caught →</a>
       </div>
-      <div class="term" role="img" aria-label="Terminal output of npm run check:ui with five passing checks">
+      <div class="term" role="img" aria-label={`Terminal output of npm run check:ui with ${checks.length} passing checks`}>
         <div class="term-h"><span>$ npm run check:ui</span><span>Runs on every build.</span></div>
         {checks.map((c) => <div class="term-r"><span class="tick">✓</span><span>{c}</span></div>)}
       </div>
@@ -226,19 +226,19 @@ const steps = [
   .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
   .hero-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 160px; background: linear-gradient(to bottom, rgba(var(--paper-rgb), 0) 0%, rgba(var(--paper-rgb), 0.55) 45%, var(--paper) 100%); pointer-events: none; }
   .hero-copy { position: absolute; left: 50%; top: 156px; width: min(660px, calc(100% - 40px)); transform: translateX(-50%); display: flex; flex-direction: column; gap: 24px; text-align: center; }
-  .hero-pill { align-self: center; padding: 7px 14px; border-radius: 100px; background: rgba(var(--white-rgb), 0.6); font-family: var(--font-label); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
-  .hero h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.375rem, 4.9vw, 4.375rem); line-height: 1.02; letter-spacing: -0.03em; text-wrap: balance; text-shadow: 0 0 28px rgba(var(--haze-rgb), 0.9), 0 0 6px rgba(var(--haze-rgb), 0.6); }
-  .hero-pause { position: absolute; right: var(--gutter); bottom: 28px; width: 44px; height: 44px; border-radius: 22px; background: rgba(var(--card-rgb), 0.75); border: 1px solid rgba(var(--ink-rgb), 0.15); font-size: 11px; letter-spacing: -1px; }
+  .hero-pill { align-self: center; padding: 7px 14px; border-radius: 100px; background: rgba(var(--white-rgb), 0.6); font-family: var(--font-label); font-size: var(--text-label); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+  .hero h1 { font-family: var(--font-display); font-weight: 500; font-size: var(--text-display-xl); line-height: 1.02; letter-spacing: -0.03em; text-wrap: balance; text-shadow: 0 0 28px rgba(var(--haze-rgb), 0.9), 0 0 6px rgba(var(--haze-rgb), 0.6); }
+  .hero-pause { position: absolute; right: var(--gutter); bottom: 28px; width: 44px; height: 44px; border-radius: 22px; background: rgba(var(--card-rgb), 0.75); border: 1px solid rgba(var(--ink-rgb), 0.15); font-size: var(--text-label); letter-spacing: -1px; }
   .hero-pause:hover { background: var(--card); }
 
   /* Intro */
   .intro { position: relative; padding-top: 72px; padding-bottom: 96px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; align-items: start; }
-  .intro-big { grid-column: 1 / span 7; font-family: var(--font-display); font-size: clamp(1.4375rem, 2.2vw, 2rem); line-height: 1.28; letter-spacing: -0.01em; }
+  .intro-big { grid-column: 1 / span 7; font-family: var(--font-display); font-size: var(--text-intro); line-height: 1.28; letter-spacing: -0.01em; }
   .intro-side { grid-column: 9 / span 4; display: flex; flex-direction: column; gap: 16px; }
   :global(html.xray) .hero-copy { transform: translate(-50%, 44px); }
   .btn-row { display: flex; gap: 16px; flex-wrap: wrap; }
-  .now { padding-top: 16px; border-top: 1px solid var(--line); font-size: 0.9375rem; line-height: 1.6; }
-  .now .label { font-size: 0.6875rem; letter-spacing: 0.12em; }
+  .now { padding-top: 16px; border-top: 1px solid var(--line); font-size: var(--text-body); line-height: 1.6; }
+  .now .label { font-size: var(--text-label); letter-spacing: 0.12em; }
 
   /* split heading rows */
   .split { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; align-items: start; margin-bottom: 48px; }
@@ -248,7 +248,7 @@ const steps = [
 
   /* Lead */
   .lead { background: var(--sand); padding: 96px 0; }
-  .lead-h2 { font-size: clamp(1.875rem, 3.6vw, 3.25rem); }
+  .lead-h2 { font-size: var(--text-display-l); }
   .lead-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; align-items: center; }
   .lead-plate { grid-column: 1 / span 7; position: relative; aspect-ratio: 16 / 10; }
   .lead-plate :global(.lp) { position: absolute; width: 22%; top: 13%; }
@@ -261,14 +261,14 @@ const steps = [
   .tile { position: relative; width: 72px; height: 72px; display: grid; place-items: center; border: 1px solid var(--line-soft); border-radius: 12px; background-color: var(--card);
     background-image: linear-gradient(rgba(var(--reef-rgb), 0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--reef-rgb), 0.14) 1px, transparent 1px); background-size: 12px 12px; background-position: -1px -1px; }
   .tile-ring { position: absolute; inset: 20px; border: 1px dashed rgba(var(--reef-rgb), 0.45); border-radius: 50%; }
-  .tile-l { font-family: var(--font-label); font-size: 0.6875rem; color: var(--muted); }
+  .tile-l { font-family: var(--font-label); font-size: var(--text-label); color: var(--muted); }
   .tabbar { display: flex; justify-content: space-around; align-items: center; }
-  .tabbar li { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--muted); }
+  .tabbar li { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: var(--text-label); color: var(--muted); }
   .tabbar li.sel { color: var(--teal-text); font-weight: 600; }
   .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .stat { padding: 22px; }
-  .stat-big { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.15; }
-  .stat p { margin-top: 6px; font-size: 0.875rem; line-height: 1.5; }
+  .stat-big { font-family: var(--font-display); font-size: var(--text-lead); line-height: 1.15; }
+  .stat p { margin-top: 6px; font-size: var(--text-small); line-height: 1.5; }
 
   /* Work */
   .work { padding-top: 104px; padding-bottom: 96px; }
@@ -281,30 +281,30 @@ const steps = [
   .wplate :global(.wb) { position: absolute; left: 7%; top: 9%; width: 72%; }
   .wplate :global(.wp) { position: absolute; right: 7%; top: 20%; width: 23%; }
   .wtext { display: flex; flex-direction: column; gap: 10px; }
-  .wtext h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.375rem, 2vw, 1.75rem); line-height: 1.15; }
+  .wtext h3 { font-family: var(--font-display); font-weight: 500; font-size: var(--text-title); line-height: 1.15; }
   .wcard:hover h3 { color: var(--teal-text); }
-  .wba { font-family: var(--font-display); font-size: 1.1875rem; }
+  .wba { font-family: var(--font-display); font-size: var(--text-body-l); }
 
   /* System */
   .sys { padding-top: 104px; padding-bottom: 104px; }
   .swatches { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 16px; margin-bottom: 32px; }
   .swatches li { display: flex; flex-direction: column; gap: 8px; }
   .sw { height: 84px; border-radius: 10px; border: 1px solid var(--line-soft); }
-  .sw-n { font-family: var(--font-label); font-size: 0.75rem; }
-  .sw-h { font-family: var(--font-label); font-size: 0.6875rem; color: var(--muted); }
-  .sw-d { font-size: 0.8125rem; color: var(--muted); }
+  .sw-n { font-family: var(--font-label); font-size: var(--text-label); }
+  .sw-h { font-family: var(--font-label); font-size: var(--text-label); color: var(--muted); }
+  .sw-d { font-size: var(--text-small); color: var(--muted); }
   .sys-cards { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 20px; }
   .sc { padding: 32px; }
   .sc-h { margin-bottom: 18px; }
   .type-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 14px; }
-  .t-disp { font-family: var(--font-display); font-size: 2.5rem; line-height: 1; }
-  .t-body { font-size: 1.375rem; }
-  .t-lab { font-family: var(--font-label); font-size: 1.125rem; }
+  .t-disp { font-family: var(--font-display); font-size: var(--text-heading); line-height: 1; }
+  .t-body { font-size: var(--text-lead); }
+  .t-lab { font-family: var(--font-label); font-size: var(--text-body-l); }
   .spaces { display: flex; flex-direction: column; gap: 9px; }
   .spaces li { display: flex; align-items: center; gap: 12px; }
   .bar { height: 12px; border-radius: 3px; background: var(--reef); flex: none; }
-  .sp-l { font-family: var(--font-label); font-size: 0.6875rem; color: var(--muted); }
-  .sc-p { font-size: 0.875rem; line-height: 1.55; }
+  .sp-l { font-family: var(--font-label); font-size: var(--text-label); color: var(--muted); }
+  .sc-p { font-size: var(--text-small); line-height: 1.55; }
   .states { display: flex; gap: 14px; flex-wrap: wrap; padding: 14px 6px 0; }
   .states .btn { cursor: default; }
   .states .st-hover { background: var(--ink); color: var(--white); box-shadow: none; }
@@ -314,14 +314,14 @@ const steps = [
   .built { padding-bottom: 112px; }
   .built-in { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; align-items: start; padding-top: 96px; border-top: 1px solid var(--line); }
   .built-main { grid-column: 1 / span 6; display: flex; flex-direction: column; gap: 18px; }
-  .built-h2 { font-size: clamp(1.875rem, 2.95vw, 2.625rem); }
+  .built-h2 { font-size: var(--text-heading); }
   .bsteps { margin-top: 12px; }
   .bsteps li { display: grid; grid-template-columns: 44px 1fr; gap: 12px; padding: 18px 0; border-top: 1px solid var(--line-soft); }
-  .bn { font-family: var(--font-label); font-size: 0.8125rem; color: var(--teal-text); }
-  .bt { font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 6px; }
-  .bsteps p { font-size: 0.9375rem; }
+  .bn { font-family: var(--font-label); font-size: var(--text-small); color: var(--teal-text); }
+  .bt { font-family: var(--font-display); font-size: var(--text-lead); margin-bottom: 6px; }
+  .bsteps p { font-size: var(--text-body); }
   .bsteps p + p { margin-top: 10px; }
-  .term { grid-column: 8 / span 5; margin-top: 40px; background: var(--ink); color: var(--term-text); border-radius: 16px; padding: 24px 26px; font-family: var(--font-label); font-size: 0.875rem; line-height: 1.5; }
+  .term { grid-column: 8 / span 5; margin-top: 40px; background: var(--ink); color: var(--term-text); border-radius: 16px; padding: 24px 26px; font-family: var(--font-label); font-size: var(--text-small); line-height: 1.5; }
   .term-h { display: flex; justify-content: space-between; gap: 12px; color: var(--term-dim); padding-bottom: 12px; }
   .term-r { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-top: 1px solid rgba(var(--white-rgb), 0.1); }
   .tick { color: var(--term-ok); }
@@ -331,7 +331,7 @@ const steps = [
   .about-in { padding-top: 96px; padding-bottom: 96px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; align-items: center; }
   .about-img { grid-column: 1 / span 3; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 16px; }
   .about-text { grid-column: 5 / span 7; display: flex; flex-direction: column; gap: 18px; }
-  .about-text > p:not(.label) { font-size: 1.125rem; line-height: 1.65; }
+  .about-text > p:not(.label) { font-size: var(--text-body-l); line-height: 1.65; }
   .about-text .btn-row { margin-top: 8px; }
 
   .show-sm, .about-face { display: none; }
@@ -348,13 +348,13 @@ const steps = [
     .hero-video { object-position: 53% center; }
     .hero-fade { height: 110px; }
     .hero-copy { top: 96px; gap: 16px; }
-    .hero-pill { font-size: 0.625rem; }
+    .hero-pill { font-size: var(--text-label); letter-spacing: 0.08em; }
     .hero-pause { bottom: 20px; }
     .intro { padding-top: 36px; padding-bottom: 56px; display: flex; flex-direction: column; gap: 18px; }
     .intro-side { margin-top: 0; gap: 18px; }
     .split { display: flex; flex-direction: column; gap: 18px; margin-bottom: 28px; }
     .split-side { margin-top: 0; }
-    .label { font-size: 0.6875rem; }
+    .label { font-size: var(--text-label); }
     .lead { padding: 56px 0; }
     .lead-grid { display: flex; flex-direction: column; gap: 20px; }
     .lead-plate { width: 100%; }
@@ -371,7 +371,7 @@ const steps = [
     .sc { padding: 24px; }
     .built { padding-bottom: 56px; }
     .built-in { padding-top: 56px; display: flex; flex-direction: column; gap: 32px; }
-    .term { margin-top: 0; font-size: 0.8125rem; }
+    .term { margin-top: 0; font-size: var(--text-small); }
     .term-h span:last-child { display: none; }
     .about-in { padding-top: 56px; padding-bottom: 56px; display: flex; flex-direction: column; align-items: flex-start; gap: 28px; }
     .about-img { display: none; }
@@ -387,7 +387,7 @@ const steps = [
     .built-in > .built-main > .build-link { order: 3; }
     .sys-btn { margin-top: 24px; }
     .type-row .meta { display: none; }
-    .t-disp { font-size: 1.875rem; }
-    .about-text > p:not(.label) { font-size: 1rem; }
+    .t-disp { font-size: var(--text-title); }
+    .about-text > p:not(.label) { font-size: var(--text-body); }
   }
 </style>

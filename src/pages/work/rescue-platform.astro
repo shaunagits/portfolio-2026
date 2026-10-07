@@ -199,8 +199,8 @@ const next = ['Take the foster app out of pilot.', 'Write usage notes for each c
   .back { display: inline-block; margin-bottom: var(--space-6); }
   .back:hover { color: var(--ink); }
   .cs-head { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: var(--space-7); align-items: end; }
-  .cs-head h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.5rem, 4.8vw, 4.25rem); line-height: 1.02; letter-spacing: -0.03em; margin-top: var(--space-4); text-wrap: balance; }
-  .cs-lede { font-size: 1.125rem; line-height: 1.6; }
+  .cs-head h1 { font-family: var(--font-display); font-weight: 500; font-size: var(--text-display-xl); line-height: 1.02; letter-spacing: -0.03em; margin-top: var(--space-4); text-wrap: balance; }
+  .cs-lede { font-size: var(--text-body-l); line-height: 1.6; }
   .cs-meta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-6); margin-top: var(--space-8); }
   .cs-meta div { display: flex; flex-direction: column; gap: var(--space-2); padding-top: 14px; border-top: 1px solid var(--line); }
 
@@ -215,12 +215,12 @@ const next = ['Take the foster app out of pilot.', 'Write usage notes for each c
 
   .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); margin-top: var(--space-8); }
   .stat { display: flex; flex-direction: column; gap: 10px; padding-top: 18px; border-top: 2px solid var(--ink); }
-  .stat-n { font-family: var(--font-display); font-size: clamp(2.75rem, 4.2vw, 3.75rem); line-height: 1; letter-spacing: -0.03em; }
-  .stat-l { font-size: 1.0625rem; color: var(--muted); }
+  .stat-n { font-family: var(--font-display); font-size: var(--text-display-l); line-height: 1; letter-spacing: -0.03em; }
+  .stat-l { font-size: var(--text-body-l); color: var(--muted); }
   .sysline { display: flex; align-items: center; gap: var(--space-7); margin-top: var(--space-7); padding: 20px 28px; border-radius: var(--radius-card); background: var(--card); border: 1px solid var(--line-soft); }
   .sysline ul { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-7); }
   .sysline li { display: flex; align-items: baseline; gap: 10px; color: var(--muted); }
-  .sl-n { font-family: var(--font-display); font-size: 1.75rem; color: var(--teal-text); }
+  .sl-n { font-family: var(--font-display); font-size: var(--text-title); color: var(--teal-text); }
 
   .sec { padding-block: var(--space-9); }
   .sec--sand { background: var(--sand); }
@@ -228,15 +228,15 @@ const next = ['Take the foster app out of pilot.', 'Write usage notes for each c
   .sec-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: var(--space-6) var(--space-7); align-items: end; margin-bottom: var(--space-7); }
   .sec-head .h2, .two .h2 { margin-top: var(--space-3); }
   .two { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--space-7); }
-  .numlist li { display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 18px 0; border-top: 1px solid var(--line); font-size: 1.125rem; }
-  .nl-n { font-family: var(--font-label); font-size: 0.8125rem; color: var(--teal-text); padding-top: 4px; }
+  .numlist li { display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 18px 0; border-top: 1px solid var(--line); font-size: var(--text-body-l); }
+  .nl-n { font-family: var(--font-label); font-size: var(--text-small); color: var(--teal-text); padding-top: 4px; }
 
   .dec-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); }
   .dec { display: flex; flex-direction: column; gap: 22px; padding: 28px; border-radius: 20px; background: var(--card); border: 1px solid var(--line-soft); }
   .dec-art { min-height: 190px; overflow: hidden; }
   .dec-art > :global(div) { min-height: 0 !important; }
   .dec-txt { display: flex; flex-direction: column; gap: 10px; padding-top: 20px; border-top: 1px solid var(--line); }
-  .dec-txt h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; line-height: 1.15; }
+  .dec-txt h3 { font-family: var(--font-display); font-weight: 500; font-size: var(--text-lead); line-height: 1.15; }
 
   .iconset { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: var(--space-8); align-items: center; }
   .frag--cons > :global(div) { width: 100% !important; height: auto !important; aspect-ratio: 1; }
@@ -247,33 +247,33 @@ const next = ['Take the foster app out of pilot.', 'Write usage notes for each c
   .phones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-6); align-items: start; }
   .ph { position: relative; }
   .ph-2 { margin-top: 48px; }
-  .badge { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: var(--white); font-family: var(--font-label); font-size: 0.8125rem; box-shadow: 0 0 0 3px var(--sand); }
+  .badge { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: var(--white); font-family: var(--font-label); font-size: var(--text-small); box-shadow: 0 0 0 3px var(--sand); }
   .ph .badge { position: absolute; left: -10px; top: 90px; z-index: 2; }
   .frag--tab { display: flex; justify-content: center; margin-top: var(--space-6); }
   .frag--tab > :global(div) { max-width: 100%; }
   .parts li { display: grid; grid-template-columns: 44px 1fr; gap: 12px; padding: 20px 0; border-top: 1px solid var(--line); }
   .badge--in { box-shadow: none; }
-  .parts h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; margin-bottom: 6px; }
+  .parts h3 { font-family: var(--font-display); font-weight: 500; font-size: var(--text-lead); margin-bottom: 6px; }
 
   .tk { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); align-items: start; }
   .card { border: 1px solid var(--line-soft); border-radius: var(--radius-card); padding: 24px 28px 12px; background: var(--card); }
   .tk-cap { margin-bottom: 12px; }
-  .tk-rows li { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 0.9375rem; }
+  .tk-rows li { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); font-size: var(--text-body); }
   .tk-sw { width: 24px; height: 24px; border-radius: 6px; border: 1px solid var(--line); flex: none; }
   .tk-sw--none { border-color: transparent; }
   .tk-n { font-family: var(--font-label); }
   .tk-v { margin-left: auto; font-family: var(--font-label); color: var(--muted); text-align: right; }
   .code { border-radius: var(--radius-card); overflow: hidden; background: var(--ink); color: var(--term-text); }
-  .code-top { padding: 14px 20px; border-bottom: 1px solid rgba(var(--white-rgb), 0.1); font-family: var(--font-label); font-size: 0.8125rem; color: var(--term-dim); }
-  .code pre { padding: 20px; font-family: var(--font-label); font-size: 0.875rem; line-height: 1.6; white-space: pre-wrap; }
+  .code-top { padding: 14px 20px; border-bottom: 1px solid rgba(var(--white-rgb), 0.1); font-family: var(--font-label); font-size: var(--text-small); color: var(--term-dim); }
+  .code pre { padding: 20px; font-family: var(--font-label); font-size: var(--text-small); line-height: 1.6; white-space: pre-wrap; }
   .code-note { margin-top: var(--space-4); }
   .access { display: grid; grid-template-columns: auto 1fr 1fr 1fr; gap: var(--space-6); align-items: baseline; margin-top: var(--space-7); padding: 28px; border-radius: var(--radius-card); background: var(--sand); }
   .access > div { display: flex; align-items: baseline; gap: 12px; }
-  .ac-k { font-family: var(--font-display); font-size: 1.375rem; color: var(--teal-text); }
+  .ac-k { font-family: var(--font-display); font-size: var(--text-lead); color: var(--teal-text); }
 
   .nextcs { background: var(--sand); padding-block: var(--space-8) var(--space-9); }
   .nextcs-in { display: grid; grid-template-columns: 1fr auto; gap: var(--space-6); align-items: center; }
-  .nextcs-t { font-family: var(--font-display); font-size: clamp(1.75rem, 2.8vw, 2.5rem); line-height: 1.1; margin-top: var(--space-3); max-width: 820px; }
+  .nextcs-t { font-family: var(--font-display); font-size: var(--text-heading); line-height: 1.1; margin-top: var(--space-3); max-width: 820px; }
   .nextcs-b { display: flex; gap: var(--space-5); flex-wrap: wrap; }
 
   @media (max-width: 1100px) {
@@ -298,16 +298,16 @@ const next = ['Take the foster app out of pilot.', 'Write usage notes for each c
     .frag--right :global(div[style*='repeat(9']) { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; row-gap: 16px !important; }
     .frag--right :global(div[style*='repeat(4']) { grid-template-columns: 1fr 1fr !important; }
     .phones { gap: var(--space-3); }
-    .ph .badge { left: -6px; top: 40px; width: 28px; height: 28px; font-size: 0.75rem; }
+    .ph .badge { left: -6px; top: 40px; width: 28px; height: 28px; font-size: var(--text-label); }
     .access { grid-template-columns: 1fr; gap: var(--space-4); }
   }
   .audit { margin-top: var(--space-8); display: flex; flex-direction: column; gap: var(--space-5); }
   .audit-head { display: flex; flex-direction: column; gap: var(--space-3); max-width: 720px; }
-  .audit-h { font-family: var(--font-display); font-weight: 500; font-size: 1.75rem; line-height: 1.15; }
+  .audit-h { font-family: var(--font-display); font-weight: 500; font-size: var(--text-title); line-height: 1.15; }
   .audit-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); }
   .audit-grid li { display: flex; flex-direction: column; gap: 8px; padding-bottom: 20px; }
-  .audit-v { font-family: var(--font-display); font-size: 1.875rem; line-height: 1.1; color: var(--teal-text); }
-  .audit-rule { display: grid; grid-template-columns: 52px 1fr; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 1.0625rem; max-width: 900px; }
+  .audit-v { font-family: var(--font-display); font-size: var(--text-title); line-height: 1.1; color: var(--teal-text); }
+  .audit-rule { display: grid; grid-template-columns: 52px 1fr; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); font-size: var(--text-body-l); max-width: 900px; }
   .mig { display: grid; gap: var(--space-3); padding: var(--space-6); }
   .mig-lane { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: var(--space-4); align-items: center; }
   .mig-track { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }

@@ -21,7 +21,7 @@ const lum = (h) => { const c = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 
 const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
 const all = { ...tokens.color, ...tokens.art };
 const lowPairs = tokens.contrast.pairs.map(([f, b]) => [f, b, ratio(all[f], all[b])]).filter(([, , r]) => r < 4.5).map(([f, b, r]) => `${f} on ${b} is ${r.toFixed(2)}:1`);
-const srcFiles = walk(join(root, 'src')).filter((p) => /src\/(styles\/v2\.css|components\/v2\/|layouts\/LayoutV2|pages\/(index|system|resume|work\/rescue-platform)\.astro)/.test(p));
+const srcFiles = walk(join(root, 'src')).filter((p) => /src\/(styles\/v2\.css|components\/v2\/|layouts\/LayoutV2|pages\/(index|system|resume|work\/rescue-platform|work\/ui-checks)\.astro)/.test(p));
 // --reef (3.73:1) is for graphics only: logo mark, accent period, arrows. Mark those lines `/* graphic */`.
 const reefText = srcFiles.flatMap((f) => readFileSync(f, 'utf8').split('\n').map((l, i) => [l, i + 1])
   .filter(([l]) => /(^|[^-])color:\s*var\(--reef\)/.test(l) && !l.includes('/* graphic */'))
@@ -34,6 +34,16 @@ for (const f of srcFiles) {
   const s = readFileSync(f, 'utf8');
   const css = f.endsWith('.css') ? s : [...s.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)].map((m) => m[1]).join('\n');
   for (const m of css.matchAll(/#[0-9a-fA-F]{3,8}\b|rgba?\(\s*\d/g)) raw.push(`${f.replace(root, '')}: ${m[0]}`);
+}
+// Type: every font-size is a --text-* token (print pt sizes and frame-scaled cqw sizes excepted).
+for (const f of srcFiles) {
+  const s = readFileSync(f, 'utf8');
+  s.split('\n').forEach((l, i) => {
+    for (const m of l.matchAll(/font-size:\s*([^;}"]+)/g)) {
+      const v = m[1].trim();
+      if (!v.startsWith('var(--text-') && !/pt\b|cqw/.test(v)) raw.push(`${f.replace(root, '')}:${i + 1} font-size ${v} is not on the type scale`);
+    }
+  });
 }
 check('Colour, typography, and spacing come from shared tokens', raw);
 
@@ -70,6 +80,21 @@ for (const { p, html } of pages) {
   if (/transition:[^;]*\b\d+m?s\b/.test(html.match(/<style[\s\S]*?<\/style>/g)?.join('') ?? '')) motion.push(`${p}: a transition uses a raw duration`);
 }
 check('Motion follows one system and respects reduced-motion preferences', motion);
+
+// 6. Hover: only things you can click move on hover. The hovered element must be a link,
+// a button or a .btn; anything else that lifts or slides on hover promises a click it can't keep.
+const hover = [];
+for (const f of srcFiles) {
+  const s = readFileSync(f, 'utf8');
+  for (const m of s.matchAll(/([^{}]*:hover[^{}]*)\{([^}]*)\}/g)) {
+    if (!/transform|translate/.test(m[2]) || /transform:\s*none/.test(m[2])) continue;
+    for (const sel of m[1].split(',').filter((x) => x.includes(':hover'))) {
+      const hovered = sel.split(':hover')[0].trim().split(/[\s>+~]+/).pop();
+      if (!/^(a|button)\b|\.btn\b|\[href\]/.test(hovered)) hover.push(`${f.replace(root, '')}: "${sel.trim()}" moves on hover but is not a link or button`);
+    }
+  }
+}
+check('Only links and buttons move on hover', [...new Set(hover)]);
 
 console.log(`\n$ npm run check:ui   (${pages.length} pages)`);
 let failed = 0;
