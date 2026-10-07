@@ -33,6 +33,12 @@ const tokenRows = [
   ['icon.stroke', '1.8 idle, 2.0 selected', ''], ['motion.select', '320ms', ''], ['motion.curve', tokens.motion.ease, ''],
 ];
 const access = [['44px', 'Every tap target is at least 44 pixels.'], ['Labels', 'Every icon has a text label.'], ['AA', 'All text meets WCAG AA contrast.']];
+const audit = [
+  ['Hardcoded colours', 'Cut roughly in half', 'Colours typed straight into components instead of coming from tokens.'],
+  ['Ghost classes + tokens', 'Down to zero', 'Names the code used but nothing defined, so they silently did nothing.'],
+  ['Inline styles', 'Hundreds moved', 'One-off styling moved into shared system classes.'],
+];
+const rounds = [1, 2, 3, 4, 5, 6, 7];
 const next = ['Take the foster app out of pilot.', 'Write usage notes for each component, so every new screen starts from the kit, whether I build it or Claude does.'];
 ---
 <LayoutV2 title="Rescue platform design system · Case study · Shauna Arnold" description="Three apps that finally speak the same language: the icon set, components and tokens I designed and built for an animal rescue’s website, admin app and foster app.">
@@ -64,6 +70,15 @@ const next = ['Take the foster app out of pilot.', 'Write usage notes for each c
       <div class="two">
         <div><p class="label">01 · The problem</p><h2 class="h2" id="p-h">Six tools. No shared language.</h2></div>
         <ol class="numlist">{problem.map((p, i) => <li><span class="nl-n">0{i + 1}</span><p>{p}</p></li>)}</ol>
+      </div>
+      <div class="audit">
+        <div class="audit-head">
+          <p class="meta">The audit · admin app</p>
+          <h3 class="audit-h">I measured the drift before fixing it.</h3>
+          <p class="muted">Before redesigning anything, I wrote a script that counts every place the admin app breaks its own rules. Then I fixed it in batches and re-ran the count after each one, so every change was measured, not guessed.</p>
+        </div>
+        <ul class="audit-grid">{audit.map(([k, v, d]) => <li class="card"><span class="meta">{k}</span><span class="audit-v">{v}</span><p class="muted">{d}</p></li>)}</ul>
+        <p class="audit-rule"><span class="nl-n">Rule</span> One field was labelled three different ways on three screens. Now any word used on more than one screen comes from one shared source, never a hand-typed copy.</p>
       </div>
     </section>
 
@@ -144,9 +159,28 @@ const next = ['Take the foster app out of pilot.', 'Write usage notes for each c
       <div class="access"><span class="meta">Built for one hand, one glance</span>{access.map(([k, v]) => <div><span class="ac-k">{k}</span><p>{v}</p></div>)}</div>
     </section>
 
+    <section class="sec sec--sand" aria-labelledby="m-h">
+      <div class="wrap">
+        <div class="sec-head">
+          <div><p class="label">06 · Migration</p><h2 class="h2" id="m-h">Seven rounds, and nothing broke.</h2></div>
+          <p class="muted">The foster app’s full restyle shipped in seven rounds behind an opt-in switch. New tokens lived beside the old ones, each screen switched over when it was ready, and screens nobody had touched stayed exactly as they were.</p>
+        </div>
+        <div class="mig card" role="img" aria-label="Seven rounds: old and new tokens run side by side while screens move to the new system one round at a time">
+          <div class="mig-lane"><span class="meta mig-l">Old tokens</span><div class="mig-track">{rounds.map((r) => <span class="mig-cell mig-old" style={`opacity:${1 - r * 0.12}`}></span>)}</div></div>
+          <div class="mig-lane"><span class="meta mig-l">New tokens</span><div class="mig-track">{rounds.map((r) => <span class="mig-cell mig-new" style={`opacity:${0.22 + r * 0.11}`}></span>)}</div></div>
+          <div class="mig-lane"><span class="meta mig-l">Round</span><div class="mig-track mig-nums">{rounds.map((r) => <span class="meta">{r}</span>)}</div></div>
+          <div class="mig-notes">
+            <p><strong>Opt-in switch.</strong> The new look was off by default, so it could ship before it was finished.</p>
+            <p><strong>Side by side.</strong> Old and new tokens both existed, so nothing had to change all at once.</p>
+            <p><strong>Screen by screen.</strong> A screen moved only when it was ready. Untouched screens never moved.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="sec sec--rule wrap" aria-labelledby="n-h">
       <div class="two">
-        <div><p class="label">06 · What’s next</p><h2 class="h2" id="n-h">What I’d do next.</h2></div>
+        <div><p class="label">07 · What’s next</p><h2 class="h2" id="n-h">What I’d do next.</h2></div>
         <ol class="numlist">{next.map((p, i) => <li><span class="nl-n">0{i + 1}</span><p>{p}</p></li>)}</ol>
       </div>
     </section>
@@ -266,5 +300,29 @@ const next = ['Take the foster app out of pilot.', 'Write usage notes for each c
     .phones { gap: var(--space-3); }
     .ph .badge { left: -6px; top: 40px; width: 28px; height: 28px; font-size: 0.75rem; }
     .access { grid-template-columns: 1fr; gap: var(--space-4); }
+  }
+  .audit { margin-top: var(--space-8); display: flex; flex-direction: column; gap: var(--space-5); }
+  .audit-head { display: flex; flex-direction: column; gap: var(--space-3); max-width: 720px; }
+  .audit-h { font-family: var(--font-display); font-weight: 500; font-size: 1.75rem; line-height: 1.15; }
+  .audit-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); }
+  .audit-grid li { display: flex; flex-direction: column; gap: 8px; padding-bottom: 20px; }
+  .audit-v { font-family: var(--font-display); font-size: 1.875rem; line-height: 1.1; color: var(--teal-text); }
+  .audit-rule { display: grid; grid-template-columns: 52px 1fr; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 1.0625rem; max-width: 900px; }
+  .mig { display: grid; gap: var(--space-3); padding: var(--space-6); }
+  .mig-lane { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: var(--space-4); align-items: center; }
+  .mig-track { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+  .mig-cell { height: 28px; border-radius: 6px; }
+  .mig-old { background: var(--muted); }
+  .mig-new { background: var(--reef); }
+  .mig-nums span { text-align: center; }
+  .mig-notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); margin-top: var(--space-5); padding-top: var(--space-5); border-top: 1px solid var(--line); }
+  .mig-notes strong { font-weight: 600; display: block; margin-bottom: 4px; }
+  .mig-notes p { color: var(--muted); }
+  .mig-notes strong { color: var(--ink); }
+  @media (max-width: 979px) {
+    .audit-grid, .mig-notes { grid-template-columns: 1fr; }
+    .mig { padding: var(--space-5); }
+    .mig-lane { grid-template-columns: 1fr; gap: 6px; }
+    .mig-track { gap: 4px; }
   }
 </style>
