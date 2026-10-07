@@ -1,5 +1,10 @@
 # DOMAIN SWAP — shauna.dev becomes this site's primary domain
 
+> **2026-10-07: Thread is retired.** threadhawaii.com now redirects to shauna.digital, and every
+> "Built by Thread" credit reads "by shauna.digital". The client portal still runs at
+> app.threadhawaii.com; moving it is a separate, later task. Thread mentions below are history.
+
+
 Status: **SUPERSEDED 2026-10-07.** shauna.dev is now the primary domain on `byshauna`
 (step 3 done in the Netlify UI), and shauna.digital no longer redirects here: it was
 removed from `byshauna` and now serves its own business site (Netlify project

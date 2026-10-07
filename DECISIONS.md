@@ -263,3 +263,40 @@ Locked reasoning. Append new decisions; don't rewrite history.
   renamed "Ongoing improvements", "Send me the messy part" box, softer CTA, service-first form
   options. Headline stays "fits how" (matches the printed card).
 
+## 2026-10-07 — Thread retired; everything is shauna.digital
+- threadhawaii.com 308-redirects to shauna.digital (/work -> /results/, /automation-audit -> /contact/,
+  everything else -> home). Set in the thread repo's vercel.json.
+- Credits now read "Built with love by shauna.digital" (or "Built by shauna.digital" where the site
+  had no heart) and link to https://shauna.digital: hawaii311, Hawaiʻi Dog Map (live), Fireside
+  (branch credit-shauna-digital, Shauna merges), and the client repos AAO website, AAO app, FAF app,
+  Gradient and the Gradient website (edited locally, Shauna commits and pushes).
+- The CSS class and component names (thread-credit, ThreadCredit) were left as they are: nobody
+  sees them, and renaming them across client repos is churn with no visible benefit.
+- Client portal stays at app.threadhawaii.com for now (needs DNS, Supabase auth URLs and users told).
+- Homepage lead heading on shauna.dev: "Three apps, one design language." (Shauna picked A.)
+
+## 2026-10-07 — Hawaiʻi 311 in Selected work + résumé
+- Third Selected work card, full width (screens left, text right; stacks on phones). Links straight to
+  hawaii311.org: there is no case study page yet. Screens: 1440 map + 390 list view, shot from the
+  islandreports devserver (public/images/v2/hawaii311-*.jpg).
+- Résumé project line after HI Dog Maps. The "62% of closures on 14 days" finding is NOT used anywhere
+  public: architecture.md says the cause is unresolved and the pitch goes to Civil Beat first.
+
+## 2026-10-07 — Composer demo (/work/composer/)
+- The "big demo moment" from the Anthropic notes. Own page, linked from the homepage built section.
+- Replies are scripted, no AI connected, files never leave the browser; the page says so. Chosen so a
+  reviewer can never see it fail in a way that was not designed. Real replies could be wired later.
+- Demo controls (Normal / Slow / Fails) so stopped and error states are reachable on demand.
+- Decisions recorded on the page itself: Send and Stop share one spot; typing allowed while streaming
+  but Enter waits; streaming silent to screen readers, reply announced once; scrolling up stops
+  auto-follow and shows Jump to Latest; oversize files shown as "Too large" chips; suggestions fill,
+  never send; context persists across messages, files are spent on send.
+- Composer.astro uses `<style is:global>` with cmp- prefixed classes, because messages and chips are
+  built in script and never get Astro's scope attribute (scoped styles silently did nothing).
+- Keyboard list hidden on touch screens under 980px.
+
+## 2026-10-07 — /card on shauna.digital: no Call
+- Call button removed; Text + Email side by side. The phone number on the card face now opens a text.
+  Not WhatsApp: a regular text works on every phone with nothing to install (Shauna agreed).
+- Collaboration section (Nike guidelines kept current from field reports, surveys, close-outs; FAF
+  usage analysis 2026-08-22 and the inbox that moved to Gmail) drafted in chat, ON HOLD by Shauna.

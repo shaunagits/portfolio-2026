@@ -1,5 +1,5 @@
 # HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
-updated 2026-10-07 (redesign session: shauna.dev v2 live with résumé, System, X-ray, rescue case study)
+updated 2026-10-07 late (composer demo, Hawaiʻi 311, /card without Call; session closing)
 
 ## HOSTING CHANGED 2026-10-07 (read first)
 - shauna.digital is now a SEPARATE site: repo folder `../shauna-digital`, Netlify project
@@ -11,20 +11,22 @@ updated 2026-10-07 (redesign session: shauna.dev v2 live with résumé, System, 
   card.json or card.astro do NOT reach shauna.digital; make them in ../shauna-digital too.
 - No blog on shauna.digital. The old posts stay here on shauna.dev for now.
 
-## State
-- `main` == GitHub == prod for shauna.dev (Netlify "byshauna"). Push to `main` = prod deploy.
-  `redesign-v2` == main as of 2026-10-07 (pull before working; local copy may be behind).
-- LIVE on shauna.dev (v2 watercolour design, design file linked below): homepage (H1 "Design systems
-  drawn by hand and shipped in code.", header fully transparent over the hero with a haze halo),
-  /resume (web résumé + /shauna-arnold-resume.pdf printed from it), /system, X-ray toggle in the
-  header (tags measured live from the page), /work/rescue-platform/ (lead case study).
-- Design rules + checks (kept, Shauna OK 2026-10-07): tokens/tokens.json -> scripts/tokens.mjs ->
-  src/styles/tokens.css; DESIGN.md; scripts/check-ui.mjs runs on every build and FAILS it on rule
-  breaks (reef as text: mark true graphics with /* graphic */). `npm run resume:pdf` rebuilds the PDF.
-- Still TEMPORARY in netlify.toml: /work and /work/ -> /#work. Other case studies (/work/<id>/) are
-  the OLD design from [slug].astro; rebuilding them in v2 is next.
-- /card + Save Contact live on shauna.digital from ../shauna-digital. vCard photo = the site headshot
-  (results/shauna-headshot.jpg, 400x400); /links avatar is the same headshot.
+## State (end of session 2026-10-07)
+- `main` == prod for shauna.dev (Netlify "byshauna"). Push to `main` = prod deploy.
+- `redesign-v2` on GitHub is 4 commits AHEAD of main and approved by Shauna for prod:
+  ad8f30c Hawaiʻi 311 card + résumé line, 4327384 composer demo, plus the notes commit.
+  If main has not moved: `git checkout main && git pull && git merge --ff-only origin/redesign-v2 && git push`.
+  Check https://shauna.dev/work/composer/ after (~1 min).
+- LIVE on shauna.dev: homepage (H1 "Design systems drawn by hand and shipped in code.", lead heading
+  "Three apps, one design language."), /resume + PDF, /system, X-ray toggle, /work/rescue-platform/,
+  /work/ui-checks/ ("Can a design system check itself?"). After the push: /work/composer/ and the
+  Hawaiʻi 311 card.
+- Design rules + checks: tokens/tokens.json -> scripts/tokens.mjs -> src/styles/tokens.css; DESIGN.md;
+  scripts/check-ui.mjs runs on every build (6 checks incl. type tokens and hover). New v2 pages must be
+  added to its srcFiles regex. `npm run resume:pdf` rebuilds the PDF (needs playwright symlinked).
+- Still TEMPORARY in netlify.toml: /work and /work/ -> /#work. Other case studies are the OLD design.
+- Local copy on Shauna's Mac (claudecode/shauna.digital/portfolio) is behind and has two uncommitted
+  note edits that are now committed here: `git checkout -- DECISIONS.md DOMAIN-SWAP.md && git pull`.
 
 ## Business card (print)
 - LOCKED + SENT TO PRINTER 2026-10-06 (v2 file). Do not change card copy; /card must match it.
@@ -52,10 +54,14 @@ updated 2026-10-07 (redesign session: shauna.dev v2 live with résumé, System, 
   2026-10-06 (default for new + reply, above quoted text). Also in Apple Mail (Mac, designed version)
   and iPhone Mail (plain line). All verified by test sends; iPhone also passes SPF/DKIM/DMARC. EMAIL DONE.
 
-## Next
-- Card (/card on shauna.digital): arrival animation + custom icon set, approved 2026-10-07; design on
-  the canvas first. Watercolour touch later.
-- Rebuild the other case studies in v2; then drop the /work redirect.
+## Next (in order)
+1. Collaboration section on shauna.dev: copy drafted (see DECISIONS 2026-10-07), ON HOLD by Shauna.
+2. Rebuild the other case studies in v2; then drop the /work redirect.
+3. Optional: a Hawaiʻi 311 case study page (archive + privacy rules; not the 62% finding).
+4. Canvas Home2 lead heading still old; asked Shauna whether to update to "Three apps, one design language."
+5. Client portal off app.threadhawaii.com (DNS, Supabase auth URLs, tell users). Own task.
+- Shauna to push: AAO website/app, FAF app, Gradient, recruiting site (ThreadCredit edits, local), and
+  merge Fireside branch credit-shauna-digital. Gradient Supabase service_role key rotation: TABLED.
 - Design file: https://claude.ai/artifact/CRouzXr7KHiGQ6yNnwELaD. AEO-PLAN-2026-09-17.md untracked, unstarted.
 
 ## Flag for the faf session (not this repo)
