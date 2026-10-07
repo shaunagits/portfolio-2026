@@ -1,5 +1,5 @@
 # HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
-updated 2026-10-07 (card session wrap-up: card printed, /card, email + signature, contact QR)
+updated 2026-10-07 (redesign session: shauna.dev v2 live with résumé, System, X-ray, rescue case study)
 
 ## HOSTING CHANGED 2026-10-07 (read first)
 - shauna.digital is now a SEPARATE site: repo folder `../shauna-digital`, Netlify project
@@ -13,12 +13,18 @@ updated 2026-10-07 (card session wrap-up: card printed, /card, email + signature
 
 ## State
 - `main` == GitHub == prod for shauna.dev (Netlify "byshauna"). Push to `main` = prod deploy.
-  Cloud/VM sessions CANNOT push (no GitHub creds): Shauna runs the push.
-- /card + Save Contact live on shauna.digital from ../shauna-digital (src/data/card.json drives the
-  page AND the vCard). Copy: "Designer + developer", "Software that fits how your business actually
-  runs." ("fits" teal + bold), card font set B. 2026-10-07: vCard carries a 400x400 photo (from
-  links-avatar.jpg, 26 KB file); Instagram + TikTok removed on BOTH sites (socials: LinkedIn, GitHub).
-- Local branches `card-page` and `card-fonts-b` are merged into main (safe to delete later).
+  `redesign-v2` == main as of 2026-10-07 (pull before working; local copy may be behind).
+- LIVE on shauna.dev (v2 watercolour design, design file linked below): homepage (H1 "Design systems
+  drawn by hand and shipped in code.", header fully transparent over the hero with a haze halo),
+  /resume (web résumé + /shauna-arnold-resume.pdf printed from it), /system, X-ray toggle in the
+  header (tags measured live from the page), /work/rescue-platform/ (lead case study).
+- Design rules + checks (kept, Shauna OK 2026-10-07): tokens/tokens.json -> scripts/tokens.mjs ->
+  src/styles/tokens.css; DESIGN.md; scripts/check-ui.mjs runs on every build and FAILS it on rule
+  breaks (reef as text: mark true graphics with /* graphic */). `npm run resume:pdf` rebuilds the PDF.
+- Still TEMPORARY in netlify.toml: /work and /work/ -> /#work. Other case studies (/work/<id>/) are
+  the OLD design from [slug].astro; rebuilding them in v2 is next.
+- /card + Save Contact live on shauna.digital from ../shauna-digital. vCard photo = the site headshot
+  (results/shauna-headshot.jpg, 400x400); /links avatar is the same headshot.
 
 ## Business card (print)
 - LOCKED + SENT TO PRINTER 2026-10-06 (v2 file). Do not change card copy; /card must match it.
@@ -28,11 +34,11 @@ updated 2026-10-07 (card session wrap-up: card printed, /card, email + signature
   re-export. The QR URL is printed: /card must never move. Scan a proof before the print run.
 - Card font set B = Funnel Display (name, tagline) / Archivo (title) / Space Grotesk (contact).
 
-## Contact QR (lock screen) 2026-10-06
-- Made in chat, not in the repo: Shauna-lockscreen-QR.png (1320x2868, iPhone 16 Pro Max) + Shauna-contact-QR.png.
-  The QR holds the vCard ITSELF (name, title, email, phone, shauna.digital), so scanning offers Add to
-  Contacts with no website or signal. It is static: if the phone/email/title changes, regenerate it.
-  The printed card's QR is different on purpose: it points at /card, which can change any time.
+## Contact QR (lock screen) updated 2026-10-07
+- NEW Shauna-lockscreen-QR.png (1320x2868, headshot, card copy) + Shauna-contact-QR.png, made in chat.
+  The QR now opens https://shauna.digital/shauna-arnold.vcf, so the contact arrives WITH the photo
+  (needs signal). The old offline QR held the vCard text itself and could never carry a photo.
+  Testing tip: delete an existing "Shauna Arnold" contact first, then Create New Contact.
 
 ## Email
 - hello@shauna.digital is Google Workspace, in daily use (MX smtp.google.com).
@@ -46,14 +52,11 @@ updated 2026-10-07 (card session wrap-up: card printed, /card, email + signature
   2026-10-06 (default for new + reply, above quoted text). Also in Apple Mail (Mac, designed version)
   and iPhone Mail (plain line). All verified by test sends; iPhone also passes SPF/DKIM/DMARC. EMAIL DONE.
 
-## Website (OTHER session owns it; not this one)
-- Branch `fonts-funnel` (local): Funnel Display + Funnel Sans site-wide + a WIP commit pointing
-  site/canonicals/OG at shauna.digital + an OLD /card -> /links/ 302 that MUST be dropped (it
-  would fight the real /card page). Shauna then picked set B for the card; site fonts undecided.
-- Domains: see HOSTING CHANGED above. shauna.dev still Cloudflare-proxied (DOMAIN-SWAP.md
-  step 4). og-image.jpg is stale (Fraunces, old headline, an em dash).
-- Redesign design file: https://claude.ai/artifact/CRouzXr7KHiGQ6yNnwELaD. AEO-PLAN-2026-09-17.md
-  untracked, unstarted, predates the 09-29/09-30/10-06 decisions.
+## Next
+- Card (/card on shauna.digital): arrival animation + custom icon set, approved 2026-10-07; design on
+  the canvas first. Watercolour touch later.
+- Rebuild the other case studies in v2; then drop the /work redirect.
+- Design file: https://claude.ai/artifact/CRouzXr7KHiGQ6yNnwELaD. AEO-PLAN-2026-09-17.md untracked, unstarted.
 
 ## Flag for the faf session (not this repo)
 - shauna.digital DNS (Namecheap) has TWO CNAME records for host `faf-app` (cname.vercel-dns.com. and

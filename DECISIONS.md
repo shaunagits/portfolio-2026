@@ -245,3 +245,21 @@ Locked reasoning. Append new decisions; don't rewrite history.
   cannot carry a photo (QR capacity), so it stays text only.
 - Where to send from: Gmail on the web for first impressions (signature lives in the account, best
   HTML); Apple Mail on the Mac is fine; phones send a plain one-line signature.
+
+## 2026-10-07 — shauna.dev v2 launch, résumé, System, X-ray
+- Headline: "Design systems drawn by hand and shipped in code." (Shauna picked option C.)
+- Header over the hero is fully transparent (no gradient); a haze text-shadow keeps it legible over
+  the palms. It turns solid once the hero scrolls away.
+- Résumé lives on shauna.dev only (/resume page + PDF printed from it). Source: the Anthropic design
+  systems variant in jobs/resume. Public edits Shauna approved: "Open to remote and relocation",
+  "What I bring", and a current shauna.dev project line. No phone number on it. shauna.digital has
+  no résumé link; its About page links to shauna.dev instead.
+- LinkedIn: shauna.dev in the intro link, shauna.digital as Company, shauna.dev/resume optional.
+- Kept the design rules + build checks (tokens.json, DESIGN.md, check-ui). A build fails on a rule
+  break, whoever wrote the code. System page numbers are read from these files at build time.
+- Lock-screen QR switched from offline vCard text to the .vcf URL so the photo comes along.
+- shauna.digital copy (Shauna OK): eyebrow "For businesses that have outgrown their workarounds",
+  hero line "...that make the business easier to run", proof lines on results, "Systems support"
+  renamed "Ongoing improvements", "Send me the messy part" box, softer CTA, service-first form
+  options. Headline stays "fits how" (matches the printed card).
+
