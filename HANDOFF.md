@@ -1,101 +1,68 @@
-# HANDOFF — Portfolio  (overwrite each session; keep < 40 lines)
-updated 2026-10-07 late (composer demo, Hawaiʻi 311, /card without Call; session closing)
+# HANDOFF: Portfolio (overwrite each session; keep it short)
+updated 2026-10-08 (Waikīkī homepage designed on the canvas, header fix live; session closing)
 
-## HOSTING CHANGED 2026-10-07 (read first)
-- shauna.digital is now a SEPARATE site: repo folder `../shauna-digital`, Netlify project
-  "shauna-digital" (personal account). Business site: home, services, results + stories, about,
-  contact, /links, /card. Its README has the deploy command.
-- THIS repo (Netlify "byshauna") now serves **shauna.dev only** (primary domain set 2026-10-07,
-  shauna.digital removed from this project). shauna.digital/work/* 301s here.
-- /links and /card are LIVE from the shauna-digital site now. Edits here to links.json,
-  card.json or card.astro do NOT reach shauna.digital; make them in ../shauna-digital too.
-- No blog on shauna.digital. The old posts stay here on shauna.dev for now.
+## Hosting (since 2026-10-07)
+- THIS repo = shauna.dev only (Netlify "byshauna"). Push to `main` = prod deploy. Never without Shauna's OK.
+- shauna.digital is a separate repo `../shauna-digital` (Netlify "shauna-digital"): home, services, results,
+  stories, about, contact, /links, /card. Edits to links/card here do NOT reach shauna.digital.
+- shauna.digital/work/* 301s to shauna.dev. No blog on shauna.digital; old posts stay here.
 
-## TOP PRIORITY next session: "Paint a theme" (approved by Shauna 2026-10-07)
-A curated gallery of Shauna's own watercolours and drawings; picking one re-themes the WHOLE site live.
-Not novel as "image to theme" (Material You, palette tools exist): the pitch is doing it better. Build:
-0. DONE 2026-10-07 (preview https://dusk--byshauna.netlify.app, on redesign-v2, not yet prod): Day/Dusk
-   switch in the header (+ phone menu), dusk values in tokens.json -> dusk, contrast checked in both
-   themes, hero painting "at dusk" via a multiply wash, soft wash transition from the switch (View
-   Transitions). Added --on-ink, --deep, --shadow; icons now currentColor. Rules in DESIGN.md Colour.
-   First visit follows the system setting (flag to Shauna: reviewers on dark OS land in dusk).
-1. Meaning-based tokens next (dusk works on today's names; a rename to surface/text roles is optional): surface / text / accent roles with light + dark values (today tokens are
-   named paper/ink). Migrate the site to them; check-ui contrast runs on BOTH themes. This also closes the
-   "tokens, theming" gap (no dark mode exists anywhere in her work yet).
-2. Painter's-eye role casting: read VALUE structure, not colour frequency. Paper/pale washes -> surface,
-   deepest dark -> text, small saturated spark -> accent (even at 2% of the image).
-3. Contrast fixes move LIGHTNESS ONLY in OKLCH (hue + chroma kept). Show "darkened 12% to reach 4.6:1".
-4. Dark mode = "the same painting at dusk": rebuild the value structure, keep colour relationships.
-5. Theme change spreads like a wet wash across the page; reduced motion = simple cross-fade.
-6. A painter's note per role in Shauna's voice ("the ground is the sand along the bottom edge").
-7. Curated, no upload: 5-6 named themes, each with a shareable URL. "Download tokens" exports tokens.json.
-8. The composer (/work/composer/) stays as the test piece that re-themes inside it.
-Write-up names Material You as precedent and says what this does differently. Plan on the canvas first,
-preview before prod. NEED FROM SHAUNA: the paintings/drawings (she has many; ask where they are).
-
-## State (end of session 2026-10-07)
-- `main` == prod for shauna.dev (Netlify "byshauna"). Push to `main` = prod deploy.
-- `redesign-v2` on GitHub is AHEAD of main and approved by Shauna for prod:
-  ad8f30c Hawaiʻi 311 card + résumé line, 4327384 composer demo, then notes commits.
-  If main has not moved: `git checkout main && git pull && git merge --ff-only origin/redesign-v2 && git push`.
-  Check https://shauna.dev/work/composer/ after (~1 min).
-- LIVE on shauna.dev: homepage (H1 "Design systems drawn by hand and shipped in code.", lead heading
-  "Three apps, one design language."), /resume + PDF, /system, X-ray toggle, /work/rescue-platform/,
-  /work/ui-checks/ ("Can a design system check itself?"). After the push: /work/composer/ and the
-  Hawaiʻi 311 card.
-- Design rules + checks: tokens/tokens.json -> scripts/tokens.mjs -> src/styles/tokens.css; DESIGN.md;
-  scripts/check-ui.mjs runs on every build (6 checks incl. type tokens and hover). New v2 pages must be
-  added to its srcFiles regex. `npm run resume:pdf` rebuilds the PDF (needs playwright symlinked).
+## State (verified 2026-10-08)
+- origin/main == edee71d. LIVE: Dusk theme (day/dusk switch), composer demo, Hawaiʻi 311 card, and the
+  header fix (edee71d: header stays clear at the top on short windows; it went solid at scrollY 0 because
+  the marker sat inside the 90px rootMargin). Shauna pushed these herself (`git push origin redesign-v2:main`).
+- Local redesign-v2 is 1 ahead of origin/redesign-v2 (edee71d only went to main). Harmless; next push of
+  the branch syncs it: `cd ~/Desktop/claudecode/shauna.digital/portfolio && git push origin redesign-v2`
+- check-ui: all 6 checks pass on source. Its dist/ step needs a build, which fails in the Cowork VM
+  (rollup linux module); run on the Mac: `cd ~/Desktop/claudecode/shauna.digital/portfolio && npm run build`
 - Still TEMPORARY in netlify.toml: /work and /work/ -> /#work. Other case studies are the OLD design.
-- Local copy on Shauna's Mac (claudecode/shauna.digital/portfolio) is behind and has two uncommitted
-  note edits that are now committed here: `git checkout -- DECISIONS.md DOMAIN-SWAP.md && git pull`.
 
-## Business card (print)
-- LOCKED + SENT TO PRINTER 2026-10-06 (v2 file). Do not change card copy; /card must match it.
-- v2 print file made 2026-10-06 (in chat, not in the repo): 3.75x2.25in (3.5x2 trim + 0.125
-  bleed), vector, font set B, new copy, QR -> https://shauna.digital/card (decoded + checked).
-  The original PDF was a flat 288dpi JPEG. Fonts embed as Type 3; if the printer wants outlines,
-  re-export. The QR URL is printed: /card must never move. Scan a proof before the print run.
-- Card font set B = Funnel Display (name, tagline) / Archivo (title) / Space Grotesk (contact).
+## NEW: Waikīkī homepage (designed, NOT built)
+Design file: https://claude.ai/artifact/CRouzXr7KHiGQ6yNnwELaD, page "shauna.dev", row "Homepage option ·
+Waikīkī painting": desktop board, phone board, and a SCROLL BEHAVIOUR spec board under the desktop one.
+The boards are the spec; their current Tweak defaults are the chosen settings. Summary:
+- Hero = Shauna's own Waikīkī painting (hers, OK to use), animated in layers: inpainted base, water
+  ripple (SVG feTurbulence), 4 boats (drift/bob/rock), palm crown (sway + displacement bend + flutter).
+  Pause button; reduced motion = still image. Painting runs past the fold, ends in a torn paper edge.
+- Scroll (decided 2026-10-07): painting scrolls at HALF speed (transform, rAF) while the page slides over
+  it, and the wind/boats/ripple settle from 100% to 15%; all animation pauses once covered. Full rules on
+  the spec board.
+- Header transparent over the painting; white name/logo with a tight shadow; Direction C nav icons.
+- 4 paint chips on the torn edge = links: Deep End #0263AC -> Work, Trade Wind Blue #5193CF -> System,
+  Coconut Frond #25461D -> About, Pink Palace #F3B2B5 -> Résumé. Hover lifts the chip and floods its colour.
+- Palette "one accent + one": accent #0263AC, bands #EEF4FA, ink #0B1416 for pKoa/footer, #E26D7E only as
+  "live" dots. Background white.
+- Type: hero + intro headline Boldonse; headings Cal Sans; "Shauna" in Vujahday Script (About heading and
+  footer wordmark). Body unchanged.
+- Intro headline: "I love designing and building software, especially the systems that make products work
+  better and feel more considered." Paragraph: "Recent work includes software for an animal rescue,
+  mobile-first field tools, and AI-augmented workflows, building on a decade of retail brand marketing
+  work for Nike and Apple." (Highlighter layout.)
+- Selected work: rescue platform is the featured full-width first card; the separate "Three apps, one
+  design language" lead section is REMOVED (folded in). Sections numbered 01 to 04.
+- Phone board is capped at 8000px by the canvas, so its footer is clipped; footer = desktop footer.
+- Nav icons, Direction C: design/icons-direction-c/ (SVG, currentColor). They replace the same-named
+  entries in src/data/icons-v2.json when this ships.
 
-## Contact QR (lock screen) updated 2026-10-07
-- NEW Shauna-lockscreen-QR.png (1320x2868, headshot, card copy) + Shauna-contact-QR.png, made in chat.
-  The QR now opens https://shauna.digital/shauna-arnold.vcf, so the contact arrives WITH the photo
-  (needs signal). The old offline QR held the vCard text itself and could never carry a photo.
-  Testing tip: delete an existing "Shauna Arnold" contact first, then Create New Contact.
+## Queued: "Paint a theme" (approved 2026-10-07)
+Curated gallery of Shauna's paintings that re-themes the whole site. Step 0 (Dusk) is live. Remaining
+plan is in DECISIONS 2026-10-07. Needs Shauna's paintings (ask where they are).
 
-## Email
-- hello@shauna.digital is Google Workspace, in daily use (MX smtp.google.com).
-- DONE 2026-10-06 (Shauna applied in Namecheap): SPF = `v=spf1 include:_spf.google.com
-  include:mailchannels.net ~all`; Google DKIM TXT at google._domainkey (2048-bit), verified live
-  on Namecheap NS + 8.8.8.8 + 1.1.1.1. Google Admin status: "Authenticating email with DKIM"
-  (2026-10-06). VERIFIED by test send 2026-10-06: SPF PASS, DKIM PASS (shauna.digital), DMARC PASS.
-  Shauna sends from Apple Mail as well as Gmail: the signature goes in both. Later: DMARC
-  p=none -> p=quarantine after ~2 clean weeks; drop mailchannels + dreamhost key once DreamHost goes.
-- Email signature (text-only HTML, Helvetica, matches card): ADDED to Gmail web for hello@ as "Shauna"
-  2026-10-06 (default for new + reply, above quoted text). Also in Apple Mail (Mac, designed version)
-  and iPhone Mail (plain line). All verified by test sends; iPhone also passes SPF/DKIM/DMARC. EMAIL DONE.
+## Next (in order; Shauna to confirm item 1)
+1. Build the Waikīkī homepage on a preview branch from the canvas boards; preview before prod.
+2. Paint a theme (above). 3. Rebuild other case studies in v2, then drop the /work redirect.
+4. 808alerts.com card + résumé line (read ../808-alert/CLAUDE.md). TMK Reports OFF until Shauna says fixed.
+5. Collaboration section: drafted, ON HOLD. 6. Optional Hawaiʻi 311 case study (no 62% finding).
+7. Client portal off app.threadhawaii.com (own task). AEO-PLAN-2026-09-17.md untracked, unstarted.
 
-## Next (in order)
-1. Collaboration section on shauna.dev: copy drafted (see DECISIONS 2026-10-07), ON HOLD by Shauna.
-2. Rebuild the other case studies in v2; then drop the /work redirect.
-3. 808alerts.com card next to Hawaiʻi 311 in Selected work, plus a résumé line (Shauna OK 2026-10-07).
-   Pitch: official Hawaiʻi alerts (NWS, HCCDA, Hawaiian Electric) in one feed; warnings pin; level
-   colours; grouped multi-zone alerts; quiet, source-unreachable and possibly-stale states; says it is
-   not an official alert system. Read ../808-alert/CLAUDE.md for facts. Preview before prod.
-   TMK Reports stays OFF until Shauna says it is fixed (she reported it broken; not yet diagnosed).
-4. Optional: a Hawaiʻi 311 case study page (archive + privacy rules; not the 62% finding).
-5. Canvas Home2 lead heading still old; asked Shauna whether to update to "Three apps, one design language."
-6. Client portal off app.threadhawaii.com (DNS, Supabase auth URLs, tell users). Own task.
-- Shauna to push: AAO website/app, FAF app, Gradient, recruiting site (ThreadCredit edits, local), and
-  merge Fireside branch credit-shauna-digital. Gradient Supabase service_role key rotation: TABLED.
-- Design file: https://claude.ai/artifact/CRouzXr7KHiGQ6yNnwELaD. AEO-PLAN-2026-09-17.md untracked, unstarted.
+## Done, for reference
+- Business card: LOCKED, at the printer (v2, QR -> https://shauna.digital/card, which must never move).
+- Email (hello@shauna.digital, Google Workspace): SPF/DKIM/DMARC pass, signatures in Gmail, Apple Mail,
+  iPhone. Later: DMARC p=none -> quarantine after ~2 clean weeks; drop DreamHost once it goes.
+- Lock-screen contact QR opens https://shauna.digital/shauna-arnold.vcf (contact with photo).
 
-## Flag for the faf session (not this repo)
-- shauna.digital DNS (Namecheap) has TWO CNAME records for host `faf-app` (cname.vercel-dns.com. and
-  73ee9b52ac9d146e.vercel-dns-017.com.). A host can only have one CNAME; one is ignored or erroring.
-  Keep whichever Vercel's project domain settings ask for and delete the other. Not touched here.
-
-## Gotchas
-- No em/en dashes in customer-facing copy. Title case on buttons. CSP: fonts.googleapis/gstatic.
-- Git in the VM needs delete permission on the folder or it strands .lock files.
+## Flags
+- faf session: shauna.digital DNS has TWO CNAMEs for `faf-app`; keep the one Vercel asks for. Not touched.
+- No em/en dashes in customer-facing copy. Title case on buttons. CSP: fonts.googleapis/gstatic
+  (Boldonse, Cal Sans, Vujahday Script are Google Fonts: fine under the current CSP).
+- Git in the Cowork VM needs delete permission on the folder or it strands .lock files.

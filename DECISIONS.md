@@ -308,3 +308,30 @@ Locked reasoning. Append new decisions; don't rewrite history.
   The difference is the craft: value-structure role casting, lightness-only contrast fixes, dusk dark
   mode, visible reasoning, curated own artwork, and real token export.
 - Curated gallery only, no visitor uploads (safer, more on-brand).
+
+## 2026-10-07/08: Waikīkī homepage (canvas design, not built)
+- Hero art: Shauna's own Waikīkī painting replaces the watercolour. Reason: it is hers, more distinctive,
+  and it gives the page a real palette to draw from.
+- Animation in cut-out layers (water, 4 boats, palm crown) rather than whole-image effects. The water was
+  turned DOWN after it read as too much; the palm got more natural movement from the painting's own fronds.
+- Name and logo are plain white with a tight shadow. Earlier soft glows read as "glowing text"; Shauna
+  rejected them twice.
+- Paint chips (Pantone-style) on the torn edge as navigation. Trimmed to the 4 strongest colours. Names are
+  playful colour names, not her name. Shauna rejected copywriter name sets that did not sound like her.
+- Palette: one accent (#0263AC) + one second colour used only with meaning ("live" dots). Chips keep their
+  own colours. Off-white background dropped for white.
+- Fonts: Boldonse for the hero (Shauna's pick), Cal Sans for headings (Boldonse alone was too loud across
+  the page), Vujahday Script for her name only. A wrong font (Boldonse) was first used for the name; corrected.
+- Intro copy is Shauna's own words, lightly refined. She kept "feel more considered" over "more cohesive"
+  and shortened the headline herself on 2026-10-07.
+- Intro layout: editorial headline + one highlighted paragraph. Three columns were rejected.
+- "Three apps, one design language" section removed: it repeated Selected work. The rescue platform
+  became the featured first card instead.
+- Scroll: painting at half speed + scene settles + pause when covered. Shauna first picked "settle" AND a
+  fixed backdrop; once it was clear they conflict (fixed means no drift), she chose settle only.
+- Nav icons: Direction C (open line + one dot). Work = Screens, System = Nodes, About = Bust + spark.
+  Earlier sets were "too plain"; About had several rounds. SVGs in design/icons-direction-c/.
+
+## 2026-10-07: Header stays transparent at the top
+- Fix: solid only when the marker has scrolled off the top (`!isIntersecting && top < 90`). On short
+  windows the marker sat inside the -90px rootMargin at scrollY 0, so the bar went solid with no scroll.
