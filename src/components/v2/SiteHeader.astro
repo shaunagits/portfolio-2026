@@ -60,7 +60,9 @@ const items = [
   const h = document.querySelector<HTMLElement>('.sh[data-over]');
   const hero = document.querySelector<HTMLElement>('[data-hero]');
   if (h && hero) {
-    const io = new IntersectionObserver(([e]) => h.classList.toggle('is-solid', !e.isIntersecting), { rootMargin: '-90px 0px 0px 0px', threshold: 0 });
+    // Solid only once the marker has scrolled off the top. On short windows it starts below the
+    // fold, which is also "not intersecting", and used to make the bar solid before any scroll.
+    const io = new IntersectionObserver(([e]) => h.classList.toggle('is-solid', !e.isIntersecting && e.boundingClientRect.top < 90), { rootMargin: '-90px 0px 0px 0px', threshold: 0 });
     const s = document.createElement('div');
     s.style.cssText = 'position:absolute;left:0;bottom:120px;height:1px;width:1px;pointer-events:none';
     hero.appendChild(s); io.observe(s);
