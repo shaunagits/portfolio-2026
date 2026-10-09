@@ -1,6 +1,10 @@
-# Shauna Digital · Portfolio
+# Shauna Arnold · Portfolio
 
-Source for [shauna.dev](https://shauna.dev), Shauna Arnold's personal portfolio. Astro static site: a home page, a case study per project, a blog, and the link-in-bio page at `/links`. shauna.digital serves the same site (the domain swap is not fully finished: see `DOMAIN-SWAP.md`).
+Source for **[shauna.dev](https://shauna.dev)**, the personal portfolio of Shauna Arnold, product designer and developer in Hawaiʻi. An Astro static site with a home page, a case study per project, a blog, and a link-in-bio page at `/links`.
+
+For client work and services, see [shauna.digital](https://shauna.digital).
+
+![shauna.dev](.github/screenshot.jpg)
 
 ## Develop
 
